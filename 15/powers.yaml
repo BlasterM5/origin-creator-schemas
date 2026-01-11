@@ -5386,29 +5386,34 @@ links:
                     string-apugli:prevent_sound:
                         category:
                             desc: If specified, all sound events from this category will be prevented from being heard by the entity that has the power.
-                            enum: ['', 'ambient', 'blocks', 'hostile', 'master', 'music', 'neutral', 'players', 'records', 'voice', 'weather']
+                            enum: ['ambient', 'blocks', 'hostile', 'master', 'music', 'neutral', 'players', 'records', 'voice', 'weather']
+                            unspec: true
                         categories:
                             desc: If specified, all sound events from these categories will be prevented from being heard by the entity that has the power. Can accept "ambient", "blocks", "hostile", "master", "music", "neutral", "players", "records", "voice" and "weather".
                             type: list
                             vals:
                                 type: string
                                 allow: '*a-z0-9_\/:.-'
+                            unspec: true
                         sound:
                             desc: If specified, this sound event will be prevented from being heard by the entity that has the power.
                             type: string
                             allow: '*a-z0-9_\/:.-'
+                            unspec: true
                         sounds:
                             desc: If specified, these sound events will be prevented from being heard by the entity that has the power.
                             type: list
                             vals:
                                 type: string
                                 allow: '*a-z0-9_\/:.-'
+                            unspec: true
                         whitelist:
                             desc: If specified, these sound events will be exempt from being prevented.
                             type: list
                             vals:
                                 type: string
                                 allow: '*a-z0-9_\/:.-'
+                            unspec: true
                     string-eggolib:crawling: {}
                     string-origins-math:attribute_like_resource:
                         min:
