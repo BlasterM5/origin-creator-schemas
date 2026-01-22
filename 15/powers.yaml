@@ -6691,6 +6691,14 @@ links:
             button_height:
                 desc: Height of the radial menu button.
                 type: integer
+            highlight_icon_texture:
+                desc: Namespace ID of the highlighted radial menu icon.
+                type: string
+                allow: '*a-z0-9_\/:.-'
+            highlight_button_texture:
+                desc: Namespace ID of the highlighted radial menu button.
+                type: string
+                allow: '*a-z0-9_\/:.-'
             tooltip:
                 desc: Tooltip when hovering on the radial menu button.
                 id: item_modifiers
