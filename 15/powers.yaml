@@ -6651,20 +6651,7 @@ links:
         props:
             item:
                 desc: The item stack to display within the button for the entry.
-                type: object
-                props:
-                    item:
-                        desc: ID of a registered item.
-                        type: string
-                        allow: '*a-z0-9_\/:.-'
-                    amount:
-                        desc: The size of the stack.
-                        type: integer
-                        default: 1
-                    tag:
-                        desc: NBT data of the item
-                        type: string
-                        ext: true
+                link: item_stack
             entity_action:
                 desc: The entity action to be executed if the player clicks on this entry.
                 link: entity_action
@@ -6679,6 +6666,24 @@ links:
                 desc: The speed, in pixels per tick, at which the entry will move from the center. If -1, it will travel however fast it needs to travel to be at the destination in 3 seconds. (To calculate a distance and velocity values for a specific time, use the formula time = distance / velocity. As an average rule of thumb, the distance when distance is -1 will be around 40.)
                 type: integer
                 default: -1
+            icon_width:
+                desc: Width of the radial menu icon.
+                type: integer
+            icon_height:
+                desc: Height of the radial menu icon.
+                type: integer
+            item_width:
+                desc: Width of the radial menu item.
+                type: integer
+            item_height:
+                desc: Height of the radial menu item.
+                type: integer
+            button_width:
+                desc: Width of the radial menu button.
+                type: integer
+            button_height:
+                desc: Height of the radial menu button.
+                type: integer
 hooks: [preserve_single]
 or:
   - title: simple
