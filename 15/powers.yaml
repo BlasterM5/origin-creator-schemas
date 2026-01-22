@@ -6684,6 +6684,9 @@ links:
             button_height:
                 desc: Height of the radial menu button.
                 type: integer
+            tooltip:
+                desc: Tooltip when hovering on the radial menu button.
+                link: jsontxt
 hooks: [preserve_single]
 or:
   - title: simple
