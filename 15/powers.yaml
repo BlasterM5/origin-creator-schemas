@@ -4039,6 +4039,7 @@ links:
                   - sync:entity_texture_overlay
                   - sync:flip_model
                   - sync:mobs_ignore
+                  - sync:modify_model_parts
                   - sync:pose
                   
                 more:
@@ -5909,6 +5910,12 @@ links:
                             desc: If set to true, then the mob(s) will retaliate against the player if attacked.
                             type: boolean
                             default: false
+                    string-sync:modify_model_parts:
+                        transformations:
+                            desc: An array of model part transformation objects.
+                            type: list
+                            vals:
+                                link: model_part_transformations
                     string-sync:pose:
                         pose:
                             desc: The pose to set on the entity.
@@ -6687,6 +6694,18 @@ links:
             tooltip:
                 desc: Tooltip when hovering on the radial menu button.
                 link: jsontxt
+    model_part_transformations:
+        type: object
+        props:
+            model_part:
+                desc: The name of the model part to modify.
+                enum: [head,hat,body,rightarm,leftarm,rightleg,leftleg]
+            type:
+                desc: The type of transformartion to apply.
+                enum: [pitch,yaw,roll,visible,hidden,xscale,yscale,zscale,pivotx,pivoty,pivotz]
+            value:
+                desc: The value to add to the selected transformation type. In the case of the transform types visible and hidden, which are booleans, 0 is false while anything else is true.
+                type: number
 hooks: [preserve_single]
 or:
   - title: simple
