@@ -5902,7 +5902,7 @@ links:
                     string-sync:mobs_ignore:
                         mob_condition:
                             desc: If set, this will determine what entity condition the entity must meet in order to be effected by this power.
-                            link: entity_condition
+                            link: entity_cond
                         bientity_condition:
                             desc: If set, this will determine what bi-entity condition the entity must meet in order to be effected by this power.
                             link: bi_entity_cond
