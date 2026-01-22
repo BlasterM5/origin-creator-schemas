@@ -3293,10 +3293,10 @@ links:
                                 desc: Determines how many attempts the entity should be teleported to a random location. Defaults to area_width * 2 + area_height * 2.
                                 type: integer
                             landing_block_condition:
-                                desc: If specified, the entity will only be teleported on top of a block that fulfills this block condition. Otherwise, the entity will only be teleported on blocks that blocks movement/have solid collision.
+                                desc: If specified, the entity will only be teleported on top of a block that fulfills this block condition. Otherwise, the entity will only be teleported on blocks that blocks movement or have solid collision.
                                 link: block_cond
                             landing_condition:
-                                desc: If specified, the entity will only be teleported to a location if the entity fulfills this entity condition. Otherwise, the entity will only be teleported to a location that is empty (e.g: no blocks and fluids.)
+                                desc: If specified, the entity will only be teleported to a location if the entity fulfills this entity condition. Otherwise, the entity will only be teleported to a location that is empty (e.g. no blocks and fluids.)
                                 link: entity_cond
                             landing_offset:
                                 desc: Determines the offset of the location of where the entity will be teleported. If the X and Z offsets are specified, the X and Z coordinates of the location will be divided (floored) before applying the offset.
