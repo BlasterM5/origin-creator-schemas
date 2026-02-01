@@ -3623,6 +3623,7 @@ links:
                       - $SYNC
 
                       - sync:spawn_entity
+                      - sync:ghost_block
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
@@ -3788,7 +3789,7 @@ links:
                             entity_type:
                                 desc: The ID of the type of entity that will be spawned.
                                 type: string
-                                allow: '*a-z0-9_\/:.-'
+                                allow: 'a-z0-9_\/:.-'
                             tag:
                                 desc: If specified, this NBT data will be applied to the entity that will be spawned.
                                 type: string
@@ -3796,6 +3797,25 @@ links:
                             entity_action:
                                 desc: If specified, this entity action will be executed on the spawned entity.
                                 link: entity_action
+                        string-sync:ghost_block:
+                            block:
+                                desc: The block ID to temporarily place
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            nbt:
+                                desc: NBT data for the block entity (if the block has one)
+                                type: string
+                                ext: true
+                                unspec: none
+                            tick:
+                                desc: How long the ghost block lasts in ticks (20 ticks = 1 second)
+                                type: integer
+                                min: 1
+                                default: 20
+                            block_action:
+                                desc: Action to execute on the ghost block after placement
+                                link: block_action
+                        
           - title: custom
             link: custom_action
     badge:
@@ -5893,7 +5913,39 @@ links:
                         show_first_person:
                             desc: Enables showing the texture in first person view.
                             type: boolean
-                            default: true
+                            default: false
+                        render_as_overlay:
+                            desc: If true, renders over existing texture; if false, replaces it.
+                            type: boolean
+                            default: false
+                        red:
+                            desc: Red color channel multiplier (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        green:
+                            desc: Green color channel multiplier (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        blue:
+                            desc: Blue color channel multiplier (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        alpha:
+                            desc: Alpha/transparency (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        hide_cape:
+                            desc: Whether to hide the player's cape.
+                            type: boolean
+                            default: false
                     string-sync:flip_model:
                         flip_view:
                             desc: Flip the player's view as well
@@ -6715,6 +6767,10 @@ links:
             value:
                 desc: The value to add to the selected transformation type. In the case of the transform types visible and hidden, which are booleans, 0 is false while anything else is true.
                 type: number
+            override_animation:
+                desc: When true, locks the specified rotation (pitch, yaw, or roll) to the exact value, preventing vanilla animations from affecting that rotation on that body part. When false or omitted, the transformation is additive and vanilla animations can still affect the part.
+                type: boolean
+                default: false
 hooks: [preserve_single]
 or:
   - title: simple
