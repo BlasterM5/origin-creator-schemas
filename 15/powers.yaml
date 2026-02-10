@@ -3270,7 +3270,67 @@ links:
                                 desc: A variable declaration declaring variables used inside the command.
                                 link: variables
                         string-sync:custom_projectile:
-                            link: custom_projectile
+                            entity_id:
+                                desc: Identifier for tracking the projectile
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            texture_location:
+                                desc: If specified, the texture used for the custom projectile.
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            count:
+                                desc: The amount of projectiles to fire each use.
+                                type: integer
+                                default: 1
+                                min: 1
+                            speed:
+                                desc: The speed applied to the fired projectile.
+                                type: number
+                                default: 1.5
+                            divergence:
+                                desc: How much each projectile fired is affected by random spread.
+                                type: number
+                                default: 1.0
+                                min: 0
+                            sound:
+                                desc: If set, the sound with this ID will be played when the power is used.
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            tag:
+                                desc: NBT data to apply to projectiles
+                                type: string
+                                ext: true
+                            entity_action_before_firing:
+                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+                                link: entity_action
+                            bientity_action_after_firing:
+                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                                link: bi_entity_action
+                            block_condition:
+                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                                link: block_cond
+                            block_action_on_hit:
+                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                                link: block_action
+                            block_action_cancels_miss_action:
+                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                                type: boolean
+                                default: false
+                            bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bi_entity_cond
+                            owner_bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bi_entity_cond
+                            bientity_action_on_miss:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                                link: bi_entity_action
+                            bientity_action_on_hit:
+                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                                link: bi_entity_action
+                            tick_bientity_action:
+                                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
+                                link: bi_entity_action
                         string-sync:grant_all_powers:
                             source: 
                                 desc: The source identifier whose powers should be granted
@@ -5954,7 +6014,67 @@ links:
                             desc: If specified, the specified action will only be executed if this condition is fulfilled by the damage dealt by the 'actor' entity.
                             link: damage_cond
                     string-sync:custom_projectile:
-                        link: custom_projectile
+                            entity_id:
+                                desc: Identifier for tracking the projectile
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            texture_location:
+                                desc: If specified, the texture used for the custom projectile.
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            count:
+                                desc: The amount of projectiles to fire each use.
+                                type: integer
+                                default: 1
+                                min: 1
+                            speed:
+                                desc: The speed applied to the fired projectile.
+                                type: number
+                                default: 1.5
+                            divergence:
+                                desc: How much each projectile fired is affected by random spread.
+                                type: number
+                                default: 1.0
+                                min: 0
+                            sound:
+                                desc: If set, the sound with this ID will be played when the power is used.
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            tag:
+                                desc: NBT data to apply to projectiles
+                                type: string
+                                ext: true
+                            entity_action_before_firing:
+                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+                                link: entity_action
+                            bientity_action_after_firing:
+                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                                link: bi_entity_action
+                            block_condition:
+                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                                link: block_cond
+                            block_action_on_hit:
+                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                                link: block_action
+                            block_action_cancels_miss_action:
+                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                                type: boolean
+                                default: false
+                            bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bi_entity_cond
+                            owner_bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bi_entity_cond
+                            bientity_action_on_miss:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                                link: bi_entity_action
+                            bientity_action_on_hit:
+                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                                link: bi_entity_action
+                            tick_bientity_action:
+                                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
+                                link: bi_entity_action
                     string-sync:edible_item:
                         item_condition:
                             desc: If specified, this action will be executed on the item consumed by the player.
@@ -6910,68 +7030,6 @@ links:
                 desc: When true, locks the specified rotation (pitch, yaw, or roll) to the exact value, preventing vanilla animations from affecting that rotation on that body part. When false or omitted, the transformation is additive and vanilla animations can still affect the part.
                 type: boolean
                 default: false
-    custom_projectile:
-        entity_id:
-            desc: Identifier for tracking the projectile
-            type: string
-            allow: 'a-z0-9_\/:.-'
-        texture_location:
-            desc: If specified, the texture used for the custom projectile.
-            type: string
-            allow: 'a-z0-9_\/:.-'
-        count:
-            desc: The amount of projectiles to fire each use.
-            type: integer
-            default: 1
-            min: 1
-        speed:
-            desc: The speed applied to the fired projectile.
-            type: number
-            default: 1.5
-        divergence:
-            desc: How much each projectile fired is affected by random spread.
-            type: number
-            default: 1.0
-            min: 0
-        sound:
-            desc: If set, the sound with this ID will be played when the power is used.
-            type: string
-            allow: 'a-z0-9_\/:.-'
-        tag:
-            desc: NBT data to apply to projectiles
-            type: string
-            ext: true
-        entity_action_before_firing:
-            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-            link: entity_action
-        bientity_action_after_firing:
-            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-            link: bi_entity_action
-        block_condition:
-            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-            link: block_cond
-        block_action_on_hit:
-            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-            link: block_action
-        block_action_cancels_miss_action:
-            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-            type: boolean
-            default: false
-        bientity_condition:
-            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-            link: bi_entity_cond
-        owner_bientity_condition:
-            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-            link: bi_entity_cond
-        bientity_action_on_miss:
-            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-            link: bi_entity_action
-        bientity_action_on_hit:
-            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-            link: bi_entity_action
-        tick_bientity_action:
-            desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
-            link: bi_entity_action
 hooks: [preserve_single]
 or:
   - title: simple
