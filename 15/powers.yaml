@@ -281,6 +281,7 @@ links:
                       - sync:flip_model
                       - sync:key_pressed
                       - sync:in_pose
+                      - sync:player_model_type
                       
                     more:
                         string-origins:and:
@@ -1244,6 +1245,10 @@ links:
                                 desc: The entity's pose to check for.
                                 enum: [standing, fall_flying, sleeping, swimming, spin_attack]
                                 default: standing
+                        string-sync:player_model_type:
+                            model_type:
+                                desc: The model type to check for.
+                                enum: [slim, wide]
           - title: custom
             link: custom_condition
     item_cond:
@@ -2182,12 +2187,18 @@ links:
 
                       - $SYNC
 
+                      - sync:custom_projectile
+                      - sync:grant_all_powers
                       - sync:print
                       - sync:radial_menu
                       - sync:random_teleport
+                      - sync:revoke_all_powers
+                      - sync:revoke_power
                       - sync:set_summon_max_life_ticks
+                      - sync:save_location
                       - sync:summon_clone
                       - sync:summon_minion
+                      - sync:teleport_to_location
                       
                     more:
                         string-origins:nothing: {}
@@ -3258,6 +3269,14 @@ links:
                             variables:
                                 desc: A variable declaration declaring variables used inside the command.
                                 link: variables
+                        string-sync:custom_projectile:
+                            link: sync_custom_projectile
+                        string-sync:grant_all_powers:
+                            source: 
+                                desc: The source identifier whose powers should be granted
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
                         string-sync:print:
                             message:
                                 desc: The message to be printed.
@@ -3318,6 +3337,28 @@ links:
                             fail_action:
                                 desc: If specified, this entity action will be executed on the entity upon failing to be teleported on a random location.
                                 type: entity_action
+                        string-sync:revoke_all_powers:
+                            source:
+                                desc: The source identifier whose powers should be removed
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
+                        string-sync:revoke_power:
+                            power:
+                                desc: The power type to remove
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
+                        string-sync:save_location:
+                            id:
+                                desc: Unique identifier for this saved location
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                required: true
+                            overwrite:
+                                desc: Whether to overwrite an existing location with the same ID
+                                type: boolean
+                                default: true
                         string-sync:set_summon_max_life_ticks:
                             amount:
                                 desc: The lifetime of the summon in ticks
@@ -3381,6 +3422,11 @@ links:
                             "bientity_action":
                                 desc: The bientity action to trigger after spawning the minion.
                                 link: bi_entity_action
+                        string-sync:teleport_to_location:
+                            id:
+                                desc: The identifier of the saved location to teleport to
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
           - title: custom
             link: custom_action
     item_action:
@@ -3815,7 +3861,13 @@ links:
                             block_action:
                                 desc: Action to execute on the ghost block after placement
                                 link: block_action
-                        
+                            add_block:
+                                desc: If true, places the block adjacent to the target position (using the direction parameter)
+                                type: boolean
+                                default: false
+                            end_action:
+                                desc: Action to execute when the ghost block expires/reverts
+                                link: block_action
           - title: custom
             link: custom_action
     badge:
@@ -4055,12 +4107,19 @@ links:
                   - $SYNC
 
                   - sync:action_on_death
+                  - sync:custom_projectile
+                  - sync:edible_item
+                  - sync:emissive
                   - sync:entity_set
                   - sync:entity_texture_overlay
                   - sync:flip_model
                   - sync:mobs_ignore
+                  - sync:modify_enchantment_level
                   - sync:modify_model_parts
+                  - sync:modify_player_model
                   - sync:pose
+                  - sync:prevent_sprinting_particles
+                  - sync:sprinting
                   
                 more:
                     string-origins:attribute_modify_transfer:
@@ -5628,7 +5687,7 @@ links:
                             link: item_cond
                         food_component:
                             desc: The food component that the item grants upon eating it.
-                            link: apugli_food_component
+                            link: food_component
                         use_action:
                             desc: The action to associate with the player. One of eat or drink. Defaults to eat when null.
                             enum: ['eat','drink']
@@ -5894,6 +5953,54 @@ links:
                         damage_comdition:
                             desc: If specified, the specified action will only be executed if this condition is fulfilled by the damage dealt by the 'actor' entity.
                             link: damage_cond
+                    string-sync:custom_projectile:
+                        link: sync_custom_projectile
+                    string-sync:edible_item:
+                        item_condition:
+                            desc: If specified, this action will be executed on the item consumed by the player.
+                            link: item_cond
+                        food_component:
+                            desc: The food component that the item grants upon eating it.
+                            link: food_component
+                        entity_action:
+                            desc: If specified, this action will be executed on the player upon consuming an item.
+                            link: entity_action
+                        item_action:
+                            desc: If specified, this action will be executed on the item consumed by the player.
+                            link: item_action
+                        result_item_action:
+                            desc: If specified, this action will be executed on the item that is given to the player as a result of consuming an item.
+                            link: item_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the player.
+                            link: item_stack
+                        consume_animation:
+                            desc: Determines whether the animation effect for consuming the item should be "eating" (EAT, displays particle effects based on the item) or "drinking" (DRINK, no particle effects.)
+                            enum: ['EAT','DRINK']
+                        consume_sound:
+                            desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
+                            type: string
+                            allow: 'a-z0-9_\/:.-'
+                            hook: [ns]
+                        consuming_time_modifier:
+                            desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
+                            link: a_mod
+                        consuming_time_modifiers:
+                            desc: If specified, these modifiers will be applied on the maximum time the item is being consumed (in ticks).
+                            type: object
+                            props:
+                                link: a_mod
+                        priority:
+                            desc: Determines the priority of which the power will apply its modification to the item. Must be higher than 0 if the item is already edible.
+                            type: integer
+                            default: 0
+                    string-sync:emissive:
+                        light:
+                            desc: The static light level emitted by the entity (0-15). This is the base brightness.
+                            type: integer
+                        dynamic_light:
+                            desc: Optional dynamic light level for special effects (0-15). This is used with the LambDynamicLights mod for moving light sources.
+                            type: integer
                     string-sync:entity_set:
                         action_on_add:
                             desc: If specified, this bi-entity action will be executed on either or both the 'actor' and the 'target' upon the 'target' being added to the set.
@@ -5962,12 +6069,33 @@ links:
                             desc: If set to true, then the mob(s) will retaliate against the player if attacked.
                             type: boolean
                             default: false
+                    string-sync:modify_enchantment_level:
+                        enchantment:
+                            desc: ID of the enchantment to apply/modify the level of to the entity.
+                            type: string
+                            allow: 'a-z0-9_\/:.-'
+                            hook: [ns]
+                        item_condition:
+                            desc: If specified, only applies/modifies the level of the specified enchantment to/from the entity if the item condition is fulfilled by the item.
+                            link: item_cond
+                        modifier:
+                            desc: If specified, this modifier will be applied to the current level of the specified enchantment from the entity.
+                            link: a_mod
+                        modifiers:
+                            desc: If specified, these modifiers will be applied to the current level of the specified enchantment from the entity.
+                            type: object
+                            props:
+                                link: a_mod
                     string-sync:modify_model_parts:
                         transformations:
                             desc: An array of model part transformation objects.
                             type: list
                             vals:
                                 link: model_part_transformations
+                    string-sync:modify_player_model:
+                        model:
+                            desc: The model variant to use.
+                            enum: [FOUR_ARMS,STINKFLY]
                     string-sync:pose:
                         pose:
                             desc: The pose to set on the entity.
@@ -5977,6 +6105,11 @@ links:
                             desc: The animation priority of the pose.
                             type: integer
                             default: 0
+                    string-sync:sprinting:
+                        requires_input:
+                            desc: If true, only sprints when the entity is providing movement input (forward key or sprint key). If false, always sprints when moving.
+                            type: boolean
+                            default: false
             fabric:load_conditions:
                 desc: Checks for the following namespaces or mods to be loaded and loads the power if true.
                 gap: before
@@ -6436,9 +6569,9 @@ links:
     process_mode:
         desc: Determines how the item stack(s) in the specified inventory/inventories are processed. If "items", matching item stacks are processed, counted, or deleted as individual items. If "stacks", matching item stacks are processed, counted, matched, or deleted as one.
         enum: [items, stacks]
-    apugli_food_component:
+    food_component:
         desc: An Object which defines a new food component.
-        href: https://apugli.readthedocs.io/en/latest/types/data_types/food_component
+        href: https://origins.readthedocs.io/en/latest/types/data_types/food_component/
         type: object
         props:
             hunger:
@@ -6728,21 +6861,27 @@ links:
             icon_width:
                 desc: Width of the radial menu icon.
                 type: integer
+                default: 16
             icon_height:
                 desc: Height of the radial menu icon.
                 type: integer
+                default: 16
             item_width:
                 desc: Width of the radial menu item.
                 type: integer
+                default: 16
             item_height:
                 desc: Height of the radial menu item.
                 type: integer
+                default: 16
             button_width:
                 desc: Width of the radial menu button.
                 type: integer
+                default: 16
             button_height:
                 desc: Height of the radial menu button.
                 type: integer
+                default: 20
             highlight_icon_texture:
                 desc: Namespace ID of the highlighted radial menu icon.
                 type: string
@@ -6771,6 +6910,68 @@ links:
                 desc: When true, locks the specified rotation (pitch, yaw, or roll) to the exact value, preventing vanilla animations from affecting that rotation on that body part. When false or omitted, the transformation is additive and vanilla animations can still affect the part.
                 type: boolean
                 default: false
+    sync_custom_projectile:
+        entity_id:
+            desc: Identifier for tracking the projectile
+            type: string
+            allow: 'a-z0-9_\/:.-'
+        texture_location:
+            desc: If specified, the texture used for the custom projectile.
+            type: string
+            allow: 'a-z0-9_\/:.-'
+        count:
+            desc: The amount of projectiles to fire each use.
+            type: integer
+            default: 1
+            min: 1
+        speed:
+            desc: The speed applied to the fired projectile.
+            type: number
+            default: 1.5
+        divergence:
+            desc: How much each projectile fired is affected by random spread.
+            type: number
+            default: 1.0
+            min: 0
+        sound:
+            desc: If set, the sound with this ID will be played when the power is used.
+            type: string
+            allow: 'a-z0-9_\/:.-'
+        tag:
+            desc: NBT data to apply to projectiles
+            type: string
+            ext: true
+        entity_action_before_firing:
+            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+            link: entity_action
+        bientity_action_after_firing:
+            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+            link: bi_entity_action
+        block_condition:
+            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+            link: block_cond
+        block_action_on_hit:
+            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+            link: block_action
+        block_action_cancels_miss_action:
+            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+            type: boolean
+            default: false
+        bientity_condition:
+            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+            link: bi_entity_cond
+        owner_bientity_condition:
+            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+            link: bi_entity_cond
+        bientity_action_on_miss:
+            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+            link: bi_entity_action
+        bientity_action_on_hit:
+            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+            link: bi_entity_action
+        tick_bientity_action:
+            desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
+            link: bi_entity_action
 hooks: [preserve_single]
 or:
   - title: simple
