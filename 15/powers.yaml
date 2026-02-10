@@ -6225,6 +6225,7 @@ links:
                             desc: The animation priority of the pose.
                             type: integer
                             default: 0
+                    string-sync:prevent_sprinting_particles: {}
                     string-sync:sprinting:
                         requires_input:
                             desc: If true, only sprints when the entity is providing movement input (forward key or sprint key). If false, always sprints when moving.
