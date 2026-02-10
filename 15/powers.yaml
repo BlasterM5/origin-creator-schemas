@@ -3270,7 +3270,7 @@ links:
                                 desc: A variable declaration declaring variables used inside the command.
                                 link: variables
                         string-sync:custom_projectile:
-                            link: sync_custom_projectile
+                            link: custom_projectile
                         string-sync:grant_all_powers:
                             source: 
                                 desc: The source identifier whose powers should be granted
@@ -5954,7 +5954,7 @@ links:
                             desc: If specified, the specified action will only be executed if this condition is fulfilled by the damage dealt by the 'actor' entity.
                             link: damage_cond
                     string-sync:custom_projectile:
-                        link: sync_custom_projectile
+                        link: custom_projectile
                     string-sync:edible_item:
                         item_condition:
                             desc: If specified, this action will be executed on the item consumed by the player.
@@ -6910,7 +6910,7 @@ links:
                 desc: When true, locks the specified rotation (pitch, yaw, or roll) to the exact value, preventing vanilla animations from affecting that rotation on that body part. When false or omitted, the transformation is additive and vanilla animations can still affect the part.
                 type: boolean
                 default: false
-    sync_custom_projectile:
+    custom_projectile:
         entity_id:
             desc: Identifier for tracking the projectile
             type: string
