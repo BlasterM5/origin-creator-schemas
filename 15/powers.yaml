@@ -6219,8 +6219,7 @@ links:
                     string-sync:pose:
                         pose:
                             desc: The pose to set on the entity.
-                            enum: [standing,fall_flying,sleeping,swimming,spin_attack]
-                            default: standing
+                            enum: [standing, fall_flying, sleeping, swimming, spin_attack]
                         priority:
                             desc: The animation priority of the pose.
                             type: integer
