@@ -1191,8 +1191,7 @@ links:
                                 link: bi_entity_cond
                             shape:
                                 desc: Determines the shape of the area used for checking how many entities fulfill the bi-entity condition. Accepts "cube", "star", or "sphere".
-                                enum: [cube,star,sphere]
-                                default: cube
+                                enum: [cube, star, sphere]
                             radius:
                                 desc: Determines the radius of the area used for checking how many entities fulfill the bi-entity condition.
                                 type: number
@@ -1244,7 +1243,6 @@ links:
                             pose:
                                 desc: The entity's pose to check for.
                                 enum: [standing, fall_flying, sleeping, swimming, spin_attack]
-                                default: standing
                         string-sync:player_model_type:
                             model_type:
                                 desc: The model type to check for.
@@ -3366,8 +3364,7 @@ links:
                                 default: 8.0
                             heightmap:
                                 desc: If specified, the location will be anchored above the highest Y level of the world determined by this heightmap type.
-                                enum: [world_surface,world_surface_wg,ocean_floor,ocean_floor_wg,motion_blocking,motion_blocking_no_leaves]
-                                default: world_surface
+                                enum: [world_surface, world_surface_wg, ocean_floor, ocean_floor_wg, motion_blocking, motion_blocking_no_leaves]
                             attempts:
                                 desc: Determines how many attempts the entity should be teleported to a random location. Defaults to area_width * 2 + area_height * 2.
                                 type: integer
