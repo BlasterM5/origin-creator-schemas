@@ -2194,9 +2194,11 @@ links:
                       - sync:revoke_power
                       - sync:set_summon_max_life_ticks
                       - sync:save_location
+                      - sync:set_no_gravity
                       - sync:summon_clone
                       - sync:summon_minion
                       - sync:teleport_to_location
+                      - sync:teleport_to_spawn
                       
                     more:
                         string-origins:nothing: {}
@@ -3416,6 +3418,11 @@ links:
                                 desc: Whether to overwrite an existing location with the same ID
                                 type: boolean
                                 default: true
+                        string-sync:set_no_gravity:
+                            value:
+                                desc: If present, sets the entity’s no‑gravity flag to this value. If omitted, toggles the current value.
+                                type: boolean
+                                default: unspec
                         string-sync:set_summon_max_life_ticks:
                             amount:
                                 desc: The lifetime of the summon in ticks
@@ -3484,6 +3491,11 @@ links:
                                 desc: The identifier of the saved location to teleport to
                                 type: string
                                 allow: 'a-z0-9_\/:.-'
+                        string-sync:teleport_to_spawn:
+                            player_spawn:
+                                desc: If true, teleports to the player's personal spawn point (bed or respawn anchor). If false, teleports to the world spawn point in the overworld.
+                                type: boolean
+                                default: false
           - title: custom
             link: custom_action
     item_action:
@@ -4167,11 +4179,14 @@ links:
                   - sync:custom_projectile
                   - sync:edible_item
                   - sync:emissive
+                  - sync:energy_swirl
                   - sync:entity_set
                   - sync:entity_texture_overlay
                   - sync:flip_model
                   - sync:mobs_ignore
+                  - sync:modify_enchantment_damage_type
                   - sync:modify_enchantment_level
+                  - sync:modify_label_render
                   - sync:modify_model_parts
                   - sync:modify_player_model
                   - sync:pose
@@ -6118,6 +6133,18 @@ links:
                         dynamic_light:
                             desc: Optional dynamic light level for special effects (0-15). This is used with the LambDynamicLights mod for moving light sources.
                             type: integer
+                    string-sync:energy_swirl:
+                        texture_location:
+                            desc: The texture used for the energy swirl overlay. If omitted, the Wither armour texture is used.
+                            type: string
+                        size:
+                            desc: The scale of the swirl relative to the entity’s normal size.
+                            type: number
+                            default: 1.0
+                        speed:
+                            desc: The speed at which the overlay animates. Set to 0 for a completely static overlay.
+                            type: number
+                            default: 0.01
                     string-sync:entity_set:
                         action_on_add:
                             desc: If specified, this bi-entity action will be executed on either or both the 'actor' and the 'target' upon the 'target' being added to the set.
@@ -6186,6 +6213,36 @@ links:
                             desc: If set to true, then the mob(s) will retaliate against the player if attacked.
                             type: boolean
                             default: false
+                    string-sync:modify_enchantment_damage_dealt:
+                        enchantment:
+                            desc: The enchantment whose level on the attacker's equipment determines the bonus.
+                            type: string
+                            allow: 'a-z0-9_\/:.-'
+                            hook: [ns]
+                        base_value:
+                            desc: Starting value before any level-based scaling.
+                            type: number
+                            required: true
+                        damage_condition:
+                            desc: If present, the modification only applies when the damage condition is met.
+                            link: damage_cond
+                        target_condition:
+                            desc: If present, the modification only applies when the target condition is met.
+                            link: entity_cond
+                        bientity_condition:
+                            desc: If present, the modification only applies when the bi‑entity condition between attacker and target is met.
+                            link: bi_entity_cond
+                        modifier:
+                            desc: Modifier applied repeatedly to scale the bonus per enchantment level.
+                            link: a_mod
+                        modifiers:
+                            desc: Multiple modifiers applied repeatedly.
+                            type: list
+                            vals:
+                                link: a_mod
+                        bientity_action:
+                            desc: Action to execute on the attacker and target when damage is dealt.
+                            link: bi_entity_action
                     string-sync:modify_enchantment_level:
                         enchantment:
                             desc: ID of the enchantment to apply/modify the level of to the entity.
@@ -6203,6 +6260,35 @@ links:
                             type: list
                             vals:
                                 link: a_mod
+                    string-sync:modify_label_render:
+                        entity_condition:
+                            desc: If specified, the label modification will only apply to viewers that fulfill this condition.
+                            link: entity_cond
+                        bientity_condition:
+                            desc: If specified, the label modification will only apply to viewers that fulfill this condition in relation to the power holder. The condition pair is (viewer, holder).
+                            link: bi_entity_cond
+                        before_parse_action:
+                            desc: If specified, this action is executed on the entity before the text template is parsed each tick cycle.
+                            link: entity_action
+                        after_parse_action:
+                            desc: If specified, this action is executed on the entity after the text template is parsed, but only if the parsed text has changed from the previous parse.
+                            link: entity_action
+                        render_mode:
+                            desc:  	Determines how the label is rendered. Accepts "default" (normal rendering), "hide_partially" (semi-transparent like when sneaking), or "hide_completely" (label is not rendered at all).
+                            enum: [default, hide_partially, hide_completely]
+                        text:
+                            desc: If specified, replaces the entity's name tag with this custom text. Supports JSON text components including selectors like @s, colors, formatting, and other text features. The text is parsed server-side to resolve selectors.
+                            type: string
+                            ext: true
+                        tick_rate:
+                            desc: How often (in ticks) the text template is re-parsed and actions are executed. Default is 20 ticks (1 second).
+                            type: integer
+                            default: 20
+                            min: 1
+                        priority:
+                            desc: If multiple modify_label_render powers are active on the same entity, only the one with the highest priority value will be applied. In case of a tie, the last registered power takes precedence.
+                            type: integer
+                            default: 0
                     string-sync:modify_model_parts:
                         transformations:
                             desc: An array of model part transformation objects.
@@ -6212,7 +6298,7 @@ links:
                     string-sync:modify_player_model:
                         model:
                             desc: The model variant to use.
-                            enum: [FOUR_ARMS,STINKFLY]
+                            enum: [FOUR_ARMS, STINKFLY]
                     string-sync:pose:
                         pose:
                             desc: The pose to set on the entity.
