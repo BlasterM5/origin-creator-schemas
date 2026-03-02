@@ -39,6 +39,8 @@ links:
 
                       - $SYNC
 
+                      - sync:command
+                      - sync:disguised
                       - sync:in_entity_set
                     more:
                         string-origins:and:
@@ -144,6 +146,26 @@ links:
                             condition:
                                 desc: The bi-entity condition to check for truth before or after swapping the actor and target context.
                                 link: bi_entity_cond
+                        string-sync:command:
+                            command: 
+                                desc: The command to execute. Can contain placeholders %a (actor UUID) and %t (target UUID) which will be replaced before execution.
+                                type: string
+                                ext: true
+                            actor_selector:
+                                desc: The string in the command that should be replaced with the actor entity's UUID.
+                                type: string
+                                default: '%a'
+                            target_selector:
+                                desc: The string in the command that should be replaced with the target entity's UUID.
+                                type: string
+                                default: '%t'
+                            comparison:
+                                desc: How the command’s result value (an integer) should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value to compare the command result against.
+                                type: integer
+                        string-sync:disguised: {}
                         string-sync:in_entity_set:
                             set:
                                 desc: The ID of the power to check whether the target entity is in.
@@ -276,6 +298,7 @@ links:
 
                       - $SYNC
 
+                      - sync:disguised
                       - sync:entity_in_radius
                       - sync:entity_set_size
                       - sync:flip_model
@@ -1185,6 +1208,7 @@ links:
                             relativity:
                                 desc: The relativity value at which the relativity of the resource will be compared to.
                                 link: math_number
+                        string-sync:disguised: {}
                         string-sync:entity_in_radius:
                             bientity_condition:
                                 desc: The bi-entity condition to evaluate on either or both the 'actor' and 'target(s)'
@@ -1289,6 +1313,11 @@ links:
                       - origins-math:enchantment
                       - origins-math:harvest_level
                       - origins-math:relative_durability
+
+                      - $SYNC
+
+                      - sync:fuel
+                      - sync:holder_condition
                     more:
                         string-origins:and:
                             conditions:
@@ -1420,6 +1449,17 @@ links:
                                 desc: The value to compare to.
                                 link: math_number
                         string-origins:smeltable: {}
+                        string-sync:fuel:
+                            comparison:
+                                desc: How the item’s fuel burn time should be compared to compare_to.
+                                link: comparison
+                            compare_to:
+                                desc: The value to compare the burn time against.
+                                type: integer
+                        string-sync:holder_condition:
+                            condition:
+                                desc: The condition to test on the holder. If omitted, the condition simply returns true when a holder exists.
+                                link: entity_cond
           - title: custom
             link: custom_condition
     block_cond:
@@ -1868,6 +1908,8 @@ links:
                       - $SYNC
 
                       - sync:add_to_entity_set
+                      - sync:disguise
+                      - sync:execute_command
                       - sync:remove_from_entity_set
                     more:
                         string-origins:nothing: {}
@@ -2074,6 +2116,24 @@ links:
                             time_limit:
                                 desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
                                 type: integer
+                        string-sync:disguise:
+                            overwrite:
+                                desc: If false, the disguise will not be applied when the actor is already disguised as something else.
+                                type: boolean
+                                default: true
+                        string-sync:execute_command:
+                            command:
+                                desc: The command to execute. Can contain placeholders %a (actor UUID) and %t (target UUID) which will be replaced before execution.
+                                type: string
+                                ext: true
+                            actor_selector:
+                                desc: The string in the command that should be replaced with the actor entity's UUID.
+                                type: string
+                                default: '%a'
+                            target_selector:
+                                desc: The string in the command that should be replaced with the target entity's UUID.
+                                type: string
+                                default: '%t'
                         string-sync:remove_from_entity_set:
                             set:
                                 desc: The ID of the power to remove the target entity from.
@@ -2190,6 +2250,7 @@ links:
                       - sync:print
                       - sync:radial_menu
                       - sync:random_teleport
+                      - sync:remove_disguise
                       - sync:revoke_all_powers
                       - sync:revoke_power
                       - sync:set_summon_max_life_ticks
@@ -3396,6 +3457,7 @@ links:
                             fail_action:
                                 desc: If specified, this entity action will be executed on the entity upon failing to be teleported on a random location.
                                 type: entity_action
+                        string-sync:remove_disguise: {}
                         string-sync:revoke_all_powers:
                             source:
                                 desc: The source identifier whose powers should be removed
@@ -3530,6 +3592,8 @@ links:
                       - origins-math:consume
                       - origins-math:damage
                       - origins-math:remove-enchantment
+                      - $SYNC
+                      - sync:holder_action
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
@@ -3703,6 +3767,10 @@ links:
                                 desc: Determines if this action should ignore the Unbreaking enchantment.
                                 type: boolean
                                 default: false
+                        string-sync:holder_action:
+                            action:
+                                desc: The action to perform on the holder of this item stack.
+                                link: entity_action
           - title: custom
             link: custom_action
     block_action:
@@ -4176,6 +4244,8 @@ links:
                   - $SYNC
 
                   - sync:action_on_death
+                  - sync:action_on_key_sequence
+                  - sync:action_on_sending_message
                   - sync:custom_projectile
                   - sync:edible_item
                   - sync:emissive
@@ -6025,6 +6095,50 @@ links:
                         damage_comdition:
                             desc: If specified, the specified action will only be executed if this condition is fulfilled by the damage dealt by the 'actor' entity.
                             link: damage_cond
+                    string-sync:action_on_key_sequence:
+                        success_action:
+                            desc: Action to execute when the player completes the sequence correctly.
+                            link: entity_action
+                        fail_action:
+                            desc: Action to execute when the player presses an incorrect key (i.e. a key that is not the next expected one).
+                            link: entity_action
+                        cooldown:
+                            desc: Interval in ticks the power must wait after a successful completion before it can be used again.
+                            type: integer
+                            default: 0
+                            min: 0
+                        hud_render:
+                            desc: Determines how the cooldown is visualized on the HUD.
+                            link: hud_render
+                        keys:
+                            desc: The set of keys that are tracked by this power. Each entry defines a key, whether it is continuous, and an optional action that runs whenever that key is pressed (or held). These keys are the only ones that can advance the sequence.
+                            type: list
+                            vals:
+                                link: functional_key
+                        key_sequence:
+                            desc: The exact order of keys (by their translation key) that the player must press to trigger success_action.
+                            type: list
+                            vals: 
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                    string-sync:action_on_sending_message:
+                        message_type:
+                            desc: If specified, only messages of this type (e.g. minecraft:chat, minecraft:say_command) are processed. If omitted, all message types are processed.
+                            type: string
+                            allow: 'a-z0-9_\/:.-'
+                        filter:
+                            desc: A single filter to apply. Cannot be used together with filters.
+                            type: string
+                            ext: true
+                        filters:
+                            desc: A list of filters to apply. Filters are evaluated in order; the first matching filter cancels the message and runs its before_action. If none match, all after_actions are executed.
+                            type: list
+                                vals:
+                                    type: string
+                        priority:
+                            desc: Determines the order in which powers of this type are evaluated when multiple are active. Higher priority runs first.
+                            type: integer
+                            default: 0
                     string-sync:custom_projectile:
                             entity_id:
                                 desc: Identifier for tracking the projectile
@@ -6300,11 +6414,14 @@ links:
                             desc: The model variant to use.
                             enum: [FOUR_ARMS, STINKFLY]
                     string-sync:pose:
-                        pose:
-                            desc: The pose to set on the entity.
-                            enum: [standing, fall_flying, sleeping, swimming, spin_attack]
+                        entity_pose:
+                            desc: TThe full-body pose to force the entity into.
+                            enum: [STANDING, FALL_FLYING, SLEEPING, SWIMMING, SPIN_ATTACK, CROUCHING, LONG_JUMPING, DYING, CROAKING, USING_TONGUE, SITTING, ROARING, SNIFFING, EMERGING, DIGGING]
+                        arm_pose:
+                            desc: The arm pose to force on the entity (both arms).
+                            enum: [EMPTY, ITEM, BLOCK, BOW_AND_ARROW, THROW_SPEAR, CROSSBOW_CHARGE, CROSSBOW_HOLD, SPYGLASS, TOOT_HORN, BRUSH]
                         priority:
-                            desc: The animation priority of the pose.
+                            desc: Priority level (higher overrides lower).
                             type: integer
                             default: 0
                     string-sync:prevent_sprinting_particles: {}
@@ -7113,6 +7230,24 @@ links:
                 desc: When true, locks the specified rotation (pitch, yaw, or roll) to the exact value, preventing vanilla animations from affecting that rotation on that body part. When false or omitted, the transformation is additive and vanilla animations can still affect the part.
                 type: boolean
                 default: false
+    functional_key:
+        key:
+            or:
+              - type: string
+                desc: The translation key of the keybind.
+                allow: 'a-z0-9_\/:.-'
+              - type: object
+                props:
+                    key:
+                        desc: The translation key of the keybind.
+                        type: string
+                        allow: 'a-z0-9_\/:.-'
+                    continuous:
+                        desc: If true, the key is considered pressed every tick it is held down; if false, it only fires once per press.
+                        type: boolean
+                        default: false
+                    action:
+                        link: entity_action
 hooks: [preserve_single]
 or:
   - title: simple
