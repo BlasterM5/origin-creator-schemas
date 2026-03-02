@@ -7232,9 +7232,9 @@ links:
                 default: false
     functional_key:
         key:
+            desc: The translation key of the keybind.
             or:
               - type: string
-                desc: The translation key of the keybind.
                 allow: 'a-z0-9_\/:.-'
               - type: object
                 props:
