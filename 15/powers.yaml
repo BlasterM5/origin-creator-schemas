@@ -7231,23 +7231,22 @@ links:
                 type: boolean
                 default: false
     functional_key:
-        key:
-            desc: The translation key of the keybind.
-            or:
-              - type: string
-                allow: 'a-z0-9_\/:.-'
-              - type: object
-                props:
-                    key:
-                        desc: The translation key of the keybind.
-                        type: string
-                        allow: 'a-z0-9_\/:.-'
-                    continuous:
-                        desc: If true, the key is considered pressed every tick it is held down; if false, it only fires once per press.
-                        type: boolean
-                        default: false
-                    action:
-                        link: entity_action
+        desc: The translation key of the keybind.
+        or:
+          - type: string
+            allow: 'a-z0-9_\/:.-'
+          - type: object
+            props:
+                key:
+                    desc: The translation key of the keybind.
+                    type: string
+                    allow: 'a-z0-9_\/:.-'
+                continuous:
+                    desc: If true, the key is considered pressed every tick it is held down; if false, it only fires once per press.
+                    type: boolean
+                    default: false
+                action:
+                    link: entity_action
 hooks: [preserve_single]
 or:
   - title: simple
