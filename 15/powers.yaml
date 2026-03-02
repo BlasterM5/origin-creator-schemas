@@ -6133,8 +6133,8 @@ links:
                         filters:
                             desc: A list of filters to apply. Filters are evaluated in order; the first matching filter cancels the message and runs its before_action. If none match, all after_actions are executed.
                             type: list
-                                vals:
-                                    type: string
+                            vals:
+                                type: string
                         priority:
                             desc: Determines the order in which powers of this type are evaluated when multiple are active. Higher priority runs first.
                             type: integer
