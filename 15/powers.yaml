@@ -39,6 +39,7 @@ links:
 
                       - $SYNC
 
+                      - sync:colliding
                       - sync:command
                       - sync:disguised
                       - sync:in_entity_set
@@ -146,6 +147,10 @@ links:
                             condition:
                                 desc: The bi-entity condition to check for truth before or after swapping the actor and target context.
                                 link: bi_entity_cond
+                        string-sync:colliding:
+                            offset:
+                                desc: Offsets the actor's bounding box by this amount before the intersection test
+                                link: vector
                         string-sync:command:
                             command: 
                                 desc: The command to execute. Can contain placeholders %a (actor UUID) and %t (target UUID) which will be replaced before execution.
@@ -304,7 +309,11 @@ links:
                       - sync:flip_model
                       - sync:key_pressed
                       - sync:in_pose
+                      - sync:is_selected_stolen_power
+                      - sync:perspective
                       - sync:player_model_type
+                      - sync:raycast
+                      - sync:velocity
                       
                     more:
                         string-origins:and:
@@ -1267,10 +1276,82 @@ links:
                             pose:
                                 desc: The entity's pose to check for.
                                 enum: [standing, fall_flying, sleeping, swimming, spin_attack]
+                        string-sync:is_selected_stolen_power:
+                            source:
+                                desc: If provided, returns true only if the currently selected stolen package came from this source identifier
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
+                        string-sync:perspective:
+                            perspectives:
+                                desc: One or more perspective names the entity must match.
+                                type: list
+                                vals:
+                                    enum: [first_person, third_person_front, third_person_back]
                         string-sync:player_model_type:
                             model_type:
                                 desc: The model type to check for.
                                 enum: [slim, wide]
+                        string-sync:raycast:
+                            distance:
+                                desc: Maximum range for both block and entity raycasting. Defaults to the entity's effective reach (respecting reach-entity-attributes if present)
+                                type: number
+                            block:
+                                desc: Whether the ray can hit blocks
+                                type: boolean
+                                default: true
+                            entity:
+                                desc: Whether the ray can hit entities
+                                type: boolean
+                                default: true
+                            shape_type:
+                                desc: The shape type used for block collision detection
+                                enum: [visual, collider, outline]
+                            fluid_handling:
+                                desc: How fluids are treated during block raycasting
+                                enum: [any, source_only, none]
+                            space:
+                                desc: The coordinate space in which direction is interpreted
+                                link: space_data
+                            direction:
+                                desc: Custom ray direction. If omitted, uses the entity's current look direction
+                                link: vector
+                            entity_distance:
+                                desc: Maximum range for entity detection only. Overrides distance for entities
+                                type: number
+                            block_distance:
+                                desc: Maximum range for block detection only. Overrides distance for blocks
+                                type: number
+                            match_bientity_condition:
+                                desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid entity hits
+                                link: bi_entity_cond
+                            hit_bientity_condition:
+                                desc: If specified, the condition returns true only if the closest hit entity satisfies this condition (actor = source, target = hit entity)
+                                link: bi_entity_cond
+                            block_condition:
+                                desc: If specified, the condition returns true only if the hit block satisfies this condition
+                                link: block_cond
+                        string-sync:velocity:
+                            x:
+                                desc: Compares the X component of velocity using comparison
+                                type: number
+                            y:
+                                desc: Compares the Y component of velocity using comparison
+                                type: number
+                            z:
+                                desc: Compares the Z component of velocity using comparison
+                                type: number
+                            axes:
+                                desc: List of axes ("x", "y", "z") whose velocity values are summed and compared to compare_to
+                                type: list
+                                vals:
+                                    enum: [x, y, z]
+                            comparison:
+                                desc: The comparison operator used in both modes
+                                link: comparison
+                            compare_to:
+                                desc: The value to compare against in axes mode
+                                type: number
           - title: custom
             link: custom_condition
     item_cond:
@@ -1907,10 +1988,14 @@ links:
 
                       - $SYNC
 
+                      - sync:loop
                       - sync:add_to_entity_set
                       - sync:disguise
                       - sync:execute_command
+                      - sync:liberate_power
                       - sync:remove_from_entity_set
+                      - sync:suppress_power
+                      - sync:transfer
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
@@ -2134,12 +2219,128 @@ links:
                                 desc: The string in the command that should be replaced with the target entity's UUID.
                                 type: string
                                 default: '%t'
+                        string-sync:liberate_power:
+                            power:
+                                desc: A single power ID to liberate
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
+                            powers:
+                                desc: Additional power IDs to liberate
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            power_types:
+                                desc: Factory-type IDs; all suppressed powers of these types are liberated
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            power_sources:
+                                desc: Source IDs; suppressed powers granted via a listed source are liberated
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            ignored_powers:
+                                desc: Power IDs that are never liberated, even if they match another filter
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            bientity_action:
+                                desc: Executed once for every power that gets liberated
+                                link: bi_entity_action
+                        string-sync:loop:
+                            value:
+                                desc: Number of times action is executed
+                                type: integer
+                                default: 1
+                            ticks:
+                                desc: Tick interval between iterations. Minimum effective value is 1
+                                type: integer
+                                default: 1
+                                min: 1
+                            before_action:
+                                desc: Fired once immediately before the first iteration begins
+                                link: bi_entity_action
+                            action:
+                                desc: Fired once per iteration
+                                link: bi_entity_action
+                            after_action:
+                                desc: Fired once after the final iteration completes
+                                link: bi_entity_action
                         string-sync:remove_from_entity_set:
                             set:
                                 desc: The ID of the power to remove the target entity from.
                                 type: string
                                 allow: '*a-z0-9_\/:.-'
                                 hook: [ns]
+                        string-sync:suppress_power:
+                            power:
+                                desc: A single power ID to suppress
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
+                            powers:
+                                desc: Additional power IDs to suppress
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            power_types:
+                                desc: Factory-type IDs (e.g. origins:active_self); all powers of these types are suppressed
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            power_sources:
+                                desc: Source IDs; all powers granted via a listed source are suppressed
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            ignored_powers:
+                                desc: Power IDs that are never suppressed, even if they match another filter
+                                type: list
+                                vals:
+                                    type: string
+                                    allow: 'a-z0-9_\/:.-'
+                                    hook: [ns]
+                            bientity_action:
+                                desc: Executed once for every power that gets suppressed
+                                link: bi_entity_action
+                        string-sync:transfer:
+                            mode:
+                                desc: Transfer direction. "steal" takes powers from target to actor. "give" returns the actor's selected stolen package to the target. "auto" reads the actor's current mode
+                                enum: [steal, give, auto]
+                            source:
+                                desc: When stealing, only powers from this specific source are taken. Omit to steal from all sources
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            transfer_source:
+                                desc: The source identifier under which stolen powers are granted to the actor
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                default: "sync:transferred"
+                            strip_from_donor:
+                                desc: If true, powers are removed from the donor after being transferred
+                                type: boolean
+                                default: true
+                            actor_action:
+                                desc: Action executed on the actor after the transfer completes
+                                link: entity_action
+                            target_action:
+                                desc: Action executed on the target after the transfer completes
+                                link: entity_action
           - title: custom
             link: custom_action
     entity_action:
@@ -2245,11 +2446,15 @@ links:
 
                       - $SYNC
 
+                      - sync:loop
                       - sync:custom_projectile
+                      - sync:cycle_stolen_power
+                      - sync:disguise_as
                       - sync:grant_all_powers
                       - sync:print
                       - sync:radial_menu
                       - sync:random_teleport
+                      - sync:raycast
                       - sync:remove_disguise
                       - sync:revoke_all_powers
                       - sync:revoke_power
@@ -2260,6 +2465,8 @@ links:
                       - sync:summon_minion
                       - sync:teleport_to_location
                       - sync:teleport_to_spawn
+                      - sync:toggle_transfer_mode
+                      - sync:use_selected_stolen_power
                       
                     more:
                         string-origins:nothing: {}
@@ -2359,16 +2566,7 @@ links:
                                 type: number
                             space:
                                 desc: The space to perform the velocity addition in.
-                                href: https://origins.readthedocs.io/en/latest/misc/extras/space/#space
-                                enum:
-                                  - world
-                                  - local
-                                  - local_horizontal
-                                  - local_horizontal_normalized
-                                  - velocity
-                                  - velocity_normalized
-                                  - velocity_horizontal
-                                  - velocity_horizontal_normalized
+                                link: space_data
                             client:
                                 desc: If this is false, the action will not execute on the client.
                                 type: boolean
@@ -2392,16 +2590,7 @@ links:
                                 link: math_number
                             space:
                                 desc: The space to perform the velocity addition in.
-                                href: https://origins.readthedocs.io/en/latest/misc/extras/space/#space
-                                enum:
-                                  - world
-                                  - local
-                                  - local_horizontal
-                                  - local_horizontal_normalized
-                                  - velocity
-                                  - velocity_normalized
-                                  - velocity_horizontal
-                                  - velocity_horizontal_normalized
+                                link: space_data
                             client:
                                 desc: If this is false, the action will not execute on the client.
                                 type: boolean
@@ -3183,7 +3372,7 @@ links:
                         string-origins:spawn_particles:
                             particle:
                                 desc: The particle type that will be spawned.
-                                link: particle
+                                link: particle_data
                             count:
                                 desc: How much of the specified particle type will be spawned.
                                 type: integer
@@ -3206,7 +3395,7 @@ links:
                         string-origins-math:spawn_particles:
                             particle:
                                 desc: The particle type that will be spawned.
-                                link: particle
+                                link: particle_data
                             count:
                                 desc: How much of the specified particle type will be spawned.
                                 link: math_integer_1
@@ -3392,12 +3581,55 @@ links:
                             tick_bientity_action:
                                 desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
                                 link: bi_entity_action
+                        string-sync:cycle_stolen_power:
+                            delta:
+                                desc: How many slots to advance. Positive moves forward, negative moves backward
+                                type: integer
+                                default: 1
+                        string-sync:disguise_as:
+                            entity_type:
+                                desc: The entity type to disguise as
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
+                            display_name:
+                                desc: Override the name shown in Jade / nameplates. Defaults to the entity type's translation key
+                                type: string
+                            overwrite:
+                                desc: If false, the action does nothing when the entity already has an active disguise
+                                type: boolean
+                                default: true
+                            before_action:
+                                desc: Executed on the entity immediately before the disguise is applied
+                                link: entity_action
+                            after_action:
+                                desc: Executed on the entity immediately after the disguise is applied
+                                link: entity_action
                         string-sync:grant_all_powers:
                             source: 
                                 desc: The source identifier whose powers should be granted
                                 type: string
                                 allow: 'a-z0-9_\/:.-'
                                 hook: [ns]
+                        string-sync:loop:
+                            value:
+                                desc: Number of times action is executed
+                                type: integer
+                                default: 1
+                            ticks:
+                                desc: Tick interval between iterations. Minimum effective value is 1
+                                type: integer
+                                default: 1
+                                min: 1
+                            before_action:
+                                desc: Fired once immediately before the first iteration begins
+                                link: entity_action
+                            action:
+                                desc: Fired once per iteration
+                                link: entity_action
+                            after_action:
+                                desc: Fired once after the final iteration completes
+                                link: entity_action
                         string-sync:print:
                             message:
                                 desc: The message to be printed.
@@ -3457,6 +3689,85 @@ links:
                             fail_action:
                                 desc: If specified, this entity action will be executed on the entity upon failing to be teleported on a random location.
                                 type: entity_action
+                        string-sync:raycast:
+                            distance:
+                                desc: Maximum range for both block and entity raycasting. Defaults to the entity's effective reach (respecting reach-entity-attributes if present)
+                                type: number
+                            block:
+                                desc: Whether the ray can hit blocks
+                                type: boolean
+                                default: true
+                            entity:
+                                desc: Whether the ray can hit entities
+                                type: boolean
+                                default: true
+                            shape_type:
+                                desc: The shape type used for block collision detection
+                                enum: [visual, collider, outline]
+                            fluid_handling:
+                                desc: How fluids are treated during block raycasting
+                                enum: [any, source_only, none]
+                            space:
+                                desc: The coordinate space in which direction is interpreted
+                                link: space_data
+                            direction:
+                                desc: Custom ray direction. If omitted, uses the entity's current look direction
+                                link: vector
+                            pierce:
+                                desc: If true, the ray passes through entities and bientity_action is executed on every entity hit before the first block
+                                type: boolean
+                                default: false
+                            particle:
+                                link: particle_data
+                            spacing:
+                                desc: Distance in blocks between each particle spawn along the ray
+                                type: number
+                                default: 0.5
+                            entity_distance:
+                                desc: Maximum range for entity detection only. Overrides distance for entities
+                                type: number
+                            block_distance:
+                                desc: Maximum range for block detection only. Overrides distance for blocks
+                                type: number
+                            bientity_condition:
+                                desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
+                                link: bi_entity_cond
+                            block_condition:
+                                desc: If specified, block_action only runs when the hit block satisfies this condition
+                                link: block_cond
+                            bientity_action:
+                                desc: Action executed on each entity hit (actor = source, target = hit entity)
+                                link: bi_entity_action
+                            block_action:
+                                desc: Action executed on the block hit by the ray
+                                link: block_action
+                            before_action:
+                                desc: If specified, execute this entity action type before casting a ray.
+                                link: entity_action
+                            hit_action:
+                                desc: If specified, execute this entity action type if the raycast has hit an entity/block.
+                                link: entity_action
+                            miss_action:
+                                desc: If specified, execute this entity action type if the raycast did not hit an entity/block.
+                                link: entity_action
+                                gap: true
+                            command_at_hit:
+                                desc: The command to execute upon the block/entity the raycast has hit.
+                                type: string
+                                ext: true
+                            command_hit_offset:
+                                desc: Determines the offset of the command specified in the command_at_hit field.
+                                type: number
+                            command_along_ray:
+                                desc: The command to execute for each step of the raycast.
+                                type: string
+                                ext: true
+                            command_step:
+                                desc: Determines the size of the step of the raycast. Defaults to 1.
+                                type: number
+                            command_along_ray_only_on_hit:
+                                desc: Determines if the command specified in the command_along_ray field should be executed only if the raycast has hit a block/entity.
+                                type: boolean
                         string-sync:remove_disguise: {}
                         string-sync:revoke_all_powers:
                             source:
@@ -3558,6 +3869,8 @@ links:
                                 desc: If true, teleports to the player's personal spawn point (bed or respawn anchor). If false, teleports to the world spawn point in the overworld.
                                 type: boolean
                                 default: false
+                        string-sync:toggle_transfer_mode: {}
+                        string-sync:use_selected_stolen_power: {}
           - title: custom
             link: custom_action
     item_action:
@@ -3583,16 +3896,23 @@ links:
                       - origins:modify
                       - origins:remove_enchantment
                       - origins:holder_action
+
                       - $Apugli
+
                       - apugli:cooldown
                       - apugli:damage
+
                       - $Origins Math
+
                       - origins-math:chance
                       - origins-math:delay
                       - origins-math:consume
                       - origins-math:damage
                       - origins-math:remove-enchantment
+
                       - $SYNC
+
+                      - sync:loop
                       - sync:holder_action
                     more:
                         string-origins:nothing: {}
@@ -3771,6 +4091,25 @@ links:
                             action:
                                 desc: The action to perform on the holder of this item stack.
                                 link: entity_action
+                        string-sync:loop:
+                            value:
+                                desc: Number of times action is executed
+                                type: integer
+                                default: 1
+                            ticks:
+                                desc: Tick interval between iterations. Minimum effective value is 1
+                                type: integer
+                                default: 1
+                                min: 1
+                            before_action:
+                                desc: Fired once immediately before the first iteration begins
+                                link: item_action
+                            action:
+                                desc: Fired once per iteration
+                                link: item_action
+                            after_action:
+                                desc: Fired once after the final iteration completes
+                                link: item_action
           - title: custom
             link: custom_action
     block_action:
@@ -3805,8 +4144,9 @@ links:
 
                       - $SYNC
 
-                      - sync:spawn_entity
+                      - sync:loop
                       - sync:ghost_block
+                      - sync:spawn_entity
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
@@ -3968,18 +4308,6 @@ links:
                                 desc: Whether the block is dropped upon destroying it.
                                 href: https://apugli.readthedocs.io/en/latest/types/block_action_types/destroy/
                                 type: boolean
-                        string-sync:spawn_entity:
-                            entity_type:
-                                desc: The ID of the type of entity that will be spawned.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                            tag:
-                                desc: If specified, this NBT data will be applied to the entity that will be spawned.
-                                type: string
-                                ext: true
-                            entity_action:
-                                desc: If specified, this entity action will be executed on the spawned entity.
-                                link: entity_action
                         string-sync:ghost_block:
                             block:
                                 desc: The block ID to temporarily place
@@ -4005,6 +4333,37 @@ links:
                             end_action:
                                 desc: Action to execute when the ghost block expires/reverts
                                 link: block_action
+                        string-sync:loop:
+                            value:
+                                desc: Number of times action is executed
+                                type: integer
+                                default: 1
+                            ticks:
+                                desc: Tick interval between iterations. Minimum effective value is 1
+                                type: integer
+                                default: 1
+                                min: 1
+                            before_action:
+                                desc: Fired once immediately before the first iteration begins
+                                link: block_action
+                            action:
+                                desc: Fired once per iteration
+                                link: block_action
+                            after_action:
+                                desc: Fired once after the final iteration completes
+                                link: block_action
+                        string-sync:spawn_entity:
+                            entity_type:
+                                desc: The ID of the type of entity that will be spawned.
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                            tag:
+                                desc: If specified, this NBT data will be applied to the entity that will be spawned.
+                                type: string
+                                ext: true
+                            entity_action:
+                                desc: If specified, this entity action will be executed on the spawned entity.
+                                link: entity_action
           - title: custom
             link: custom_action
     badge:
@@ -4256,10 +4615,12 @@ links:
                   - sync:mobs_ignore
                   - sync:modify_enchantment_damage_type
                   - sync:modify_enchantment_level
+                  - sync:modify_jade_tooltip
                   - sync:modify_label_render
                   - sync:modify_model_parts
                   - sync:modify_player_model
                   - sync:pose
+                  - sync:prevent_creative_flight
                   - sync:prevent_sprinting_particles
                   - sync:sprinting
                   
@@ -4678,7 +5039,7 @@ links:
                     string-origins:particle:
                         particle:
                             desc: The particle type that will be spawned.
-                            link: particle
+                            link: particle_data
                         frequency:
                             desc: Determines how often the particles should spawn (interval in ticks).
                             type: integer
@@ -6374,6 +6735,36 @@ links:
                             type: list
                             vals:
                                 link: a_mod
+                    string-sync:modify_jade_tooltip:
+                        hide_tooltip:
+                            desc: If true, hides the Jade tooltip entirely when this entity is looked at
+                            type: boolean
+                            default: false
+                        display_name:
+                            desc: Replaces the entity's name line in the tooltip
+                            type: string
+                        hide_health:
+                            desc: If true, hides the health hearts row
+                            type: boolean
+                            default: false
+                        hide_armor:
+                            desc: If true, hides the armor row
+                            type: boolean
+                            default: false
+                        hide_potion_effects:
+                            desc: If true, hides the potion effects row
+                            type: boolean
+                            default: false
+                        priority:
+                            desc: When multiple powers of this type are active, only the one with the highest priority takes effect
+                            type: integer
+                            default: 0
+                        entity_condition:
+                            desc: Tested on the viewer. The power only applies when this condition passes
+                            link: entity_cond
+                        bientity_condition:
+                            desc: Tested with the viewer as actor and the power holder as target. The power only applies when this condition passes
+                            link: bi_entity_cond
                     string-sync:modify_label_render:
                         entity_condition:
                             desc: If specified, the label modification will only apply to viewers that fulfill this condition.
@@ -6424,6 +6815,10 @@ links:
                             desc: Priority level (higher overrides lower).
                             type: integer
                             default: 0
+                    string-sync:prevent_creative_flight:
+                        entity_action:
+                            desc: If specified, this action is executed once on the player at the moment their flight is cancelled because they were actively flying (midair).
+                            link: entity_action
                     string-sync:prevent_sprinting_particles: {}
                     string-sync:sprinting:
                         requires_input:
@@ -6851,7 +7246,7 @@ links:
             z:
                 desc: The X coordinate of the point.
                 link: math_number_0
-    particle:
+    particle_data:
         desc: Either a String which defines the particle type or an Object which defines the particle type and its additional parameters.
         or:
           - type: string
@@ -7247,6 +7642,17 @@ links:
                     default: false
                 action:
                     link: entity_action
+    space_data:
+        href: https://origins.readthedocs.io/en/latest/misc/extras/space/#space
+        enum:
+          - world
+          - local
+          - local_horizontal
+          - local_horizontal_normalized
+          - velocity
+          - velocity_normalized
+          - velocity_horizontal
+          - velocity_horizontal_normalized
 hooks: [preserve_single]
 or:
   - title: simple
