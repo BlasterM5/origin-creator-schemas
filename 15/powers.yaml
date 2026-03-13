@@ -6453,7 +6453,7 @@ links:
                         bientity_condition:
                             desc: If specified, the specified action will only be executed if this condition is fulfilled by either or both 'actor' and 'target' entities.
                             link: bi_entity_cond
-                        damage_comdition:
+                        damage_condition:
                             desc: If specified, the specified action will only be executed if this condition is fulfilled by the damage dealt by the 'actor' entity.
                             link: damage_cond
                     string-sync:action_on_key_sequence:
