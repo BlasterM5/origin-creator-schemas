@@ -2224,6 +2224,7 @@ links:
                             power:
                                 desc: The blast radius/power of the explosion
                                 type: number
+                                default: 1
                                 required: true
                             destruction_type:
                                 desc: How the explosion affects blocks.
