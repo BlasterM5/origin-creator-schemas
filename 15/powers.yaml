@@ -1992,6 +1992,7 @@ links:
                       - sync:add_to_entity_set
                       - sync:disguise
                       - sync:execute_command
+                      - sync:explode
                       - sync:liberate_power
                       - sync:remove_from_entity_set
                       - sync:suppress_power
@@ -2219,6 +2220,28 @@ links:
                                 desc: The string in the command that should be replaced with the target entity's UUID.
                                 type: string
                                 default: '%t'
+                        string-sync:explode:
+                            power:
+                                desc: The blast radius/power of the explosion
+                                type: number
+                                required: true
+                            destruction_type:
+                                desc: How the explosion affects blocks.
+                                enum: [destroy, break, none]
+                            create_fire:
+                                desc: Whether the explosion places fire in the blast area
+                                type: boolean
+                                default: false
+                            at_target:
+                                desc: If true, the explosion originates at the target's position; otherwise it originates at the actor's
+                                type: boolean
+                                default: false
+                            indestructible:
+                                desc: Block condition for blocks that are protected from the explosion regardless of destruction_type
+                                link: block_cond
+                            destructible:
+                                desc: Block condition for blocks that are explicitly allowed to be destroyed, taking priority over indestructible
+                                link: block_cond
                         string-sync:liberate_power:
                             power:
                                 desc: A single power ID to liberate
@@ -3821,6 +3844,16 @@ links:
                                 desc: Spawns the clone with the owner's enchantments.
                                 type: boolean
                                 default: true
+                            wide_texture: 
+                                desc: Custom skin texture used when the owner has a wide (classic/default) arm model
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
+                            slim_texture: 
+                                desc: Custom skin texture used when the owner has a slim arm model
+                                type: string
+                                allow: 'a-z0-9_\/:.-'
+                                hook: [ns]
                             bientity_action:
                                 desc: The bientity action to trigger after spawning the clone.
                                 link: bi_entity_action
@@ -3828,7 +3861,7 @@ links:
                             texture: 
                                 desc: The texture ID of the spawning minion.
                                 type: string
-                                allow: '*a-z0-9_\/:.-'
+                                allow: 'a-z0-9_\/:.-'
                                 default: "sync:textures/entity/minion_template.png"
                             follow_owner:
                                 desc: Enables the mionion following its summooner.
