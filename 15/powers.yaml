@@ -149,10 +149,12 @@ links:
                                 link: bi_entity_cond
                         string-sync:colliding:
                             offset:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_conditions%2Fcolliding.md
                                 desc: Offsets the actor's bounding box by this amount before the intersection test
                                 link: vector
                         string-sync:command:
-                            command: 
+                            command:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_conditions%2Fcommand.md
                                 desc: The command to execute. Can contain placeholders %a (actor UUID) and %t (target UUID) which will be replaced before execution.
                                 type: string
                                 ext: true
@@ -174,9 +176,7 @@ links:
                         string-sync:in_entity_set:
                             set:
                                 desc: The ID of the power to check whether the target entity is in.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
           - title: custom
             link: custom_condition
     entity_cond:
@@ -303,13 +303,15 @@ links:
 
                       - $SYNC
 
+                      - sync:attached_to_rope
                       - sync:disguised
                       - sync:entity_in_radius
                       - sync:entity_set_size
-                      - sync:flip_model
-                      - sync:key_pressed
+                      - sync:has_command_tag
                       - sync:in_pose
                       - sync:is_selected_stolen_power
+                      - sync:key_pressed
+                      - sync:mod_loaded
                       - sync:perspective
                       - sync:player_model_type
                       - sync:raycast
@@ -336,13 +338,11 @@ links:
                         string-origins:ability:
                             ability:
                                 desc: The namespace and ID of the ability to check that the entity has.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:advancement:
                             advancement:
                                 desc: ID of the advancement the player needs to have completed in order for this condition to evaluate to true.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:air:
                             comparison:
                                 desc: How the breath / air / bubble bar (in ticks) should be compared to the specified value.
@@ -354,8 +354,7 @@ links:
                             attribute:
                                 desc: ID of the attribute of which the value should be checked.
                                 href: https://minecraft.wiki/w/Attribute
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             comparison:
                                 desc: How the attribute's value should be compared to the specified value.
                                 link: comparison
@@ -373,8 +372,7 @@ links:
                             attribute:
                                 desc: ID of the attribute of which the value should be checked.
                                 href: https://minecraft.wiki/w/Attribute
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             comparison:
                                 desc: How the attribute's value should be compared to the specified value.
                                 link: comparison
@@ -385,15 +383,13 @@ links:
                             biome:
                                 desc: If set, this is the ID of the biome the player needs to be in for this condition to evaluate to true, e.g. minecraft:savanna.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             biomes:
                                 desc: If set, these are the allowed biome IDs the player can be in for this condition to evaluate to true.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: '*a-z0-9_#\/:.-'
+                                    link: identifier
                             condition:
                                 desc: If set, this condition needs to be fulfilled (in addition to having the right ID, if provided) by the biome in order for the condition to evaluate to true.
                                 link: biome_cond
@@ -509,8 +505,7 @@ links:
                         string-origins:dimension:
                             dimension:
                                 desc: ID of the dimension the player needs to be in for this condition to evaluate to true. Vanilla dimensions are minecraft:overworld, minecraft:the_nether and minecraft:the_end, but IDs of custom/modded dimensions should also work.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:distance_from_coordinates:
                             reference:
                                 desc: The point to compare the distance to.
@@ -592,8 +587,7 @@ links:
                         string-origins:enchantment:
                             enchantment:
                                 desc: ID of the enchantment of interest.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             calculation:
                                 desc: Which number to compare - either the sum of levels of this enchantment on all of the player's equipment, or the max level of this enchantment on any of the player's equipment.
                                 enum: [sum, max]
@@ -606,8 +600,7 @@ links:
                         string-origins-math:enchantment:
                             enchantment:
                                 desc: ID of the enchantment of interest.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             calculation:
                                 desc: Which number to compare - either the sum of levels of this enchantment on all of the player's equipment, or the max level of this enchantment on any of the player's equipment.
                                 enum: [sum, max]
@@ -625,8 +618,7 @@ links:
                         string-origins:entity_type:
                             entity_type:
                                 desc: ID of the entity type the entity needs to have to pass the check.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:equipped_item:
                             equipment_slot:
                                 desc: Which equipped item to check.
@@ -656,8 +648,7 @@ links:
                             fluid:
                                 desc: |
                                     ID of the fluid tag of which the height should be checked. Most important examples: minecraft:water and minecraft:lava.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             comparison:
                                 desc: How the fluid height should be compared to the specified value. A fluid height of 0 means the player is not touching the fluid.
                                 link: comparison
@@ -675,8 +666,7 @@ links:
                             fluid:
                                 desc: |
                                     ID of the fluid tag of which the height should be checked. Most important examples: minecraft:water and minecraft:lava.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             comparison:
                                 desc: How the fluid height should be compared to the specified value. A fluid height of 0 means the player is not touching the fluid.
                                 link: comparison
@@ -738,8 +728,7 @@ links:
                         string-origins:in_tag:
                             tag:
                                 desc: ID of the tag the entity type needs to be in to pass the check.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                         string-origins:inventory:
                             inventory_types:
                                 desc: Determines whether to check for items in the entity's inventory, inventories of powers present in the entity, or both. Defaults to ["inventory"]. If "inventory" is included, the player's main inventory will be checked. If "power" is included the player's bonus inventories given with powers will also be checked.
@@ -759,9 +748,7 @@ links:
                                 link: slot
                             power:
                                 desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
                                 link: comparison
@@ -788,9 +775,7 @@ links:
                                 link: slot
                             power:
                                 desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
                                 link: comparison
@@ -813,14 +798,10 @@ links:
                         string-origins:origin:
                             origin:
                                 desc: ID of the origin the player needs to have to pass the check.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             layer:
                                 desc: If set, will check only the layer with the provided ID for the origin. By default it will check in any layer.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                         string-origins:passenger_recursive:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
@@ -866,29 +847,22 @@ links:
                         string-origins:power_active:
                             power:
                                 desc: ID of the power which will be checked for being active.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                         string-origins:power_type:
                             power_type:
                                 desc: The namespace and ID of a power type of some power to check that the player has.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                         string-origins:power:
                             power:
                                 desc: ID of the power the player needs to have to pass the check.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             source:
                                 desc: ID of the source of the power the player needs to have to pass the check.
                                 type: string
                         string-origins:predicate:
                             predicate:
                                 desc: ID of the predicate the entity needs to pass.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                         string-origins:raycast:
                             distance:
                                 desc: Determines the maximum distance the raycast will travel.
@@ -983,9 +957,7 @@ links:
                         string-origins:resource:
                             resource:
                                 desc: ID of the power type that defines the resource. Must be a Resource (Power Type) which exists on the player.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             comparison:
                                 desc: How the resource's value should be compared to the specified value.
                                 link: comparison
@@ -995,9 +967,7 @@ links:
                         string-origins-math:resource:
                             resource:
                                 desc: ID of the power type that defines the resource. Must be a Resource (Power Type) which exists on the player.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             comparison:
                                 desc: How the resource's value should be compared to the specified value.
                                 link: comparison
@@ -1078,8 +1048,7 @@ links:
                         string-origins:status_effect:
                             effect:
                                 desc: ID of the status effect the player should have.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             min_amplifier:
                                 desc: The minimum amplifier the status effect should have in order to pass the check. Defaults to 0.
                                 link: integer_amp
@@ -1095,8 +1064,7 @@ links:
                         string-origins-math:status_effect:
                             effect:
                                 desc: ID of the status effect the player should have.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             min_amplifier:
                                 desc: The minimum amplifier the status effect should have in order to pass the check. Defaults to 0.
                                 link: math_integer_amp
@@ -1113,8 +1081,7 @@ links:
                             fluid:
                                 desc: |
                                     Submerged means the entities' eyes are inside that fluid. ID of the fluid tag that should be checked. Most important examples: minecraft:water and minecraft:lava.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:swimming: {}
                         string-origins:tamed: {}
                         string-origins:time_of_day:
@@ -1183,117 +1150,127 @@ links:
                         string-origins-math:compare_resources:
                             left_resource:
                                 desc: The namespace and ID of the power that uses the Resource (Power Type) or has a built-in cooldown.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: namespace
                             comparison:
                                 desc: Determines how the value of left_resource should be compared to right_resource.
                                 link: comparison
                             right_resource:
                                 desc: The namespace and ID of the power that uses the Resource (Power Type) or has a built-in cooldown.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                         string-origins-math:empty_resource:
                             resource:
                                 desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type), Resource (Power Type) or has a built-in cooldown.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                         string-origins-math:full_resource:
                             resource:
                                 desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type), Resource (Power Type) or has a built-in cooldown.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                         string-origins-math:relative_resource:
                             resource:
                                 desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type), Resource (Power Type) or has a built-in cooldown.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             comparison:
                                 desc: Determines how the relativity value of resource should be compared to relativity.
                                 link: comparison
                             relativity:
                                 desc: The relativity value at which the relativity of the resource will be compared to.
                                 link: math_number
+                        string-sync:attached_to_rope:
+                            anchor_type:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fattached_to_rope.md
+                                desc: Filters which ropes to count.
+                                enum: [any, block, entity, leash, swing]
+                            comparison:
+                                desc: Comparison operator applied between the matching rope count and compare_to.
+                                link: comparison
+                            compare_to:
+                                desc: Value the rope count is compared against.
+                                type: Integer
+                                default: 1
                         string-sync:disguised: {}
                         string-sync:entity_in_radius:
                             bientity_condition:
-                                desc: The bi-entity condition to evaluate on either or both the 'actor' and 'target(s)'
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fentity_in_radius.md
+                                desc: Optional condition to filter counted entities
                                 link: bi_entity_cond
                             shape:
-                                desc: Determines the shape of the area used for checking how many entities fulfill the bi-entity condition. Accepts "cube", "star", or "sphere".
+                                desc: Determines the shape of the area used for checking how many entities fulfill the bi-entity condition.
                                 enum: [cube, star, sphere]
                             radius:
-                                desc: Determines the radius of the area used for checking how many entities fulfill the bi-entity condition.
+                                desc: Radius/distance for detection
                                 type: number
                             comparison:
-                                desc: Determines how the amount of entities that fulfill the bi-entity condition should be compared to a specific value.
+                                desc: How to compare the count
                                 link: comparison
                             compare_to:
-                                desc: The value at which the amount of entities that fulfill the bi-entity condition will be compared to.
+                                desc: Minimum number of entities required
                                 type: integer
                                 default: 1
                         string-sync:entity_set_size:
                             set:
-                                desc: The ID of the power.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fentity_set_size.md
+                                desc: The Entity Set power to check
+                                link: namespace
                             comparison:
-                                desc: Determines how the amount of referenced entities in the specified power should be compared to the specified value.
+                                desc: How to compare the size
                                 link: comparison
                             compare_to:
-                                desc: The value at which the amount of referenced entities in the specified power will be compared to.
+                                desc: Value to compare against
                                 type: integer
-                        string-sync:flip_model:
-                            flip_view:
-                                desc: Whether or not the entity is flipped.
-                                type: boolean
-                                default: true
                         string-sync:has_command_tag:
                             command_tag:
-                                desc: If specified, checks if the entity has this command tag.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fhas_command_tag.md
+                                desc: Single tag to check for
+                                link: identifier
                             command_tags:
-                                desc: If specified, checks if the entity has these command tags.
+                                desc: Multiple tags that must all be present
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: '*a-z0-9_\/:.-'
-                        string-sync:key_pressed:
-                            key:
-                                desc: The key being pressed.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                            continuous:
-                                desc: Whether or not the key is being continuously held down.
-                                type: boolean
-                                default: true
+                                    link: identifier
                         string-sync:in_pose:
                             pose:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fin_pose.md
                                 desc: The entity's pose to check for.
-                                enum: [standing, fall_flying, sleeping, swimming, spin_attack]
+                                link: identifier
                         string-sync:is_selected_stolen_power:
                             source:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fis_selected_stolen_power.md
                                 desc: If provided, returns true only if the currently selected stolen package came from this source identifier
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: identifier
+                        string-sync:key_pressed:
+                            key:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fkey_pressed.md
+                                desc: Translation key of the key to check
+                                link: identifier
+                            continuous:
+                                desc: Whether to check for continuous press or just the initial press
+                                type: boolean
+                                default: true
+                        string-sync:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fmod_loaded.md
+                                desc: A single mod ID to check for
+                                link: namespace
+                            mods:
+                                desc: Multiple mod IDs (all must be loaded)
+                                type: list
+                                vals:
+                                    link: namespace
                         string-sync:perspective:
                             perspectives:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fperspective.md
                                 desc: One or more perspective names the entity must match.
                                 type: list
                                 vals:
                                     enum: [first_person, third_person_front, third_person_back]
                         string-sync:player_model_type:
                             model_type:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fplayer_model_type.md
                                 desc: The model type to check for.
                                 enum: [slim, wide]
                         string-sync:raycast:
                             distance:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fraycast.md
                                 desc: Maximum range for both block and entity raycasting. Defaults to the entity's effective reach (respecting reach-entity-attributes if present)
                                 type: number
                             block:
@@ -1333,19 +1310,24 @@ links:
                                 link: block_cond
                         string-sync:velocity:
                             x:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fvelocity.md
                                 desc: Compares the X component of velocity using comparison
                                 type: number
+                                default: unspec
                             y:
                                 desc: Compares the Y component of velocity using comparison
                                 type: number
+                                default: unspec
                             z:
                                 desc: Compares the Z component of velocity using comparison
                                 type: number
+                                default: unspec
                             axes:
                                 desc: List of axes ("x", "y", "z") whose velocity values are summed and compared to compare_to
                                 type: list
                                 vals:
                                     enum: [x, y, z]
+                                default: unspec
                             comparison:
                                 desc: The comparison operator used in both modes
                                 link: comparison
@@ -1399,6 +1381,8 @@ links:
 
                       - sync:fuel
                       - sync:holder_condition
+                      - sync:mod_loaded
+                      - sync:on_cooldown
                     more:
                         string-origins:and:
                             conditions:
@@ -1464,8 +1448,7 @@ links:
                         string-origins:enchantment:
                             enchantment:
                                 desc: Optional; ID of the enchantment of interest to check the level of on the item, e.g. minecraft:protection. If not provided, all enchantments are counted.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             comparison:
                                 desc: How the enchantment level should be compared to the specified value.
                                 link: comparison
@@ -1475,8 +1458,7 @@ links:
                         string-origins-math:enchantment:
                             enchantment:
                                 desc: Optional; ID of the enchantment of interest to check the level of on the item, e.g. minecraft:protection. If not provided, all enchantments are counted.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             comparison:
                                 desc: How the enchantment level should be compared to the specified value.
                                 link: comparison
@@ -1532,6 +1514,7 @@ links:
                         string-origins:smeltable: {}
                         string-sync:fuel:
                             comparison:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Ffuel.md
                                 desc: How the item’s fuel burn time should be compared to compare_to.
                                 link: comparison
                             compare_to:
@@ -1539,8 +1522,21 @@ links:
                                 type: integer
                         string-sync:holder_condition:
                             condition:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Fholder_condition.md
                                 desc: The condition to test on the holder. If omitted, the condition simply returns true when a holder exists.
                                 link: entity_cond
+                        string-sync:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Fmod_loaded.md
+                                desc: A single mod ID to check for
+                                link: namespace
+                                default: unspec
+                            mods:
+                                desc: Multiple mod IDs (all must be loaded)
+                                type: list
+                                vals:
+                                    link: namespace
+                        string-sync:on_cooldown: {}
           - title: custom
             link: custom_condition
     block_cond:
@@ -1618,8 +1614,7 @@ links:
                             block:
                                 desc: ID of the block that this block needs to be to pass the check.
                                 href: https://minecraft.wiki/w/Java_Edition_data_values/Blocks
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                         string-origins:block_state:
                             property:
                                 desc: |
@@ -1695,8 +1690,7 @@ links:
                         string-origins:in_tag:
                             tag:
                                 desc: ID of the tag which the block should be in to pass the check.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                         string-origins:light_blocking: {}
                         string-origins:light_level:
                             light_type:
@@ -1712,15 +1706,13 @@ links:
                         string-origins:material:
                             material:
                                 desc: If specified, checks if the block classifies as this material. Click to see a list of valid materials.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
                                 href: https://origins.readthedocs.io/en/latest/misc/extras/materials/
+                                link: identifier
                             materials:
                                 desc: If specified, checks if the block classifies as one of these materials.
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                    link: identifier
                         string-origins:movement_blocking: {}
                         string-origins:nbt:
                             nbt:
@@ -1792,13 +1784,11 @@ links:
                         string-origins:fluid:
                             fluid:
                                 desc: ID of the fluid to match. Vanilla examples are minecraft:water and minecraft:lava.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                         string-origins:in_tag:
                             tag:
                                 desc: ID of the tag which the fluid should be in to pass the check.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                         string-origins:still: {}
           - title: custom
             link: custom_condition
@@ -1932,8 +1922,7 @@ links:
                             tag:
                                 href: https://minecraft.wiki/w/Tag#Damage_types
                                 desc: The namespace and ID of the tag which the damage type should be in to pass the check.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:name:
                             name:
                                 desc: Name the damage source should have to pass the check. Click to see a list of vanilla damage source names.
@@ -1943,8 +1932,7 @@ links:
                         string-origins:projectile:
                             projectile:
                                 desc: If set, the check will only pass if the projectile was of an entity type with this ID.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             projectile_condition:
                                 desc: If set, the check will only pass if the projectile entity fulfills this condition.
                                 link: entity_cond
@@ -1990,11 +1978,13 @@ links:
 
                       - sync:loop
                       - sync:add_to_entity_set
+                      - sync:convert_entity
                       - sync:disguise
                       - sync:execute_command
                       - sync:explode
                       - sync:liberate_power
                       - sync:remove_from_entity_set
+                      - sync:rope_leash
                       - sync:suppress_power
                       - sync:transfer
                     more:
@@ -2122,8 +2112,7 @@ links:
                                 link: damage_source
                             damage_type:
                                 desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins-math:add_velocity:
                             x:
                                 desc: The amount of velocity to add on the x-axis. Defaults to 0.
@@ -2154,8 +2143,7 @@ links:
                                 link: damage_source
                             damage_type:
                                 desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:mount: {}
                         string-origins:set_in_love: {}
                         string-origins:tame: {}
@@ -2166,14 +2154,10 @@ links:
                         string-origins-math:copy_resource_value:
                             target_resource:
                                 desc: The target's resource power with the value to be copied.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             actor_resource:
                                 desc: The actor's resource power the target's resource value is copied over to.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             operation:
                                 desc: Determines if the action should add or set the value of the resource.
                                 enum: [add,set]
@@ -2195,20 +2179,31 @@ links:
                                 link: variables
                         string-sync:add_to_entity_set:
                             set:
-                                desc: The ID of the power to add the target entity into.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fadd_to_entity_set.md
+                                desc: The Entity Set power to add the target to.
+                                link: namespace
                             time_limit:
-                                desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
+                                desc: Duration (in ticks) the entity should remain in the set. After this time, the entity is automatically removed.
                                 type: integer
+                                default: unspec
+                        string-sync:convert_entity:
+                            convert_to:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fconvert_entity.md
+                                desc: The entity type to convert the target into.
+                                link: identifier
+                            ignore_difficulty:
+                                desc: If false, the conversion will only succeed depending on the world difficulty. On Peaceful/Easy, it never converts, On Normal, 50% chance, On Hard, it always converts
+                                type: boolean
+                                default: true
                         string-sync:disguise:
                             overwrite:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fdisguise.md
                                 desc: If false, the disguise will not be applied when the actor is already disguised as something else.
                                 type: boolean
                                 default: true
                         string-sync:execute_command:
                             command:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fexecute_command.md
                                 desc: The command to execute. Can contain placeholders %a (actor UUID) and %t (target UUID) which will be replaced before execution.
                                 type: string
                                 ext: true
@@ -2222,6 +2217,7 @@ links:
                                 default: '%t'
                         string-sync:explode:
                             power:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fexplode.md
                                 desc: The blast radius/power of the explosion
                                 type: number
                                 default: 1
@@ -2245,46 +2241,39 @@ links:
                                 link: block_cond
                         string-sync:liberate_power:
                             power:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fliberate_power.md
                                 desc: A single power ID to liberate
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             powers:
                                 desc: Additional power IDs to liberate
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             power_types:
                                 desc: Factory-type IDs; all suppressed powers of these types are liberated
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             power_sources:
                                 desc: Source IDs; suppressed powers granted via a listed source are liberated
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             ignored_powers:
                                 desc: Power IDs that are never liberated, even if they match another filter
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             bientity_action:
                                 desc: Executed once for every power that gets liberated
                                 link: bi_entity_action
                         string-sync:loop:
                             value:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
                                 desc: Number of times action is executed
                                 type: integer
                                 default: 1
+                                min: 1
                             ticks:
                                 desc: Tick interval between iterations. Minimum effective value is 1
                                 type: integer
@@ -2301,59 +2290,61 @@ links:
                                 link: bi_entity_action
                         string-sync:remove_from_entity_set:
                             set:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fremove_from_entity_set.md
                                 desc: The ID of the power to remove the target entity from.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
+                        string-sync:rope_leash:
+                            max_length:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Frope_leash.md
+                                desc: Maximum rope length in blocks. The actual initial length is the distance from player to target, clamped to this value
+                                type: number
+                                default: 10.0
+                            texture:
+                                desc: Resource location of the texture applied to the rendered rope
+                                link: identifier
+                                default: sync:textures/rope/rope.png
+                            mode:
+                                desc: Controls whether this activation attaches a new leash, detaches an existing one, or toggles between the two for the bi-entity target.
+                                enum: [toggle, attach, detach, detach_all]
                         string-sync:suppress_power:
                             power:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fsuppress_power.md
                                 desc: A single power ID to suppress
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             powers:
                                 desc: Additional power IDs to suppress
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             power_types:
                                 desc: Factory-type IDs (e.g. origins:active_self); all powers of these types are suppressed
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             power_sources:
                                 desc: Source IDs; all powers granted via a listed source are suppressed
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             ignored_powers:
                                 desc: Power IDs that are never suppressed, even if they match another filter
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: 'a-z0-9_\/:.-'
-                                    hook: [ns]
+                                    link: namespace
                             bientity_action:
                                 desc: Executed once for every power that gets suppressed
                                 link: bi_entity_action
                         string-sync:transfer:
                             mode:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Ftransfer.md
                                 desc: Transfer direction. "steal" takes powers from target to actor. "give" returns the actor's selected stolen package to the target. "auto" reads the actor's current mode
                                 enum: [steal, give, auto]
                             source:
                                 desc: When stealing, only powers from this specific source are taken. Omit to steal from all sources
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: namespace
                             transfer_source:
                                 desc: The source identifier under which stolen powers are granted to the actor
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                                 default: "sync:transferred"
                             strip_from_donor:
                                 desc: If true, powers are removed from the donor after being transferred
@@ -2471,10 +2462,16 @@ links:
                       - $SYNC
 
                       - sync:loop
+                      - sync:action_on_entity_set
+                      - sync:attach_rope
+                      - sync:attach_rope_entity
+                      - sync:change_selected_slot
+                      - sync:change_slot
                       - sync:custom_projectile
                       - sync:cycle_stolen_power
                       - sync:disguise_as
                       - sync:grant_all_powers
+                      - sync:item_cooldown
                       - sync:print
                       - sync:radial_menu
                       - sync:random_teleport
@@ -2482,9 +2479,9 @@ links:
                       - sync:remove_disguise
                       - sync:revoke_all_powers
                       - sync:revoke_power
-                      - sync:set_summon_max_life_ticks
                       - sync:save_location
                       - sync:set_no_gravity
+                      - sync:set_summon_max_life_ticks
                       - sync:summon_clone
                       - sync:summon_minion
                       - sync:teleport_to_location
@@ -2670,8 +2667,7 @@ links:
                                 or:
                                   - type: number
                                     default: 16
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             include_target:
                                 desc: Determines whether the entity this action was executed on is included in the radius check.
                                 type: boolean
@@ -2688,9 +2684,7 @@ links:
                         string-origins:change_resource:
                             resource:
                                 desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             change:
                                 desc: This value will be added to the resource (won't go below min or above max of the Resource Resource (Power Type)).
                                 type: integer
@@ -2700,8 +2694,7 @@ links:
                         string-origins:clear_effect:
                             effect:
                                 desc: If specified, the effect with this ID will be cleared. If not specified, all effects will be cleared.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:crafting_table: {}
                         string-origins:damage:
                             amount:
@@ -2713,8 +2706,7 @@ links:
                                 link: damage_source
                             damage_type:
                                 desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins-math:damage:
                             amount:
                                 desc: The amount of damage to deal.
@@ -2724,8 +2716,7 @@ links:
                                 link: damage_source
                             damage_type:
                                 desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:dismount: {}
                         string-origins:drop_inventory:
                             inventory_type:
@@ -2749,9 +2740,7 @@ links:
                                 type: integer
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to drop.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             throw_randomly:
                                 desc: Whether or not to throw the item in a random direction around the player instead of in front of them.
                                 type: boolean
@@ -2781,9 +2770,7 @@ links:
                                 link: math_integer
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to drop.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             throw_randomly:
                                 desc: Whether or not to throw the item in a random direction around the player instead of in front of them.
                                 type: boolean
@@ -2795,8 +2782,7 @@ links:
                             event:
                                 desc: The ID of a game event to emit. Click to see vanilla game events.
                                 href: https://minecraft.wiki/w/Sculk_Sensor#Vibration_amplitudes
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:ender_chest: {}
                         string-origins:equipped_item_action:
                             equipment_slot:
@@ -2876,8 +2862,7 @@ links:
                         string-origins:fire_projectile:
                             entity_type:
                                 desc: The ID of the entity type that will be fired.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use. Defaults to 1.
                                 type: integer
@@ -2903,32 +2888,28 @@ links:
                         string-origins-math:fire_projectile:
                             entity_type:
                                 desc: The ID of the entity type that will be fired.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use. Defaults to 1.
                                 or:
                                   - type: integer
                                     default: 1
                                     min: 1
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             speed:
                                 desc: The speed applied to the fired projectile. Defaults to 1.5.
                                 or: 
                                   - type: number
                                     min: 0
                                     default: 1.5
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             divergence:
                                 desc: How much each projectile fired is affected by random spread. Defaults to 1.
                                 or:
                                   - type: number
                                     min: 0
                                     default: 1
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             tag:
                                 desc: NBT data of the entity.
                                 type: string
@@ -2958,14 +2939,11 @@ links:
                         string-origins:grant_advancement:
                             advancement:
                                 desc: The namespace and ID of the advancement to be granted to the player.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:grant_power:
                             power:
                                 desc: The ID of the power to be granted to the entity.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             source:
                                 desc: The source of the power. Can realistically be anything, but make sure to keep note of it.
                                 type: string
@@ -3000,9 +2978,7 @@ links:
                                 link: slot
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to modify.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             process_mode:
                                 link: process_mode
                             limit:
@@ -3028,9 +3004,7 @@ links:
                                 link: slot
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to modify.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             process_mode:
                                 link: process_mode
                             limit:
@@ -3039,9 +3013,7 @@ links:
                         string-origins:modify_resource:
                             resource:
                                 desc: The resource to modify.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             modifier:
                                 desc: The modifier to apply to the given power resource.
                                 link: a_mod
@@ -3068,8 +3040,7 @@ links:
                         string-origins:play_sound:
                             sound:
                                 desc: ID of the sound to play.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             volume:
                                 desc: The volume of the sound.
                                 type: number
@@ -3084,16 +3055,14 @@ links:
                         string-origins-math:play_sound:
                             sound:
                                 desc: ID of the sound to play.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             volume:
                                 desc: The volume of the sound.
                                 or: 
                                   - type: number
                                     default: 1
                                     min: 0
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             pitch:
                                 desc: The pitch of the sound.
                                 or:
@@ -3101,8 +3070,7 @@ links:
                                     default: 1
                                     min: 0
                                     max: 2
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                         string-origins:raycast:
                             distance:
                                 desc: Determines the maximum distance the raycast will travel.
@@ -3255,9 +3223,7 @@ links:
                                 link: slot
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to replace.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             stack:
                                 desc: The item stack to replace with.
                                 link: item_stack
@@ -3267,14 +3233,11 @@ links:
                         string-origins:revoke_advancement:
                             advancement:
                                 desc: The namespace and ID of the advancement to be revoked from the player.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:revoke_power:
                             power:
                                 desc: The ID of the power to be revoked from the entity.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             source:
                                 desc: The source of the power.
                                 type: string
@@ -3315,9 +3278,7 @@ links:
                         string-origins:set_resource:
                             resource:
                                 desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             value:
                                 desc: The value the resource will be set to (won't go below min or above max of the Resource).
                                 type: integer
@@ -3354,9 +3315,7 @@ links:
                         string-origins-math:set_resource:
                             resource:
                                 desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
-                                hooks: [ns]
+                                link: namespace
                             value:
                                 desc: The value the resource will be set to (won't go below min or above max of the Resource).
                                 link: math_integer
@@ -3384,8 +3343,7 @@ links:
                         string-origins:spawn_entity:
                             entity_type:
                                 desc: The ID of the entity type that will be spawned.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                             tag:
                                 desc: When set, this NBT data will be applied to the new entity when it is spawned.
                                 type: string
@@ -3445,48 +3403,39 @@ links:
                         string-origins:toggle:
                             power:
                                 desc: The namespace and ID of a power that uses the origins:toggle power type to toggle the state of.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                         string-origins:trigger_cooldown:
                             power:
                                 desc: ID of the cooldown power which should trigger, as if that power has just been used.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hooks: [ns]
+                                link: namespace
                         string-apugli:fire_projectile:
                             entity_type:
                                 desc: The ID of the entity type that will be fired.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use. Defaults to 1.
                                 or:
                                   - type: integer
                                     default: 1
                                     min: 1
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             speed:
                                 desc: The speed applied to the fired projectile. Defaults to 1.5.
                                 or: 
                                   - type: number
                                     min: 0
                                     default: 1.5
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             divergence:
                                 desc: How much each projectile fired is affected by random spread. Defaults to 1.
                                 or:
                                   - type: number
                                     min: 0
                                     default: 1
-                                  - type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                  - link: identifier
                             sound:
                                 desc: If set, the sound with this ID will be played when the power is used.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             tag:
                                 desc: NBT data of the entity.
                                 type: string
@@ -3497,23 +3446,17 @@ links:
                         string-eggolib:calculate_resource:
                             target:
                                 desc: The namespace, path and ID of the power to calculate the value of.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             operation:
                                 desc: Determines how the value of the source power will be calculated to the value of the target power.
                                 link: math_operation
                             source:
                                 desc: The namespace, path and ID of the power to use the value of.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                         string-origins-math:change_resource:
                             resource:
                                 desc: The namespace and ID of the power that uses the Resource (Power Type) or it's extensions, or has a built-in cooldown.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             change:
                                 desc: This value will be added to the resource (won't go below min or above max of the Resource (Power Type)).
                                 link: math_number
@@ -3523,9 +3466,7 @@ links:
                         string-origins-math:variable_change_resource:
                             resource:
                                 desc: The namespace and ID of the power that uses the Resource (Power Type) or has a built-in cooldown.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                             expression:
                                 desc: The mathematical expression that gives the value that will be added to/set as the value (won't go below min or above max of the Resource (Power Type)).
                                 link: expression
@@ -3543,15 +3484,85 @@ links:
                             variables:
                                 desc: A variable declaration declaring variables used inside the command.
                                 link: variables
+                        string-sync:action_on_entity_set:
+                            set:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Faction_on_entity_set.md
+                                desc: The Entity Set power to act upon
+                                link: namespace
+                            bientity_action:
+                                desc: Action to execute on each entity in the set
+                                link: bi_entity_action
+                            bientity_condition:
+                                desc: Condition to filter which entities receive the action
+                                link: bi_entity_cond
+                            limit:
+                                desc: Maximum number of entities to affect (0 = no limit)
+                                type: integer
+                                default: 0
+                            reverse:
+                                desc: Whether to process entities in reverse order
+                                type: boolean
+                                default: false
+                        string-sync:attach_rope:
+                            max_length:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fattach_rope.md
+                                desc: Maximum rope length in blocks. The actual initial length is the distance from the player to the anchor block, clamped to this value
+                                type: number
+                                default: 30.0
+                            texture:
+                                desc: Resource location of the texture applied to the rendered rope
+                                link: identifier
+                                default: sync:textures/rope/rope.png
+                            mode:
+                                desc: Controls whether this activation attaches a new rope, detaches an existing one, or toggles between the two for the block the player is looking at.
+                                enum: [toggle, attach, detach, detach_all]
+                        string-sync:attach_rope_entity:
+                            max_length:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fattach_rope_entity.md
+                                desc: Maximum rope length in blocks. The actual initial length is the distance from the player to the target entity, clamped to this value
+                                type: number
+                                default: 30.0
+                            texture:
+                                desc: Resource location of the texture applied to the rendered rope
+                                link: identifier
+                                default: sync:textures/rope/rope.png
+                            mode:
+                                desc: Controls whether this activation attaches a new rope, detaches an existing one, or toggles between the two for the entity the player is looking at.
+                                enum: [toggle, attach, detach, detach_all]
+                        string-sync:change_selected_slot:
+                            slot:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fchange_selected_slot.md
+                                desc: The hotbar slot to select. Must be in the range 0 (far-left) to 8 (far-right). Values outside this range are clamped automatically
+                                type: integer
+                                min: 0
+                                max: 8
+                                default: 0
+                        string-sync:change_slot:
+                            slot_a:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fchange_slot.md
+                                desc: The first slot. Uses Apoli's standard slot names
+                                link: identifier
+                            slot_b:
+                                href: https://origins.readthedocs.io/en/latest/types/data_types/item_slot/
+                                desc: The second slot. See link for Apoli's standard slot names
+                                link: identifier
+                            operation:
+                                desc: Either "swap" or "move".
+                                enum: [swap, move]
+                            inventory_type:
+                                desc: Either "inventory" (player/entity inventory) or "power" (an apoli:inventory power)
+                                enum: [inventory, power]
+                            power:
+                                desc: Required when inventory_type is "power". Points to an apoli:inventory power
+                                link: namespace
                         string-sync:custom_projectile:
                             entity_id:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fcustom_projectile.md
                                 desc: Identifier for tracking the projectile
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                             texture_location:
                                 desc: If specified, the texture used for the custom projectile.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use.
                                 type: integer
@@ -3568,8 +3579,7 @@ links:
                                 min: 0
                             sound:
                                 desc: If set, the sound with this ID will be played when the power is used.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                             tag:
                                 desc: NBT data to apply to projectiles
                                 type: string
@@ -3607,18 +3617,19 @@ links:
                                 link: bi_entity_action
                         string-sync:cycle_stolen_power:
                             delta:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fcycle_stolen_power.md
                                 desc: How many slots to advance. Positive moves forward, negative moves backward
                                 type: integer
                                 default: 1
                         string-sync:disguise_as:
                             entity_type:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fdisguise_as.md
                                 desc: The entity type to disguise as
+                                link: identifier
+                            nbt:
+                                desc: NBT data applied to the disguise entity. Used to set visual attributes such as variant, color, size, or custom name that the disguise adopts
                                 type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
-                            display_name:
-                                desc: Override the name shown in Jade / nameplates. Defaults to the entity type's translation key
-                                type: string
+                                ext: true
                             overwrite:
                                 desc: If false, the action does nothing when the entity already has an active disguise
                                 type: boolean
@@ -3631,12 +3642,30 @@ links:
                                 link: entity_action
                         string-sync:grant_all_powers:
                             source: 
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fgrant_all_powers.md
                                 desc: The source identifier whose powers should be granted
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: identifier
+                        string-sync:item_cooldown:
+                            items:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fitem_cooldown.md
+                                desc: Specific items to set cooldowns on.
+                                type: list
+                                vals:
+                                    link: identifier
+                                default: unspec
+                            item_tags:
+                                desc: Item tags matching multiple items to set cooldowns on. At least one of items or item_tags must be provided.
+                                type: list
+                                vals:
+                                    link: identifier
+                            ticks:
+                                desc: Duration of the cooldown in game ticks (20 ticks = 1 second).
+                                type: integer
+                                default: 20
+                                min: 1
                         string-sync:loop:
                             value:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
                                 desc: Number of times action is executed
                                 type: integer
                                 default: 1
@@ -3656,65 +3685,65 @@ links:
                                 link: entity_action
                         string-sync:print:
                             message:
-                                desc: The message to be printed.
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fprint.md
+                                desc: The message to print
                                 type: string
                             show_in_chat:
-                                desc: If true, the message will also be sent to the player's chat.
+                                desc: Whether to also send the message to the player's chat
                                 type: boolean
                                 default: false
                             logger_id:
-                                desc: The identifier used for the console logger. This allows customization of the log prefix.
+                                desc: Custom logger identifier for console output
                                 type: string
                                 default: "Sync/PrintAction"
                         string-sync:radial_menu:
                             entries:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fradial_menu.md
                                 desc: An array of radial menu entry objects.
                                 type: list
                                 vals:
                                     link: radial_menu_entry
+                            sprite_location:
+                                desc: Custom texture for the radial menu background (256x256 pixels)
+                                link: identifier
                         string-sync:random_teleport:
                             area_width:
-                                desc: Determines the width of the area.
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Frandom_teleport.md
+                                desc: The width of the teleport search area (diameter)
                                 type: number
                                 default: 8.0
                             area_height:
-                                desc: Determines the height of the area.
+                                desc: The height of the teleport search area (diameter)
                                 type: number
                                 default: 8.0
                             heightmap:
-                                desc: If specified, the location will be anchored above the highest Y level of the world determined by this heightmap type.
+                                desc: Optional heightmap type to find valid positions
                                 enum: [world_surface, world_surface_wg, ocean_floor, ocean_floor_wg, motion_blocking, motion_blocking_no_leaves]
                             attempts:
-                                desc: Determines how many attempts the entity should be teleported to a random location. Defaults to area_width * 2 + area_height * 2.
+                                desc: Number of random positions to try (defaults to area_width^2 + area_height^2)
                                 type: integer
                             landing_block_condition:
-                                desc: If specified, the entity will only be teleported on top of a block that fulfills this block condition. Otherwise, the entity will only be teleported on blocks that blocks movement or have solid collision.
+                                desc: Condition that landing block must satisfy
                                 link: block_cond
                             landing_condition:
-                                desc: If specified, the entity will only be teleported to a location if the entity fulfills this entity condition. Otherwise, the entity will only be teleported to a location that is empty (e.g. no blocks and fluids.)
+                                desc: Condition that the teleported entity must satisfy at landing location
                                 link: entity_cond
                             landing_offset:
-                                desc: Determines the offset of the location of where the entity will be teleported. If the X and Z offsets are specified, the X and Z coordinates of the location will be divided (floored) before applying the offset.
-                                type: object
-                                props:
-                                    x:
-                                        type: number
-                                    y:
-                                        type: number
-                                    z:
-                                        type: number
+                                desc: Offset from the found landing position
+                                link: vector
                             loaded_chunks_only:
-                               desc: Determines whether the entity should only be teleported in loaded chunks. It is recommended to keep this set to true for performance reasons.
+                               desc: Whether to only teleport to already loaded chunks
                                type: boolean
                                default: true
                             success_action:
-                                desc: If specified, this entity action will be executed on the entity after it's been successfully teleported to a random location.
+                                desc: Action to execute on successful teleport
                                 link: entity_action
                             fail_action:
-                                desc: If specified, this entity action will be executed on the entity upon failing to be teleported on a random location.
+                                desc: Action to execute if all attempts fail
                                 type: entity_action
                         string-sync:raycast:
                             distance:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fraycast.md
                                 desc: Maximum range for both block and entity raycasting. Defaults to the entity's effective reach (respecting reach-entity-attributes if present)
                                 type: number
                             block:
@@ -3795,21 +3824,19 @@ links:
                         string-sync:remove_disguise: {}
                         string-sync:revoke_all_powers:
                             source:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Frevoke_all_powers.md
                                 desc: The source identifier whose powers should be removed
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: identifier
                         string-sync:revoke_power:
                             power:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Frevoke_power.md
                                 desc: The power type to remove
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: namespace
                         string-sync:save_location:
                             id:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsave_location.md
                                 desc: Unique identifier for this saved location
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                                 required: true
                             overwrite:
                                 desc: Whether to overwrite an existing location with the same ID
@@ -3817,89 +3844,82 @@ links:
                                 default: true
                         string-sync:set_no_gravity:
                             value:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fset_no_gravity.md
                                 desc: If present, sets the entity’s no‑gravity flag to this value. If omitted, toggles the current value.
-                                type: boolean
+                                enum: [true, false]
                                 default: unspec
                         string-sync:set_summon_max_life_ticks:
                             amount:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fset_summon_max_life.md
                                 desc: The lifetime of the summon in ticks
                                 type: integer
                         string-sync:summon_clone:
                             can_sit:
-                                desc: Enable the clone to sit.
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsummon_clone.md
+                                desc: Whether the clone can sit when right-clicked by its owner
                                 type: boolean
                                 default: true
                             can_attack:
-                                desc: Enable the clone to attack.
+                                desc: Whether the clone can attack hostile mobs
                                 type: boolean
                                 default: true
                             follow_owner:
-                                desc: Enable the clone following its summoner.
+                                desc: Whether the clone follows its owner
                                 type: boolean
                                 default: true
                             inherit_equipment:
-                                desc: Spawns the clone with the owner's equipment.
+                                desc: Whether the clone copies the player's armor and held items at the moment of summoning
                                 type: boolean
                                 default: true
                             inherit_enchantments:
-                                desc: Spawns the clone with the owner's enchantments.
+                                desc: Whether inherited equipment also copies its enchantments
                                 type: boolean
                                 default: true
-                            wide_texture: 
+                            wide_texture:
                                 desc: Custom skin texture used when the owner has a wide (classic/default) arm model
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
-                            slim_texture: 
+                                link: identifier
+                            slim_texture:
                                 desc: Custom skin texture used when the owner has a slim arm model
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
-                                hook: [ns]
+                                link: identifier
                             bientity_action:
-                                desc: The bientity action to trigger after spawning the clone.
+                                desc: Action executed after the clone is summoned. The actor is the player who summoned the clone; the target is the clone itself.
                                 link: bi_entity_action
                         string-sync:summon_minion:
-                            texture: 
-                                desc: The texture ID of the spawning minion.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                            texture:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsummon_minion.md
+                                desc: Texture for the minion
+                                link: identifier
                                 default: "sync:textures/entity/minion_template.png"
                             follow_owner:
-                                desc: Enables the mionion following its summooner.
+                                desc: Whether the minion follows its owner
                                 type: boolean
                                 default: true
                             follow_offset:
-                                desc: The coordinate offset where the minion will follow to.
-                                type: object
-                                props:
-                                    x:
-                                        type: number
-                                    y:
-                                        type: number
-                                    z:
-                                        type: number
+                                desc: Offset position when following
+                                link: vector
                             scale:
-                                desc: The scale of the minion being summoned.
+                                desc: Size multiplier for the minion
                                 type: number
                                 default: 1.0
                             invulnerable:
-                                desc: Spawn the minion as invulnerable.
+                                desc: Whether the minion can take damage
                                 type: boolean
                                 default: false
                             max_life_ticks:
-                                desc: The lifespan of the minion in ticks.
+                                desc: Lifespan in ticks (20 ticks = 1 second)
                                 type: integer
                                 default: 1200
-                            "bientity_action":
-                                desc: The bientity action to trigger after spawning the minion.
+                            bientity_action:
+                                desc: Action to execute on the minion after summoning
                                 link: bi_entity_action
                         string-sync:teleport_to_location:
                             id:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fteleport_to_location.md
                                 desc: The identifier of the saved location to teleport to
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                         string-sync:teleport_to_spawn:
                             player_spawn:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fteleport_to_spawn.md
                                 desc: If true, teleports to the player's personal spawn point (bed or respawn anchor). If false, teleports to the world spawn point in the overworld.
                                 type: boolean
                                 default: false
@@ -3946,6 +3966,7 @@ links:
                       - $SYNC
 
                       - sync:loop
+                      - sync:cooldown
                       - sync:holder_action
                     more:
                         string-origins:nothing: {}
@@ -4065,19 +4086,16 @@ links:
                         string-origins:modify:
                             modifier:
                                 desc: The ID of an item modifier to apply to the item stack.
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         string-origins:remove_enchantment:
                             enchantment:
                                 desc: If set, specifies a single enchantment to remove,
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             enchantments:
                                 desc: If set, specifies a single enchantment to remove,
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: '*a-z0-9_#\/:.-'
+                                    link: identifier
                             levels:
                                 desc: If set, specifies the maximum number of levels to remove.
                                 type: integer
@@ -4087,14 +4105,12 @@ links:
                         string-origins-math:remove_enchantment:
                             enchantment:
                                 desc: If set, specifies a single enchantment to remove,
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                             enchantments:
                                 desc: If set, specifies a single enchantment to remove,
                                 type: list
                                 vals:
-                                    type: string
-                                    allow: '*a-z0-9_#\/:.-'
+                                    link: identifier
                             levels:
                                 desc: If set, specifies the maximum number of levels to remove.
                                 link: math_integer
@@ -4116,12 +4132,21 @@ links:
                                 desc: Determines if this action should ignore the Unbreaking enchantment.
                                 type: boolean
                                 default: false
+                        string-sync:cooldown:
+                            ticks:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_actions%2Fcooldown.md
+                                desc: Duration of the cooldown in game ticks (20 ticks = 1 second).
+                                type: integer
+                                default: 20
+                                min: 1
                         string-sync:holder_action:
                             action:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_actions%2Fholder_action.md
                                 desc: The action to perform on the holder of this item stack.
                                 link: entity_action
                         string-sync:loop:
                             value:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
                                 desc: Number of times action is executed
                                 type: integer
                                 default: 1
@@ -4275,8 +4300,7 @@ links:
                         string-origins:add_block:
                             block:
                                 desc: The ID of the block to place at the specified action position. Adding means setting the block at the position, offset by the direction of the action.
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                         string-origins:bonemeal:
                             effects:
                                 desc: Determines if the particle and other visual effects of the bonemeal-ing action should appear.
@@ -4339,9 +4363,9 @@ links:
                                 type: boolean
                         string-sync:ghost_block:
                             block:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=block_actions%2Fghost_block.md
                                 desc: The block ID to temporarily place
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                             nbt:
                                 desc: NBT data for the block entity (if the block has one)
                                 type: string
@@ -4364,6 +4388,7 @@ links:
                                 link: block_action
                         string-sync:loop:
                             value:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
                                 desc: Number of times action is executed
                                 type: integer
                                 default: 1
@@ -4383,15 +4408,15 @@ links:
                                 link: block_action
                         string-sync:spawn_entity:
                             entity_type:
-                                desc: The ID of the type of entity that will be spawned.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=block_actions%2Fspawn_entity.md
+                                desc: Type of entity to spawn
+                                link: identifier
                             tag:
-                                desc: If specified, this NBT data will be applied to the entity that will be spawned.
+                                desc: NBT data for the entity
                                 type: string
                                 ext: true
                             entity_action:
-                                desc: If specified, this entity action will be executed on the spawned entity.
+                                desc: Action to execute on the spawned entity
                                 link: entity_action
           - title: custom
             link: custom_action
@@ -4429,8 +4454,7 @@ links:
                             link: jsontxt
             sprite:
                 desc: The namespace, path and ID of the texture to use as the icon of the badge.
-                type: string
-                allow: '*a-z0-9_#\/:.-'
+                link: identifier
     power_meta:
         type: object
         show: true
@@ -4634,6 +4658,7 @@ links:
                   - sync:action_on_death
                   - sync:action_on_key_sequence
                   - sync:action_on_sending_message
+                  - sync:body_part_damage_modifier
                   - sync:custom_projectile
                   - sync:edible_item
                   - sync:emissive
@@ -4642,7 +4667,7 @@ links:
                   - sync:entity_texture_overlay
                   - sync:flip_model
                   - sync:mobs_ignore
-                  - sync:modify_enchantment_damage_type
+                  - sync:modify_enchantment_damage_dealt
                   - sync:modify_enchantment_level
                   - sync:modify_jade_tooltip
                   - sync:modify_label_render
@@ -4651,6 +4676,7 @@ links:
                   - sync:pose
                   - sync:prevent_creative_flight
                   - sync:prevent_sprinting_particles
+                  - sync:prevent_teleport
                   - sync:sprinting
                   
                 more:
@@ -4763,12 +4789,10 @@ links:
                             link: damage_source
                         damage_type:
                             desc: The damage type this power uses.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         protection_enchantment:
                             desc: If set, the total amount of levels of this enchantment will be counted on the player's armor to increase the onset_delay.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         protection_effectiveness:
                             desc: If protection_enchantment is set, this multiplier scales how effective it will be (1.0 = time the onset_delay is increased is the same as with Hydrophobia and Water Protection).
                             type: number
@@ -4780,14 +4804,12 @@ links:
                             type: boolean
                         effect:
                             desc: If specified, the effect with this ID can not be applied to the player.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         effects:
                             desc: If specified, the effects with these IDs can not be applied to the player.
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                     string-origins:elytra_flight:
                         render_elytra:
                             desc: Whether an Elytra should render on the player's back while this power is active.
@@ -4795,8 +4817,7 @@ links:
                             default: false
                         texture_location:
                             desc: If set, this will be the texture used by an Elytra granted by this power.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                     string-origins:entity_glow:
                         entity_condition:
                             desc: If set, only entities which fulfill this condition will glow for the player with this power.
@@ -4838,8 +4859,7 @@ links:
                     string-origins:fire_projectile:
                         entity_type:
                             desc: The ID of the entity type that will be fired.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         cooldown:
                             desc: The number of ticks the player has to wait between uses of this power.
                             type: integer
@@ -4875,8 +4895,7 @@ links:
                             default: 1
                         sound:
                             desc: If set, the sound with this ID will be played when the power is used.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         tag:
                             desc: NBT data of the entity.
                             type: string
@@ -4974,8 +4993,7 @@ links:
                             link: hud_render
                         sound:
                             desc: If set, the sound with this ID will be played when the power is used.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
                             link: key
@@ -5023,8 +5041,7 @@ links:
                     string-origins:overlay:
                         texture:
                             desc: The ID of the texture to use as an overlay.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         strength:
                             desc: |
                                 Value by which the alpha (transparency) component of the texture will be multiplied. Range: 0.0 to 1.0. Defaults to 1.
@@ -5210,8 +5227,7 @@ links:
                     string-origins:shader:
                         shader:
                             desc: Specifies the location of the shader resource file to use.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         toggleable:
                             desc: Determines if the applied shader can be toggled.
                             type: boolean
@@ -5256,8 +5272,7 @@ links:
                         texture:
                             desc: The ID of the sprite sheet to replace the default one with. Click to see what the vanilla sprite sheet looks like.
                             href: https://raw.githubusercontent.com/misode/mcmeta/6d496b1a91476c4fdd45fdb093d0319141f9c109/assets/minecraft/textures/gui/icons.png
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                     string-origins:swimming: {}
                     string-origins:toggle_night_vision:
                         active_by_default:
@@ -5305,8 +5320,7 @@ links:
                         fluid:
                             desc: |
                                 ID of the fluid tag on which the player should be able to walk. Most important examples: minecraft:water and minecraft:lava.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                     string-origins:action_on_being_used:
                         bientity_action:
                             desc: The action to be executed if specified.
@@ -5656,8 +5670,7 @@ links:
                         attribute:
                             desc: ID of the attribute of which the modifier should be applied.
                             href: https://minecraft.wiki/w/Attribute
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         modifier:
                             desc: If specified, this modifier will be applied to the entity's attribute.
                             link: a_mod
@@ -5672,8 +5685,7 @@ links:
                             link: block_cond
                         block:
                             desc: The ID of the block that would replace the block that meets the condition from the block_condition object field would look like.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                     string-origins:modify_break_speed:
                         block_condition:
                             desc: If set, the modifiers will only apply to blocks which satisfy this condition.
@@ -5696,8 +5708,7 @@ links:
                     string-origins:modify_crafting:
                         recipe:
                             desc: The ID of the recipe to be modified.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         item_condition:
                             desc: If set, it will only apply the item stack from the result field, and trigger the actions when this condition is met by the result item from the crafting recipe.
                             link: item_cond
@@ -5921,18 +5932,15 @@ links:
                     string-origins:modify_player_spawn:
                         dimension:
                             desc: ID of the dimension the player should spawn in. Vanilla dimensions are minecraft:overworld, minecraft:the_nether and minecraft:the_end, but IDs of custom/modded dimensions should also work.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         biome:
                             desc: If set, the player will spawn in the biome with this ID.
                             href: https://minecraft.wiki/w/Biome#Biome_IDs
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         structure:
                             desc: ID of the structure the player should spawn in. Keep in mind that the structure needs to generate in the specified dimension!
                             href: https://minecraft.wiki/w/Commands/locate#Arguments
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         spawn_strategy:
                             desc: Either default or center. default tries to find a spawn close to the coordinates of the overworld spawn (while considering the dimension_distance_multiplier). center tries to spawn the player close to 0, 0 of the dimension.
                             enum: [default, center]
@@ -5976,28 +5984,24 @@ links:
                     string-origins:modify_status_effect_amplifier:
                         status_effect:
                             desc: If specified, the namespace and ID of the status effect that will have its amplifier modified.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         status_effects:
                             desc: If specified, the namespace and ID of the status effects that will have their amplifiers modified.
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         modifier:
                             desc: The modifier to apply to the amplifier of the specified status effect.
                             link: a_mod
                     string-origins:modify_status_effect_duration:
                         status_effect:
                             desc: If specified, the namespace and ID of the status effect that will have its duration modified.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         status_effects:
                             desc: If specified, the namespace and ID of the status effects that will have their durations modified.
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         modifier:
                             desc: The modifier to apply to the duration of the specified status effect.
                             link: a_mod
@@ -6116,30 +6120,25 @@ links:
                             desc: |
                                 If specified, this feature renderer (e.g: armor layer, sheep wool layer, or the sub-classes that extends the FeatureRender super-class) will not be rendered to the entity that has the power.
                             href: https://origins.readthedocs.io/en/latest/types/power_types/prevent_feature_render/
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         features:
                             desc: If specified, these feature renderers will not be rendered.
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                     string-origins:prevent_game_event:
                         event:
                             desc: If specified, the game event with this namespace and ID will be prevent from being emitted by the entity.
                             href: https://origins.readthedocs.io/en/latest/types/power_types/prevent_game_event/
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         events:
                             desc: If specified, the game events with these namespace and IDs will be prevent from being emitted by the entity.
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_#\/:.-'
+                                link: identifier
                         tag:
                             desc: If specified, the game events inside game event tag will be prevented from being emitted by the entity.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         entity_action:
                             desc: If specified, this action will be executed on the entity upon preventing game events.
                             link: entity_action
@@ -6171,8 +6170,7 @@ links:
                             href: https://legacy.curseforge.com/minecraft/mc-mods/pehkui
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                                 default: extraorigins:modify_size
                     string-apugli:custom_death_sound:
                         muted:
@@ -6228,8 +6226,7 @@ links:
                             link: item_stack
                         sound:
                             desc: ID of the sound to play while eating an item affected by this power. If not set this will be the default eating/drinking sound.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
                         entity_action:
                             desc: If set, these action(s) will be executed on the entity eating this item.
                             link: entity_action
@@ -6269,27 +6266,23 @@ links:
                             desc: If specified, all sound events from these categories will be prevented from being heard by the entity that has the power. Can accept "ambient", "blocks", "hostile", "master", "music", "neutral", "players", "records", "voice" and "weather".
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                             unspec: true
                         sound:
                             desc: If specified, this sound event will be prevented from being heard by the entity that has the power.
-                            type: string
-                            allow: '*a-z0-9_\/:.-'
+                            link: identifier
                             unspec: true
                         sounds:
                             desc: If specified, these sound events will be prevented from being heard by the entity that has the power.
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                             unspec: true
                         whitelist:
                             desc: If specified, these sound events will be exempt from being prevented.
                             type: list
                             vals:
-                                type: string
-                                allow: '*a-z0-9_\/:.-'
+                                link: identifier
                             unspec: true
                     string-eggolib:crawling: {}
                     string-origins-math:attribute_like_resource:
@@ -6339,8 +6332,7 @@ links:
                     string-origins-math:attribute_linked_resource:
                         attribute:
                             desc: The ID of the attribute that this power will base it's value from.
-                            type: string
-                            allow: '*a-z0-9_\/:.-'
+                            link: identifier
                         value:
                             desc: The specific value of "attribute" this power will take.
                             link: a_val
@@ -6407,21 +6399,18 @@ links:
                     string-origins-math:scoreboard_linked_resource:
                         objective:
                             desc: The name of the scoreobard objective to retrieve the score of this entity from.
-                            type: string
-                            allow: 'a-z0-9_\/:.-'
+                            link: identifier
                     string-origins-math:status_effect_linked_resource:
                         effect:
                             desc: The ID of the Status Effect that this power will base it's value from.
-                            type: string
-                            allow: 'a-z0-9_\/:.-'
+                            link: identifier
                         property:
                             desc: The specific property of the Status Effect that this power will take as it's value.
                             link: effect_property
                     string-origins-math:modify_attribute_like_resource:
                         resource:
                             desc: The namespace and ID of the power that uses the Attribute-like Resource (Power Type)
-                            type: string
-                            allow: '*a-z0-9_\/:.-'
+                            link: namespace
                         modifier:
                             desc: If specified, this modifier will be applied to the resource' added values.
                             link: a_mod
@@ -6443,8 +6432,7 @@ links:
                     string-origins-math:modify_resource_maximum:
                         resource:
                             desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
-                            type: string
-                            allow: '*a-z0-9_\/:.-'
+                            link: namespace
                         modifier:
                             desc: If specified, this modifier will be applied to the resource's maximum value.
                             link: a_mod
@@ -6456,8 +6444,7 @@ links:
                     string-origins-math:modify_resource_minimum:
                         resource:
                             desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
-                            type: string
-                            allow: '*a-z0-9_\/:.-'
+                            link: namespace
                         modifier:
                             desc: If specified, this modifier will be applied to the resource's minimum value.
                             link: a_mod
@@ -6477,16 +6464,18 @@ links:
                                 link: a_mod
                     string-sync:action_on_death:
                         bientity_action:
-                            desc: The action to be executed on either or both the 'actor' and 'target' entities.
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_death.md
+                            desc: The action to execute when the entity dies. Receives a pair: (killer, victim).
                             link: bi_entity_action
                         bientity_condition:
-                            desc: If specified, the specified action will only be executed if this condition is fulfilled by either or both 'actor' and 'target' entities.
+                            desc: Condition that must be met between killer and victim.
                             link: bi_entity_cond
                         damage_condition:
-                            desc: If specified, the specified action will only be executed if this condition is fulfilled by the damage dealt by the 'actor' entity.
+                            desc: Condition that must be met by the damage source and amount.
                             link: damage_cond
                     string-sync:action_on_key_sequence:
                         success_action:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_key_sequence.md
                             desc: Action to execute when the player completes the sequence correctly.
                             link: entity_action
                         fail_action:
@@ -6509,13 +6498,12 @@ links:
                             desc: The exact order of keys (by their translation key) that the player must press to trigger success_action.
                             type: list
                             vals: 
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                     string-sync:action_on_sending_message:
                         message_type:
+                            horse: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_sending_message.md
                             desc: If specified, only messages of this type (e.g. minecraft:chat, minecraft:say_command) are processed. If omitted, all message types are processed.
-                            type: string
-                            allow: 'a-z0-9_\/:.-'
+                            link: identifier
                         filter:
                             desc: A single filter to apply. Cannot be used together with filters.
                             type: string
@@ -6529,20 +6517,46 @@ links:
                             desc: Determines the order in which powers of this type are evaluated when multiple are active. Higher priority runs first.
                             type: integer
                             default: 0
+                    string-sync:body_part_damage_modifier:
+                        modifiers:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fbody_part_damage_modifier.md
+                            desc: A list of body zone / modifier pairs. Each entry defines a region of the body and the modifier(s) to apply when that region is hit. Multiple entries can match the same hit.
+                            type: list
+                            vals:
+                                link: body_part_modifier
+                        damage_condition:
+                            desc: If present, the entire power only fires when this condition is satisfied by the incoming damage source and amount.
+                            link: damage_cond
+                        require_hit_data:
+                            desc: If true, the power only fires when real positional hit data is available (projectiles and player melee). Mob attacks and environmental damage are ignored entirely.
+                            type: boolean
+                            default: false
+                        show_hit_location:
+                            desc: DEBUG ONLY! If true, logs and displays the hit location (Head/Torso/Limbs/Feet) and normalized coordinates to both the target and attacker. Useful for testing.
+                            type: boolean
+                            default: false
                     string-sync:custom_projectile:
-                            entity_id:
-                                desc: Identifier for tracking the projectile
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                            cooldown:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fcustom_projectile.md
+                                desc: Interval of ticks this power needs to recharge before the power can be triggered again.
+                                type: integer
+                                default: 1
+                            hud_render:
+                                desc: Determines how the cooldown of this power is visualized on the HUD.
+                                link: hud_render
                             texture_location:
                                 desc: If specified, the texture used for the custom projectile.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use.
                                 type: integer
                                 default: 1
                                 min: 1
+                            interval:
+                                desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
+                                type: integer
+                                default: 0
+                                min: 0
                             speed:
                                 desc: The speed applied to the fired projectile.
                                 type: number
@@ -6554,12 +6568,15 @@ links:
                                 min: 0
                             sound:
                                 desc: If set, the sound with this ID will be played when the power is used.
-                                type: string
-                                allow: 'a-z0-9_\/:.-'
+                                link: identifier
                             tag:
-                                desc: NBT data to apply to projectiles
+                                desc: NBT data of the entity.
                                 type: string
                                 ext: true
+                            allow_conditional_cancelling:
+                                desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power's condition.
+                                type: boolean
+                                default: false
                             entity_action_before_firing:
                                 desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
                                 link: entity_action
@@ -6588,11 +6605,18 @@ links:
                             bientity_action_on_hit:
                                 desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
                                 link: bi_entity_action
+                            owner_target_bientity_action_on_hit:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+                                link: bi_entity_action
                             tick_bientity_action:
                                 desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
                                 link: bi_entity_action
+                            key:
+                                desc: Which active key this power should respond to.
+                                link: key
                     string-sync:edible_item:
                         item_condition:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fedible_item.md
                             desc: If specified, this action will be executed on the item consumed by the player.
                             link: item_cond
                         food_component:
@@ -6615,9 +6639,8 @@ links:
                             enum: ['EAT','DRINK']
                         consume_sound:
                             desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
-                            type: string
-                            allow: 'a-z0-9_\/:.-'
-                            hook: [ns]
+                            link: identifier
+                            default: entity.generic.eat
                         consuming_time_modifier:
                             desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
                             link: a_mod
@@ -6632,6 +6655,7 @@ links:
                             default: 0
                     string-sync:emissive:
                         light:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Femissive.md
                             desc: The static light level emitted by the entity (0-15). This is the base brightness.
                             type: integer
                         dynamic_light:
@@ -6639,8 +6663,9 @@ links:
                             type: integer
                     string-sync:energy_swirl:
                         texture_location:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fenergy_swirl.md
                             desc: The texture used for the energy swirl overlay. If omitted, the Wither armour texture is used.
-                            type: string
+                            link: identifier
                         size:
                             desc: The scale of the swirl relative to the entity’s normal size.
                             type: number
@@ -6651,20 +6676,25 @@ links:
                             default: 0.01
                     string-sync:entity_set:
                         action_on_add:
-                            desc: If specified, this bi-entity action will be executed on either or both the 'actor' and the 'target' upon the 'target' being added to the set.
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_set.md
+                            desc: Action executed when an entity is added to the set.
                             link: bi_entity_action
                         action_on_remove:
-                            desc: If specified, this bi-entity action will be executed on either or both the 'actor' and the 'target' upon the 'target' being removed from the set.
+                            desc: Action executed when an entity is removed from the set.
                             link: bi_entity_action
+                        tick_rate:
+                            desc: How often (in ticks) the set checks for temporary entity expiration.
+                            type: integer
+                            default: 1
+                            min: 1
                     string-sync:entity_texture_overlay:
                         wide_texture_location:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
                             desc: The namespace and ID of the wide (Steve) texture location.
-                            type: string
-                            allow: '*a-z0-9_\/:.-'
+                            link: identifier
                         slim_texture_location:
                             desc: The namespace and ID of the slim (Alex) texture location.
-                            type: string
-                            allow: '*a-z0-9_\/:.-'
+                            link: identifier
                         show_first_person:
                             desc: Enables showing the texture in first person view.
                             type: boolean
@@ -6703,26 +6733,27 @@ links:
                             default: false
                     string-sync:flip_model:
                         flip_view:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fflip_model.md
                             desc: Flip the player's view as well
                             type: boolean
                             default: false
                     string-sync:mobs_ignore:
                         mob_condition:
-                            desc: If set, this will determine what entity condition the entity must meet in order to be effected by this power.
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmobs_ignore.md
+                            desc: Condition that mobs must meet to ignore the entity.
                             link: entity_cond
                         bientity_condition:
-                            desc: If set, this will determine what bi-entity condition the entity must meet in order to be effected by this power.
+                            desc: Condition that must be met between mob and entity.
                             link: bi_entity_cond
                         provokable:
-                            desc: If set to true, then the mob(s) will retaliate against the player if attacked.
+                            desc: Whether mobs can be provoked to attack if damaged.
                             type: boolean
-                            default: false
+                            default: true
                     string-sync:modify_enchantment_damage_dealt:
                         enchantment:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_damage_dealt.md
                             desc: The enchantment whose level on the attacker's equipment determines the bonus.
-                            type: string
-                            allow: 'a-z0-9_\/:.-'
-                            hook: [ns]
+                            link: identifier
                         base_value:
                             desc: Starting value before any level-based scaling.
                             type: number
@@ -6749,10 +6780,9 @@ links:
                             link: bi_entity_action
                     string-sync:modify_enchantment_level:
                         enchantment:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_level.md
                             desc: ID of the enchantment to apply/modify the level of to the entity.
-                            type: string
-                            allow: 'a-z0-9_\/:.-'
-                            hook: [ns]
+                            link: identifier
                         item_condition:
                             desc: If specified, only applies/modifies the level of the specified enchantment to/from the entity if the item condition is fulfilled by the item.
                             link: item_cond
@@ -6766,6 +6796,7 @@ links:
                                 link: a_mod
                     string-sync:modify_jade_tooltip:
                         hide_tooltip:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=mod_compat%2Fmodify_jade_tooltip.md
                             desc: If true, hides the Jade tooltip entirely when this entity is looked at
                             type: boolean
                             default: false
@@ -6796,6 +6827,7 @@ links:
                             link: bi_entity_cond
                     string-sync:modify_label_render:
                         entity_condition:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_damage_dealt.md
                             desc: If specified, the label modification will only apply to viewers that fulfill this condition.
                             link: entity_cond
                         bientity_condition:
@@ -6808,7 +6840,7 @@ links:
                             desc: If specified, this action is executed on the entity after the text template is parsed, but only if the parsed text has changed from the previous parse.
                             link: entity_action
                         render_mode:
-                            desc:  	Determines how the label is rendered. Accepts "default" (normal rendering), "hide_partially" (semi-transparent like when sneaking), or "hide_completely" (label is not rendered at all).
+                            desc: Determines how the label is rendered. Accepts "default" (normal rendering), "hide_partially" (semi-transparent like when sneaking), or "hide_completely" (label is not rendered at all).
                             enum: [default, hide_partially, hide_completely]
                         text:
                             desc: If specified, replaces the entity's name tag with this custom text. Supports JSON text components including selectors like @s, colors, formatting, and other text features. The text is parsed server-side to resolve selectors.
@@ -6825,16 +6857,19 @@ links:
                             default: 0
                     string-sync:modify_model_parts:
                         transformations:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_model_parts.md
                             desc: An array of model part transformation objects.
                             type: list
                             vals:
                                 link: model_part_transformations
                     string-sync:modify_player_model:
                         model:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_player_model.md
                             desc: The model variant to use.
                             enum: [FOUR_ARMS, STINKFLY]
                     string-sync:pose:
                         entity_pose:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fpose.md
                             desc: TThe full-body pose to force the entity into.
                             enum: [STANDING, FALL_FLYING, SLEEPING, SWIMMING, SPIN_ATTACK, CROUCHING, LONG_JUMPING, DYING, CROAKING, USING_TONGUE, SITTING, ROARING, SNIFFING, EMERGING, DIGGING]
                         arm_pose:
@@ -6846,11 +6881,18 @@ links:
                             default: 0
                     string-sync:prevent_creative_flight:
                         entity_action:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fprevent_creative_flight.md
                             desc: If specified, this action is executed once on the player at the moment their flight is cancelled because they were actively flying (midair).
                             link: entity_action
                     string-sync:prevent_sprinting_particles: {}
+                    string-sync:prevent_teleport:
+                        entity_action:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fprevent_teleport.md
+                            desc: Executed on the entity each time a teleport attempt is blocked
+                            link: entity_action
                     string-sync:sprinting:
                         requires_input:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fsprinting.md
                             desc: If true, only sprints when the entity is providing movement input (forward key or sprint key). If false, always sprints when moving.
                             type: boolean
                             default: false
@@ -7682,6 +7724,75 @@ links:
           - velocity_normalized
           - velocity_horizontal
           - velocity_horizontal_normalized
+    body_part_modifier:
+        href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=data_types%2Fbody_part_modifier_entry.md
+        or:
+          - title: simple
+            link: body_part
+          - title: custom
+            link: custom_body_part
+    body_part:
+        type: object
+        props:
+            body_part:
+                desc: A named preset defining the body region.
+                enum: [any, head, torso, chest, back, left_arm, right_arm, legs, feet, achilles_heel]
+            modifier:
+                desc: A single modifier to apply when the hit falls within this region.
+                link: a_mod
+            modifiers:
+                desc: Multiple modifiers to apply when the hit falls within this region. Applied in order. Can be used together with modifier.
+                type: list
+                vals:
+                    link: a_mod
+            bientity_action:
+                desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
+                link: bi_entity_action
+    custom_body_part:
+        type: object
+        props:
+            x_min:
+                desc: Minimum X bound of the region (entity's right side = −1).
+                type: number
+                default: -1.0
+            x_max:
+                desc: Maximum X bound of the region (entity's left side = +1).
+                type: number
+                default: 1.0
+            y_min:
+                desc: Minimum Y bound of the region (feet = 0).
+                type: number
+                default: 0.0
+            y_max:
+                desc: Maximum Y bound of the region (top of head = 1).
+                type: number
+                default: 1.0
+            z_min:
+                desc: Minimum Z bound of the region (front of entity = −1).
+                type: number
+                default: -1.0
+            z_max:
+                desc: Maximum Z bound of the region (back of entity = +1).
+                type: number
+                default: 1.0
+            modifier:
+                desc: A single modifier to apply when the hit falls within this region.
+                link: a_mod
+            modifiers:
+                desc: Multiple modifiers to apply when the hit falls within this region. Applied in order. Can be used together with modifier.
+                type: list
+                vals:
+                    link: a_mod
+            bientity_action:
+                desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
+                link: bi_entity_action
+    namespace:
+        type: string
+        allow: '*a-z0-9_\/:.-'
+        hook: [ns]
+    identifier:
+        type: string
+        allow: '*a-z0-9_#\/:.-'
 hooks: [preserve_single]
 or:
   - title: simple
