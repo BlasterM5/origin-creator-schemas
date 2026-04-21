@@ -6465,7 +6465,7 @@ links:
                     string-sync:action_on_death:
                         bientity_action:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_death.md
-                            desc: The action to execute when the entity dies. Receives a pair: (killer, victim).
+                            desc: The action to execute when the entity dies. Receives a pair of (killer, victim).
                             link: bi_entity_action
                         bientity_condition:
                             desc: Condition that must be met between killer and victim.
