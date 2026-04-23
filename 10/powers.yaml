@@ -3620,6 +3620,14 @@ links:
                             desc: Whether the player should take fall damage or not.
                             type: boolean
                             default: true
+                        modifier:
+                            desc: If specified, this modifier will be applied to the falling velocity.
+                            link: a_mod
+                        modifiers:
+                            desc: If specified, these modifiers will be applied to the falling velocity.
+                            type: list
+                            vals:
+                                link: a_mod
                     string-origins:modify_fluid_render:
                         block_condition:
                             desc: If set, modifies how the block that meets this condition would look like.
