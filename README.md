@@ -11,3 +11,13 @@ For reference, this license does not apply to any projects created through the O
 ## Contact
 
 Contact me on [Discord](https://discord.gg/pBFqEcXvW5) and support me on [Ko-Fi](https://ko-fi.com/mathgeniuszach)!
+
+## Changes in this Repo
+
+* Added some Apugli support (Apugli is DEPRECATED)
+* Added Origins: Math support (Datapack 15)
+* Added some eggolib support (Datapack 15)
+* Added SYNC support (Datapack 15)
+* Added Modifier Modifiers support (Datapack 15+)
+* (Developing) Unifying namespace strings and deduplicating repeat definitions for fields
+* (Developing) support for Datapack 48 (1.21.1)
