@@ -7363,37 +7363,6 @@ links:
     process_mode:
         desc: Determines how the item stack(s) in the specified inventory/inventories are processed. If "items", matching item stacks are processed, counted, or deleted as individual items. If "stacks", matching item stacks are processed, counted, matched, or deleted as one.
         enum: [items, stacks]
-    food_component:
-        desc: An Object which defines a new food component.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/food_component/
-        type: object
-        props:
-            hunger:
-                desc: The amount of hunger shanks the food component recovers upon consumption.
-                type: integer
-            saturation:
-                desc: The amount of saturation to give the player upon consumption.
-                type: number
-            meat:
-                desc: Whether this food component counts as meat or not.
-                type: boolean
-                default: false
-            always_edible:
-                desc: Whether this food component is edible at full hunger or not.
-                type: boolean
-                default: false
-            snack:
-                desc: Whether this food component takes as long as dried kelp to eat (16 ticks) or not (32 ticks).
-                type: boolean
-                default: false
-            effect:
-                desc: A status effect and the chance of it triggering upon consuming something with this food component.
-                link: apugli_status_effect_chance
-            effects:
-                desc: A status effect and the chance of it triggering upon consuming something with this food component.
-                type: list
-                vals:
-                    link: apugli_status_effect_chance
     apugli_status_effect_chance:
         desc: An Object which defines a status effect with a chance.
         href: https://apugli.readthedocs.io/en/latest/types/data_types/status_effect_chance
@@ -7688,22 +7657,6 @@ links:
                 desc: Tooltip when hovering on the radial menu button.
                 id: item_modifiers
                 link: jsontxt
-    model_part_transformations:
-        type: object
-        props:
-            model_part:
-                desc: The name of the model part to modify.
-                enum: [head,hat,body,rightarm,leftarm,rightleg,leftleg]
-            type:
-                desc: The type of transformartion to apply.
-                enum: [pitch,yaw,roll,visible,hidden,xscale,yscale,zscale,pivotx,pivoty,pivotz]
-            value:
-                desc: The value to add to the selected transformation type. In the case of the transform types visible and hidden, which are booleans, 0 is false while anything else is true.
-                type: number
-            override_animation:
-                desc: When true, locks the specified rotation (pitch, yaw, or roll) to the exact value, preventing vanilla animations from affecting that rotation on that body part. When false or omitted, the transformation is additive and vanilla animations can still affect the part.
-                type: boolean
-                default: false
     functional_key:
         desc: The translation key of the keybind.
         or:
@@ -7798,9 +7751,707 @@ links:
         type: string
         allow: '*a-z0-9_\/:.-'
         hook: [ns]
+
+# New unified data type definitions (removes the need to specify the same ones over and over)
+
+    action_result:
+        enum: ['consume_partial','consume','fail','pass','success']
+        desc: |
+            A String used to indicate the result of a certain action.
+            consume_partial	Indicates that the action is performed but the actor’s hand is not swung and no statistic is incremented.
+            consume	Indicates that the action is performed but the actor’s hand is not swung.
+            fail	Indicates that the action is not performed and prevents other actions from performing.
+            pass	Indicates that the action is not performed but allows other actions to perform.
+            success	Indicates that the action is performed and the actor’s hand is swung.
+    attribute_modifier:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
+        type: object
+        props:
+            operation:
+                link: attribute_modifier_operation
+            value:
+                desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
+                or:
+                  - type: number
+                    default: 0
+                  - type: string
+                    ext: true
+            attribute:
+                desc: The vanilla attribute id this modifier targets.
+                link: identifier
+                required: true
+            name:
+                desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
+                type: string
+            resource:
+                desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
+                link: identifier
+            modifier:
+                link: attribute_modifier
+    attribute_modifier_resource:
+        type: object
+        props:
+            operation:
+                link: attribute_modifier_operation
+            value:
+                desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
+                or:
+                  - type: number
+                    default: 0
+                  - type: string
+                    ext: true
+            name:
+                desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
+                type: string
+            resource:
+                desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
+                link: identifier
+            modifier:
+                link: attribute_modifier_resource
+    attribute_modifier_operation:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier-operation
+        enum: ['add_base_early','addition','multiply_base_additive','multiply_base','multiply_base_multiplicative','standard_multiply_base','standard_divide_base','add_base_late','min_base','max_base','set_base','multiply_total_additive','multiply_total_multiplicative','multiply_total','standard_multiply_total','standard_divide_total','min_total','max_total','set_total']
+        desc: |
+            The operation performed by this modifier. The following operations are available:
+            add_base_early:					NewBase = Base + Modifier (early in the base phase)
+            /addition
+            multiply_base_additive:			NewBase = Base + (Base * Modifier)
+            /multiply_base
+            multiply_base_multiplicative:	NewBase = Base * (1 + Modifier)
+            standard_multiply_base:			NewBase = Base * Modifier
+            standard_divide_base:			NewBase = Base / Modifier
+            add_base_late:					NewBase = Base + Modifier (late in the base phase)
+            min_base:						NewBase = max(Base, Modifier) (raise the floor)
+            max_base:						NewBase = min(Base, Modifier) (lower the ceiling)
+            set_base:						NewBase = Modifier
+            multiply_total_additive:		NewTotal = Total * (Total * Modifier)
+            multiply_total_multiplicative:	NewTotal = Total * (1 + Modifier)
+            /multiply_total
+            standard_multiply_total:		NewTotal = Total * Multiplier
+            standard_divide_total:			NewTotal = Total / Multiplier
+            min_total:						NewTotal = max(Total, Modifier)
+            max_total:						NewTotal = min(Total, Modifier)
+            set_total:						NewTotal = Modifier (last, overrides everything)
+    boolean_optional:
+        enum: ['','false','true']
+        default: unspec
+    comparison:
+        desc: |
+            Specify how the two values should be compared:
+            <	A less than B
+            <=	A less than or equal to B
+            >	A greater than B
+            >=	A greater than or equal to B
+            ==	A equals B
+            !=	A does not equal B
+        enum: ['<','<=','>','>=','==','!=']
+    container_type:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/container-type
+        desc: |
+            Determines the type of container to use for the inventory.
+            chest			9x4 Chest inventory.
+            hopper			5x1 Hopper inventory.
+            dropper			3x3 Dropper inventory.
+            dispenser		3x3 Dispenser inventory.
+            double_chest	9x8 Double Chest inventory.
+        enum: ['chest','hopper','dropper','dispenser','double_chest']
+    crafting_recipe:
+        desc: The type of recipe.
+        or:
+          - title: shaped
+            type: object
+            props:
+                type:
+                    enum: ['crafting_shaped']
+                id:
+                    desc: An ID for this recipe. Has to be unique among all recipes, otherwise there will be a conflict.
+                    link: identifier
+                key:
+                    type: object
+                    props:
+                        extend: ingredient_key
+                result:
+                    desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
+                    type: object
+                    props:
+                        item:
+                            link: identifier
+                        count:
+                            type: integer
+                            min: 1
+          - title: shapeless
+            type: object
+            props:
+                type:
+                    enum: ['crafting_shapeless']
+                id:
+                    desc: An ID for this recipe. Has to be unique among all recipes, otherwise there will be a conflict.
+                    link: identifier
+                ingredients:
+                    desc: The items that need to be put in the crafting grid for the recipe.
+                    type: list
+                    vals:
+                        or:
+                          - title: single
+                            link: identifier
+                          - title: multiple
+                            type: list
+                            vals:
+                                link: identifier
+                result:
+                    desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
+                    type: object
+                    props:
+                        item:
+                            link: identifier
+                        count:
+                            type: integer
+                            min: 1
+    destruction_type:
+        desc: |
+            Determines the effect of the explosion to the terrain:
+            break:		The explosion will destroy blocks and drop the loot of all of them
+            none:		The explosion will *not* destroy blocks at all
+            destroy:	The explosion will destroy blocks and drop the loot of *some* of them.
+            			The chance to drop blocks decreases with higher explosion power.
+            			It also defers to the 'minecraft:survives_explosion' loot condition in the loot tables.
+        enum: ['break','none','destroy']
+    easing:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/easing
+        enum: ['linear','none','step','hold','constant','catmullrom','smooth','smoothstep','smootherstep','ease_in_sine','ease_out_sine','ease_in_out_sine','ease_in_quad','ease_in','ease_out_quad','ease_out','ease_in_out_quad','ease_in_out','ease_in_cubic','ease_out_cubic','ease_in_out_cubic','ease_in_quart','ease_out_quart','ease_in_out_quart','ease_in_quint','ease_out_quint','ease_in_out_quint','ease_in_expo','ease_out_expo','ease_in_out_expo','ease_in_circ','ease_out_circ','ease_in_out_circ','ease_in_back','ease_out_back','ease_in_out_back','ease_in_elastic','ease_out_elastic','ease_in_out_elastic','ease_in_bounce','ease_out_bounce','ease_in_out_bounce']
+        desc: |
+            The interpolation curve to define how a value travels from its start to its finish.
+            Special Curves:
+            linear			Constant rate. The default everywhere an easing is optional.
+            step			No interpolation. Holds the starting value and snaps to the end value at the very end. Use this for on/off properties like visible.
+            catmullrom		Smooth spline through the surrounding keyframes rather than a straight line between two of them. Only meaningful between keyframes; behaves as linear for a fade.
+            smoothstep		Classic 3t² − 2t³ S-curve. Gentle ease in and out.
+            smootherstep	Perlin’s 6t⁵ − 15t⁴ + 10t³. Like smoothstep but flatter at both ends.
+            Standard Curves:
+            Sine			ease_in_sine, ease_out_sine, ease_in_out_sine	Barely there. Good for subtle idle motion.
+            Quadratic		ease_in_quad, ease_out_quad, ease_in_out_quad	The safe default for poses.
+            Cubic			ease_in_cubic, ease_out_cubic, ease_in_out_cubic	Noticeably snappier.
+            Quartic			ease_in_quart, ease_out_quart, ease_in_out_quart	Sharp.
+            Quintic			ease_in_quint, ease_out_quint, ease_in_out_quint	Very sharp.
+            Exponential		ease_in_expo, ease_out_expo, ease_in_out_expo	Near-instant at one end.
+            Circular		ease_in_circ, ease_out_circ, ease_in_out_circ	Flat then abrupt, like a quarter circle.
+            Back			ease_in_back, ease_out_back, ease_in_out_back	Overshoots past the target and settles back. Anticipation.
+            Elastic			ease_in_elastic, ease_out_elastic, ease_in_out_elastic	Springs past the target and oscillates.
+            Bounce			ease_in_bounce, ease_out_bounce, ease_in_out_bounce	Hits the target and bounces off it.
+    entity_type_tag_like:
+        desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
+        type: list
+        vals:
+            link: identifier
+    expression_float:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
+        desc: A floating-point value or a math expression. See the doc for more information.
+        or:
+          - title: value
+            type: number
+          - title: expression
+            type: string
+            ext: true
+    expression_integer:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
+        desc: An integer value or a math expression. See the doc for more information.
+        or:
+          - title: value
+            type: integer
+          - title: expression
+            type: string
+            ext: true
+    fluid_handling:
+        desc: |
+            Determines how the raycast will handle fluids
+            any			The ray will stop at both flowing and source fluids.
+            none		The ray will ignore fluids.
+            source_only	The ray will only stop at source fluids.
+        enum: ['any','none','source_only']
+    food_component:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/food-component
+        desc: An Object which defines a new food component.
+        type: object
+        props:
+            hunger:
+                desc: The amount of hunger shanks the food component recovers upon consumption.
+                type: integer
+            saturation:
+                desc: The amount of saturation to give the player upon consumption.
+                type: number
+            meat:
+                desc: Whether this food component counts as meat or not.
+                type: boolean
+                default: false
+            always_edible:
+                desc: Whether this food component is edible at full hunger or not.
+                type: boolean
+                default: false
+            snack:
+                desc: Whether this food component takes as long as dried kelp to eat (16 ticks) or not (32 ticks).
+                type: boolean
+                default: false
+            effect:
+                desc: A status effect and the chance of it triggering upon consuming something with this food component.
+                link: status_effect_instance_chance
+            effects:
+                desc: A status effect and the chance of it triggering upon consuming something with this food component.
+                type: list
+                vals:
+                    link: status_effect_instance_chance
+    hand:
+        desc: Indicates which hand of the entity. main_hand and off_hand are the official variables, other variables are offered only for compatibility.
+        enum: ['main_hand','off_hand','mainhand','offhand','MAIN_HAND','OFF_HAND','MAINHAND','OFFHAND']
+    heightmap_type:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/heightmap-type
+        desc: |
+            A string used for various game calculations to determine the highest Y level of a coordinate in a world.
+            world_surface				Queries the Y level of the highest non-air block.
+            world_surface_wg			Queries the Y level of the highest non-air block (only used on world generation.)
+            ocean_floor					Queries the Y level of the highest block that has collision, except carpets.
+            ocean_floor_wg				Queries the Y level of the highest block that has collision, except carpets (only used on world generation.)
+            motion_blocking				Queries the Y level of the highest block that has collision or contains a fluid (e.g: water, lava, or fluidlogged blocks.)
+            motion_blocking_no_leaves	Queries the Y level of the highest block that has collision or contains a fluid, except leaves (e.g: water, lava, or fluidlogged blocks.)
+        enum: ['world_surface','world_surface_wg','ocean_floor','ocean_floor_wg','motion_blocking','motion_blocking_no_leaves']
+    hud_render:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render
+        desc: Defines how the bar should be rendered. See the doc for more information.
+        or:
+          - link: hud_render_element
+          - type: list
+            vals:
+                link: hud_render_element
+    hud_render_element:
+        should_render:
+            desc: Whether the bar should be visible or not
+            type: boolean
+            default: true
+        sprite_location:
+            desc: The path to the file in the asets which contains what the bar looks like.
+            link: identifier
+        bar_index:
+            desc: The indexed position of the bar on the sprite to use. Please note that indexes start at 0.
+            type: integer
+            min: 0
+        icon_idex:
+            desc: The indexed position of the icon on the sprite to use.
+            type: integer
+            min: 0
+        condition:
+            desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
+            link: entity_cond
+        inverted:
+            desc: If set to true, inverts the way the hud renders (full will look empty and vice versa)
+            type: boolean
+            default: false
+        order:
+            desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
+            type: integer
+    icon:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
+        desc: An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
+        icon:
+            or:
+              - title: item
+                link: identifier
+              - title: stack
+                link: item_stack
+              - title: texture
+                type: object
+                props:
+                    texture:
+                        desc: Path to the PNG, relative to assets/<namespace>/.
+                        link: identifier
+                    width:
+                        desc: Width in pixels of the region to draw, measured from the top-left of the file.
+                        type: integer
+                        default: unspec
+                    height:
+                        desc: Height in pixels of the region to draw, measured from the top-left of the file.
+                        type: integer
+                        default: unspec
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
+        hook: [ns]
+    ingredient_key:
+        - nopanel: true
+        link: ingredient
+    ingredient:
+        or:
+          - title: single
+            link: ingredient_select
+          - title: multiple
+            type: list
+            vals:
+                link: ingredient_select
+    ingredient_select:
+        type: object
+        props:
+            or:
+              - item:
+                    desc: ID of a registered item.
+                    link: identifier
+              - tag:
+                    desc: ID of an item tag.
+                    link: identifier
+    inventory_type:
+        desc: Determines whether to reference the inventory of the entity or the inventory of the power present in the entity.
+        enum: ['inventory','power']
+    item_slot:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/item-slot
+        desc: Represents a slot from an entity or container's inventory. Refer to the doc for more information.
+        type: string
+    item_stack:
+        type: object
+        props:
+            or:
+              - id:
+                    desc: ID of a registered item.
+                    link: identifier
+              - item:
+                    desc: (DEPRECATED) ID of a registered item.
+                    link: identifier
+            or:
+              - count:
+                    desc: Size of the stack.
+                    type: integer
+                    default: 1
+              - amount:
+                    desc: (DEPRECATED) Size of the stack.
+                    type: integer
+                    default: 1
+            tag:
+                link: nbt
+    key:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/key
+        desc: Defines which key an active power reacts to - a built-in key or one you define in a datapack. See the doc for more information.
+        type: object
+        props:
+            key:
+                desc: The keybinding’s translation key.
+                type: string
+                allow: 'a-z0-9._-'
+            continuous:
+                desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
+                type: boolean
+                default: false
+    model_part_keyframe:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-part-keyframe
+        desc: One point on a Model Part Transformation's timeline. The value that part should have reached at a given time.
+        type: object
+        props:
+            time:
+                type: float
+            value:
+                type: float
+            easing:
+                link: easing
+    model_part_transformation:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-part-transformation
+        desc: A single edit to one named part of a biped model. See the doc for more information.
+        type: object
+        props:
+            model_part:
+                desc: The part to edit.
+                link: model_parts
+                required: true
+            type:
+                desc: The type of transformation to apply.
+                enum: ['pitch','yaw','roll','x_scale','y_scale','z_scale','pivot_x','pivot_y','pivot_z','visible','hidden','xscale','yscale','zscale','pivotx','pivoty','pivotz']
+            value:
+                desc: The amount. Its meaning is dependent on the selected transformation type.
+                type: number
+            override_animation:
+                desc: For pitch/yaw/roll only. If true, the value becomes the absolute rotation and the vanilla animation for that axis is ignored (“locked”). If false, it is added on top of the animation.
+                type: boolean
+                default: false
+            keyframes:
+                desc: A timeline of values. When set, this replaces value and the part animates instead of holding still. The clock starts at 0 the moment the power becomes active.
+                type: list
+                vals:
+                    link: model_part_keyframe
+            loop:
+                desc: If true, the keyframe timeline repeats forever. If false, it plays once and holds the last keyframe’s value.
+                type: boolean
+                default: false
+            duration:
+                desc: Ticks to fade the whole transformation in when the power becomes active. 0 applies it instantly, which is the original behaviour.
+                type: number
+                default: 0
+                min: 0
+            fade_out_duration:
+                desc: Ticks to fade the whole transformation in when the power becomes active. 0 applies it instantly, which is the original behaviour.
+                type: number
+                default: unspec
+                min: 0
+            easing:
+                desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
+                link: easing
+    model_parts:
+        enum: ['','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
+        default: unspec
+    nbt:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/nbt
+        desc: A String or Object that defines a named binary tag (NBT) for storing arbitrary data. See the doc for more information.
+        or:
+          - title: simple
+            type: string
+            ext: true
+          - title: advanced
+            link: nbt_object
+            extend: nbt_object
+    nbt_object:
+        nopanel: true
+        or:
+          - title: single
+            type: string
+            ext: true
+          - title: multiple
+            type: list
+            vals:
+                link: nbt_object
+          - title: object
+            link: nbt_object
+            extend: nbt_object
+    number_percent:
+        type: number
+        min: 0
+        max: 1
+    overlay_layer:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/overlay-layer
+        desc: One render layer of an Entity Texture Overlay power — a single texture drawn over the player model with its own draw style, tint and target body parts. A power's layers field is an array of these, each independent and drawn in order on top of the base overlay.
+        texture_location:
+            desc: Texture used for both models. Used when a model-specific texture is not given. If omitted entirely, the layer inherits the power’s base wide/slim texture (handy for re-styling one part without repeating the texture).
+            link: identifier
+        wide_texture_location:
+            desc: Texture used for the wide (Steve) model
+            link: identifier
+        slim_teture_location:
+            desc: Texture used for the slim (Alex) model
+            link: identifier
+        render_type:
+            link: render_type
+        body_parts:
+            desc: Restrict this layer to specific model parts (e.g. "head" or ["head", "body"]). When omitted, the layer covers the whole model. Part names follow Model Color: head, hat, body, right_arm, left_arm, right_leg, left_leg (plus jacket, the sleeves and the trousers). Matching ignores case and separators.
+            link: model_parts
+        red:
+            link: number_percent
+        green:
+            link: number_percent
+        blue:
+            link: number_percent
+        alpha:
+            link: number_percent
+        show_first_person:
+            desc: If true, this layer is also drawn on the holder’s own first-person arm (only the arm/sleeve parts are affected in first person).
+            type: boolean
+            default: true
+        scale:
+            desc: Scales this layer’s geometry outward from the model origin — the same idea as Sync’s Energy Swirl size. Above 1.0 puffs the texture out past the skin (an aura/shell), below 1.0 pulls it inside. 1.0 sits flush on the body.
+            link: number_percent
+    particle_effect:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/particle-effect
+        desc: A data type that's either a String which defines only the particle type or an Object which defines the particle type and its additional parameters.
+        particle:
+            desc: The namespace and ID of the particle type.
+            or:
+              - title: simple
+                link: identifier
+              - title: custom
+                type: object
+                props:
+                    type:
+                        desc: The namespace and ID of the particle type.
+                        link: identifier
+                    params:
+                        desc: The additional parameters for the particle type.
+                        type: string
+                        ext: true
+    player_abilities:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
+        desc: A String used to represent a player's ability.
+        enum: ['minecraft:flying','minecraft:instabuild','minecraft:invulnerable','minecraft:mayBuild','minecraft:mayfly']
+    player_model_type:
+        desc: A String used to pick one of the two vanilla player skin models.
+        enum: ['wide','slim']
+    positioned_item_stack:
+        desc: An Object which defines a new item stack alongside a position in an inventory.
+        type: object
+        props:
+            item:
+                desc: ID of a registered item.
+                link: identifier
+            stack:
+                desc: Size of the stack.
+                type: integer
+                default: 1
+                min: 1
+            tag:
+                link: nbt
+            slot:
+                desc: Inventory slot position of the stack. If not specified, will be the first free slot in the inventory. See Positioned Item Stack Slots for possible values.
+                type: integer
+    process_mode:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/process-mode
+        desc: A String that determines how an item stack is processed; be it either being modified or evaluated. See the doc for more information.
+        enum: ['items','stacks']
+    render_type:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/render-type
+        desc: Selects how a texture is drawn onto the model — the blend/cull/lighting style of a render layer. See the doc for more information.
+        enum: ['translucent','translucent-cull','cutout','cutout_no_cull','solid','emissive','eyes']
+    rope_endpoint:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/rope-endpoint
+        desc: Describes one end of a rope (how it is chosen at runtime) used by the from and to fields of the Attach Rope. See the doc for more information.
+        type: object
+        props:
+            source:
+                desc: "Where the endpoint comes from. One of: self (the acting entity), target (the bi-entity target — only resolves when the action runs in a bi-entity context), raycast (cast a ray from the actor’s eyes), position (a fixed point)."
+                enum: ['self','target','raycast','position']
+            distance:
+                desc: For raycast - how far the ray reaches.
+                type: number
+                default: 30
+            entities:
+                desc: For raycast - whether the ray can attach to an entity it hits.
+                type: boolean
+                default: false
+            blocks:
+                desc: For raycast - whether the ray can attach to a block it hits. When both entities and blocks are enabled the nearest hit wins.
+                type: boolean
+                default: true
+            position:
+                desc: For position - The fixed [x,y,z] world coordinate.
+                type: list
+                vals:
+                    type: number
+    set_iteration:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/set-iteration
+        desc: A String used to determine which side of an entity set is walked. See the doc for more information
+        enum: ['members','owners']
+    shape:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/shape
+        desc: The outline of a region around a centre point. See the doc for more information.
+        enum: ['cube','sphere','star','cone']
+    shape_type:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/shape-type
+        desc: A String used to determine how raycasts will handle blocks. See the doc for more information
+        enum: ['collider','outline','visual']
+    space:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
+        desc: A String that defines which coordinate system is used for directions. See the doc for more information
+        enum: ['world','local','local_horizontal','local_horizontal_normalized','velocity','velocity_normalized','velocity_horizontal','velocity_horizontal_normalized']
+    stat:
+        desc: An Object specifying a statistic via a statistic type and an Identifier.
+        type: object
+        props:
+            type:
+                desc: The type of the statistic.
+                link: identifier
+            id:
+                desc: The name of the statistic; may depend on the specified type of the statistic.
+                link: identifier
+    status_effect_instance:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/status-effect-instance
+        desc: An Object which defines a status effect with duration, amplifier, etc.
+        type: object
+        props:
+            or:
+              - id:
+                desc: The identifier of the status effect.
+                link: identifier
+              - effect:
+                desc: (DEPRECATED) The identifier of the status effect.
+                link: identifier
+            duration:
+                desc: Determines the duration of the status effect in ticks.
+                link: expression_integer
+                default: 100
+            amplifier:
+                desc: Determines the strength of the status effect (0 being level 1).
+                link: expression_integer
+                default: 0
+            or:
+              - ambient:
+                desc: Determines whether the particle effects of the status effect is less noticeable.
+                type: boolean
+                default: false
+              - is_ambient:
+                desc: (DEPRECATED) Determines whether the particle effects of the status effect is less noticeable.
+                type: boolean
+                default: false
+            show_particles:
+                desc: Determines whether the status effect should display particle effects on the entity.
+                type: boolean
+                default: true
+            show_icon:
+                desc: Determines whether the status effect should display an icon on the HUD.
+                type: boolean
+                default: true
+    status_effect_instance_chance:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/status-effect-instance
+        desc: An Object which defines a status effect with duration, amplifier, etc.
+        type: object
+        props:
+            or:
+              - id:
+                desc: The identifier of the status effect.
+                link: identifier
+              - effect:
+                desc: (DEPRECATED) The identifier of the status effect.
+                link: identifier
+            duration:
+                desc: Determines the duration of the status effect in ticks.
+                link: expression_integer
+                default: 100
+            amplifier:
+                desc: Determines the strength of the status effect (0 being level 1).
+                link: expression_integer
+                default: 0
+            or:
+              - ambient:
+                desc: Determines whether the particle effects of the status effect is less noticeable.
+                type: boolean
+                default: false
+              - is_ambient:
+                desc: (DEPRECATED) Determines whether the particle effects of the status effect is less noticeable.
+                type: boolean
+                default: false
+            show_particles:
+                desc: Determines whether the status effect should display particle effects on the entity.
+                type: boolean
+                default: true
+            show_icon:
+                desc: Determines whether the status effect should display an icon on the HUD.
+                type: boolean
+                default: true
+            chance:
+                desc: Chance of the status effect taking effect.
+                link: number_percent
+    team:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
+        desc: A scoreboard team, given either by name or as a set of properties to match.
+        or:
+          - title: simple
+            link: identifier
+          - title: custom
+            type: object
+            props:
+                name:
+                    desc: The team’s name, as used by /team
+                    link: identifier
+                friendly_fire:
+                    desc: Whether members can damage each other.
+                    link: boolean_optional
+    vector:
+        type: object
+        props:
+            x:
+                type: number
+            y:
+                type: number
+            z:
+                type: number
 hooks: [preserve_single]
 or:
   - title: simple

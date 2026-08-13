@@ -12,12 +12,7 @@ For reference, this license does not apply to any projects created through the O
 
 Contact me on [Discord](https://discord.gg/pBFqEcXvW5) and support me on [Ko-Fi](https://ko-fi.com/mathgeniuszach)!
 
-## Changes in this Repo
+## Changes in this Repo Branch
 
-* Added Origins: Math support (Datapack 15)
-* Added SYNC support (Datapack 15)
-* Added some eggolib support (Datapack 15)
-* Added some Apugli support (Apugli is DEPRECATED)
-* Added Modifier Modifiers support (Datapack 15+)
-* (Developing) Unifying namespace strings and deduplicating repeat definitions for fields
-* (Developing) support for Datapack 48 (1.21.1)
+* Preparing support for Overgrown's Origins (15, 48)
+* Removed support for any other Origins versions, as this schema is not meant for them.
