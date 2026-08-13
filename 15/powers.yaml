@@ -1,185 +1,164 @@
 # 1.10.0
 links:
-    bi_entity_cond:
+    bientity_condition:
         unspec: none
         or:
           - title: original
             type: object
             props:
                 inverted:
-                    desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
+                    desc: If true, the condition acts inverted.
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/bientity_condition_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/bi-entity-condition-types
                     enum:
-                      - origins:and
-                      - origins:or
+                      - origins:all_of
+                      - origins:any_of
                       - origins:constant
                       - origins:invert
+                      - origins:random_chance
                       - origins:actor_condition
                       - origins:attack_target
                       - origins:attacker
                       - origins:both
                       - origins:can_see
+                      - origins:disguised
                       - origins:distance
                       - origins:either
+                      - origins:equal
+                      - origins:in_entity_set
                       - origins:owner
                       - origins:relative_rotation
+                      - origins:riding
                       - origins:riding_recursive
                       - origins:riding_root
-                      - origins:riding
+                      - origins:roped_together
+                      - origins:same_team
                       - origins:target_condition
                       - origins:undirected
-                      
-                      - $Origins Math
-
-                      - origins-math:distance
-                      - origins-math:relative_rotation
-                      - origins-math:riding_recursive
-
-                      - $SYNC
-
-                      - sync:colliding
-                      - sync:command
-                      - sync:disguised
-                      - sync:in_entity_set
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                      - origins:chance
                     more:
+                        string-origins:all_of:
+                            conditions:
+                                desc: Passes when every listed condition passes.
+                                type: list
+                                vals:
+                                    link: bientity_condition
                         string-origins:and:
                             conditions:
-                                desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) Passes when every listed condition passes.
                                 type: list
                                 vals:
-                                    link: bi_entity_cond
+                                    link: bientity_condition
+                        string-origins:any_of:
+                            conditions:
+                                desc: Passes when any listed condition passes.
+                                type: list
+                                vals:
+                                    link: bientity_condition
                         string-origins:or:
                             conditions:
-                                desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) Passes when any listed condition passes.
                                 type: list
                                 vals:
-                                    link: bi_entity_cond
+                                    link: bientity_condition
                         string-origins:constant:
                             value:
-                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                desc: Provides a constant state where it's either true or false.
                                 type: boolean
-                                default: false
                         string-origins:invert:
                             condition:
-                                desc: The bi-entity condition to check which will have its 'target' and 'actor' contexts swapped.
-                                link: bi_entity_cond
+                                desc: Swaps the context of the target entity and the actor entity.
+                                link: bientity_condition
+                        string-origins:random_chance:
+                            chance:
+                                desc: Generates a random number between 0.0 and 1.0 and checks if it's less than a specified value.
+                                link:number_percent
+                        string-origins:chance:
+                            chance:
+                                desc: (DEPRECATED) Generates a random number between 0.0 and 1.0 and checks if it's less than a specified value.
+                                link:number_percent
                         string-origins:actor_condition:
                             condition:
-                                desc: The condition to check for on the acting entity.
-                                link: entity_cond
+                                desc: Checks for an Entity Condition Type on the actor entity.
+                                link: entity_condition
                         string-origins:attack_target: {}
                         string-origins:attacker: {}
                         string-origins:both:
                             condition:
-                                desc: The condition to check on both the actor and target entity.
-                                link: entity_cond
-                        string-origins:can_see: {}
+                                desc: Checks for an entity condition on both the actor and target entities.
+                                link: entity_condition
+                        string-origins:can_see:
+                            condition:
+                                desc: Checks whether the straight path from the actor entity's eyes to the target entity's eyes is unobstructed.
+                                type: object
+                                props:
+                                    shape_type:
+                                        link: shape_type
+                                        default: 'visual'
+                                    fluid_handling:
+                                        link: fluid_handling
+                                        default: 'none'
+                        string-origins:disguised: {}
                         string-origins:distance:
                             comparison:
-                                desc: How to compare the distance against the specified value.
+                                desc: Determines how the distance (in blocks) between the actor and target entities should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The distance (in blocks) to compare the distance between the actor and target to.
+                                desc: The value at which the distance (in blocks) between the actor and target entities will be compared to.
                                 type: number
-                        string-origins-math:distance:
-                            comparison:
-                                desc: How to compare the distance against the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The distance (in blocks) to compare the distance between the actor and target to.
-                                link: math_number
                         string-origins:either:
                             condition:
-                                desc: The condition to check on the actor and target entity. It must pass for at least one of them.
-                                link: entity_cond
+                                desc: 	The condition type to check on either actor or target entities.
+                                link: entity_condition
+                        string-origins:equal: {}
+                        string-origins:in_entity_set:
+                            set:
+                                desc: The ID of the power to check whether the target entity is in.
+                                link: identifier
                         string-origins:owner: {}
                         string-origins:relative_rotation:
                             axes:
                                 desc: The axes to get the angle values to calculate, and compare to.
                                 type: list
                                 vals:
-                                    enum: [x, y, z]
+                                    enum: ['x','y','z']
                             actor_rotation:
                                 desc: Determines the initial point of the rotation for the actor. Accepts "head" or "body".
-                                enum: [head, body]
-                                default: 0
+                                enum: ['head','body']
+                                default: 'head'
                             target_rotation:
                                 desc: Determines the initial position of the rotation for the target. Accepts "head" or "body".
-                                enum: [head, body]
-                                default: 1
+                                enum: ['head','body']
+                                default: 'body'
                             comparison:
                                 desc: Determines how the calculated angle value will be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value to compare the calculated angle value to.
                                 type: number
-                        string-origins-math:relative_rotation:
-                            axes:
-                                desc: The axes to get the angle values to calculate, and compare to.
-                                type: list
-                                vals:
-                                    enum: [x, y, z]
-                            actor_rotation:
-                                desc: Determines the initial point of the rotation for the actor. Accepts "head" or "body".
-                                enum: [head, body]
-                                default: 0
-                            target_rotation:
-                                desc: Determines the initial position of the rotation for the target. Accepts "head" or "body".
-                                enum: [head, body]
-                                default: 1
-                            comparison:
-                                desc: Determines how the calculated angle value will be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare the calculated angle value to.
-                                link: math_number
-                        string-origins:riding_recursive: {}
-                        string-origins-math:riding_recursive: {}
-                        string-origins:riding_root: {}
                         string-origins:riding: {}
+                        string-origins:riding_recursive: {}
+                        string-origins:riding_root: {}
+                        string-origins:roped_together: {}
+                        string-origins:same_team:
+                            allow_teamless:
+                                desc: If true, two entities that are both on no team count as allied.
+                                type: boolean
                         string-origins:target_condition:
                             condition:
                                 desc: The condition to check for on the target entity.
-                                link: entity_cond
+                                link: entity_condition
                         string-origins:undirected:
                             condition:
                                 desc: The bi-entity condition to check for truth before or after swapping the actor and target context.
-                                link: bi_entity_cond
-                        string-sync:colliding:
-                            offset:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_conditions%2Fcolliding.md
-                                desc: Offsets the actor's bounding box by this amount before the intersection test
-                                link: vector
-                        string-sync:command:
-                            command:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_conditions%2Fcommand.md
-                                desc: The command to execute. Can contain placeholders %a (actor UUID) and %t (target UUID) which will be replaced before execution.
-                                type: string
-                                ext: true
-                            actor_selector:
-                                desc: The string in the command that should be replaced with the actor entity's UUID.
-                                type: string
-                                default: '%a'
-                            target_selector:
-                                desc: The string in the command that should be replaced with the target entity's UUID.
-                                type: string
-                                default: '%t'
-                            comparison:
-                                desc: How the command’s result value (an integer) should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare the command result against.
-                                type: integer
-                        string-sync:disguised: {}
-                        string-sync:in_entity_set:
-                            set:
-                                desc: The ID of the power to check whether the target entity is in.
-                                link: namespace
+                                link: bientity_condition
           - title: custom
             link: custom_condition
-    entity_cond:
+    entity_condition:
         unspec: none
         hooks: [fix_type]
         or:
@@ -190,7 +169,7 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/entity_condition_types/
+                    href: https://origins.readthedocs.io/en/latest/types/entity_conditionition_types/
                     enum:
                       - origins:and
                       - origins:or
@@ -323,13 +302,13 @@ links:
                                 desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: entity_cond
+                                    link: entity_condition
                         string-origins:or:
                             conditions:
                                 desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: entity_cond
+                                    link: entity_condition
                         string-origins:constant:
                             value:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
@@ -805,7 +784,7 @@ links:
                         string-origins:passenger_recursive:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             comparison:
                                 desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
                                 link: comparison
@@ -816,7 +795,7 @@ links:
                         string-origins-math:passenger_recursive:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             comparison:
                                 desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
                                 link: comparison
@@ -826,7 +805,7 @@ links:
                         string-origins:passenger:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             comparison:
                                 desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
                                 link: comparison
@@ -837,7 +816,7 @@ links:
                         string-origins-math:passenger:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             comparison:
                                 desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
                                 link: comparison
@@ -895,10 +874,10 @@ links:
                                 gap: true
                             match_bientity_condition:
                                 desc: If specified, the entity condition type will check if this bi-entity condition type is fulfilled by the entity that the raycast has gone through. If not, the entity will be ignored.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             hit_bientity_condition:
                                 desc: If specified, the entity condition type will check if the entity that was hit by the raycast fulfills this bi-entity condition type.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             block_condition:
                                 desc: If specified, the entity condition type will check if the block that was hit by the raycast fulfills this block condition type.
                                 link: block_cond
@@ -933,10 +912,10 @@ links:
                                 gap: true
                             match_bientity_condition:
                                 desc: If specified, the entity condition type will check if this bi-entity condition type is fulfilled by the entity that the raycast has gone through. If not, the entity will be ignored.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             hit_bientity_condition:
                                 desc: If specified, the entity condition type will check if the entity that was hit by the raycast fulfills this bi-entity condition type.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             block_condition:
                                 desc: If specified, the entity condition type will check if the block that was hit by the raycast fulfills this block condition type.
                                 link: block_cond
@@ -977,7 +956,7 @@ links:
                         string-origins:riding_recursive:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             comparison:
                                 desc: How the amount of entities currently being ridden should be compared to the specified value.
                                 link: comparison
@@ -988,7 +967,7 @@ links:
                         string-origins-math:riding_recursive:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             comparison:
                                 desc: How the amount of entities currently being ridden should be compared to the specified value.
                                 link: comparison
@@ -998,11 +977,11 @@ links:
                         string-origins:riding_root:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                         string-origins:riding:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bi_entity_cond
+                                link: bientity_condition
                         string-origins:saturation_level:
                             comparison:
                                 desc: How the saturation level should be compared to the specified value.
@@ -1134,10 +1113,10 @@ links:
                         string-apugli:entity_in_radius:
                             condition:
                                 desc: The entity condition type to check for.
-                                link: entity_cond
+                                link: entity_condition
                             bientity_condition:
                                 desc: The bi-entity condition type to check for with the entity with this condition as the actor and the entities in the radius as the targets.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             radius:
                                 desc: The radius to check the entities that fulfill the specified entity condition type within.
                                 link: math_number
@@ -1177,7 +1156,7 @@ links:
                                 link: math_number
                         string-sync:attached_to_rope:
                             anchor_type:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fattached_to_rope.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fattached_to_rope.md
                                 desc: Filters which ropes to count.
                                 enum: [any, block, entity, leash, swing]
                             comparison:
@@ -1190,9 +1169,9 @@ links:
                         string-sync:disguised: {}
                         string-sync:entity_in_radius:
                             bientity_condition:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fentity_in_radius.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_in_radius.md
                                 desc: Optional condition to filter counted entities
-                                link: bi_entity_cond
+                                link: bientity_condition
                             shape:
                                 desc: Determines the shape of the area used for checking how many entities fulfill the bi-entity condition.
                                 enum: [cube, star, sphere]
@@ -1208,7 +1187,7 @@ links:
                                 default: 1
                         string-sync:entity_set_size:
                             set:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fentity_set_size.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_set_size.md
                                 desc: The Entity Set power to check
                                 link: namespace
                             comparison:
@@ -1219,7 +1198,7 @@ links:
                                 type: integer
                         string-sync:has_command_tag:
                             command_tag:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fhas_command_tag.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fhas_command_tag.md
                                 desc: Single tag to check for
                                 link: identifier
                             command_tags:
@@ -1229,17 +1208,17 @@ links:
                                     link: identifier
                         string-sync:in_pose:
                             pose:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fin_pose.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fin_pose.md
                                 desc: The entity's pose to check for.
                                 link: identifier
                         string-sync:is_selected_stolen_power:
                             source:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fis_selected_stolen_power.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fis_selected_stolen_power.md
                                 desc: If provided, returns true only if the currently selected stolen package came from this source identifier
                                 link: identifier
                         string-sync:key_pressed:
                             key:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fkey_pressed.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fkey_pressed.md
                                 desc: Translation key of the key to check
                                 link: identifier
                             continuous:
@@ -1248,7 +1227,7 @@ links:
                                 default: true
                         string-sync:mod_loaded:
                             mod:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fmod_loaded.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fmod_loaded.md
                                 desc: A single mod ID to check for
                                 link: namespace
                             mods:
@@ -1258,19 +1237,19 @@ links:
                                     link: namespace
                         string-sync:perspective:
                             perspectives:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fperspective.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fperspective.md
                                 desc: One or more perspective names the entity must match.
                                 type: list
                                 vals:
                                     enum: [first_person, third_person_front, third_person_back]
                         string-sync:player_model_type:
                             model_type:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fplayer_model_type.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fplayer_model_type.md
                                 desc: The model type to check for.
                                 enum: [slim, wide]
                         string-sync:raycast:
                             distance:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fraycast.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fraycast.md
                                 desc: Maximum range for both block and entity raycasting. Defaults to the entity's effective reach (respecting reach-entity-attributes if present)
                                 type: number
                             block:
@@ -1301,16 +1280,16 @@ links:
                                 type: number
                             match_bientity_condition:
                                 desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid entity hits
-                                link: bi_entity_cond
+                                link: bientity_condition
                             hit_bientity_condition:
                                 desc: If specified, the condition returns true only if the closest hit entity satisfies this condition (actor = source, target = hit entity)
-                                link: bi_entity_cond
+                                link: bientity_condition
                             block_condition:
                                 desc: If specified, the condition returns true only if the hit block satisfies this condition
                                 link: block_cond
                         string-sync:velocity:
                             x:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditions%2Fvelocity.md
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fvelocity.md
                                 desc: Compares the X component of velocity using comparison
                                 type: number
                                 default: unspec
@@ -1524,7 +1503,7 @@ links:
                             condition:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Fholder_condition.md
                                 desc: The condition to test on the holder. If omitted, the condition simply returns true when a holder exists.
-                                link: entity_cond
+                                link: entity_condition
                         string-sync:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Fmod_loaded.md
@@ -1911,9 +1890,9 @@ links:
                                 desc: The value to compare to.
                                 link: math_number
                         string-origins:attacker:
-                            entity_condition:
+                            entity_conditionition:
                                 desc: If set, the attacking entity must fulfill the provided entity condition in order for this condition to evaluate to true.
-                                link: entity_cond
+                                link: entity_condition
                         string-origins:bypasses_armor: {}
                         string-origins:explosive: {}
                         string-origins:fire: {}
@@ -1935,11 +1914,11 @@ links:
                                 link: identifier
                             projectile_condition:
                                 desc: If set, the check will only pass if the projectile entity fulfills this condition.
-                                link: entity_cond
+                                link: entity_condition
                         string-origins:unblockable: {}
           - title: custom
             link: custom_condition
-    bi_entity_action:
+    bientity_action:
         unspec: none
         or:
           - title: original
@@ -1994,27 +1973,27 @@ links:
                                 desc: These actions will be executed one after the other (but in the same tick).
                                 type: list
                                 vals:
-                                    link: bi_entity_action
+                                    link: bientity_action
                         string-origins:chance:
                             chance:
                                 desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
                                 type: number
                             action:
                                 desc: The action which might be executed.
-                                link: bi_entity_action
+                                link: bientity_action
                             fail_action:
                                 desc: The action to execute if the specified action in the action field is not executed.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-origins-math:chance:
                             chance:
                                 desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
                                 link: math_number
                             action:
                                 desc: The action which might be executed.
-                                link: bi_entity_action
+                                link: bientity_action
                             fail_action:
                                 desc: The action to execute if the specified action in the action field is not executed.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-origins:choice:
                             actions:
                                 desc: A list of actions, one of which is choosen randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
@@ -2028,31 +2007,31 @@ links:
                                             default: 1
                                         element:
                                             desc: The action which might be executed.
-                                            link: bi_entity_action
+                                            link: bientity_action
                         string-origins:delay:
                             action:
                                 desc: The action which will be executed after the delay.
-                                link: bi_entity_action
+                                link: bientity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins-math:delay:
                             action:
                                 desc: The action which will be executed after the delay.
-                                link: bi_entity_action
+                                link: bientity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 link: math_integer
                         string-origins:if_else:
                             condition:
                                 desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
-                                link: bi_entity_action
+                                link: bientity_action
                             else_action:
                                 desc: If specified, this action will be executed when the condition evaluates to false.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-origins:if_else_list:
                             actions:
                                 desc: A list of actions associated with conditions to check. The first one in the list for which the condition holds will be executed. Basically a less indentation-heavy way to represent a deeply nested If-Else Action.
@@ -2062,21 +2041,21 @@ links:
                                     props:
                                         condition:
                                             desc: A condition to check for.
-                                            link: bi_entity_cond
+                                            link: bientity_condition
                                         action:
                                             desc: An action which might be executed.
-                                            link: bi_entity_action
+                                            link: bientity_action
                         string-origins:side:
                             side:
                                 desc: The side, either "client" or "server", to apply this action on.
                                 enum: [client, server]
                             action:
                                 desc: The action to apply.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-origins:invert:
                             action:
                                 desc: The bi-entity action to execute which will have its 'target' and 'actor' contexts swapped.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-origins:actor_action:
                             action:
                                 desc: The action to execute on the actor entity.
@@ -2266,7 +2245,7 @@ links:
                                     link: namespace
                             bientity_action:
                                 desc: Executed once for every power that gets liberated
-                                link: bi_entity_action
+                                link: bientity_action
                         string-sync:loop:
                             value:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
@@ -2281,13 +2260,13 @@ links:
                                 min: 1
                             before_action:
                                 desc: Fired once immediately before the first iteration begins
-                                link: bi_entity_action
+                                link: bientity_action
                             action:
                                 desc: Fired once per iteration
-                                link: bi_entity_action
+                                link: bientity_action
                             after_action:
                                 desc: Fired once after the final iteration completes
-                                link: bi_entity_action
+                                link: bientity_action
                         string-sync:remove_from_entity_set:
                             set:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fremove_from_entity_set.md
@@ -2333,7 +2312,7 @@ links:
                                     link: namespace
                             bientity_action:
                                 desc: Executed once for every power that gets suppressed
-                                link: bi_entity_action
+                                link: bientity_action
                         string-sync:transfer:
                             mode:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Ftransfer.md
@@ -2548,7 +2527,7 @@ links:
                         string-origins:if_else:
                             condition:
                                 desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
-                                link: entity_cond
+                                link: entity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: entity_action
@@ -2564,7 +2543,7 @@ links:
                                     props:
                                         condition:
                                             desc: A condition to check for.
-                                            link: entity_cond
+                                            link: entity_condition
                                         action:
                                             desc: An action which might be executed.
                                             link: entity_action
@@ -2657,10 +2636,10 @@ links:
                                 type: boolean
                             bientity_condition:
                                 desc: If specified, only execute the specified bi-entity action if this bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entities within the specified radius).
-                                link: bi_entity_cond
+                                link: bientity_condition
                             bientity_action:
                                 desc: If specified, this bi-entity action type may be executed on either or both the 'actor' (the entity that has the power) and target (the entities within the specified radius).
-                                link: bi_entity_action
+                                link: bientity_action
                         string-origins-math:area_of_effect:
                             radius:
                                 desc: Determines the radius of the area. Defaults to 16.
@@ -2673,10 +2652,10 @@ links:
                                 type: boolean
                             bientity_condition:
                                 desc: If specified, only execute the specified bi-entity action if this bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entities within the specified radius).
-                                link: bi_entity_cond
+                                link: bientity_condition
                             bientity_action:
                                 desc: If specified, this bi-entity action type may be executed on either or both the 'actor' (the entity that has the power) and target (the entities within the specified radius).
-                                link: bi_entity_action
+                                link: bientity_action
                         string-origins:block_action_at:
                             block_action:
                                 desc: The block action to execute at the position of the entity.
@@ -3030,10 +3009,10 @@ links:
                                 link: entity_action
                             bientity_action:
                                 desc: If set, executes the specified action that can execute on both the passenger and the entity that's being ridden.
-                                link: bi_entity_action
+                                link: bientity_action
                             bientity_condition:
                                 desc: If set, only execute the specified actions if the bi-entity condition is fulfilled.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             recursive:
                                 desc: If set to true, executes the specified actions on all the passenger entities, if there are more than one.
                                 type: boolean
@@ -3103,10 +3082,10 @@ links:
                                 gap: true
                             bientity_condition:
                                 desc: If specified, the specified bi-entity action type will only be executed if the specified bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
-                                link: bi_entity_cond
+                                link: bientity_condition
                             bientity_action:
                                 desc: If specified, this bi-entity action type will be executed on either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
-                                link: bi_entity_action
+                                link: bientity_action
                             block_action:
                                 desc: If specified, this block action type will be executed on the block the raycast has hit.
                                 link: block_action
@@ -3169,10 +3148,10 @@ links:
                                 gap: true
                             bientity_condition:
                                 desc: If specified, the specified bi-entity action type will only be executed if the specified bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
-                                link: bi_entity_cond
+                                link: bientity_condition
                             bientity_action:
                                 desc: If specified, this bi-entity action type will be executed on either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
-                                link: bi_entity_action
+                                link: bientity_action
                             block_action:
                                 desc: If specified, this block action type will be executed on the block the raycast has hit.
                                 link: block_action
@@ -3247,10 +3226,10 @@ links:
                                 link: entity_action
                             bientity_action:
                                 desc: If set, executes the specified action that can execute on both the passenger and the entity that's being ridden.
-                                link: bi_entity_action
+                                link: bientity_action
                             bientity_condition:
                                 desc: If set, only execute the specified actions if the bi-entity condition is fulfilled.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             recursive:
                                 desc: If set to true, executes the specified actions on all entities that are being ridden, if there are more than one.
                                 type: boolean
@@ -3262,10 +3241,10 @@ links:
                                 ext: true
                             bientity_action:
                                 desc: If specified, this action will be executed on either or both the actor and target entities.
-                                link: bi_entity_action
+                                link: bientity_action
                             bientity_condition:
                                 desc: If specified, the specified action will only be executed if this condition is fulfilled by either or both the actor and target entities.
-                                link: bi_entity_cond
+                                link: bientity_condition
                         string-origins:set_fall_distance:
                             fall_distance:
                                 desc: The desired fall distance value.
@@ -3442,7 +3421,7 @@ links:
                                 ext: true
                             bientity_action:
                                 desc: An action which will run on the projectile.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-eggolib:calculate_resource:
                             target:
                                 desc: The namespace, path and ID of the power to calculate the value of.
@@ -3491,10 +3470,10 @@ links:
                                 link: namespace
                             bientity_action:
                                 desc: Action to execute on each entity in the set
-                                link: bi_entity_action
+                                link: bientity_action
                             bientity_condition:
                                 desc: Condition to filter which entities receive the action
-                                link: bi_entity_cond
+                                link: bientity_condition
                             limit:
                                 desc: Maximum number of entities to affect (0 = no limit)
                                 type: integer
@@ -3589,7 +3568,7 @@ links:
                                 link: entity_action
                             bientity_action_after_firing:
                                 desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                                link: bi_entity_action
+                                link: bientity_action
                             block_condition:
                                 desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
                                 link: block_cond
@@ -3602,19 +3581,19 @@ links:
                                 default: false
                             bientity_condition:
                                 desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             owner_bientity_condition:
                                 desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             bientity_action_on_miss:
                                 desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                                link: bi_entity_action
+                                link: bientity_action
                             bientity_action_on_hit:
                                 desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bi_entity_action
+                                link: bientity_action
                             tick_bientity_action:
                                 desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-sync:cycle_stolen_power:
                             delta:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fcycle_stolen_power.md
@@ -3727,7 +3706,7 @@ links:
                                 link: block_cond
                             landing_condition:
                                 desc: Condition that the teleported entity must satisfy at landing location
-                                link: entity_cond
+                                link: entity_condition
                             landing_offset:
                                 desc: Offset from the found landing position
                                 link: vector
@@ -3784,13 +3763,13 @@ links:
                                 type: number
                             bientity_condition:
                                 desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
-                                link: bi_entity_cond
+                                link: bientity_condition
                             block_condition:
                                 desc: If specified, block_action only runs when the hit block satisfies this condition
                                 link: block_cond
                             bientity_action:
                                 desc: Action executed on each entity hit (actor = source, target = hit entity)
-                                link: bi_entity_action
+                                link: bientity_action
                             block_action:
                                 desc: Action executed on the block hit by the ray
                                 link: block_action
@@ -3883,7 +3862,7 @@ links:
                                 link: identifier
                             bientity_action:
                                 desc: Action executed after the clone is summoned. The actor is the player who summoned the clone; the target is the clone itself.
-                                link: bi_entity_action
+                                link: bientity_action
                         string-sync:summon_minion:
                             texture:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsummon_minion.md
@@ -3911,7 +3890,7 @@ links:
                                 default: 1200
                             bientity_action:
                                 desc: Action to execute on the minion after summoning
-                                link: bi_entity_action
+                                link: bientity_action
                         string-sync:teleport_to_location:
                             id:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fteleport_to_location.md
@@ -4486,7 +4465,7 @@ links:
         props:
             condition:
                 desc: If set, this power will only be active when the player with this power fulfills the condition.
-                link: entity_cond
+                link: entity_condition
                 gap: true
             type:
                 desc: ID of the desired Power Type.
@@ -4720,7 +4699,7 @@ links:
                             default: true
                         hold_condition:
                             desc: If set and allow_holding is true, players with the power who are sneaking and meet this condition are "holding onto the block", meaning they won't be affected by gravity.
-                            link: entity_cond
+                            link: entity_condition
                     string-origins:conditioned_attribute:
                         modifier:
                             desc: If specified, this modifier will be applied to its corresponding attribute.
@@ -4819,12 +4798,12 @@ links:
                             desc: If set, this will be the texture used by an Elytra granted by this power.
                             link: identifier
                     string-origins:entity_glow:
-                        entity_condition:
+                        entity_conditionition:
                             desc: If set, only entities which fulfill this condition will glow for the player with this power.
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: If set, only entities which fulfill this bi-entity condition in relation to the power holder will glow for the player with this power.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         use_teams:
                             desc: Whether glowing entities should use their team's color with their glow. If set to false the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
@@ -5136,7 +5115,7 @@ links:
                             default: 10
                         phase_down_condition:
                             desc: When specified, this condition needs to be fulfilled in order for blocks below the player to become phasable. Defaults to a condition which checks for sneaking.
-                            link: entity_cond
+                            link: entity_condition
                     string-origins:recipe:
                         recipe:
                             id: recipes
@@ -5156,7 +5135,7 @@ links:
                             default: 0
                         bientity_condition:
                             desc: A bi-entity condition between the player and the entity with a loot table.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         item_condition:
                             desc: An item condition of the item to change the loot table of.
                             link: item_cond
@@ -5196,12 +5175,12 @@ links:
                             desc: If set, items which satisfy this condition can not be equipped in the feet slot.
                             link: item_cond
                     string-origins:self_glow:
-                        entity_condition:
+                        entity_conditionition:
                             desc: If set, only entities which fulfill this condition will see the entity that has the power glow.
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: If set, only entities which fulfill this bi-entity condition in relation to the entity that has the power will see the entity that has the power glow.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         use_teams:
                             desc: Whether glowing entities should use their team's color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
@@ -5324,10 +5303,10 @@ links:
                     string-origins:action_on_being_used:
                         bientity_action:
                             desc: The action to be executed if specified.
-                            link: bi_entity_action
+                            link: bientity_action
                         bientity_condition:
                             desc: If specified, only execute the specified actions if the bi-entity condition is fulfilled.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         item_condition:
                             desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) determined by the hands string field.
                             link: item_cond
@@ -5428,10 +5407,10 @@ links:
                     string-origins:action_on_entity_use:
                         bientity_action:
                             desc: If set, executes a bi-entity action that can execute on both the 'actor' (player) and 'target' entity.
-                            link: bi_entity_action
+                            link: bientity_action
                         bientity_condition:
                             desc: If set, only execute the specified actions if the bi-entity condition is fulfilled.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         item_condition:
                             desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
                             link: item_cond
@@ -5460,10 +5439,10 @@ links:
                     string-origins:action_on_hit:
                         bientity_action:
                             desc: The action to execute upon hit.
-                            link: bi_entity_action
+                            link: bientity_action
                         bientity_condition:
                             desc: If set, the action will only trigger when this bi-entity condition is fulfilled.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the entity that has the power.
                             link: damage_cond
@@ -5545,10 +5524,10 @@ links:
                     string-origins:action_when_hit:
                         bientity_action:
                             desc: The action to execute upon being hit.
-                            link: bi_entity_action
+                            link: bientity_action
                         bientity_condition:
                             desc: If set, the action will only trigger when this bi-entity condition is fulfilled.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the specified type of damage.
                             link: damage_cond
@@ -5595,7 +5574,7 @@ links:
                             link: damage_cond
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
-                            link: entity_cond
+                            link: entity_condition
                         entity_action:
                             desc: The action to execute on the player.
                             link: entity_action
@@ -5612,7 +5591,7 @@ links:
                             link: damage_cond
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is killed.
-                            link: entity_cond
+                            link: entity_condition
                         entity_action:
                             desc: The action to execute on the player.
                             link: entity_action
@@ -5645,7 +5624,7 @@ links:
                             link: damage_cond
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
-                            link: entity_cond
+                            link: entity_condition
                         entity_action:
                             desc: The action to execute on the target.
                             link: entity_action
@@ -5730,13 +5709,13 @@ links:
                     string-origins:modify_damage_dealt:
                         bientity_condition:
                             desc: If specified, the specified modifier(s) and/or action(s) will only apply if either or both 'actor' and 'target' fulfills this bi-entity condition type.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         damage_condition:
                             desc: If set, the modifiers will only apply to damage which satisfies this condition.
                             link: damage_cond
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
-                            link: entity_cond
+                            link: entity_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the damage amount.
                             link: a_mod
@@ -5747,7 +5726,7 @@ links:
                                 link: a_mod
                         bientity_action:
                             desc: If specified, this bi-entity action type will be executed on either or both 'actor' and 'target'.
-                            link: bi_entity_action
+                            link: bientity_action
                         self_action:
                             desc: If set, this action will be executed on the player whenever this power applies a modification.
                             link: entity_action
@@ -5757,7 +5736,7 @@ links:
                     string-origins:modify_damage_taken:
                         bientity_condition:
                             desc: If specified, the specified modifier(s) and/or action(s) will only apply if either or both 'actor' and 'target' fulfills this bi-entity condition type.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         damage_condition:
                             desc: If set, the modifiers will only apply to damage which satisfies this condition.
                             link: damage_cond
@@ -5771,7 +5750,7 @@ links:
                                 link: a_mod
                         bientity_action:
                             desc: If specified, this bi-entity action type will be executed on either or both 'actor' and 'target'.
-                            link: bi_entity_action
+                            link: bientity_action
                         self_action:
                             desc: If set, this action will be executed on the player whenever this power applies a modification.
                             link: entity_action
@@ -5780,10 +5759,10 @@ links:
                             link: entity_action
                         apply_armor_condition:
                             desc: If set, the damage will only be reduced by armor if the player satisfies this condition.
-                            link: entity_cond
+                            link: entity_condition
                         damage_armor_condition:
                             desc: If set, the player's armor will only be damaged if said player satisfies this condition.
-                            link: entity_cond
+                            link: entity_condition
                     string-origins:modify_exhaustion:
                         modifier:
                             desc: If specified, this modifier will be applied to the exhaustion amount.
@@ -5962,7 +5941,7 @@ links:
                             link: damage_cond
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
-                            link: entity_cond
+                            link: entity_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the damage amount.
                             link: a_mod
@@ -6052,10 +6031,10 @@ links:
                     string-origins:prevent_being_used:
                         bientity_action:
                             desc: The action to execute upon preventing other players from right-clicking the entity that has the power if specified.
-                            link: bi_entity_action
+                            link: bientity_action
                         bientity_condition:
                             desc: If specified, only execute the specified actions if the bi-entity condition is fulfilled.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         item_condition:
                             desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the other player's specified hand(s) equipment slot determined by the hands string field.
                             link: item_cond
@@ -6091,21 +6070,21 @@ links:
                     string-origins:prevent_entity_collision:
                         bientity_condition:
                             desc: If specified, collision is only affected as long as both the 'actor' (the entity with the power), and the 'target' fulfill the specified conditions.
-                            link: bi_entity_cond
+                            link: bientity_condition
                     string-origins:prevent_entity_render:
-                        entity_condition:
+                        entity_conditionition:
                             desc: If set, only entities which fulfill this condition will be invisible.
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: If set, only entities which fulfill this bi-entity condition in relation to the power holder will be invisible for the player with this power.
-                            link: bi_entity_cond
+                            link: bientity_condition
                     string-origins:prevent_entity_use:
                         bientity_action:
                             desc: The action to execute upon being prevented from right-clicking an entity.
-                            link: bi_entity_action
+                            link: bientity_action
                         bientity_condition:
                             desc: If specified, only execute the specified actions if the bi-entity condition is fulfilled.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         item_condition:
                             desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
                             link: item_cond
@@ -6261,10 +6240,10 @@ links:
                         mob_condition:
                             desc: If set, mobs will ignore (and not attack) the entity with this power if they meet this condition.
                             href: https://apugli.readthedocs.io/en/latest/types/power_types/mobs_ignore
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: If set, mobs will ignore the entity with this power if they and the entity meet this condition.
-                            link: bi_entity_cond
+                            link: bientity_condition
                     string-apugli:prevent_sound:
                         category:
                             desc: If specified, all sound events from this category will be prevented from being heard by the entity that has the power.
@@ -6357,7 +6336,7 @@ links:
                             link: damage_cond
                         bientity_action:
                             desc: If specified, the specified actions will be executed once the amount of damage dealt has been set, with the 'actor' being the entity dealing the damage and the 'target' being the entity that receives the damage.
-                            link: bi_entity_action
+                            link: bientity_action
                         modifier:
                             desc: If specified, this modifier will be applied to the damage dealt.
                             link: a_mod
@@ -6375,7 +6354,7 @@ links:
                             link: damage_cond
                         bientity_action:
                             desc: If specified, the specified actions will be executed once the amount of damage taken has been set, with the 'actor' being the entity taking the damage and the 'target' being the entity that deals the damage.
-                            link: bi_entity_action
+                            link: bientity_action
                         modifier:
                             desc: If specified, this modifier will be applied to the damage taken.
                             link: a_mod
@@ -6474,10 +6453,10 @@ links:
                         bientity_action:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_death.md
                             desc: The action to execute when the entity dies. Receives a pair of (killer, victim).
-                            link: bi_entity_action
+                            link: bientity_action
                         bientity_condition:
                             desc: Condition that must be met between killer and victim.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         damage_condition:
                             desc: Condition that must be met by the damage source and amount.
                             link: damage_cond
@@ -6590,7 +6569,7 @@ links:
                                 link: entity_action
                             bientity_action_after_firing:
                                 desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                                link: bi_entity_action
+                                link: bientity_action
                             block_condition:
                                 desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
                                 link: block_cond
@@ -6603,22 +6582,22 @@ links:
                                 default: false
                             bientity_condition:
                                 desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             owner_bientity_condition:
                                 desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bi_entity_cond
+                                link: bientity_condition
                             bientity_action_on_miss:
                                 desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                                link: bi_entity_action
+                                link: bientity_action
                             bientity_action_on_hit:
                                 desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bi_entity_action
+                                link: bientity_action
                             owner_target_bientity_action_on_hit:
                                 desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bi_entity_action
+                                link: bientity_action
                             tick_bientity_action:
                                 desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
-                                link: bi_entity_action
+                                link: bientity_action
                             key:
                                 desc: Which active key this power should respond to.
                                 link: key
@@ -6686,10 +6665,10 @@ links:
                         action_on_add:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_set.md
                             desc: Action executed when an entity is added to the set.
-                            link: bi_entity_action
+                            link: bientity_action
                         action_on_remove:
                             desc: Action executed when an entity is removed from the set.
-                            link: bi_entity_action
+                            link: bientity_action
                         tick_rate:
                             desc: How often (in ticks) the set checks for temporary entity expiration.
                             type: integer
@@ -6749,10 +6728,10 @@ links:
                         mob_condition:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmobs_ignore.md
                             desc: Condition that mobs must meet to ignore the entity.
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: Condition that must be met between mob and entity.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         provokable:
                             desc: Whether mobs can be provoked to attack if damaged.
                             type: boolean
@@ -6771,10 +6750,10 @@ links:
                             link: damage_cond
                         target_condition:
                             desc: If present, the modification only applies when the target condition is met.
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: If present, the modification only applies when the bi‑entity condition between attacker and target is met.
-                            link: bi_entity_cond
+                            link: bientity_condition
                         modifier:
                             desc: Modifier applied repeatedly to scale the bonus per enchantment level.
                             link: a_mod
@@ -6785,7 +6764,7 @@ links:
                                 link: a_mod
                         bientity_action:
                             desc: Action to execute on the attacker and target when damage is dealt.
-                            link: bi_entity_action
+                            link: bientity_action
                     string-sync:modify_enchantment_level:
                         enchantment:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_level.md
@@ -6827,20 +6806,20 @@ links:
                             desc: When multiple powers of this type are active, only the one with the highest priority takes effect
                             type: integer
                             default: 0
-                        entity_condition:
+                        entity_conditionition:
                             desc: Tested on the viewer. The power only applies when this condition passes
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: Tested with the viewer as actor and the power holder as target. The power only applies when this condition passes
-                            link: bi_entity_cond
+                            link: bientity_condition
                     string-sync:modify_label_render:
-                        entity_condition:
+                        entity_conditionition:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_damage_dealt.md
                             desc: If specified, the label modification will only apply to viewers that fulfill this condition.
-                            link: entity_cond
+                            link: entity_condition
                         bientity_condition:
                             desc: If specified, the label modification will only apply to viewers that fulfill this condition in relation to the power holder. The condition pair is (viewer, holder).
-                            link: bi_entity_cond
+                            link: bientity_condition
                         before_parse_action:
                             desc: If specified, this action is executed on the entity before the text template is parsed each tick cycle.
                             link: entity_action
@@ -6918,7 +6897,7 @@ links:
         props:
             condition:
                 desc: If set, this power will only be active when the player with this power fulfills the condition.
-                link: entity_cond
+                link: entity_condition
                 gap: true
             type:
                 desc: ID of the desired Power Type.
@@ -7166,7 +7145,7 @@ links:
                 min: 0
             condition:
                 desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
-                link: entity_cond
+                link: entity_condition
             inverted:
                 desc: If set to true, inverts the way the hud render process (it'll look like its value is being decreased).
                 type: boolean
@@ -7189,7 +7168,7 @@ links:
                 link: math_integer_min_0
             condition:
                 desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
-                link: entity_cond
+                link: entity_condition
             inverted:
                 desc: If set to true, inverts the way the hud render process (it'll look like its value is being decreased).
                 type: boolean
@@ -7612,7 +7591,7 @@ links:
                 link: entity_action
             condition:
                 desc: The condition that must be true for this entry to appear in the list.
-                link: entity_cond
+                link: entity_condition
             distance:
                 desc: The distance, in pixels, this entry will travel from the center. If -1, it will use 1/4th of the screen's width.
                 type: integer
@@ -7708,7 +7687,7 @@ links:
                     link: a_mod
             bientity_action:
                 desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
-                link: bi_entity_action
+                link: bientity_action
     custom_body_part:
         type: object
         props:
@@ -7746,7 +7725,7 @@ links:
                     link: a_mod
             bientity_action:
                 desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
-                link: bi_entity_action
+                link: bientity_action
     namespace:
         type: string
         allow: '*a-z0-9_\/:.-'
@@ -8039,7 +8018,7 @@ links:
             min: 0
         condition:
             desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
-            link: entity_cond
+            link: entity_condition
         inverted:
             desc: If set to true, inverts the way the hud renders (full will look empty and vice versa)
             type: boolean
