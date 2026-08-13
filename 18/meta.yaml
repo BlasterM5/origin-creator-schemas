@@ -52,7 +52,7 @@ props:
         desc: The pack's default namespace.
         default: my_pack
         nonempty: true
-        allow: '*a-z0-9_'
+        allow: '*a-z0-9_-'
     pack_format:
         link: pack_format
     supported_formats:
