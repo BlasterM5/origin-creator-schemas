@@ -13,7 +13,7 @@ props:
         desc: The pack's default namespace.
         default: my_pack
         nonempty: true
-        allow: '*a-z0-9_'
+        allow: '*a-z0-9_-'
     pack_format:
         desc: |
             A version number used to group versions with compatable assets.
