@@ -163,7 +163,7 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/entity_conditionition_types/
+                    href: https://origins.readthedocs.io/en/latest/types/entity_condition_types/
                     enum:
                       - origins:all_of
                       - origins:any_of
@@ -1369,35 +1369,53 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/fluid_condition_types/
                     enum:
-                      - origins:and
-                      - origins:or
+                      - origins:all_of
+                      - origins:any_of
                       - origins:constant
+                      - origins:random_chance
                       - origins:empty
                       - origins:fluid
                       - origins:in_tag
                       - origins:still
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                      - origins:chance
                     more:
+                        string-origins:all_of:
+                            conditions:
+                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: fluid_condition
                         string-origins:and:
                             conditions:
-                                desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: fluid_condition
+                        string-origins:any_of:
+                            conditions:
+                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:or:
                             conditions:
-                                desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:constant:
                             link: meta_condition_constant
+                        string-origins:random_chance:
+                            link: meta_condition_chance
+                        string-origins:chance:
+                            link: meta_condition_chance
                         string-origins:empty: {}
-                        string-origins:fluid:
-                            fluid:
-                                desc: ID of the fluid to match. Vanilla examples are minecraft:water and minecraft:lava.
-                                link: identifier
                         string-origins:in_tag:
                             tag:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/fluid-conditions/in_tag
                                 desc: ID of the tag which the fluid should be in to pass the check.
                                 link: identifier
                         string-origins:still: {}
@@ -1415,48 +1433,71 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/biome_condition_types/
                     enum:
-                      - origins:and
-                      - origins:or
+                      - origins:all_of
+                      - origins:any_of
                       - origins:constant
-                      - origins:category
+                      - origins:random_chance
                       - origins:high_humidity
+                      - origins:in_tag
                       - origins:precipitation
                       - origins:temperature
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                      - origins:chance
                     more:
+                        string-origins:all_of:
+                            conditions:
+                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: biome_condition
                         string-origins:and:
                             conditions:
-                                desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: biome_condition
+                        string-origins:any_of:
+                            conditions:
+                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:or:
                             conditions:
-                                desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:constant:
                             link: meta_condition_constant
-                        string-origins:category:
-                            category:
-                                desc: Which category the biome must be in order to succeed the check. Click to see the list of biome categories in vanilla.
-                                href: https://origins.readthedocs.io/en/latest/misc/extras/biome_categories/#biome_category/
-                                type: string
+                        string-origins:random_chance:
+                            link: meta_condition_chance
+                        string-origins:chance:
+                            link: meta_condition_chance
                         string-origins:high_humidity: {}
+                        string-origins:in_tag:
+                            tag:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/biome-conditions/in_tag
+                                desc: The namespace and ID of the tag which the biome should be in to pass the check.
+                                link: identifier
                         string-origins:precipitation:
                             precipitation:
-                                desc: Which precipitation the biome has to have in order to succeed the check. One of none, rain and snow.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/biome-conditions/precipitation
+                                desc: Which precipitation the biome has to have in order to succeed the check. Due to limitations with the system, this will check precipitation at a world height of 64.
                                 enum: [none, rain, snow]
                         string-origins:temperature:
                             comparison:
-                                desc: How the temperature of the biome should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/biome-conditions/temperature
+                                desc: Determines how the temperature value of the biome should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the temperature value of the biome will be compared to.
                                 type: number
           - title: custom
             link: custom_condition
-    damage_cond:
+    damage_condition:
         unspec: none
         or:
           - title: original
@@ -1468,61 +1509,73 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/damage_condition_types/
                     enum:
-                      - origins:and
-                      - origins:or
+                      - origins:all_of
+                      - origins:any_of
                       - origins:constant
+                      - origins:random_chance
                       - origins:amount
+                      - origins:attack_charge
                       - origins:attacker
-                      - origins:bypasses_armor
-                      - origins:explosive
-                      - origins:fire
-                      - origins:from_falling
                       - origins:in_tag
                       - origins:name
-                      - origins:out_of_world
                       - origins:projectile
-                      - origins:unblockable
-
-                      - $Origins Math
-
-                      - origins-math:amount
+                      - origins:type
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                      - origins:chance
                     more:
+                        string-origins:all_of:
+                            conditions:
+                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: damage_condition
                         string-origins:and:
                             conditions:
-                                desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: damage_cond
+                                    link: damage_condition
+                        string-origins:any_of:
+                            conditions:
+                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: damage_condition
                         string-origins:or:
                             conditions:
-                                desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: damage_cond
+                                    link: damage_condition
                         string-origins:constant:
                             link: meta_condition_constant
+                        string-origins:random_chance:
+                            link: meta_condition_chance
+                        string-origins:chance:
+                            link: meta_condition_chance
                         string-origins:amount:
                             comparison:
-                                desc: How the amount of damage should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/amount
+                                desc: Determines how the amount of damage should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the amount of damage will be compared to.
                                 type: number
-                        string-origins-math:amount:
+                        string-origins:attack_charge:
                             comparison:
-                                desc: How the amount of damage should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attack_charge
+                                desc: How the charge is compared to compare_to.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
-                                link: math_number
+                                desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
+                                link: expression_float
                         string-origins:attacker:
-                            entity_conditionition:
-                                desc: If set, the attacking entity must fulfill the provided entity condition in order for this condition to evaluate to true.
+                            entity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attacker
+                                desc: If set, the attacker entity must fulfill the provided entity condition type in order for this condition to evaluate to true.
                                 link: entity_condition
-                        string-origins:bypasses_armor: {}
-                        string-origins:explosive: {}
-                        string-origins:fire: {}
-                        string-origins:from_falling: {}
                         string-origins:in_tag:
                             tag:
                                 href: https://minecraft.wiki/w/Tag#Damage_types
@@ -1530,18 +1583,22 @@ links:
                                 link: identifier
                         string-origins:name:
                             name:
-                                desc: Name the damage source should have to pass the check. Click to see a list of vanilla damage source names.
+                                desc: Name the damage source should have to pass the check. See List of Damage Source Names for possible values.
                                 href: https://origins.readthedocs.io/en/latest/misc/extras/damage_source_names/#list_of_vanilla_damage_source_names
-                                type: string
-                        string-origins:out_of_world: {}
+                                link: damage_source_name
                         string-origins:projectile:
                             projectile:
-                                desc: If set, the check will only pass if the projectile was of an entity type with this ID.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/projectile
+                                desc: If set, the check will only pass if the projectile was of an entity type with the specified namespace and ID.
                                 link: identifier
                             projectile_condition:
                                 desc: If set, the check will only pass if the projectile entity fulfills this condition.
                                 link: entity_condition
-                        string-origins:unblockable: {}
+                        string-origins:type:
+                            damage_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/type
+                                desc: The damage type to compare the damage source to. Prefix with \# to match a damage type tag instead.
+                                link: identifier
           - title: custom
             link: custom_condition
     bientity_action:
@@ -4424,7 +4481,7 @@ links:
                             desc: If set, this will be the texture used by an Elytra granted by this power.
                             link: identifier
                     string-origins:entity_glow:
-                        entity_conditionition:
+                        entity_condition:
                             desc: If set, only entities which fulfill this condition will glow for the player with this power.
                             link: entity_condition
                         bientity_condition:
@@ -4549,7 +4606,7 @@ links:
                     string-origins:invulnerability:
                         damage_condition:
                             desc: Specifies which damage the player will be immune to.
-                            link: damage_cond
+                            link: damage_condition
                     string-origins:item_on_item:
                         using_item_condition:
                             desc: If set, the actions will only trigger when this condition is met by the item used to right-click an item stack.
@@ -4801,7 +4858,7 @@ links:
                             desc: If set, items which satisfy this condition can not be equipped in the feet slot.
                             link: item_condition
                     string-origins:self_glow:
-                        entity_conditionition:
+                        entity_condition:
                             desc: If set, only entities which fulfill this condition will see the entity that has the power glow.
                             link: entity_condition
                         bientity_condition:
@@ -5071,7 +5128,7 @@ links:
                             link: bientity_condition
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the entity that has the power.
-                            link: damage_cond
+                            link: damage_condition
                         cooldown:
                             desc: Interval of ticks this power needs to recharge before the action can be executed again.
                             type: integer
@@ -5135,7 +5192,7 @@ links:
                     string-origins:action_when_damage_taken:
                         damage_condition:
                             desc: If specified, the action will only trigger when this condition holds for the specified type of damage.
-                            link: damage_cond
+                            link: damage_condition
                         entity_action:
                             desc: The action to be executed upon taking damage.
                             link: entity_action
@@ -5156,7 +5213,7 @@ links:
                             link: bientity_condition
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the specified type of damage.
-                            link: damage_cond
+                            link: damage_condition
                         cooldown:
                             desc: Interval of ticks this power needs to recharge before the action can be executed again.
                             type: integer
@@ -5182,7 +5239,7 @@ links:
                     string-origins:attacker_action_when_hit:
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the attacker.
-                            link: damage_cond
+                            link: damage_condition
                         entity_action:
                             desc: The action to execute on the attacker.
                             link: entity_action
@@ -5197,7 +5254,7 @@ links:
                     string-origins:self_action_on_hit:
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the player.
-                            link: damage_cond
+                            link: damage_condition
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
                             link: entity_condition
@@ -5214,7 +5271,7 @@ links:
                     string-origins:self_action_on_kill:
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the player.
-                            link: damage_cond
+                            link: damage_condition
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is killed.
                             link: entity_condition
@@ -5232,7 +5289,7 @@ links:
                     string-origins:self_action_when_hit:
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the specified type of damage.
-                            link: damage_cond
+                            link: damage_condition
                         entity_action:
                             desc: The action to execute on the player.
                             link: entity_action
@@ -5247,7 +5304,7 @@ links:
                     string-origins:target_action_on_hit:
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the player.
-                            link: damage_cond
+                            link: damage_condition
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
                             link: entity_condition
@@ -5338,7 +5395,7 @@ links:
                             link: bientity_condition
                         damage_condition:
                             desc: If set, the modifiers will only apply to damage which satisfies this condition.
-                            link: damage_cond
+                            link: damage_condition
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
                             link: entity_condition
@@ -5365,7 +5422,7 @@ links:
                             link: bientity_condition
                         damage_condition:
                             desc: If set, the modifiers will only apply to damage which satisfies this condition.
-                            link: damage_cond
+                            link: damage_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the damage amount.
                             link: a_mod
@@ -5564,7 +5621,7 @@ links:
                     string-origins:modify_projectile_damage:
                         damage_condition:
                             desc: If set, the modifiers will only apply to damage which satisfies this condition.
-                            link: damage_cond
+                            link: damage_condition
                         target_condition:
                             desc: If set, the action will only be triggered when a target matching this condition is hit.
                             link: entity_condition
@@ -5685,7 +5742,7 @@ links:
                     string-origins:prevent_death:
                         damage_condition:
                             desc: If set, death will only prevented when damage which matches this condition is dealt. Other damage will still kill the player.
-                            link: damage_cond
+                            link: damage_condition
                         entity_action:
                             desc: The action to execute on the player when death is prevented.
                             link: entity_action
@@ -5698,7 +5755,7 @@ links:
                             desc: If specified, collision is only affected as long as both the 'actor' (the entity with the power), and the 'target' fulfill the specified conditions.
                             link: bientity_condition
                     string-origins:prevent_entity_render:
-                        entity_conditionition:
+                        entity_condition:
                             desc: If set, only entities which fulfill this condition will be invisible.
                             link: entity_condition
                         bientity_condition:
@@ -5959,7 +6016,7 @@ links:
                             type: integer
                         damage_condition:
                             desc: If specified, the amount of damage dealt is only set if the damage being dealt fulfills the condition.
-                            link: damage_cond
+                            link: damage_condition
                         bientity_action:
                             desc: If specified, the specified actions will be executed once the amount of damage dealt has been set, with the 'actor' being the entity dealing the damage and the 'target' being the entity that receives the damage.
                             link: bientity_action
@@ -5977,7 +6034,7 @@ links:
                             type: integer
                         damage_condition:
                             desc: If specified, the amount of damage taken is only set if the damage being taken fulfills the condition.
-                            link: damage_cond
+                            link: damage_condition
                         bientity_action:
                             desc: If specified, the specified actions will be executed once the amount of damage taken has been set, with the 'actor' being the entity taking the damage and the 'target' being the entity that deals the damage.
                             link: bientity_action
@@ -6085,7 +6142,7 @@ links:
                             link: bientity_condition
                         damage_condition:
                             desc: Condition that must be met by the damage source and amount.
-                            link: damage_cond
+                            link: damage_condition
                     string-sync:action_on_key_sequence:
                         success_action:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_key_sequence.md
@@ -6139,7 +6196,7 @@ links:
                                 link: body_part_modifier
                         damage_condition:
                             desc: If present, the entire power only fires when this condition is satisfied by the incoming damage source and amount.
-                            link: damage_cond
+                            link: damage_condition
                         require_hit_data:
                             desc: If true, the power only fires when real positional hit data is available (projectiles and player melee). Mob attacks and environmental damage are ignored entirely.
                             type: boolean
@@ -6373,7 +6430,7 @@ links:
                             required: true
                         damage_condition:
                             desc: If present, the modification only applies when the damage condition is met.
-                            link: damage_cond
+                            link: damage_condition
                         target_condition:
                             desc: If present, the modification only applies when the target condition is met.
                             link: entity_condition
@@ -6432,14 +6489,14 @@ links:
                             desc: When multiple powers of this type are active, only the one with the highest priority takes effect
                             type: integer
                             default: 0
-                        entity_conditionition:
+                        entity_condition:
                             desc: Tested on the viewer. The power only applies when this condition passes
                             link: entity_condition
                         bientity_condition:
                             desc: Tested with the viewer as actor and the power holder as target. The power only applies when this condition passes
                             link: bientity_condition
                     string-sync:modify_label_render:
-                        entity_conditionition:
+                        entity_condition:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_damage_dealt.md
                             desc: If specified, the label modification will only apply to viewers that fulfill this condition.
                             link: entity_condition
@@ -7513,6 +7570,16 @@ links:
                         count:
                             type: integer
                             min: 1
+    damage_source_name:
+        or:
+          - title: minecraft
+            enum: ['anvil','anvil.player','arrow','arrow.item','badRespawnPoint','cactus','cactus.player','cramming','cramming.player','dragonBreath','dragonBreath.player','drown','drown.player','dryout','dryout.player','even_more_magic','explosion','explosion.player','fall','fall.player','fallingBlock','fallingBlock.player','fallingStalactite','fallingStalactite.player','fireball','fireball.item','fireworks','fireworks.player','fireworks.item','flyIntoWall','flyIntoWall.player','freeze','freeze.player','generic','generic.player','hotFloor','hotFloor.player','indirectMagic','indirectMagic.item','inFire','inFire.player','inWall','inWall.player','lava','lava.player','lightningBolt','lightningBolt.player','magic','magic.player','mob','mob.item','onFire','onFire.player','outOfWorld','outOfWorld.player','player','player.item','sonic_boom','sonic_boom.player','sonic_boom.item','stalagmite','stalagmite.player','starve','starve.player','sting','sting.player','sting.item','sweetBerryBush','sweetBerryBush.player','thorns','thorns.item','thrown.item','trident','trident.item','wither','wither.player','witherSkull']
+            default: 'generic'
+          - title: origins
+            enum: ['genericDamageOverTime','genericDamageOverTime.player','hurt_by_water','hurt_by_water.player','no_water_for_gills','no_water_for_gills.player']
+          - title: custom
+            type: string
+            allow: 'a-zA-Z0-9_.-'
     destruction_type:
         desc: |
             Determines the effect of the explosion to the terrain:
