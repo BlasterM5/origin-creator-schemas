@@ -1,56 +1,14 @@
-$: 156
-6:
-  - meta
-  - recipes
-  - powers
-  - origins
-  - origin_layers
-  - tags
-7:
-  - predicates
-  - powers
-  - origin_layers
-  - origins
-  - advancements
-  - loot_tables
-  - item_modifiers
-8:
-  - predicates
-  - powers
-  - origins
-  - origin_layers
-  - advancements
-  - loot_tables
-10:
-  - meta
-  - predicates
-  - powers
-  - origins
-  - origin_layers
-  - advancements
-  - loot_tables
-  - item_modifiers
-12:
-  - predicates
-  - powers
-  - origins
-  - origin_layers
-  - damage_type
-  - advancements
-  - loot_tables
-  - item_modifiers
-  - global_powers
+$: 200
 15:
-  - predicates
+  - meta
   - powers
+  - global_powers
   - origins
   - origin_layers
   - advancements
-  - loot_tables
-18:
-  - meta
-  - powers
-  - origins
-  - origin_layers
+  - damage_type
+  - predicates
+  - recipes
   - loot_tables
   - item_modifiers
+  - tags

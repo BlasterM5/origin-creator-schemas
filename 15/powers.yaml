@@ -66,21 +66,15 @@ links:
                                 vals:
                                     link: bientity_condition
                         string-origins:constant:
-                            value:
-                                desc: Provides a constant state where it's either true or false.
-                                type: boolean
+                            link: meta_condition_constant
                         string-origins:invert:
                             condition:
                                 desc: Swaps the context of the target entity and the actor entity.
                                 link: bientity_condition
                         string-origins:random_chance:
-                            chance:
-                                desc: Generates a random number between 0.0 and 1.0 and checks if it's less than a specified value.
-                                link:number_percent
+                            link: meta_condition_chance
                         string-origins:chance:
-                            chance:
-                                desc: (DEPRECATED) Generates a random number between 0.0 and 1.0 and checks if it's less than a specified value.
-                                link:number_percent
+                            link: meta_condition_chance
                         string-origins:actor_condition:
                             condition:
                                 desc: Checks for an Entity Condition Type on the actor entity.
@@ -171,12 +165,14 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/entity_conditionition_types/
                     enum:
-                      - origins:and
-                      - origins:or
+                      - origins:all_of
+                      - origins:any_of
                       - origins:constant
                       - origins:ability
                       - origins:advancement
                       - origins:air
+                      - origins:attached_to_rope
+                      - origins:attack_charge
                       - origins:attribute
                       - origins:biome
                       - origins:block_collision
@@ -188,10 +184,13 @@ links:
                       - origins:creative_flying
                       - origins:daytime
                       - origins:dimension
+                      - origins:disguised
                       - origins:distance_from_coordinates
                       - origins:elytra_flight_possible
                       - origins:enchantment
                       - origins:entity_group
+                      - origins:entity_in_radius
+                      - origins:entity_set_size
                       - origins:entity_type
                       - origins:equipped_item
                       - origins:exists
@@ -204,34 +203,41 @@ links:
                       - origins:gamemode
                       - origins:glowing
                       - origins:health
-                      - origins:in_block_anywhere
+                      - origins:hunger
                       - origins:in_block
+                      - origins:in_block_anywhere
                       - origins:in_rain
+                      - origins:in_snow
                       - origins:in_tag
+                      - origins:in_team
+                      - origins:in_thunderstorm
                       - origins:inventory
                       - origins:invisible
+                      - origins:key_pressed
                       - origins:living
                       - origins:moving
                       - origins:nbt
                       - origins:on_block
                       - origins:on_fire
                       - origins:origin
-                      - origins:passenger_recursive
                       - origins:passenger
+                      - origins:passenger_recursive
+                      - origins:player_model_type
+                      - origins:power
                       - origins:power_active
                       - origins:power_type
-                      - origins:power
                       - origins:predicate
                       - origins:raycast
                       - origins:relative_health
                       - origins:resource
+                      - origins:riding
                       - origins:riding_recursive
                       - origins:riding_root
-                      - origins:riding
                       - origins:saturation_level
                       - origins:scoreboard
                       - origins:sneaking
                       - origins:sprinting
+                      - origins:stat
                       - origins:status_effect
                       - origins:submerged_in
                       - origins:swimming
@@ -239,88 +245,52 @@ links:
                       - origins:time_of_day
                       - origins:using_effective_tool
                       - origins:using_item
+                      - origins:xp
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                      - origins:chance
                       - origins:xp_levels
                       - origins:xp_points
-
-                      - $Apugli
-
-                      - apugli:entity_in_radius
-
-                      - $Origins Math
-
-                      - $Updated Conditions
-                      - origins-math:air
-                      - origins-math:attribute
-                      - origins-math:block_collision
-                      - origins-math:block_in_radius
-                      - origins-math:brightness
-                      - origins-math:command
-                      - origins-math:distance_from_coordinates
-                      - origins-math:enchantment
-                      - origins-math:fall_distance
-                      - origins-math:fluid_height
-                      - origins-math:food_level
-                      - origins-math:health
-                      - origins-math:in_block_anywhere
-                      - origins-math:inventory
-                      - origins-math:passenger
-                      - origins-math:raycast
-                      - origins-math:relative_health
-                      - origins-math:resource
-                      - origins-math:riding_recursive
-                      - origins-math:saturation_level
-                      - origins-math:scoreboard
-                      - origins-math:status_effect
-                      - origins-math:time_of_day
-                      - origins-math:xp_levels
-                      - origins-math:xp_points
-                      - $Resource Comparators
-                      - origins-math:compare_resources
-                      - origins-math:empty_resource
-                      - origins-math:full_resource
-                      - origins-math:relative_resource
-
-                      - $SYNC
-
-                      - sync:attached_to_rope
-                      - sync:disguised
-                      - sync:entity_in_radius
-                      - sync:entity_set_size
-                      - sync:has_command_tag
-                      - sync:in_pose
-                      - sync:is_selected_stolen_power
-                      - sync:key_pressed
-                      - sync:mod_loaded
-                      - sync:perspective
-                      - sync:player_model_type
-                      - sync:raycast
-                      - sync:velocity
                       
                     more:
-                        string-origins:and:
+                        string-origins:all_of:
                             conditions:
                                 desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: entity_condition
-                        string-origins:or:
+                        string-origins:and:
+                            conditions:
+                                desc: (DEPRECATED) All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: entity_condition
+                        string-origins:any_of:
                             conditions:
                                 desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: entity_condition
+                        string-origins:or:
+                            conditions:
+                                desc: (DEPRECATED) At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: entity_condition
+                        string-origins:random_chance:
+                            link: meta_condition_chance
+                        string-origins:chance:
+                            link: meta_condition_chance
                         string-origins:constant:
-                            value:
-                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
-                                type: boolean
-                                default: false
+                            link: meta_condition_constant
                         string-origins:ability:
                             ability:
-                                desc: The namespace and ID of the ability to check that the entity has.
-                                link: identifier
+                                desc: The namespace and ID of the ability to check for.
+                                link: player_abilities
                         string-origins:advancement:
                             advancement:
-                                desc: ID of the advancement the player needs to have completed in order for this condition to evaluate to true.
+                                desc: 	The namespace and ID of the advancement the player needs to have completed in order for this condition to evaluate to true.
                                 link: identifier
                         string-origins:air:
                             comparison:
@@ -329,53 +299,57 @@ links:
                             compare_to:
                                 desc: The value to compare to.
                                 type: integer
+                        string-origins:attached_to_rope:
+                            slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/air
+                                desc: Only count ropes with this label. If omitted, all ropes the entity is an end of are counted.
+                                type: string
+                            comparison:
+                                desc: How the rope count is compared against compare_to.
+                                link: comparison
+                            compare_to:
+                                desc: The number the rope count is compared against.
+                                type: integer
+                                default: 1
+                        string-origins:attack_charge:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/attack_charge
+                                desc: How the charge is compared to compare_to.
+                                link: comparison
+                            compare_to:
+                                desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
+                                link: expression_float
                         string-origins:attribute:
                             attribute:
-                                desc: ID of the attribute of which the value should be checked.
+                                desc: |
+                                    ID of the attribute of which the value should be checked. See Minecraft Wiki: Attribute (Attributes) for a list of vanilla attributes that can be checked for.
                                 href: https://minecraft.wiki/w/Attribute
                                 link: identifier
                             comparison:
-                                desc: How the attribute's value should be compared to the specified value.
+                                desc: Determines how the attribute’s total value should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the attribute’s total value will be compared to.
                                 type: number
-                        string-origins-math:air:
-                            comparison:
-                                desc: How the breath / air / bubble bar (in ticks) should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
-                        string-origins-math:attribute:
-                            attribute:
-                                desc: ID of the attribute of which the value should be checked.
-                                href: https://minecraft.wiki/w/Attribute
-                                link: identifier
-                            comparison:
-                                desc: How the attribute's value should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
                         string-origins:biome:
                             biome:
-                                desc: If set, this is the ID of the biome the player needs to be in for this condition to evaluate to true, e.g. minecraft:savanna.
+                                desc: If specified, only evaluate the condition to true if the biome the entity is in matches the specified namespace and ID.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
                                 link: identifier
                             biomes:
-                                desc: If set, these are the allowed biome IDs the player can be in for this condition to evaluate to true.
+                                desc: If specified, only evaluate the condition to true if the biome the entity is in matches one of the specified namespace and IDs.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
                                 type: list
                                 vals:
                                     link: identifier
                             condition:
-                                desc: If set, this condition needs to be fulfilled (in addition to having the right ID, if provided) by the biome in order for the condition to evaluate to true.
-                                link: biome_cond
+                                desc: If specified, only evaluate the condition to true if the biome the entity is in fulfills the specified biome condition type.
+                                link: biome_condition
                         string-origins:block_collision:
                             block_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/block_collision
                                 desc: If specified, the condition type will only evaluate to true if the bounding box of the entity is colliding with a block that fulfills this condition.
-                                link: block_cond
+                                link: block_condition
                             offset_x:
                                 desc: |
                                     By how much of the bounding box size should the box be offset in the X direction (e.g.: 0 = no offset, 1 = offset of exact width, 2 = offset of twice the width of the bounding box)
@@ -391,102 +365,60 @@ links:
                                     By how much of the bounding box size should the box be offset in the Z direction (e.g.: 0 = no offset, 1 = offset of exact width, 2 = offset of twice the width of the bounding box)
                                 type: number
                                 default: 0
-                        string-origins-math:block_collision:
-                            block_condition:
-                                desc: If specified, the condition type will only evaluate to true if the bounding box of the entity is colliding with a block that fulfills this condition.
-                                link: block_cond
-                            offset_x:
-                                desc: |
-                                    By how much of the bounding box size should the box be offset in the X direction (e.g.: 0 = no offset, 1 = offset of exact width, 2 = offset of twice the width of the bounding box)
-                                link: math_number_0
-                            offset_y:
-                                desc: |
-                                    By how much of the bounding box size should the box be offset in the Y direction (e.g.: 0 = no offset, 1 = offset of exact width, 2 = offset of twice the width of the bounding box)
-                                link: math_number_0
-                            offset_z:
-                                desc: |
-                                    By how much of the bounding box size should the box be offset in the Z direction (e.g.: 0 = no offset, 1 = offset of exact width, 2 = offset of twice the width of the bounding box)
-                                link: math_number_0
                         string-origins:block_in_radius:
                             block_condition:
-                                desc: The block condition which is applied to the block at the player's feet.
-                                link: block_cond
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/block_in_radius
+                                desc: The block condition type to check for.
+                                link: block_condition
                             radius:
-                                desc: The radius to check blocks in.
+                                desc: The radius of the area to check how many blocks fulfill the block_condition.
                                 type: integer
                             shape:
-                                desc: Determines the shape of the radius. Accepts "cube", "star" or "sphere".
-                                enum: [cube, star, sphere]
+                                link: shape_type
+                                default: 'cube'
                             comparison:
-                                desc: How the number of blocks in the radius which fulfill block_condition should be compared to the specified value.
+                                desc: Determines how the amount of blocks which fulfill block_condition block condition should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the amount of blocks which fulfill block_condition will be compared to.
                                 type: integer
                                 default: 1
                         string-origins:brightness:
                             comparison:
-                                desc: How to compare the brightness at the player's eyes against the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/brightness
+                                desc: Determines how the calculated brightness value should be compared to the specified value. See the doc for more information.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the calculated brightness value will be compared to.
                                 type: number
-                        string-origins-math:block_in_radius:
-                            block_condition:
-                                desc: The block condition which is applied to the block at the player's feet.
-                                link: block_cond
-                            radius:
-                                desc: The radius to check blocks in.
-                                link: math_integer
-                            shape:
-                                desc: Determines the shape of the radius. Accepts "cube", "star" or "sphere".
-                                enum: [cube, star, sphere]
-                            comparison:
-                                desc: How the number of blocks in the radius which fulfill block_condition should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer_1
-                        string-origins-math:brightness:
-                            comparison:
-                                desc: How to compare the brightness at the player's eyes against the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
                         string-origins:climbing: {}
                         string-origins:collided_horizontally: {}
                         string-origins:command:
                             command:
-                                desc: Command to run as and at the entity evaluating this condition.
+                                desc: The command to execute.
                                 type: string
                                 ext: true
                             comparison:
-                                desc: How to compare the command's result (all commands return 0 on failure and 1 or more on success. Some commands even return back the count/number of something) to the specified value.
+                                desc: Determines how the result value (an integer) of the executed command should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the result value (an integer) of the executed command will be compared to.
                                 type: integer
                                 default: 1
-                        string-origins-math:command:
-                            command:
-                                desc: Command to run as and at the entity evaluating this condition.
-                                type: string
-                                ext: true
-                            comparison:
-                                desc: How to compare the command's result (all commands return 0 on failure and 1 or more on success. Some commands even return back the count/number of something) to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer_1
                         string-origins:creative_flying: {}
                         string-origins:daytime: {}
                         string-origins:dimension:
                             dimension:
-                                desc: ID of the dimension the player needs to be in for this condition to evaluate to true. Vanilla dimensions are minecraft:overworld, minecraft:the_nether and minecraft:the_end, but IDs of custom/modded dimensions should also work.
-                                link: identifier
+                                desc: The namespace and ID of the dimension the player needs to be in for this condition to evaluate to true.
+                                or:
+                                  - title: vanilla
+                                    enum: ['overworld','nether','the_end']
+                                  - title: custom
+                                    link: identifier
+                        string-origins:disguised: {}
                         string-origins:distance_from_coordinates:
                             reference:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/distance_from_coordinates
                                 desc: The point to compare the distance to.
                                 enum: [world_origin, world_spawn]
                             offset:
@@ -502,8 +434,8 @@ links:
                                 desc: Determines whether to consider the Z axis to be 0.
                                 type: boolean
                             shape:
-                                desc: Determines the shape of the check.
-                                enum: [cube, star, sphere]
+                                link: shape_type
+                                default: 'cube'
                             scale_reference_to_dimension:
                                 desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
                                 type: boolean
@@ -512,213 +444,192 @@ links:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
                                 type: boolean
                             round_to_digit:
-                                desc: If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work.
+                                desc: |
+                                    If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work (e.g: -2 rounds to multiples of 100).
                                 type: integer
                             comparison:
                                 desc: Determines how the calculated distance is compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare the calculated distance to.
+                                desc: The value at which the calculated distance is compared to.
                                 type: number
-                        string-origins-math:distance_from_coordinates:
-                            reference:
-                                desc: The point to compare the distance to.
-                                enum: [world_origin, world_spawn]
-                            offset:
-                                desc: If specified, determines how much the reference point should be offset.
-                                link: vector
-                            ignore_x:
-                                desc: Determines whether to consider the X axis to be 0.
-                                type: boolean
-                            ignore_y:
-                                desc: Determines whether to consider the Y axis to be 0.
-                                type: boolean
-                            ignore_z:
-                                desc: Determines whether to consider the Z axis to be 0.
-                                type: boolean
-                            shape:
-                                desc: Determines the shape of the check.
-                                enum: [cube, star, sphere]
-                            scale_reference_to_dimension:
-                                desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
-                                type: boolean
-                                default: true
-                            result_on_the_wrong_dimension:
-                                desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
-                                type: boolean
-                            round_to_digit:
-                                desc: If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work.
-                                link: math_integer
-                            comparison:
-                                desc: Determines how the calculated distance is compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare the calculated distance to.
-                                link: math_number
                         string-origins:elytra_flight_possible:
                             check_state:
-                                desc: Determines if the condition should check if the entity is currently flying with an elytra.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/elytra_flight_possible
+                                desc: If set to true, the entity condition type will check if pressing the key.jump keybind would activate elytra flight if the player had the ability to.
                                 type: boolean
+                                default: false
                             check_abilities:
-                                desc: Determines if the condition should check if the entity can fly with an elytra.
+                                desc: |
+                                    If set to true, the entity condition type will check whether the player has the ability to activate elytra flight. (e.g: wearing an elytra or have a power that uses the apoli:elytra_flight)
                                 type: boolean
                                 default: true
                         string-origins:enchantment:
                             enchantment:
-                                desc: ID of the enchantment of interest.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/enchantment
+                                desc: The namespace and ID of the enchantment of interest.
                                 link: identifier
                             calculation:
-                                desc: Which number to compare - either the sum of levels of this enchantment on all of the player's equipment, or the max level of this enchantment on any of the player's equipment.
+                                desc: Which number to compare - either the sum of levels of this enchantment on all of the player’s equipment, or the max level of this enchantment on any of the player’s equipment.
                                 enum: [sum, max]
                             comparison:
-                                desc: How the enchantment level should be compared to the specified value.
+                                desc: Determines how the level of the specified enchantment should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the level of the specified enchantment will be compared to.
                                 type: integer
-                        string-origins-math:enchantment:
-                            enchantment:
-                                desc: ID of the enchantment of interest.
-                                link: identifier
-                            calculation:
-                                desc: Which number to compare - either the sum of levels of this enchantment on all of the player's equipment, or the max level of this enchantment on any of the player's equipment.
-                                enum: [sum, max]
-                            comparison:
-                                desc: How the enchantment level should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:entity_group:
                             group:
-                                desc: Entity group required for the entity to pass the check. One of default, undead, arthropod, illager, or aquatic. Click for more information about the entity groups.
+                                desc: Entity group required for the entity to pass the check.
                                 href: https://minecraft.wiki/w/Mob#Classification
                                 enum: [default, undead, arthropod, illager, aquatic]
+                        string-origins:entity_in_radius:
+                            bientity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_in_radius
+                                desc: Optional condition to filter counted entities (actor = the entity this condition runs on, target = each nearby entity).
+                                link: bientity_condition
+                            shape:
+                                desc: Determines the shape of the area used for checking entities.
+                                link: shape_type
+                                default: 'cube'
+                            radius:
+                                desc: Radius/distance for detection, in blocks.
+                                type: number
+                                required: true
+                            comparison:
+                                desc: How to compare the count.
+                                link: comparison
+                            compare_to:
+                                desc: The value to compare the count against.
+                                type: integer
+                                default: 1
+                        string-origins:entity_set_size:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
+                                desc: The Entity Set power to check
+                                link: identifier
+                            comparison:
+                                desc: How to compare the size
+                                link: comparison
+                            compare_to:
+                                desc: Value to compare against
+                                type: integer
                         string-origins:entity_type:
                             entity_type:
-                                desc: ID of the entity type the entity needs to have to pass the check.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_type
+                                desc: The entity type the entity needs to have. Prefix with \# to match an entity type tag instead.
                                 link: identifier
                         string-origins:equipped_item:
                             equipment_slot:
-                                desc: Which equipped item to check.
-                                enum: [mainhand, offhand, head, chest, legs, feet]
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/equipped_item
+                                desc: Determines which equipment slot to check for the item.
+                                link: equipment_slot
                             item_condition:
-                                desc: Which condition will be applied to the item in the specified slot.
-                                link: item_cond
+                                desc: The item condition type to check for on the item in the specified equipment slot.
+                                link: item_condition
                         string-origins:exists: {}
                         string-origins:exposed_to_sky: {}
                         string-origins:exposed_to_sun: {}
                         string-origins:fall_distance:
                             comparison:
-                                desc: How the player's current fall distance should be compared to the specified value. Note that the value is 0 if the player has slow falling.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/fall_distance
+                                desc: Determines how the fall distance of the entity should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the fall distance of the entity will be compared to.
                                 type: number
-                        string-origins-math:fall_distance:
-                            comparison:
-                                desc: How the player's current fall distance should be compared to the specified value. Note that the value is 0 if the player has slow falling.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
                         string-origins:fall_flying: {}
                         string-origins:fluid_height:
                             fluid:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/fluid_height
                                 desc: |
-                                    ID of the fluid tag of which the height should be checked. Most important examples: minecraft:water and minecraft:lava.
+                                    ID of the fluid tag of which the height should be checked.
                                 link: identifier
                             comparison:
-                                desc: How the fluid height should be compared to the specified value. A fluid height of 0 means the player is not touching the fluid.
+                                desc: Determines how the height of the fluid should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the height of the fluid will be compared to.
                                 type: number
                         string-origins:food_level:
                             comparison:
-                                desc: How the player's current food level should be compared to the specified value. In a range from 0 to 20.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/food_level
+                                desc: Determines how the food level of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the food level of the player will be compared to.
                                 type: number
-                        string-origins-math:fluid_height:
-                            fluid:
-                                desc: |
-                                    ID of the fluid tag of which the height should be checked. Most important examples: minecraft:water and minecraft:lava.
-                                link: identifier
-                            comparison:
-                                desc: How the fluid height should be compared to the specified value. A fluid height of 0 means the player is not touching the fluid.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
-                        string-origins-math:food_level:
-                            comparison:
-                                desc: How the player's current food level should be compared to the specified value. In a range from 0 to 20.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
                         string-origins:gamemode:
                             gamemode:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/gamemode
                                 desc: Name of the gamemode the player should have in order for this condition to evaluate to true.
-                                enum: [survival, creative, adventure, spectator]
+                                enum: ['survival', 'creative', 'adventure', 'spectator']
                         string-origins:glowing: {}
                         string-origins:health:
                             comparison:
-                                desc: How the player's health should be compared to the specified value. Ranges from 0 - 20.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/health
+                                desc: Determines how the current health of the entity should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the current health of the entity will be compared to.
                                 type: number
-                        string-origins-math:health:
+                        string-origins:hunger:
+                            kind:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/hunger
+                                desc: Unknown
+                                type: identifier
                             comparison:
-                                desc: How the player's health should be compared to the specified value. Ranges from 0 - 20.
+                                desc: Unknown
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
-                                link: math_number
-                        string-origins:in_block_anywhere:
-                            block_condition:
-                                desc: The block condition which blocks need to fulfill in order to count for this condition.
-                                link: block_cond
-                            comparison:
-                                desc: How the number of blocks which overlap and fulfill block_condition should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                type: integer
-                                default: 1
-                        string-origins-math:in_block_anywhere:
-                            block_condition:
-                                desc: The block condition which blocks need to fulfill in order to count for this condition.
-                                link: block_cond
-                            comparison:
-                                desc: How the number of blocks which overlap and fulfill block_condition should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer_1
+                                desc: Unknown
+                                type: number
                         string-origins:in_block:
                             block_condition:
-                                desc: The block condition which is applied to the block at the player's lower body half.
-                                link: block_cond
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_block
+                                desc: The block condition type to check for on the block that is overlapping with the entity’s feet.
+                                link: block_condition
+                        string-origins:in_block_anywhere:
+                            block_condition:
+                                desc: The block condition type which blocks need to fulfill in order to count for this condition.
+                                link: block_condition
+                            comparison:
+                                desc: Determines how the amount of blocks which overlap and fulfill block_condition should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value at which the amount of blocks which overlap and fulfill block_condition will be compared to.
+                                type: integer
+                                default: 1
                         string-origins:in_rain: {}
+                        string-origins:in_snow: {}
                         string-origins:in_tag:
                             tag:
-                                desc: ID of the tag the entity type needs to be in to pass the check.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_tag
+                                desc: The namespace and ID of the entity type tag the entity type needs to be in to pass the check.
                                 link: identifier
-                        string-origins:inventory:
-                            inventory_types:
-                                desc: Determines whether to check for items in the entity's inventory, inventories of powers present in the entity, or both. Defaults to ["inventory"]. If "inventory" is included, the player's main inventory will be checked. If "power" is included the player's bonus inventories given with powers will also be checked.
+                        string-origins:in_team:
+                            team:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_team
+                                desc: A team to match against.
+                                link: team
+                            teams:
+                                desc: Several teams; the condition passes if any of them match.
                                 type: list
                                 vals:
-                                    enum: [inventory, power]
+                                    link: team
+                        string-origins:in_thunderstorm: {}
+                        string-origins:inventory:
+                            inventory_types:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/inventory
+                                desc: Determines whether to check for items in the entity’s inventory, inventories of powers present in the entity, or both.
+                                type: list
+                                vals:
+                                    link: inventory_type
                             process_mode:
                                 link: process_mode
                             item_condition:
                                 desc: If specified, only account for items from the specified inventory/inventories that fulfill this condition.
-                                link: item_cond
+                                link: item_condition
                             slots:
                                 desc: If specified, only items from these specified item slots are evaluated.
                                 link: slots
@@ -727,81 +638,50 @@ links:
                                 link: slot
                             power:
                                 desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
-                                link: namespace
+                                link: identifier
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
                                 link: comparison
+                                default: '>'
                             compare_to:
                                 desc: The value at which the amount of items/stacks that were evaluated are compared to.
                                 type: integer
                                 default: 0
-                        string-origins-math:inventory:
-                            inventory_types:
-                                desc: Determines whether to check for items in the entity's inventory, inventories of powers present in the entity, or both. Defaults to ["inventory"]. If "inventory" is included, the player's main inventory will be checked. If "power" is included the player's bonus inventories given with powers will also be checked.
-                                type: list
-                                vals:
-                                    enum: [inventory, power]
-                            process_mode:
-                                link: process_mode
-                            item_condition:
-                                desc: If specified, only account for items from the specified inventory/inventories that fulfill this condition.
-                                link: item_cond
-                            slots:
-                                desc: If specified, only items from these specified item slots are evaluated.
-                                link: slots
-                            slot:
-                                desc: If specified, only the item from this specified item slot is evaluated.
-                                link: slot
-                            power:
-                                desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
-                                link: namespace
-                            comparison:
-                                desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value at which the amount of items/stacks that were evaluated are compared to.
-                                link: math_integer_0
                         string-origins:invisible: {}
+                        string-origins:key_pressed:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/key_pressed
+                                link: key
                         string-origins:living: {}
-                        string-origins:moving: {}
+                        string-origins:moving:
+                            horizontally:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/moving
+                                desc: Determines whether to check if the entity is moving horizontally.
+                                type: boolean
+                                default: true
+                            vertically:
+                                desc: Determines whether to check if the entity is moving vertically.
+                                type: boolean
+                                default: true
                         string-origins:nbt:
                             nbt:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/nbt
                                 desc: The NBT data to check for
                                 type: string
                                 ext: true
                         string-origins:on_block:
                             block_condition:
-                                desc: If set, a block that satisfies this block condition needs to be right below the player's feet.
-                                link: block_cond
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/on_block
+                                desc: If specified, the condition will evaluate to true if the block underneath the entity’s feet fulfills the specified block condition type. Otherwise, only check if the entity is on the ground.
+                                link: block_condition
                         string-origins:on_fire: {}
                         string-origins:origin:
                             origin:
                                 desc: ID of the origin the player needs to have to pass the check.
-                                link: namespace
+                                link: identifier
                             layer:
                                 desc: If set, will check only the layer with the provided ID for the origin. By default it will check in any layer.
-                                link: namespace
-                        string-origins:passenger_recursive:
-                            bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bientity_condition
-                            comparison:
-                                desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: Which value the amount of entities currently riding the entity should be compared to.
-                                type: integer
-                                default: 1
-                        string-origins-math:passenger_recursive:
-                            bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bientity_condition
-                            comparison:
-                                desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: Which value the amount of entities currently riding the entity should be compared to.
-                                link: math_integer_1
+                                link: identifier
                         string-origins:passenger:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
@@ -813,7 +693,7 @@ links:
                                 desc: Which value the amount of entities currently riding the entity should be compared to.
                                 type: integer
                                 default: 1
-                        string-origins-math:passenger:
+                        string-origins:passenger_recursive:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
                                 link: bientity_condition
@@ -822,19 +702,20 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: Which value the amount of entities currently riding the entity should be compared to.
-                                link: math_integer_1
+                                type: integer
+                                default: 1
                         string-origins:power_active:
                             power:
                                 desc: ID of the power which will be checked for being active.
-                                link: namespace
+                                link: identifier
                         string-origins:power_type:
                             power_type:
                                 desc: The namespace and ID of a power type of some power to check that the player has.
-                                link: namespace
+                                link: identifier
                         string-origins:power:
                             power:
                                 desc: ID of the power the player needs to have to pass the check.
-                                link: namespace
+                                link: identifier
                             source:
                                 desc: ID of the source of the power the player needs to have to pass the check.
                                 type: string
@@ -880,45 +761,7 @@ links:
                                 link: bientity_condition
                             block_condition:
                                 desc: If specified, the entity condition type will check if the block that was hit by the raycast fulfills this block condition type.
-                                link: block_cond
-                        string-origins-math:raycast:
-                            distance:
-                                desc: Determines the maximum distance the raycast will travel.
-                                link: math_number_20
-                            block:
-                                desc: If set to false, the raycast will ignore blocks.
-                                type: boolean
-                                default: true
-                            entity:
-                                desc: If set to false, the raycast will ignore entities.
-                                type: boolean
-                                default: true
-                            shape_type:
-                                desc: |
-                                    Determines how the raycast handles blocks.
-
-                                    If set to "outline", the raycast will take the shape of the collision box of the block into account.
-                                    If set to "visual", the raycast will ignore blocks that are see-through (e.g: Glass, Tinted Glass, etc.).
-                                    If set to "collider", the raycast will take physical collision of the block into account.
-                                enum: [outline, visual, collider]
-                            fluid_handling:
-                                desc: |
-                                    Determines how the raycast handles fluids.
-
-                                    If set to "any", the raycast will ignore source and flowing fluids.
-                                    If set to "source", the raycast will only go through source fluids.
-                                    If set to "none", the raycast won't go through any kind of fluids.
-                                enum: [any, source, none]
-                                gap: true
-                            match_bientity_condition:
-                                desc: If specified, the entity condition type will check if this bi-entity condition type is fulfilled by the entity that the raycast has gone through. If not, the entity will be ignored.
-                                link: bientity_condition
-                            hit_bientity_condition:
-                                desc: If specified, the entity condition type will check if the entity that was hit by the raycast fulfills this bi-entity condition type.
-                                link: bientity_condition
-                            block_condition:
-                                desc: If specified, the entity condition type will check if the block that was hit by the raycast fulfills this block condition type.
-                                link: block_cond
+                                link: block_condition
                         string-origins:relative_health:
                             comparison:
                                 desc: How the relative health of the player should be compared to the specified value.
@@ -926,33 +769,16 @@ links:
                             compare_to:
                                 desc: The value to compare to.
                                 type: number
-                        string-origins-math:relative_health:
-                            comparison:
-                                desc: How the relative health of the player should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
                         string-origins:resource:
                             resource:
                                 desc: ID of the power type that defines the resource. Must be a Resource (Power Type) which exists on the player.
-                                link: namespace
+                                link: identifier
                             comparison:
                                 desc: How the resource's value should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value to compare to.
                                 type: integer
-                        string-origins-math:resource:
-                            resource:
-                                desc: ID of the power type that defines the resource. Must be a Resource (Power Type) which exists on the player.
-                                link: namespace
-                            comparison:
-                                desc: How the resource's value should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:riding_recursive:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
@@ -964,16 +790,6 @@ links:
                                 desc: Which value the amount of entities currently being ridden should be compared to.
                                 type: integer
                                 default: 1
-                        string-origins-math:riding_recursive:
-                            bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bientity_condition
-                            comparison:
-                                desc: How the amount of entities currently being ridden should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: Which value the amount of entities currently being ridden should be compared to.
-                                link: math_integer_1
                         string-origins:riding_root:
                             bientity_condition:
                                 desc: If specified, only check for the entities that fulfills the bi-entity condition.
@@ -989,16 +805,38 @@ links:
                             compare_to:
                                 desc: The value to compare to.
                                 type: number
-                        string-origins-math:saturation_level:
-                            comparison:
-                                desc: How the saturation level should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
                         string-origins:scoreboard:
                             name:
-                                desc: A selector to retrieve the scoreboard objective from. Leave blank for the entity with the power.
+                                desc:
+                        string-origins:entity_in_radius:
+                            bientity_condition:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_in_radius.md
+                                desc: Optional condition to filter counted entities
+                                link: bientity_condition
+                            shape:
+                                desc: Determines the shape of the area used for checking how many entities fulfill the bi-entity condition.
+                                enum: [cube, star, sphere]
+                            radius:
+                                desc: Radius/distance for detection
+                                type: number
+                            comparison:
+                                desc: How to compare the count
+                                link: comparison
+                            compare_to:
+                                desc: Minimum number of entities required
+                                type: integer
+                                default: 1
+                        string-origins:entity_set_size:
+                            set:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_set_size.md
+                                desc: The Entity Set power to check
+                                link: identifier
+                            comparison:
+                                desc: How to compare the size
+                                link: comparison
+                            compare_to:
+                                desc: Value to compare against
+                                type: integer A selector to retrieve the scoreboard objective from. Leave blank for the entity with the power.
                                 type: string
                             objective:
                                 desc: The name of the scoreboard objective to retrieve the value from (referred to as the score) and compare.
@@ -1009,19 +847,6 @@ links:
                             compare_to:
                                 desc: The value to compare to.
                                 type: integer
-                        string-origins-math:scoreboard:
-                            name:
-                                desc: A selector to retrieve the scoreboard objective from. Leave blank for the entity with the power.
-                                type: string
-                            objective:
-                                desc: The name of the scoreboard objective to retrieve the value from (referred to as the score) and compare.
-                                type: string
-                            comparison:
-                                desc: How the player's score should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:status_effect:
@@ -1040,22 +865,6 @@ links:
                             max_duration:
                                 desc: The maximum duration the status effect should have in order to pass the check. Defaults to 2147483647.
                                 link: integer_dur
-                        string-origins-math:status_effect:
-                            effect:
-                                desc: ID of the status effect the player should have.
-                                link: identifier
-                            min_amplifier:
-                                desc: The minimum amplifier the status effect should have in order to pass the check. Defaults to 0.
-                                link: math_integer_amp
-                            max_amplifier:
-                                desc: The maximum amplifier the status effect should have in order to pass the check. Defaults to 2147483647.
-                                link: math_integer_amp
-                            min_duration:
-                                desc: The minimum duration the status effect should have in order to pass the check. Defaults to 0.
-                                link: math_integer_dur
-                            max_duration:
-                                desc: The maximum duration the status effect should have in order to pass the check. Defaults to 2147483647.
-                                link: math_integer_dur
                         string-origins:submerged_in:
                             fluid:
                                 desc: |
@@ -1070,18 +879,11 @@ links:
                             compare_to:
                                 desc: The value to compare to.
                                 type: integer
-                        string-origins-math:time_of_day:
-                            comparison:
-                                desc: How the current day time ticks of the world should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:using_effective_tool: {}
                         string-origins:using_item:
                             item_condition:
                                 desc: If specified, the condition will only pass if the item that is being used fulfills this condition.
-                                link: item_cond
+                                link: item_condition
                         string-origins:xp_levels:
                             comparison:
                                 desc: How the experience level of the player should be compared to the specified value.
@@ -1095,106 +897,6 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value to compare to.
-                                type: integer
-                        string-origins-math:xp_levels:
-                            comparison:
-                                desc: How the experience level of the player should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
-                        string-origins-math:xp_points:
-                            comparison:
-                                desc: How the experience points of the player should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
-                        string-apugli:entity_in_radius:
-                            condition:
-                                desc: The entity condition type to check for.
-                                link: entity_condition
-                            bientity_condition:
-                                desc: The bi-entity condition type to check for with the entity with this condition as the actor and the entities in the radius as the targets.
-                                link: bientity_condition
-                            radius:
-                                desc: The radius to check the entities that fulfill the specified entity condition type within.
-                                link: math_number
-                            comparison:
-                                desc: How the amount of entities within the specified radius which fulfills the specified entity/bi-entity condition type(s) should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare the amount to.
-                                link: math_integer_1
-                        string-origins-math:compare_resources:
-                            left_resource:
-                                desc: The namespace and ID of the power that uses the Resource (Power Type) or has a built-in cooldown.
-                                link: namespace
-                            comparison:
-                                desc: Determines how the value of left_resource should be compared to right_resource.
-                                link: comparison
-                            right_resource:
-                                desc: The namespace and ID of the power that uses the Resource (Power Type) or has a built-in cooldown.
-                                link: namespace
-                        string-origins-math:empty_resource:
-                            resource:
-                                desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type), Resource (Power Type) or has a built-in cooldown.
-                                link: namespace
-                        string-origins-math:full_resource:
-                            resource:
-                                desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type), Resource (Power Type) or has a built-in cooldown.
-                                link: namespace
-                        string-origins-math:relative_resource:
-                            resource:
-                                desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type), Resource (Power Type) or has a built-in cooldown.
-                                link: namespace
-                            comparison:
-                                desc: Determines how the relativity value of resource should be compared to relativity.
-                                link: comparison
-                            relativity:
-                                desc: The relativity value at which the relativity of the resource will be compared to.
-                                link: math_number
-                        string-sync:attached_to_rope:
-                            anchor_type:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fattached_to_rope.md
-                                desc: Filters which ropes to count.
-                                enum: [any, block, entity, leash, swing]
-                            comparison:
-                                desc: Comparison operator applied between the matching rope count and compare_to.
-                                link: comparison
-                            compare_to:
-                                desc: Value the rope count is compared against.
-                                type: Integer
-                                default: 1
-                        string-sync:disguised: {}
-                        string-sync:entity_in_radius:
-                            bientity_condition:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_in_radius.md
-                                desc: Optional condition to filter counted entities
-                                link: bientity_condition
-                            shape:
-                                desc: Determines the shape of the area used for checking how many entities fulfill the bi-entity condition.
-                                enum: [cube, star, sphere]
-                            radius:
-                                desc: Radius/distance for detection
-                                type: number
-                            comparison:
-                                desc: How to compare the count
-                                link: comparison
-                            compare_to:
-                                desc: Minimum number of entities required
-                                type: integer
-                                default: 1
-                        string-sync:entity_set_size:
-                            set:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_set_size.md
-                                desc: The Entity Set power to check
-                                link: namespace
-                            comparison:
-                                desc: How to compare the size
-                                link: comparison
-                            compare_to:
-                                desc: Value to compare against
                                 type: integer
                         string-sync:has_command_tag:
                             command_tag:
@@ -1229,12 +931,12 @@ links:
                             mod:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fmod_loaded.md
                                 desc: A single mod ID to check for
-                                link: namespace
+                                link: identifier
                             mods:
                                 desc: Multiple mod IDs (all must be loaded)
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                         string-sync:perspective:
                             perspectives:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fperspective.md
@@ -1286,7 +988,7 @@ links:
                                 link: bientity_condition
                             block_condition:
                                 desc: If specified, the condition returns true only if the hit block satisfies this condition
-                                link: block_cond
+                                link: block_condition
                         string-sync:velocity:
                             x:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fvelocity.md
@@ -1315,7 +1017,7 @@ links:
                                 type: number
           - title: custom
             link: custom_condition
-    item_cond:
+    item_condition:
         unspec: none
         or:
           - title: original
@@ -1368,18 +1070,15 @@ links:
                                 desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: item_cond
+                                    link: item_condition
                         string-origins:or:
                             conditions:
                                 desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: item_cond
+                                    link: item_condition
                         string-origins:constant:
-                            value:
-                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
-                                type: boolean
-                                default: false
+                            link: meta_condition_constant
                         string-origins:empty: {}
                         string-origins:amount:
                             comparison:
@@ -1508,17 +1207,17 @@ links:
                             mod:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Fmod_loaded.md
                                 desc: A single mod ID to check for
-                                link: namespace
+                                link: identifier
                                 default: unspec
                             mods:
                                 desc: Multiple mod IDs (all must be loaded)
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                         string-sync:on_cooldown: {}
           - title: custom
             link: custom_condition
-    block_cond:
+    block_condition:
         unspec: none
         or:
           - title: original
@@ -1559,22 +1258,19 @@ links:
                                 desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: block_cond
+                                    link: block_condition
                         string-origins:or:
                             conditions:
                                 desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: block_cond
+                                    link: block_condition
                         string-origins:constant:
-                            value:
-                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
-                                type: boolean
-                                default: false
+                            link: meta_condition_constant
                         string-origins:adjacent:
                             adjacent_condition:
                                 desc: The block condition that needs to be fulfilled by adjacent blocks to count towards this condition.
-                                link: block_cond
+                                link: block_condition
                             comparison:
                                 desc: How the number of adjacent blocks which fulfill adjacent_condition should be compared to the specified value.
                                 link: comparison
@@ -1701,7 +1397,7 @@ links:
                         string-origins:offset:
                             condition:
                                 desc: The condition to check with the given offset.
-                                link: block_cond
+                                link: block_condition
                             x:
                                 desc: How much to offset the position on the x-axis. Defaults to 0.
                                 type: integer
@@ -1755,10 +1451,7 @@ links:
                                 vals:
                                     link: fluid_cond
                         string-origins:constant:
-                            value:
-                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
-                                type: boolean
-                                default: false
+                            link: meta_condition_constant
                         string-origins:empty: {}
                         string-origins:fluid:
                             fluid:
@@ -1771,7 +1464,7 @@ links:
                         string-origins:still: {}
           - title: custom
             link: custom_condition
-    biome_cond:
+    biome_condition:
         unspec: none
         or:
           - title: original
@@ -1796,18 +1489,15 @@ links:
                                 desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: biome_cond
+                                    link: biome_condition
                         string-origins:or:
                             conditions:
                                 desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: biome_cond
+                                    link: biome_condition
                         string-origins:constant:
-                            value:
-                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
-                                type: boolean
-                                default: false
+                            link: meta_condition_constant
                         string-origins:category:
                             category:
                                 desc: Which category the biome must be in order to succeed the check. Click to see the list of biome categories in vanilla.
@@ -1871,10 +1561,7 @@ links:
                                 vals:
                                     link: damage_cond
                         string-origins:constant:
-                            value:
-                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
-                                type: boolean
-                                default: false
+                            link: meta_condition_constant
                         string-origins:amount:
                             comparison:
                                 desc: How the amount of damage should be compared to the specified value.
@@ -2133,10 +1820,10 @@ links:
                         string-origins-math:copy_resource_value:
                             target_resource:
                                 desc: The target's resource power with the value to be copied.
-                                link: namespace
+                                link: identifier
                             actor_resource:
                                 desc: The actor's resource power the target's resource value is copied over to.
-                                link: namespace
+                                link: identifier
                             operation:
                                 desc: Determines if the action should add or set the value of the resource.
                                 enum: [add,set]
@@ -2160,7 +1847,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fadd_to_entity_set.md
                                 desc: The Entity Set power to add the target to.
-                                link: namespace
+                                link: identifier
                             time_limit:
                                 desc: Duration (in ticks) the entity should remain in the set. After this time, the entity is automatically removed.
                                 type: integer
@@ -2214,35 +1901,35 @@ links:
                                 default: false
                             indestructible:
                                 desc: Block condition for blocks that are protected from the explosion regardless of destruction_type
-                                link: block_cond
+                                link: block_condition
                             destructible:
                                 desc: Block condition for blocks that are explicitly allowed to be destroyed, taking priority over indestructible
-                                link: block_cond
+                                link: block_condition
                         string-sync:liberate_power:
                             power:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fliberate_power.md
                                 desc: A single power ID to liberate
-                                link: namespace
+                                link: identifier
                             powers:
                                 desc: Additional power IDs to liberate
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             power_types:
                                 desc: Factory-type IDs; all suppressed powers of these types are liberated
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             power_sources:
                                 desc: Source IDs; suppressed powers granted via a listed source are liberated
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             ignored_powers:
                                 desc: Power IDs that are never liberated, even if they match another filter
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             bientity_action:
                                 desc: Executed once for every power that gets liberated
                                 link: bientity_action
@@ -2271,7 +1958,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fremove_from_entity_set.md
                                 desc: The ID of the power to remove the target entity from.
-                                link: namespace
+                                link: identifier
                         string-sync:rope_leash:
                             max_length:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Frope_leash.md
@@ -2289,27 +1976,27 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fsuppress_power.md
                                 desc: A single power ID to suppress
-                                link: namespace
+                                link: identifier
                             powers:
                                 desc: Additional power IDs to suppress
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             power_types:
                                 desc: Factory-type IDs (e.g. origins:active_self); all powers of these types are suppressed
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             power_sources:
                                 desc: Source IDs; all powers granted via a listed source are suppressed
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             ignored_powers:
                                 desc: Power IDs that are never suppressed, even if they match another filter
                                 type: list
                                 vals:
-                                    link: namespace
+                                    link: identifier
                             bientity_action:
                                 desc: Executed once for every power that gets suppressed
                                 link: bientity_action
@@ -2320,7 +2007,7 @@ links:
                                 enum: [steal, give, auto]
                             source:
                                 desc: When stealing, only powers from this specific source are taken. Omit to steal from all sources
-                                link: namespace
+                                link: identifier
                             transfer_source:
                                 desc: The source identifier under which stolen powers are granted to the actor
                                 link: identifier
@@ -2663,7 +2350,7 @@ links:
                         string-origins:change_resource:
                             resource:
                                 desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                link: namespace
+                                link: identifier
                             change:
                                 desc: This value will be added to the resource (won't go below min or above max of the Resource Resource (Power Type)).
                                 type: integer
@@ -2709,7 +2396,7 @@ links:
                                 link: item_action
                             item_condition:
                                 desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_cond
+                                link: item_condition
                             slots:
                                 link: slots
                             slot:
@@ -2719,7 +2406,7 @@ links:
                                 type: integer
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to drop.
-                                link: namespace
+                                link: identifier
                             throw_randomly:
                                 desc: Whether or not to throw the item in a random direction around the player instead of in front of them.
                                 type: boolean
@@ -2739,7 +2426,7 @@ links:
                                 link: item_action
                             item_condition:
                                 desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_cond
+                                link: item_condition
                             slots:
                                 link: slots
                             slot:
@@ -2749,7 +2436,7 @@ links:
                                 link: math_integer
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to drop.
-                                link: namespace
+                                link: identifier
                             throw_randomly:
                                 desc: Whether or not to throw the item in a random direction around the player instead of in front of them.
                                 type: boolean
@@ -2796,10 +2483,10 @@ links:
                                 default: true
                             indestructible:
                                 desc: If set, blocks specified in this block condition object is not destroyed by the explosion.
-                                link: block_cond
+                                link: block_condition
                             destructible:
                                 desc: If set, blocks specified in this block condition object will be the only blocks destroyed by the explosion.
-                                link: block_cond
+                                link: block_condition
                             create_fire:
                                 desc: Determines if the explosion should create fire.
                                 type: boolean
@@ -2816,10 +2503,10 @@ links:
                                 default: true
                             indestructible:
                                 desc: If set, blocks specified in this block condition object is not destroyed by the explosion.
-                                link: block_cond
+                                link: block_condition
                             destructible:
                                 desc: If set, blocks specified in this block condition object will be the only blocks destroyed by the explosion.
-                                link: block_cond
+                                link: block_condition
                             create_fire:
                                 desc: Determines if the explosion should create fire.
                                 type: boolean
@@ -2922,7 +2609,7 @@ links:
                         string-origins:grant_power:
                             power:
                                 desc: The ID of the power to be granted to the entity.
-                                link: namespace
+                                link: identifier
                             source:
                                 desc: The source of the power. Can realistically be anything, but make sure to keep note of it.
                                 type: string
@@ -2950,14 +2637,14 @@ links:
                                 link: item_action
                             item_condition:
                                 desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_cond
+                                link: item_condition
                             slots:
                                 link: slots
                             slot:
                                 link: slot
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to modify.
-                                link: namespace
+                                link: identifier
                             process_mode:
                                 link: process_mode
                             limit:
@@ -2976,14 +2663,14 @@ links:
                                 link: item_action
                             item_condition:
                                 desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_cond
+                                link: item_condition
                             slots:
                                 link: slots
                             slot:
                                 link: slot
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to modify.
-                                link: namespace
+                                link: identifier
                             process_mode:
                                 link: process_mode
                             limit:
@@ -2992,7 +2679,7 @@ links:
                         string-origins:modify_resource:
                             resource:
                                 desc: The resource to modify.
-                                link: namespace
+                                link: identifier
                             modifier:
                                 desc: The modifier to apply to the given power resource.
                                 link: a_mod
@@ -3195,14 +2882,14 @@ links:
                                 link: item_action
                             item_condition:
                                 desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_cond
+                                link: item_condition
                             slots:
                                 link: slots
                             slot:
                                 link: slot
                             power:
                                 desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to replace.
-                                link: namespace
+                                link: identifier
                             stack:
                                 desc: The item stack to replace with.
                                 link: item_stack
@@ -3216,7 +2903,7 @@ links:
                         string-origins:revoke_power:
                             power:
                                 desc: The ID of the power to be revoked from the entity.
-                                link: namespace
+                                link: identifier
                             source:
                                 desc: The source of the power.
                                 type: string
@@ -3257,7 +2944,7 @@ links:
                         string-origins:set_resource:
                             resource:
                                 desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                link: namespace
+                                link: identifier
                             value:
                                 desc: The value the resource will be set to (won't go below min or above max of the Resource).
                                 type: integer
@@ -3294,7 +2981,7 @@ links:
                         string-origins-math:set_resource:
                             resource:
                                 desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                link: namespace
+                                link: identifier
                             value:
                                 desc: The value the resource will be set to (won't go below min or above max of the Resource).
                                 link: math_integer
@@ -3382,11 +3069,11 @@ links:
                         string-origins:toggle:
                             power:
                                 desc: The namespace and ID of a power that uses the origins:toggle power type to toggle the state of.
-                                link: namespace
+                                link: identifier
                         string-origins:trigger_cooldown:
                             power:
                                 desc: ID of the cooldown power which should trigger, as if that power has just been used.
-                                link: namespace
+                                link: identifier
                         string-apugli:fire_projectile:
                             entity_type:
                                 desc: The ID of the entity type that will be fired.
@@ -3425,17 +3112,17 @@ links:
                         string-eggolib:calculate_resource:
                             target:
                                 desc: The namespace, path and ID of the power to calculate the value of.
-                                link: namespace
+                                link: identifier
                             operation:
                                 desc: Determines how the value of the source power will be calculated to the value of the target power.
                                 link: math_operation
                             source:
                                 desc: The namespace, path and ID of the power to use the value of.
-                                link: namespace
+                                link: identifier
                         string-origins-math:change_resource:
                             resource:
                                 desc: The namespace and ID of the power that uses the Resource (Power Type) or it's extensions, or has a built-in cooldown.
-                                link: namespace
+                                link: identifier
                             change:
                                 desc: This value will be added to the resource (won't go below min or above max of the Resource (Power Type)).
                                 link: math_number
@@ -3445,7 +3132,7 @@ links:
                         string-origins-math:variable_change_resource:
                             resource:
                                 desc: The namespace and ID of the power that uses the Resource (Power Type) or has a built-in cooldown.
-                                link: namespace
+                                link: identifier
                             expression:
                                 desc: The mathematical expression that gives the value that will be added to/set as the value (won't go below min or above max of the Resource (Power Type)).
                                 link: expression
@@ -3467,7 +3154,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Faction_on_entity_set.md
                                 desc: The Entity Set power to act upon
-                                link: namespace
+                                link: identifier
                             bientity_action:
                                 desc: Action to execute on each entity in the set
                                 link: bientity_action
@@ -3533,7 +3220,7 @@ links:
                                 enum: [inventory, power]
                             power:
                                 desc: Required when inventory_type is "power". Points to an apoli:inventory power
-                                link: namespace
+                                link: identifier
                         string-sync:custom_projectile:
                             entity_id:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fcustom_projectile.md
@@ -3571,7 +3258,7 @@ links:
                                 link: bientity_action
                             block_condition:
                                 desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                                link: block_cond
+                                link: block_condition
                             block_action_on_hit:
                                 desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
                                 link: block_action
@@ -3703,7 +3390,7 @@ links:
                                 type: integer
                             landing_block_condition:
                                 desc: Condition that landing block must satisfy
-                                link: block_cond
+                                link: block_condition
                             landing_condition:
                                 desc: Condition that the teleported entity must satisfy at landing location
                                 link: entity_condition
@@ -3766,7 +3453,7 @@ links:
                                 link: bientity_condition
                             block_condition:
                                 desc: If specified, block_action only runs when the hit block satisfies this condition
-                                link: block_cond
+                                link: block_condition
                             bientity_action:
                                 desc: Action executed on each entity hit (actor = source, target = hit entity)
                                 link: bientity_action
@@ -3810,7 +3497,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Frevoke_power.md
                                 desc: The power type to remove
-                                link: namespace
+                                link: identifier
                         string-sync:save_location:
                             id:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsave_location.md
@@ -4006,7 +3693,7 @@ links:
                         string-origins:if_else:
                             condition:
                                 desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
-                                link: item_cond
+                                link: item_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: item_action
@@ -4022,7 +3709,7 @@ links:
                                     props:
                                         condition:
                                             desc: A condition to check for.
-                                            link: item_cond
+                                            link: item_condition
                                         action:
                                             desc: An action which might be executed.
                                             link: item_action
@@ -4222,7 +3909,7 @@ links:
                         string-origins:if_else:
                             condition:
                                 desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
-                                link: block_cond
+                                link: block_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: block_action
@@ -4238,7 +3925,7 @@ links:
                                     props:
                                         condition:
                                             desc: A condition to check for.
-                                            link: block_cond
+                                            link: block_condition
                                         action:
                                             desc: An action which might be executed.
                                             link: block_action
@@ -4272,7 +3959,7 @@ links:
                                 enum: [cube, star, sphere]
                             block_condition:
                                 desc: If specified, the specified action will only apply to blocks that fulfill this condition.
-                                link: block_cond
+                                link: block_condition
                             block_action:
                                 desc: The action to apply to the blocks.
                                 link: block_action
@@ -4303,10 +3990,10 @@ links:
                                 default: true
                             indestructible:
                                 desc: If set, blocks specified in this block condition object is not destroyed by the explosion.
-                                link: block_cond
+                                link: block_condition
                             destructible:
                                 desc: If set, blocks specified in this block condition object will be the only blocks destroyed by the explosion.
-                                link: block_cond
+                                link: block_condition
                             create_fire:
                                 desc: Determines if the explosion should create fire.
                                 type: boolean
@@ -4721,16 +4408,16 @@ links:
                     string-origins:conditioned_restrict_armor:
                         head:
                             desc: If set, items which satisfy this condition can not be equipped in the head slot.
-                            link: item_cond
+                            link: item_condition
                         chest:
                             desc: If set, items which satisfy this condition can not be equipped in the chest slot.
-                            link: item_cond
+                            link: item_condition
                         legs:
                             desc: If set, items which satisfy this condition can not be equipped in the legs slot.
-                            link: item_cond
+                            link: item_condition
                         feet:
                             desc: If set, items which satisfy this condition can not be equipped in the feet slot.
-                            link: item_cond
+                            link: item_condition
                         tick_rate:
                             desc: The frequency (in ticks) with which to check the condition. Lower values mean the condition changes are detected more quickly, but this comes at a potentially huge performance cost.
                             type: integer
@@ -4903,7 +4590,7 @@ links:
                             type: boolean
                         drop_on_death_filter:
                             desc: If this is set, only item stacks matching this condition will be dropped on death.
-                            link: item_cond
+                            link: item_condition
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
                             link: key
@@ -4927,10 +4614,10 @@ links:
                     string-origins:item_on_item:
                         using_item_condition:
                             desc: If set, the actions will only trigger when this condition is met by the item used to right-click an item stack.
-                            link: item_cond
+                            link: item_condition
                         on_item_condition:
                             desc: If set, the actions will only trigger when this condition is met by the item stack that's been right-clicked.
-                            link: item_cond
+                            link: item_condition
                         result:
                             desc: If set, the specified item stack will be given to the player.
                             link: item_stack
@@ -4952,7 +4639,7 @@ links:
                     string-origins:keep_inventory:
                         item_condition:
                             desc: If specified, only make the items that fulfill the specified item condition type persist in the entity's inventory.
-                            link: item_cond
+                            link: item_condition
                         slots:
                             desc: If specified, only make the items that are in the listed inventory slots persist in the entity's inventory. See Positioned Item Stack Slots for possible values.
                             type: list
@@ -5102,7 +4789,7 @@ links:
                     string-origins:phasing:
                         block_condition:
                             desc: If set, the player will only be able to move through these blocks (or not be able to move through these, depending on what blacklist is set to).
-                            link: block_cond
+                            link: block_condition
                         blacklist:
                             desc: If set to true, the block_condition will define which blocks the player can NOT move through.
                             type: boolean
@@ -5138,10 +4825,10 @@ links:
                             link: bientity_condition
                         item_condition:
                             desc: An item condition of the item to change the loot table of.
-                            link: item_cond
+                            link: item_condition
                         block_condition:
                             desc: A block condition of the block to change the loot table of.
-                            link: block_cond
+                            link: block_condition
                     string-origins:resource:
                         min:
                             desc: The minimum value of the resource.
@@ -5164,16 +4851,16 @@ links:
                     string-origins:restrict_armor:
                         head:
                             desc: If set, items which satisfy this condition can not be equipped in the head slot.
-                            link: item_cond
+                            link: item_condition
                         chest:
                             desc: If set, items which satisfy this condition can not be equipped in the chest slot.
-                            link: item_cond
+                            link: item_condition
                         legs:
                             desc: If set, items which satisfy this condition can not be equipped in the legs slot.
-                            link: item_cond
+                            link: item_condition
                         feet:
                             desc: If set, items which satisfy this condition can not be equipped in the feet slot.
-                            link: item_cond
+                            link: item_condition
                     string-origins:self_glow:
                         entity_conditionition:
                             desc: If set, only entities which fulfill this condition will see the entity that has the power glow.
@@ -5282,7 +4969,7 @@ links:
                     string-origins:tooltip:
                         item_condition:
                             desc: If set, only applies the tooltip(s) to the item(s) that meets this condition.
-                            link: item_cond
+                            link: item_condition
                         text:
                             desc: If set, apply this string as a tooltip.
                             type: string
@@ -5309,7 +4996,7 @@ links:
                             link: bientity_condition
                         item_condition:
                             desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) determined by the hands string field.
-                            link: item_cond
+                            link: item_condition
                         hands:
                             desc: Determines if the power should be activated if the player used the specified hand(s). Accepts "off_hand", "main_hand" or both.
                             type: list
@@ -5341,7 +5028,7 @@ links:
                             link: block_action
                         block_condition:
                             desc: If set, the actions will only trigger when this block condition is met by the broken block.
-                            link: block_cond
+                            link: block_condition
                         only_when_harvested:
                             desc: If this is true, the actions will only execute when the player succeeds in harvesting the block (e.g. they will not trigger when stone is broken by hand).
                             type: boolean
@@ -5349,10 +5036,10 @@ links:
                     string-origins:action_on_block_use:
                         block_condition:
                             desc: If specified, only execute the specified actions if this condition is fulfilled by the used block.
-                            link: block_cond
+                            link: block_condition
                         item_condition:
                             desc: If specified, only execute the specified actions if this condition is fulfilled by the item in the 'actor' (the player that has the power) entity's specified hand(s) determined by the hands string field.
-                            link: item_cond
+                            link: item_condition
                         directions:
                             desc: If specified, only execute the specified actions if you used the specified face of the block. Defaults to all directions.
                             type: list
@@ -5413,7 +5100,7 @@ links:
                             link: bientity_condition
                         item_condition:
                             desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
-                            link: item_cond
+                            link: item_condition
                         hands:
                             desc: Determines if the power should be activated if the player used a specific hand slot. Accepts "off_hand", "main_hand" or both.
                             type: list
@@ -5463,7 +5150,7 @@ links:
                             link: item_action
                         item_condition:
                             desc: If set, the actions will only trigger when this item condition is met by the item stack before use.
-                            link: item_cond
+                            link: item_condition
                         trigger:
                             desc: |
                                 Defines when the action is executed.
@@ -5490,7 +5177,7 @@ links:
                             link: block_action
                         block_condition:
                             desc: If set, the actions will only trigger when this block condition is met by the bed block.
-                            link: block_cond
+                            link: block_condition
                     string-origins:action_over_time:
                         interval:
                             desc: Interval of ticks between subsequent executions of the action. Must be a value of at least 1.
@@ -5661,14 +5348,14 @@ links:
                     string-origins:modify_block_render:
                         block_condition:
                             desc: If set, modifies how the block would look like that meets this condition.
-                            link: block_cond
+                            link: block_condition
                         block:
                             desc: The ID of the block that would replace the block that meets the condition from the block_condition object field would look like.
                             link: identifier
                     string-origins:modify_break_speed:
                         block_condition:
                             desc: If set, the modifiers will only apply to blocks which satisfy this condition.
-                            link: block_cond
+                            link: block_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the break speed.
                             link: a_mod
@@ -5690,7 +5377,7 @@ links:
                             link: identifier
                         item_condition:
                             desc: If set, it will only apply the item stack from the result field, and trigger the actions when this condition is met by the result item from the crafting recipe.
-                            link: item_cond
+                            link: item_condition
                         result:
                             desc: If set, replaces the result item stack of the recipe.
                             link: item_stack
@@ -5791,7 +5478,7 @@ links:
                     string-origins:modify_fluid_render:
                         block_condition:
                             desc: If set, modifies how the block that meets this condition would look like.
-                            link: block_cond
+                            link: block_condition
                         fluid_condition:
                             desc: If set, modifies how the fluid that meets the condition would look like.
                             link: fluid_cond
@@ -5802,7 +5489,7 @@ links:
                     string-origins:modify_food:
                         item_condition:
                             desc: If set, the modifiers will only apply to food items which satisfy this condition.
-                            link: item_cond
+                            link: item_condition
                         item_action:
                             desc: If specified, this item action type will be executed on the remaining item stacks that was consumed.
                             link: item_action
@@ -5837,19 +5524,19 @@ links:
                     string-origins:modify_grindstone:
                         block_condition:
                             desc: Optional, a block condition that must match the grindstone for the power to be applied.
-                            link: block_cond
+                            link: block_condition
                         block_action:
                             desc: Optional. a block action applied to the grindstone after grinding is complete.
                             link: block_action
                         top_condition:
                             desc: Optional, an item condition that must match the top slot of the grindstone for the power to be applied.
-                            link: item_cond
+                            link: item_condition
                         bottom_condition:
                             desc: Optional, an item condition that must match the bottom slot of the grindstone for the power to be applied.
-                            link: item_cond
+                            link: item_condition
                         output_condition:
                             desc: Optional, an item condition that must match the output of the grindstone for the power to be applied.
-                            link: item_cond
+                            link: item_condition
                         item_action:
                             desc: Optional, an item action applied to the item before grinding.
                             link: item_action
@@ -5872,7 +5559,7 @@ links:
                     string-origins:modify_harvest:
                         block_condition:
                             desc: If set, the modification will only apply to blocks which satisfy this condition.
-                            link: block_cond
+                            link: block_condition
                         allow:
                             desc: When true, the player will be able to harvest the blocks. When false, the player will not be able to harvest the blocks.
                             type: boolean
@@ -5959,7 +5646,7 @@ links:
                     string-origins:modify_slipperiness:
                         block_condition:
                             desc: If specified, the modifier(s) will only apply to the blocks that fulfills this condition.
-                            link: block_cond
+                            link: block_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the entity's slipperiness.
                             link: a_mod
@@ -6027,7 +5714,7 @@ links:
                     string-origins:prevent_block_selection:
                         block_condition:
                             desc: When set, only blocks which meet this condition will be unable to be selected.
-                            link: block_cond
+                            link: block_condition
                     string-origins:prevent_being_used:
                         bientity_action:
                             desc: The action to execute upon preventing other players from right-clicking the entity that has the power if specified.
@@ -6037,7 +5724,7 @@ links:
                             link: bientity_condition
                         item_condition:
                             desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the other player's specified hand(s) equipment slot determined by the hands string field.
-                            link: item_cond
+                            link: item_condition
                         hands:
                             desc: Determines if the power should be activated if the other player used the specified hand slot(s). Accepts "off_hand", "main_hand" or both.
                             type: list
@@ -6055,7 +5742,7 @@ links:
                     string-origins:prevent_block_use:
                         block_condition:
                             desc: When set, only blocks which meet this condition will be unable to be used.
-                            link: block_cond
+                            link: block_condition
                     string-origins:prevent_death:
                         damage_condition:
                             desc: If set, death will only prevented when damage which matches this condition is dealt. Other damage will still kill the player.
@@ -6087,7 +5774,7 @@ links:
                             link: bientity_condition
                         item_condition:
                             desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
-                            link: item_cond
+                            link: item_condition
                         hands:
                             desc: Determines if the power should be activated if the player used the specified hand slot(s). Accepts "off_hand", "main_hand" or both.
                             type: list
@@ -6132,11 +5819,11 @@ links:
                     string-origins:prevent_item_use:
                         item_condition:
                             desc: If set, only items which satisfy this condition will be blocked from being used.
-                            link: item_cond
+                            link: item_condition
                     string-origins:prevent_sleep:
                         block_condition:
                             desc: If set, sleep will only be prevented if this condition holds for the bed.
-                            link: block_cond
+                            link: block_condition
                         message:
                             desc: The message that will be shown when sleep is prevented this way. Can be a literal text or a translation key which will be localized using a language file. Defaults to "origins.cant_sleep".
                             type: string
@@ -6201,7 +5888,7 @@ links:
                         item_condition:
                             desc: The item condition that items must satisfy to be affected by this power.
                             href: https://apugli.readthedocs.io/en/latest/types/power_types/edible_item
-                            link: item_cond
+                            link: item_condition
                         food_component:
                             desc: The food component that the item grants upon eating it.
                             link: food_component
@@ -6397,7 +6084,7 @@ links:
                     string-origins-math:modify_attribute_like_resource:
                         resource:
                             desc: The namespace and ID of the power that uses the Attribute-like Resource (Power Type)
-                            link: namespace
+                            link: identifier
                         modifier:
                             desc: If specified, this modifier will be applied to the resource' added values.
                             link: a_mod
@@ -6419,7 +6106,7 @@ links:
                     string-origins-math:modify_resource_maximum:
                         resource:
                             desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
-                            link: namespace
+                            link: identifier
                         modifier:
                             desc: If specified, this modifier will be applied to the resource's maximum value.
                             link: a_mod
@@ -6431,7 +6118,7 @@ links:
                     string-origins-math:modify_resource_minimum:
                         resource:
                             desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
-                            link: namespace
+                            link: identifier
                         modifier:
                             desc: If specified, this modifier will be applied to the resource's minimum value.
                             link: a_mod
@@ -6572,7 +6259,7 @@ links:
                                 link: bientity_action
                             block_condition:
                                 desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                                link: block_cond
+                                link: block_condition
                             block_action_on_hit:
                                 desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
                                 link: block_action
@@ -6605,7 +6292,7 @@ links:
                         item_condition:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fedible_item.md
                             desc: If specified, this action will be executed on the item consumed by the player.
-                            link: item_cond
+                            link: item_condition
                         food_component:
                             desc: The food component that the item grants upon eating it.
                             link: food_component
@@ -6772,7 +6459,7 @@ links:
                             link: identifier
                         item_condition:
                             desc: If specified, only applies/modifies the level of the specified enchantment to/from the entity if the item condition is fulfilled by the item.
-                            link: item_cond
+                            link: item_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the current level of the specified enchantment from the entity.
                             link: a_mod
@@ -7824,6 +7511,7 @@ links:
             ==	A equals B
             !=	A does not equal B
         enum: ['<','<=','>','>=','==','!=']
+        default: '>='
     container_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/container-type
         desc: |
@@ -7922,6 +7610,8 @@ links:
         type: list
         vals:
             link: identifier
+    equipment_slot:
+        enum: ['mainhand','offhand','head','chest','legs','feet']
     expression_float:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
         desc: A floating-point value or a math expression. See the doc for more information.
@@ -8115,6 +7805,17 @@ links:
                 desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
                 type: boolean
                 default: false
+    meta_condition_chance:
+        chance:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+            desc: Generates a random number between 0.0 and 1.0 and checks if it’s less than a specified value.
+            link: number_percent
+            required: true
+    meta_condition_constant:
+        value:
+            desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+            type: boolean
+            default: false
     model_part_keyframe:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-part-keyframe
         desc: One point on a Model Part Transformation's timeline. The value that part should have reached at a given time.

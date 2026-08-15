@@ -1,0 +1,69 @@
+type: object
+props:
+    icon:
+        type: image
+        desc: The icon file which will be exported with the pack.
+        gap: true
+    name:
+        type: string
+        desc: The name of your pack, visible in the top left.
+        hooks: [name]
+    id:
+        type: string
+        desc: The pack's default namespace.
+        default: my_pack
+        nonempty: true
+        allow: '*a-z0-9_-'
+    pack_format:
+        desc: |
+            The datapack version that corresponds with the Minecraft version. This schema only supports versions supported by 0vergrown Origins.
+            15: 1.20.1
+            48: 1.21.1
+        href: https://minecraft.wiki/w/Pack_format
+        enum: [15,48]
+        default: 15
+        hooks: [refresh]
+        gap: true
+    version:
+        type: string
+        desc: The version number of your pack.
+        default: "1.0.0"
+    authors:
+        type: list
+        desc: A list of people who made this pack, one name per line.
+        vals:
+            type: string
+    description:
+        type: string
+        desc: A short description of what your pack does, about one sentence long.
+        ext: true
+        gap: true
+    license:
+        type: string
+        desc: |
+            The license your pack falls under. If left blank, defaults to "Unknown", which typically means "All Rights Reserved", which disallows anything beyond what you very explicitly allow (if you give this mod to someone or put it up for download, they are only allowed to play it privately for themself and nothing more).
+            I recommend setting this to CC BY 4.0, which means anyone can use your pack for any purpose and make changes as they desire, as long as they give you credit.
+            This is not legal advice, so read up on your country's copyright laws and/or consult with someone who can provide legal advice if you have questions about it.
+    license_text:
+        type: string
+        desc: |
+            If you want to include a LICENSE file inside your mod, datapack, and resource pack, you can put it's content in this box.
+            Leaving this blank will not include a LICENSE file in the pack.
+        ext: true
+        gap: true
+    filter:
+        type: object
+        desc: |
+            Section for filtering out files from data packs applied below this one.
+            Any file that matches one of the patterns inside block will be treated as if it was not present in the pack at all.
+            NOTE: THIS FIELD IS IGNORED IN FABRIC MOD EXPORTS
+        props:
+            block:
+                type: list
+                vals:
+                    type: object
+                    props:
+                        namespace:
+                            type: string
+                        path:
+                            type: string
