@@ -168,6 +168,7 @@ links:
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
+                      - origins:random_chance
                       - origins:ability
                       - origins:advancement
                       - origins:air
@@ -948,192 +949,172 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/item_condition_types/
                     enum:
-                      - origins:and
-                      - origins:or
+                      - origins:all_of
+                      - origins:any_of
                       - origins:constant
+                      - origins:random_chance
                       - origins:empty
                       - origins:amount
                       - origins:armor_value
                       - origins:durability
+                      - origins:empty
                       - origins:enchantable
                       - origins:enchantment
                       - origins:fireproof
                       - origins:food
+                      - origins:fuel
                       - origins:harvest_level
+                      - origins:has_power
                       - origins:ingredient
                       - origins:is_damageable
                       - origins:is_equippable
-                      - origins:meat
                       - origins:nbt
+                      - origins:power_count
                       - origins:relative_durability
                       - origins:smeltable
-
-                      - $Origins Math
-
-                      - origins-math:amount
-                      - origins-math:armor_value
-                      - origins-math:durability
-                      - origins-math:enchantment
-                      - origins-math:harvest_level
-                      - origins-math:relative_durability
-
-                      - $SYNC
-
-                      - sync:fuel
-                      - sync:holder_condition
-                      - sync:mod_loaded
-                      - sync:on_cooldown
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                      - origins:chance
                     more:
+                        string-origins:all_of:
+                            conditions:
+                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: item_condition
                         string-origins:and:
                             conditions:
-                                desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: item_condition
+                        string-origins:any_of:
+                            conditions:
+                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:or:
                             conditions:
-                                desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:constant:
                             link: meta_condition_constant
+                        string-origins:random_chance:
+                            link: meta_condition_chance
+                        string-origins:chance:
+                            link: meta_condition_chance
                         string-origins:empty: {}
                         string-origins:amount:
                             comparison:
-                                desc: Determines how to compare the number of items in this stack to the specified value
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/amount
+                                desc: Determines how the amount of the item in the item stack should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the amount of the item in the item stack will be compared to.
                                 type: integer
-                        string-origins-math:amount:
-                            comparison:
-                                desc: Determines how to compare the number of items in this stack to the specified value
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:armor_value:
                             comparison:
-                                desc: How the item's armor value should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/armor_value
+                                desc: Determines how the armor value of the item should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the armor value of the item will be compared to.
                                 type: integer
-                        string-origins-math:armor_value:
-                            comparison:
-                                desc: How the item's armor value should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:durability:
                             comparison:
-                                desc: How the durability should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/durability
+                                desc: Determines how the durability value of the item should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the durability value of the item will be compared to.
                                 type: integer
-                        string-origins-math:durability:
-                            comparison:
-                                desc: How the durability should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:enchantable: {}
                         string-origins:enchantment:
                             enchantment:
-                                desc: Optional; ID of the enchantment of interest to check the level of on the item, e.g. minecraft:protection. If not provided, all enchantments are counted.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/enchantment
+                                desc: If specified, the level of the enchantment that corresponds to this identifier will be compared. Otherwise, the amount of enchantments in the item stack will be compared instead.
                                 link: identifier
+                            use_modifications:
+                                desc: |
+                                    Determines whether to account for enchantments that were added/modified by unnatural means (e.g: via the apoli:modify_enchantment_level)
+                                type: boolean
+                                default: true
                             comparison:
-                                desc: How the enchantment level should be compared to the specified value.
+                                desc: Determines how the level of the specified enchantment, or the amount of enchantments in the item stack, should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the level of the specified enchantment, or the amount of the enchantments in the item stack, will be compared to.
                                 type: integer
-                        string-origins-math:enchantment:
-                            enchantment:
-                                desc: Optional; ID of the enchantment of interest to check the level of on the item, e.g. minecraft:protection. If not provided, all enchantments are counted.
-                                link: identifier
-                            comparison:
-                                desc: How the enchantment level should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_integer
                         string-origins:fireproof: {}
                         string-origins:food: {}
+                        string-origins:fuel:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/fuel
+                                desc: Determines how the fuel time value (in ticks) of the item stack should be compared to a specific value.
+                                link: comparison
+                                default: '>'
+                            compare_to:
+                                desc: The value at which the fuel time value (in ticks) of the item stack will be compared to.
+                                type: integer
+                                default: 0
                         string-origins:harvest_level:
                             comparison:
-                                desc: How the item's harvest level should be compared to the specified value. Click to visit the wiki to learn more about harvest levels.
+                                desc: Determines how the harvest level of the material from the item stack should be compared to the specified value. See the link for more information.
                                 href: https://minecraft.wiki/w/Tiers
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the harvest level of the material from the item stack will be compared to.
                                 type: number
-                        string-origins-math:harvest_level:
-                            comparison:
-                                desc: How the item's harvest level should be compared to the specified value. Click to visit the wiki to learn more about harvest levels.
-                                href: https://minecraft.wiki/w/Tiers
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
+                        string-origins:has_power:
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/has_power
+                                desc: The ID of the power to check for.
+                                link: identifier
+                            slot:
+                                desc: If specified, this will check if the power embedded to the item is assigned to this equipment slot.
+                                link: equipment_slot
                         string-origins:ingredient:
                             ingredient:
-                                desc: An ingredient, which can be a variety of things.
-                                href: https://origins.readthedocs.io/en/latest/types/item_condition_types/ingredient/
-                                id: recipes
-                                link: oritem
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/ingredient
+                                desc: The ingredient this item must match to pass the check.
+                                link: ingredient
                         string-origins:is_damageable: {}
-                        string-origins:is_equippable: {}
-                        string-origins:meat: {}
+                        string-origins:is_equippable:
+                            equipment_slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/is_equippable
+                                desc: If specified, checks if the item is equippable in the specified equipment slot.
+                                link: equipment_slot
+                                default: unspec
                         string-origins:nbt:
                             nbt:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/nbt
                                 desc: The NBT data to check for.
-                                type: string
-                                ext: true
+                                link: nbt
+                        string-origins:power_count:
+                            slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/power_count
+                                desc: If specified, this will check how many powers are assigned to this equipment slot.
+                                link: equipment_slot
+                                default: unspec
+                            comparison:
+                                desc: Determines how the amount of powers embedded in the item stack should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value at which the amount of powers embedded in the item stack will be compared to.
+                                type: integer
                         string-origins:relative_durability:
                             comparison:
-                                desc: How the relative durability should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/relative_durability
+                                desc: Determines how the relative durability value of the item from the item stack should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the relative durability value of the item from the item stack will be compared to.
                                 type: number
-                        string-origins-math:relative_durability:
-                            comparison:
-                                desc: How the relative durability should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare to.
-                                link: math_number
                         string-origins:smeltable: {}
-                        string-sync:fuel:
-                            comparison:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Ffuel.md
-                                desc: How the item’s fuel burn time should be compared to compare_to.
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare the burn time against.
-                                type: integer
-                        string-sync:holder_condition:
-                            condition:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Fholder_condition.md
-                                desc: The condition to test on the holder. If omitted, the condition simply returns true when a holder exists.
-                                link: entity_condition
-                        string-sync:mod_loaded:
-                            mod:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_conditions%2Fmod_loaded.md
-                                desc: A single mod ID to check for
-                                link: identifier
-                                default: unspec
-                            mods:
-                                desc: Multiple mod IDs (all must be loaded)
-                                type: list
-                                vals:
-                                    link: identifier
-                        string-sync:on_cooldown: {}
           - title: custom
             link: custom_condition
     block_condition:
@@ -7674,15 +7655,18 @@ links:
             vals:
                 link: ingredient_select
     ingredient_select:
-        type: object
-        props:
-            or:
-              - item:
-                    desc: ID of a registered item.
-                    link: identifier
-              - tag:
-                    desc: ID of an item tag.
-                    link: identifier
+        or:
+          - title: simple
+            link: identifier
+          - type: object
+            props:
+                or:
+                  - item:
+                        desc: ID of a registered item.
+                        link: identifier
+                  - tag:
+                        desc: ID of an item tag.
+                        link: identifier
     integer_amp:
         desc: The minimum and maximum amplifier of the status effect.
         type: integer
