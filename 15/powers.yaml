@@ -1129,14 +1129,17 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/block_condition_types/
                     enum:
-                      - origins:and
-                      - origins:or
+                      - origins:all_of
+                      - origins:any_of
                       - origins:constant
+                      - origins:random_chance
                       - origins:adjacent
                       - origins:attachable
                       - origins:blast_resistance
                       - origins:block
+                      - origins:block_entity
                       - origins:block_state
+                      - origins:command
                       - origins:distance_from_coordinates
                       - origins:exposed_to_sky
                       - origins:fluid
@@ -1145,71 +1148,107 @@ links:
                       - origins:in_tag
                       - origins:light_blocking
                       - origins:light_level
-                      - origins:material
                       - origins:movement_blocking
                       - origins:nbt
                       - origins:offset
                       - origins:replacable
                       - origins:slipperiness
                       - origins:water_loggable
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                      - origins:chance
                     more:
+                        string-origins:all_of:
+                            conditions:
+                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: block_condition
                         string-origins:and:
                             conditions:
-                                desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                type: list
+                                vals:
+                                    link: block_condition
+                        string-origins:any_of:
+                            conditions:
+                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: block_condition
                         string-origins:or:
                             conditions:
-                                desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
                                     link: block_condition
                         string-origins:constant:
                             link: meta_condition_constant
+                        string-origins:random_chance:
+                            link: meta_condition_chance
+                        string-origins:chance:
+                            link: meta_condition_chance
                         string-origins:adjacent:
                             adjacent_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/adjacent
                                 desc: The block condition that needs to be fulfilled by adjacent blocks to count towards this condition.
                                 link: block_condition
                             comparison:
-                                desc: How the number of adjacent blocks which fulfill adjacent_condition should be compared to the specified value.
+                                desc: Determines how the number of adjacent blocks which fulfill the adjacent_condition block condition should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the number of adjacent blocks which fulfill adjacent_condition will be compared to.
                                 type: integer
                         string-origins:attachable: {}
                         string-origins:blast_resistance:
                             comparison:
-                                desc: Determines how the blast resistance of the block is compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/blast_resistance
+                                desc: Determines how the blast resistance of the block should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare the blast resistance of the block to.
+                                desc: The value at which the blast resistance value of the block will be compared to.
                                 type: integer
                         string-origins:block:
                             block:
-                                desc: ID of the block that this block needs to be to pass the check.
+                                desc: The block this block needs to be. Prefix with \# to match a block tag instead
                                 href: https://minecraft.wiki/w/Java_Edition_data_values/Blocks
                                 link: identifier
+                        string-origins:block_entity: {}
                         string-origins:block_state:
                             property:
                                 desc: |
-                                    The name of the property that should be checked. Examples are facing or age. See: Block States (MC Wiki)
+                                    The name of the property that should be checked. Examples are facing or age. See the link for more information.
+                                href: https://minecraft.wiki/w/Block_states
                                 type: string
                             comparison:
-                                desc: If the property contains an integer value, this is the comparison the will be used to compare the property's value to the specified compare_to integer.
-                                link: opt_comparison
+                                desc: If specified and if the property uses an integer, determines how the integer value of the specified property should be compared to the specified value. Only used if the specified property has an integer value.
+                                link: comparison
                             compare_to:
-                                desc: The value to compare to if the property is an integer.
+                                desc: If specified, the integer at which the integer value of the specified property will be compared to. Only used if the specified property has an integer value.
                                 type: integer
                             value:
-                                desc: If the property contains a boolean value, this is the value the property needs to be to pass the check.
-                                enum: [true, false]
-                                unspec: true
+                                desc: If specified, the boolean to compare to the boolean value of the specified property. Only used if the specified property has a boolean value.
+                                enum: ['','true', 'false']
+                                unspec: ''
                             enum:
-                                desc: If the property contains different string values, this is the string value the property needs to be to pass the check.
+                                desc: If specified, the string at which the string value of the specified property will be compared to. Only used if the specified property has a string value.
                                 type: string
+                        string-origins:command:
+                            command:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/command
+                                desc: The command to execute.
+                                type: string
+                                ext: true
+                            comparison:
+                                desc: Determines how the result value (an integer) of the executed command should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value at which the result value (an integer) of the executed command will be compared to.
+                                type: integer
                         string-origins:distance_from_coordinates:
                             reference:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/distance_from_coordinates
                                 desc: The point to compare the distance to.
                                 enum: [world_origin, world_spawn]
                             offset:
@@ -1226,7 +1265,7 @@ links:
                                 type: boolean
                             shape:
                                 desc: Determines the shape of the check. Accepts "cube", "star" or "sphere".
-                                enum: [cube, star, sphere]
+                                link: shape
                             scale_reference_to_dimension:
                                 desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
                                 type: boolean
@@ -1238,87 +1277,87 @@ links:
                                 desc: If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work.
                                 type: integer
                             comparison:
-                                desc: Determines how the calculated distance is compared to the specified value.
+                                desc: Determines how the calculated distance (in blocks) should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare the calculated distance to.
+                                desc: The value at which the calculated distance (in blocks) will be compared to.
                                 type: number
                         string-origins:exposed_to_sky: {}
                         string-origins:fluid:
                             fluid_condition:
-                                desc: The fluid condition to check the fluid state at the position.
-                                link: fluid_cond
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/fluid
+                                desc: The fluid condition type to check the fluid state at the position.
+                                link: fluid_condition
                         string-origins:hardness:
                             comparison:
-                                desc: Determines how the hardness value of the block is compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/hardness
+                                desc: Determines how the hardness value of the block should compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare the hardness value of the block to.
-                                type: integer
+                                desc: The value at which the hardness value of the block will be compared to.
+                                type: float
                         string-origins:height:
                             comparison:
-                                desc: How the Y position of the block should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/height
+                                desc: Determines how the Y position of the block should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the Y position of the block will be compared to.
                                 type: number
                         string-origins:in_tag:
                             tag:
-                                desc: ID of the tag which the block should be in to pass the check.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/in_tag
+                                desc: The namespace and ID of the tag which the block should be in to pass the check.
                                 link: identifier
                         string-origins:light_blocking: {}
                         string-origins:light_level:
                             light_type:
-                                desc: The type of light level to compare. Either sky or block. If no type is provided, the greater value of the two types will be used, which is the "resulting" light level of that position.
-                                enum: [sky, block]
-                                unspec: true
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/light_level
+                                desc: If specified, determines the type of light level to compare.
+                                enum: ['','sky', 'block']
+                                unspec: ''
                             comparison:
-                                desc: How the light level should be compared to the specified value.
+                                desc: Determines how the light level should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the light level will be compared to.
                                 type: integer
-                        string-origins:material:
-                            material:
-                                desc: If specified, checks if the block classifies as this material. Click to see a list of valid materials.
-                                href: https://origins.readthedocs.io/en/latest/misc/extras/materials/
-                                link: identifier
-                            materials:
-                                desc: If specified, checks if the block classifies as one of these materials.
-                                type: list
-                                vals:
-                                    link: identifier
                         string-origins:movement_blocking: {}
                         string-origins:nbt:
                             nbt:
-                                desc: The NBT data to check for
-                                type: string
-                                ext: true
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/nbt
+                                desc: The NBT data to check for.
+                                link: nbt
                         string-origins:offset:
                             condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/offset
                                 desc: The condition to check with the given offset.
                                 link: block_condition
                             x:
-                                desc: How much to offset the position on the x-axis. Defaults to 0.
+                                desc: How much to offset the position on the x-axis.
                                 type: integer
+                                default: 0
                             y:
-                                desc: How much to offset the position on the y-axis. Defaults to 0.
+                                desc: How much to offset the position on the y-axis.
                                 type: integer
+                                default: 0
                             z:
-                                desc: How much to offset the position on the z-axis. Defaults to 0.
+                                desc: How much to offset the position on the z-axis.
                                 type: integer
+                                default: 0
                         string-origins:replacable: {}
                         string-origins:slipperiness:
                             comparison:
-                                desc: Determines how the slipperiness value of the block is compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/slipperiness
+                                desc: Determines how the slipperiness value of the block should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare the slipperiness value of the block to.
+                                desc: The value at which the slipperiness value of the block will be compared to.
                                 type: number
                         string-origins:water_loggable: {}
           - title: custom
             link: custom_condition
-    fluid_cond:
+    fluid_condition:
         unspec: none
         or:
           - title: original
@@ -1343,13 +1382,13 @@ links:
                                 desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: fluid_cond
+                                    link: fluid_condition
                         string-origins:or:
                             conditions:
                                 desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
                                 type: list
                                 vals:
-                                    link: fluid_cond
+                                    link: fluid_condition
                         string-origins:constant:
                             link: meta_condition_constant
                         string-origins:empty: {}
@@ -5381,7 +5420,7 @@ links:
                             link: block_condition
                         fluid_condition:
                             desc: If set, modifies how the fluid that meets the condition would look like.
-                            link: fluid_cond
+                            link: fluid_condition
                         fluid:
                             desc: The ID of the fluid that would replace how the block/fluid that meets the conditions in the block_condition and/or fluid_condition object field would look like.
                             type: string
