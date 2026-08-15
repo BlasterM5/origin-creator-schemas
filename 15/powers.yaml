@@ -374,8 +374,7 @@ links:
                                 desc: The radius of the area to check how many blocks fulfill the block_condition.
                                 type: integer
                             shape:
-                                link: shape_type
-                                default: 'cube'
+                                link: shape
                             comparison:
                                 desc: Determines how the amount of blocks which fulfill block_condition block condition should be compared to the specified value.
                                 link: comparison
@@ -434,8 +433,7 @@ links:
                                 desc: Determines whether to consider the Z axis to be 0.
                                 type: boolean
                             shape:
-                                link: shape_type
-                                default: 'cube'
+                                link: shape
                             scale_reference_to_dimension:
                                 desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
                                 type: boolean
@@ -490,8 +488,7 @@ links:
                                 link: bientity_condition
                             shape:
                                 desc: Determines the shape of the area used for checking entities.
-                                link: shape_type
-                                default: 'cube'
+                                link: shape
                             radius:
                                 desc: Radius/distance for detection, in blocks.
                                 type: number
@@ -677,181 +674,179 @@ links:
                         string-origins:on_fire: {}
                         string-origins:origin:
                             origin:
-                                desc: ID of the origin the player needs to have to pass the check.
+                                desc: The origin(s) to look for. Passes if any of them matches. Wildcard matching is supported.
                                 link: identifier
                             layer:
-                                desc: If set, will check only the layer with the provided ID for the origin. By default it will check in any layer.
+                                desc: Only check this layer. Omit to pass if a match is held on any layer.
                                 link: identifier
                         string-origins:passenger:
                             bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
+                                desc: 	If specified, only increase the amount of passengers if either or both the ’actor’ entity/entities and the ’target’ entity fulfills this bi-entity condition.
                                 link: bientity_condition
                             comparison:
-                                desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
+                                desc: How the amount of passengers of the entity should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: Which value the amount of entities currently riding the entity should be compared to.
+                                desc: The value at which the amount of passengers of the entity will be compared to.
                                 type: integer
                                 default: 1
                         string-origins:passenger_recursive:
                             bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
+                                desc: If specified, only increase the amount of passengers if either or both the ’actor’ entity/entities and the ’target’ entity fulfills this bi-entity condition.
                                 link: bientity_condition
                             comparison:
-                                desc: How the amount of entities that are currently riding the entity should be compared to the specified value.
+                                desc: Determines how the amount of passengers (including the passengers’ passengers) of the entity should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: Which value the amount of entities currently riding the entity should be compared to.
+                                desc: The value at which the amount of passengers (including the passengers’ passengers) of the entity will be compared to.
                                 type: integer
                                 default: 1
+                        string-origins:player_model_type:
+                            model_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/player_model_type
+                                desc: Checks which skin model the player is using — the wide (Steve) arms or the slim (Alex) arms.
+                                link: player_model_type
+                        string-origins:power:
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power
+                                desc: The namespace and ID of the power the entity needs to have to pass the check.
+                                link: identifier
+                            source:
+                                desc: If specified, the condition will check if the power is from the specified power source.
+                                type: identifier
                         string-origins:power_active:
                             power:
-                                desc: ID of the power which will be checked for being active.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_active
+                                desc: The namespace and ID of the power which will be checked for being active.
                                 link: identifier
                         string-origins:power_type:
                             power_type:
-                                desc: The namespace and ID of a power type of some power to check that the player has.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_type
+                                desc: The namespace and ID of the Power Type of a power the entity has.
                                 link: identifier
-                        string-origins:power:
-                            power:
-                                desc: ID of the power the player needs to have to pass the check.
-                                link: identifier
-                            source:
-                                desc: ID of the source of the power the player needs to have to pass the check.
-                                type: string
                         string-origins:predicate:
                             predicate:
-                                desc: ID of the predicate the entity needs to pass.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/predicate
+                                desc: The namespace and ID of the predicate the entity needs to pass.
                                 link: identifier
                         string-origins:raycast:
                             distance:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/raycast
                                 desc: Determines the maximum distance the raycast will travel.
                                 type: number
-                                default: 20
                             block:
-                                desc: If set to false, the raycast will ignore blocks.
+                                desc: Determines whether the raycast should include blocks.
                                 type: boolean
                                 default: true
                             entity:
-                                desc: If set to false, the raycast will ignore entities.
+                                desc: Determines whether the raycast should include entities.
                                 type: boolean
                                 default: true
                             shape_type:
-                                desc: |
-                                    Determines how the raycast handles blocks.
-
-                                    If set to "outline", the raycast will take the shape of the collision box of the block into account.
-                                    If set to "visual", the raycast will ignore blocks that are see-through (e.g: Glass, Tinted Glass, etc.).
-                                    If set to "collider", the raycast will take physical collision of the block into account.
-                                enum: [outline, visual, collider]
+                                link: shape_type
+                                default: 'visual'
                             fluid_handling:
-                                desc: |
-                                    Determines how the raycast handles fluids.
-
-                                    If set to "any", the raycast will ignore source and flowing fluids.
-                                    If set to "source", the raycast will only go through source fluids.
-                                    If set to "none", the raycast won't go through any kind of fluids.
-                                enum: [any, source, none]
+                                link: fluid_handling
                                 gap: true
                             match_bientity_condition:
-                                desc: If specified, the entity condition type will check if this bi-entity condition type is fulfilled by the entity that the raycast has gone through. If not, the entity will be ignored.
+                                desc: If specified, the entity condition type will check if this bi-entity condition type is fulfilled by either or both the ‘actor’ (the entity being checked by the entity condition type) and ‘target’ (entity that the raycast has gone through). If not, the entity will be ignored.
                                 link: bientity_condition
                             hit_bientity_condition:
-                                desc: If specified, the entity condition type will check if the entity that was hit by the raycast fulfills this bi-entity condition type.
+                                desc: If specified, the entity condition type will check if this bi-entity condition type is fulfilled by either or both the ‘actor’ (the entity being checked by the entity condition type) and ‘target’ (the entity that has hit by the raycast).
                                 link: bientity_condition
+                            entity_distance:
+                                desc: Determines the distance of the raycast for entities if entity is set to true. If absent, it will use the higher value between the entity’s attack range (with Reach Entity Attributes compatibility) or the distance field.
+                                type: number
                             block_condition:
                                 desc: If specified, the entity condition type will check if the block that was hit by the raycast fulfills this block condition type.
                                 link: block_condition
+                            block_distance:
+                                desc: Determines the distance of the raycast for blocks if block is set to true. If absent, it will use the higher value between the entity’s block reach (with Reach Entity Attributes compatibility) or the distance field.
+                                type: number
                         string-origins:relative_health:
                             comparison:
-                                desc: How the relative health of the player should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/relative_health
+                                desc: Determines how the relative health of the entity should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the relative health of the entity will be compared to.
                                 type: number
                         string-origins:resource:
                             resource:
-                                desc: ID of the power type that defines the resource. Must be a Resource (Power Type) which exists on the player.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/resource
+                                desc: The namespace and ID of a power that will be evaluated.
                                 link: identifier
                             comparison:
-                                desc: How the resource's value should be compared to the specified value.
+                                desc: Determines how the value of the specified power should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
-                                type: integer
+                                desc: The value the resource is compared against. As an Expression it is re-evaluated every time the condition is tested, so you can compare a resource against another resource, an entity stat, or any math over them.
+                                link: expression_integer
+                        string-origins:riding:
+                            bientity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/riding
+                                desc: If specified, this condition type will only evaluate to true if this condition is fulfilled by either or both the ’actor’ and ’target’ entities.
+                                link: bientity_condition
                         string-origins:riding_recursive:
                             bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/riding_recursive
+                                desc: If specified, this condition type will only evaluate to true if this condition is fulfilled by either or both the ’actor’ and ’target’ entities.
                                 link: bientity_condition
                             comparison:
-                                desc: How the amount of entities currently being ridden should be compared to the specified value.
+                                desc: Determines how the amount of entities currently being ridden should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: Which value the amount of entities currently being ridden should be compared to.
+                                desc: The value at which the amount of entities currently being ridden will be compared to.
                                 type: integer
                                 default: 1
                         string-origins:riding_root:
                             bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
-                                link: bientity_condition
-                        string-origins:riding:
-                            bientity_condition:
-                                desc: If specified, only check for the entities that fulfills the bi-entity condition.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/riding_root
+                                desc: If specified, this condition type will only evaluate to true if this condition is fulfilled by either or both the ’actor’ and ’target’ entities.
                                 link: bientity_condition
                         string-origins:saturation_level:
                             comparison:
-                                desc: How the saturation level should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/saturation_level
+                                desc: Determines how the saturation level of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the saturation level of the player will be compared to.
                                 type: number
                         string-origins:scoreboard:
                             name:
-                                desc:
-                        string-origins:entity_in_radius:
-                            bientity_condition:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_in_radius.md
-                                desc: Optional condition to filter counted entities
-                                link: bientity_condition
-                            shape:
-                                desc: Determines the shape of the area used for checking how many entities fulfill the bi-entity condition.
-                                enum: [cube, star, sphere]
-                            radius:
-                                desc: Radius/distance for detection
-                                type: number
-                            comparison:
-                                desc: How to compare the count
-                                link: comparison
-                            compare_to:
-                                desc: Minimum number of entities required
-                                type: integer
-                                default: 1
-                        string-origins:entity_set_size:
-                            set:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fentity_set_size.md
-                                desc: The Entity Set power to check
-                                link: identifier
-                            comparison:
-                                desc: How to compare the size
-                                link: comparison
-                            compare_to:
-                                desc: Value to compare against
-                                type: integer A selector to retrieve the scoreboard objective from. Leave blank for the entity with the power.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/scoreboard
+                                desc: If specified, the condition will check for the score of this score holder.
                                 type: string
                             objective:
-                                desc: The name of the scoreboard objective to retrieve the value from (referred to as the score) and compare.
-                                type: string
+                                desc: The name of the scoreboard objective to retrieve the value from and compare.
+                                link: objective
                             comparison:
-                                desc: How the player's score should be compared to the specified value.
+                                desc: Determines how the score of the specified score holder should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
-                                type: integer
+                                desc: The value at which the score of the specified score holder will be compared to.
+                                type: number
+                                required: true
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
+                        string-origins:stat:
+                            stat:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
+                                desc: |
+                                    Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                link: stat
+                                required: true
+                            comparison:
+                                desc: How to compare the stat value.
+                                link: comparison
+                            compare_to:
+                                desc: The number to compare against.
+                                type: integer
+                                required: true
                         string-origins:status_effect:
                             effect:
-                                desc: ID of the status effect the player should have.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/status_effect
+                                desc: The namespace and ID of the status effect to check for.
                                 link: identifier
                             min_amplifier:
                                 desc: The minimum amplifier the status effect should have in order to pass the check. Defaults to 0.
@@ -860,161 +855,85 @@ links:
                                 desc: The maximum amplifier the status effect should have in order to pass the check. Defaults to 2147483647.
                                 link: integer_amp
                             min_duration:
-                                desc: The minimum duration the status effect should have in order to pass the check. Defaults to 0.
+                                desc: The minimum duration the status effect should have in order to pass the check. Defaults to -1.
                                 link: integer_dur
                             max_duration:
                                 desc: The maximum duration the status effect should have in order to pass the check. Defaults to 2147483647.
                                 link: integer_dur
                         string-origins:submerged_in:
                             fluid:
-                                desc: |
-                                    Submerged means the entities' eyes are inside that fluid. ID of the fluid tag that should be checked. Most important examples: minecraft:water and minecraft:lava.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/submerged_in
+                                desc: The namespace and ID of the fluid tag that should be checked.
+                                link: identifier
+                        string-origins:stored_origin:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_origin
+                                desc: Only check this key. Omit to match any stored origin.
+                                type: string
+                            origin:
+                                desc: The stored entry must be this origin.
+                                link: identifier
+                            layer:
+                                desc: The stored entry must have been taken from this layer.
+                                link: identifier
+                        string-origins:stored_value:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_value
+                                desc: Which entry to check.
+                                type: string
+                            value:
+                                desc: The stored text must equal this exactly. Omit to check only that the key exists.
+                                type: string
+                        string-origins:swapped:
+                            layer:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/swapped
+                                desc: Which layer to check. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
+                                link: identifier
+                            origin:
+                                desc: Also require that this is the origin they are swapped into.
                                 link: identifier
                         string-origins:swimming: {}
                         string-origins:tamed: {}
                         string-origins:time_of_day:
                             comparison:
-                                desc: How the current day time ticks of the world should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/time_of_day
+                                desc: Determines how the current day time ticks of the world should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the current day time ticks of the world will be compared to.
                                 type: integer
                         string-origins:using_effective_tool: {}
                         string-origins:using_item:
                             item_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/using_item
                                 desc: If specified, the condition will only pass if the item that is being used fulfills this condition.
                                 link: item_condition
-                        string-origins:xp_levels:
+                        string-origins:xp:
+                            unit:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp
+                                desc: Unknown
+                                type: string
                             comparison:
-                                desc: How the experience level of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                type: integer
+                                required: true
+                        string-origins:xp_levels:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp_levels
+                                desc: Determines how the experience level of the player should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value at which the experience level of the player will be compared to.
                                 type: integer
                         string-origins:xp_points:
                             comparison:
-                                desc: How the experience points of the player should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp_points
+                                desc: Determines how the experience points of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the experience points of the player will be compared to.
                                 type: integer
-                        string-sync:has_command_tag:
-                            command_tag:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fhas_command_tag.md
-                                desc: Single tag to check for
-                                link: identifier
-                            command_tags:
-                                desc: Multiple tags that must all be present
-                                type: list
-                                vals:
-                                    link: identifier
-                        string-sync:in_pose:
-                            pose:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fin_pose.md
-                                desc: The entity's pose to check for.
-                                link: identifier
-                        string-sync:is_selected_stolen_power:
-                            source:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fis_selected_stolen_power.md
-                                desc: If provided, returns true only if the currently selected stolen package came from this source identifier
-                                link: identifier
-                        string-sync:key_pressed:
-                            key:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fkey_pressed.md
-                                desc: Translation key of the key to check
-                                link: identifier
-                            continuous:
-                                desc: Whether to check for continuous press or just the initial press
-                                type: boolean
-                                default: true
-                        string-sync:mod_loaded:
-                            mod:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fmod_loaded.md
-                                desc: A single mod ID to check for
-                                link: identifier
-                            mods:
-                                desc: Multiple mod IDs (all must be loaded)
-                                type: list
-                                vals:
-                                    link: identifier
-                        string-sync:perspective:
-                            perspectives:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fperspective.md
-                                desc: One or more perspective names the entity must match.
-                                type: list
-                                vals:
-                                    enum: [first_person, third_person_front, third_person_back]
-                        string-sync:player_model_type:
-                            model_type:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fplayer_model_type.md
-                                desc: The model type to check for.
-                                enum: [slim, wide]
-                        string-sync:raycast:
-                            distance:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fraycast.md
-                                desc: Maximum range for both block and entity raycasting. Defaults to the entity's effective reach (respecting reach-entity-attributes if present)
-                                type: number
-                            block:
-                                desc: Whether the ray can hit blocks
-                                type: boolean
-                                default: true
-                            entity:
-                                desc: Whether the ray can hit entities
-                                type: boolean
-                                default: true
-                            shape_type:
-                                desc: The shape type used for block collision detection
-                                enum: [visual, collider, outline]
-                            fluid_handling:
-                                desc: How fluids are treated during block raycasting
-                                enum: [any, source_only, none]
-                            space:
-                                desc: The coordinate space in which direction is interpreted
-                                link: space_data
-                            direction:
-                                desc: Custom ray direction. If omitted, uses the entity's current look direction
-                                link: vector
-                            entity_distance:
-                                desc: Maximum range for entity detection only. Overrides distance for entities
-                                type: number
-                            block_distance:
-                                desc: Maximum range for block detection only. Overrides distance for blocks
-                                type: number
-                            match_bientity_condition:
-                                desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid entity hits
-                                link: bientity_condition
-                            hit_bientity_condition:
-                                desc: If specified, the condition returns true only if the closest hit entity satisfies this condition (actor = source, target = hit entity)
-                                link: bientity_condition
-                            block_condition:
-                                desc: If specified, the condition returns true only if the hit block satisfies this condition
-                                link: block_condition
-                        string-sync:velocity:
-                            x:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_conditionitions%2Fvelocity.md
-                                desc: Compares the X component of velocity using comparison
-                                type: number
-                                default: unspec
-                            y:
-                                desc: Compares the Y component of velocity using comparison
-                                type: number
-                                default: unspec
-                            z:
-                                desc: Compares the Z component of velocity using comparison
-                                type: number
-                                default: unspec
-                            axes:
-                                desc: List of axes ("x", "y", "z") whose velocity values are summed and compared to compare_to
-                                type: list
-                                vals:
-                                    enum: [x, y, z]
-                                default: unspec
-                            comparison:
-                                desc: The comparison operator used in both modes
-                                link: comparison
-                            compare_to:
-                                desc: The value to compare against in axes mode
-                                type: number
           - title: custom
             link: custom_condition
     item_condition:
@@ -7764,6 +7683,16 @@ links:
               - tag:
                     desc: ID of an item tag.
                     link: identifier
+    integer_amp:
+        desc: The minimum and maximum amplifier of the status effect.
+        type: integer
+        min: 0
+        max: 2147483647
+    integer_dur:
+        desc: The minimum and maximum duration of the status effect.
+        type: integer
+        min: -1
+        max: 2147483647
     inventory_type:
         desc: Determines whether to reference the inventory of the entity or the inventory of the power present in the entity.
         enum: ['inventory','power']
@@ -7898,6 +7827,9 @@ links:
         type: number
         min: 0
         max: 1
+    objective:
+        type: string
+        allow: 'a-zA-Z0-9_.+-'
     overlay_layer:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/overlay-layer
         desc: One render layer of an Entity Texture Overlay power — a single texture drawn over the player model with its own draw style, tint and target body parts. A power's layers field is an array of these, each independent and drawn in order on top of the base overlay.
@@ -8007,15 +7939,28 @@ links:
                     type: number
     set_iteration:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/set-iteration
-        desc: A String used to determine which side of an entity set is walked. See the doc for more information
+        desc: |
+            A String used to determine which side of an entity set is walked.
+            members		Walk the set the acting entity owns. The actor is the acting entity, and each target is one member of its set. The acting entity must hold the set power, otherwise nothing happens.
+            owners		Walk the sets the acting entity is in. One iteration per entity whose set power currently contains the acting entity; the actor is that owner and the target is the acting entity. The acting entity does not need to hold the set power.
         enum: ['members','owners']
     shape:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/shape
-        desc: The outline of a region around a centre point. See the doc for more information.
+        desc: |
+            The outline of a region around a centre point.
+            cube	\|dx\| ≤ rx, \|dy\| ≤ ry, \|dz\| ≤ rz (a box)
+            sphere	(dx/rx)² + (dy/ry)² + (dz/rz)² ≤ 1 (an ellipsoid)
+            star	\|dx\|/rx + \|dy\|/ry + \|dz\|/rz ≤ 1 (a stretched octahedron)
+            cone	apex at centre, opening upward to height ry; the x/z spread reaches rx/rz at the top
+            Per-axis extents are rounded up to whole blocks for block-based powers.
         enum: ['cube','sphere','star','cone']
     shape_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/shape-type
-        desc: A String used to determine how raycasts will handle blocks. See the doc for more information
+        desc: |
+            A String used to determine how raycasts will handle blocks.
+            collider	The ray will only stop at blocks with collision. (e.g: blocks that cannot be walked through)
+            outline		The ray will take the shape of the block into account, only stopping if the ray has hit a face of a block.
+            visual		The ray will only stop at blocks that are not considered transparent. (e.g: blocks that aren’t see-through)
         enum: ['collider','outline','visual']
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
