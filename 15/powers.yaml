@@ -1610,45 +1610,38 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/bientity_action_types/
                     enum:
+                      - $Meta Actions
                       - origins:nothing
                       - origins:and
-                      - origins:chance
                       - origins:choice
                       - origins:delay
                       - origins:if_else
                       - origins:if_else_list
-                      - origins:side
+                      - origins:loop
+                      - origins:random_chance
                       - origins:invert
                       - origins:actor_action
+                      - origins:target_action
+                      - $General Actions
                       - origins:add_velocity
+                      - origins:attach_rope
                       - origins:damage
+                      - origins:disguise
+                      - origins:explode
+                      - origins:grab
                       - origins:mount
+                      - origins:raycast
                       - origins:set_in_love
                       - origins:tame
-                      - origins:target_action
-
-                      - $Origins Math
-                      
-                      - origins-math:chance
-                      - origins-math:damage
-                      - origins-math:delay
-                      - origins-math:add_velocity
-                      - origins-math:copy_resource_value
-                      - origins-math:variable_execute_command
-
-                      - $SYNC
-
-                      - sync:loop
-                      - sync:add_to_entity_set
-                      - sync:convert_entity
-                      - sync:disguise
-                      - sync:execute_command
-                      - sync:explode
-                      - sync:liberate_power
-                      - sync:remove_from_entity_set
-                      - sync:rope_leash
-                      - sync:suppress_power
-                      - sync:transfer
+                      - origins:transfer
+                      - $Data Actions
+                      - origins:add_to_entity_set
+                      - origins:remove_from_entity_set
+                      - origins:copy_origin
+                      - origins:store_origin
+                      - origins:transfer_origin
+                      - $DEPRECATED
+                      - origins:chance
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
@@ -1657,20 +1650,22 @@ links:
                                 type: list
                                 vals:
                                     link: bientity_action
-                        string-origins:chance:
+                        string-origins:random_chance:
                             chance:
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                type: number
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: percentage
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
                             fail_action:
                                 desc: The action to execute if the specified action in the action field is not executed.
                                 link: bientity_action
-                        string-origins-math:chance:
+                        string-origins:chance:
                             chance:
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                link: math_number
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: percentage
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -1679,7 +1674,8 @@ links:
                                 link: bientity_action
                         string-origins:choice:
                             actions:
-                                desc: A list of actions, one of which is choosen randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
+                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. Each object has to have an element for Action Type and a weight for Integer.
                                 type: list
                                 vals:
                                     type: object
@@ -1693,27 +1689,22 @@ links:
                                             link: bientity_action
                         string-origins:delay:
                             action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
                                 desc: The action which will be executed after the delay.
                                 link: bientity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
-                        string-origins-math:delay:
-                            action:
-                                desc: The action which will be executed after the delay.
-                                link: bientity_action
-                            ticks:
-                                desc: The amount of ticks until the action is executed.
-                                link: math_integer
                         string-origins:if_else:
                             condition:
-                                desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
+                                desc: A condition based on the type of action.
                                 link: bientity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: bientity_action
                             else_action:
-                                desc: If specified, this action will be executed when the condition evaluates to false.
+                                desc: If present, this action will be executed when the condition evaluates to false.
                                 link: bientity_action
                         string-origins:if_else_list:
                             actions:
@@ -1728,42 +1719,131 @@ links:
                                         action:
                                             desc: An action which might be executed.
                                             link: bientity_action
-                        string-origins:side:
-                            side:
-                                desc: The side, either "client" or "server", to apply this action on.
-                                enum: [client, server]
+                        string-origins:loop:
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead. See the link for more information.
+                                type: integer
+                                default: 1
+                            before_action:
+                                desc: Fired once, immediately, before the first iteration.
+                                link: bientity_action
                             action:
-                                desc: The action to apply.
+                                desc: Fired once per iteration.
+                                link: bientity_action
+                            after_action:
+                                desc: Fired once, in the same tick as the final iteration, right after it.
                                 link: bientity_action
                         string-origins:invert:
                             action:
-                                desc: The bi-entity action to execute which will have its 'target' and 'actor' contexts swapped.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/invert
+                                desc: The bi-entity action to execute which will have its ‘target’ and ‘actor’ contexts swapped.
                                 link: bientity_action
                         string-origins:actor_action:
                             action:
-                                desc: The action to execute on the actor entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/actor_action
+                                desc: The entity action type to execute on the actor entity.
                                 link: entity_action
                         string-origins:add_velocity:
                             x:
-                                desc: The amount of velocity to add on the x-axis. Defaults to 0.
-                                type: number
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_velocity
+                                desc: The amount of velocity to add on the x-axis.
+                                link: expression_float
                             y:
-                                desc: The amount of velocity to add on the y-axis. Defaults to 0.
-                                type: number
+                                desc: The amount of velocity to add on the y-axis.
+                                link: expression_float
                             z:
-                                desc: The amount of velocity to add on the z-axis. Defaults to 0.
-                                type: number
-                            client:
-                                desc: If this is false, the action will not execute on the client.
-                                type: boolean
-                                default: true
-                            server:
-                                desc: If this is false, the action will not execute on the server.
-                                type: boolean
-                                default: true
+                                desc: The amount of velocity to add on the z-axis.
+                                link: expression_float
+                            reference:
+                                desc: Determines whether to use the target entity’s "position" or "rotation" when calculating the velocity that will be applied to the target entity.
+                                enum: ['position','rotation']
                             set:
-                                desc: If this is true, the action will act as a "set" velocity action, overriding the entity's current velocity instead of adding to it.
+                                desc: If this is true, the action will act as a “set” velocity action, overriding the entity’s current velocity instead of adding to it.
                                 type: boolean
+                                default: false
+                        string-origins:attach_rope:
+                            from:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/attach_rope
+                                desc: One end of the rope. 'self' is the actor.
+                                link: rope_endpoint
+                            to:
+                                desc: |
+                                    The other end. Use { "source": "target" } for the entity this action was run against.
+                                link: rope_endpoint
+                            slot:
+                                desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it.
+                                type: string
+                            texture:
+                                desc: The texture the rope is drawn with.
+                                link: identifier
+                                default: "apoli:textures/rope/rope.png"
+                            toggle:
+                                desc: When true and no slot is given, re-firing while the actor already holds a controllable rope releases it instead of adding another.
+                                type: boolean
+                                default: true
+                            controllable:
+                                desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
+                                type: boolean
+                                default: true
+                            mode:
+                                link: rope_mode
+                            break_beyond:
+                                desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
+                                type: number
+                                default: 0
+                            min_length:
+                                desc: Shortest the rope can reel to.
+                                type: number
+                                default: 1
+                            max_length:
+                                desc: Longest the rope can be.
+                                type: number
+                                default: 30
+                            start_length:
+                                desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
+                                type: number
+                            stiffness:
+                                desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
+                                type: number
+                                default: 0.1
+                            radial_damping:
+                                desc: How much outward speed is bled off at the length limit.
+                                type: number
+                                default: 0.85
+                            spring_scaling:
+                                desc: Extra softening while swinging inward.
+                                type: number
+                                default: 0.65
+                            swing_boost:
+                                desc: Speed multiplier applied to a sprinting player’s swing.
+                                type: number
+                                default: 1.08
+                            max_swing_speed:
+                                desc: Cap on the sprint swing boost.
+                                type: number
+                                default: 0.7
+                            reel_step:
+                                desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
+                                type: number
+                                default: 0.2
+                            slack_pull_rate:
+                                desc: Multiplier applied to reeling in while there is slack.
+                                type: number
+                                default: 5.0
+                            constrain_from:
+                                desc: Whether the physics may pull the from end (only matters when it is an entity).
+                                type: boolean
+                                default: true
+                            constrain_to:
+                                desc: Whether the physics may pull the to end.
+                                type: boolean
+                                default: true
                         string-origins:damage:
                             amount:
                                 desc: The amount of damage to deal.
@@ -8027,6 +8107,13 @@ links:
                 type: list
                 vals:
                     type: number
+    rope_mode:
+        desc: |
+            How the length constraint behaves.
+            leash	free within length, springy swinging grapple past it (the default).
+            spring	a soft elastic pull past length, so the rope visibly stretches and eases back (a rubber band).
+            rigid	holds a fixed distance both ways — pulled in when too far and pushed out when too close (a rod/pole).
+        enum: ['leash','spring','rigid']
     set_iteration:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/set-iteration
         desc: |
