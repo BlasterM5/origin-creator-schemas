@@ -1846,127 +1846,38 @@ links:
                                 default: true
                         string-origins:damage:
                             amount:
-                                desc: The amount of damage to deal.
-                                type: number
-                                min: 0
-                            source:
-                                desc: The damage source to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                link: damage_source
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
+                                desc: The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
+                                link: expression_float
                             damage_type:
-                                desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
+                                desc: Defines the properties of the damage source that will be dealt, such as part of its death message, and whether it can bypass armor, shield, etc. (via damage type tags.)
                                 link: identifier
-                        string-origins-math:add_velocity:
-                            x:
-                                desc: The amount of velocity to add on the x-axis. Defaults to 0.
-                                link: math_number
-                            y:
-                                desc: The amount of velocity to add on the y-axis. Defaults to 0.
-                                link: math_number
-                            z:
-                                desc: The amount of velocity to add on the z-axis. Defaults to 0.
-                                link: math_number
-                            client:
-                                desc: If this is false, the action will not execute on the client.
-                                type: boolean
-                                default: true
-                            server:
-                                desc: If this is false, the action will not execute on the server.
-                                type: boolean
-                                default: true
-                            set:
-                                desc: If this is true, the action will act as a "set" velocity action, overriding the entity's current velocity instead of adding to it.
-                                type: boolean
-                        string-origins-math:damage:
-                            amount:
-                                desc: The amount of damage to deal.
-                                link: math_number_min_0
-                            source:
-                                desc: The damage source to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                link: damage_source
-                            damage_type:
-                                desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                link: identifier
-                        string-origins:mount: {}
-                        string-origins:set_in_love: {}
-                        string-origins:tame: {}
-                        string-origins:target_action:
-                            action:
-                                desc: The action to execute on the target entity.
-                                link: entity_action
-                        string-origins-math:copy_resource_value:
-                            target_resource:
-                                desc: The target's resource power with the value to be copied.
-                                link: identifier
-                            actor_resource:
-                                desc: The actor's resource power the target's resource value is copied over to.
-                                link: identifier
-                            operation:
-                                desc: Determines if the action should add or set the value of the resource.
-                                enum: [add,set]
-                        string-origins-math:variable_execute_command:
-                            command:
-                                desc: The command to execute on the entity.
-                                type: string
-                                ext: true
-                            actor_selector:
-                                desc: The substring that refers to the actor entity. All instances of this string will be replaced with the actor entity's UUID. Defaults to %a
-                                type: string
-                                default: '%a'
-                            target_selector:
-                                desc: The substring that refers to the target entity. All instances of this string will be replaced with the target entity's UUID. Defaults to %t
-                                type: string
-                                default: '%t'
-                            variables:
-                                desc: A variable declaration declaring variables used inside the command.
-                                link: variables
-                        string-sync:add_to_entity_set:
-                            set:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fadd_to_entity_set.md
-                                desc: The Entity Set power to add the target to.
-                                link: identifier
-                            time_limit:
-                                desc: Duration (in ticks) the entity should remain in the set. After this time, the entity is automatically removed.
-                                type: integer
-                                default: unspec
-                        string-sync:convert_entity:
-                            convert_to:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fconvert_entity.md
-                                desc: The entity type to convert the target into.
-                                link: identifier
-                            ignore_difficulty:
-                                desc: If false, the conversion will only succeed depending on the world difficulty. On Peaceful/Easy, it never converts, On Normal, 50% chance, On Hard, it always converts
-                                type: boolean
-                                default: true
-                        string-sync:disguise:
+                            modifier:
+                                desc: If specified, this modifier will be applied to the damage taken by the ’target’ entity.
+                                link: attribute_modifier
+                            modifiers:
+                                desc: If specified, these modifiers will be applied to the damage taken by the ’target’ entity.
+                                type: list
+                                vals:
+                                    link: attribute_modifier
+                        string-origins:disguise:
                             overwrite:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fdisguise.md
-                                desc: If false, the disguise will not be applied when the actor is already disguised as something else.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/disguise
+                                desc: If false, does nothing when the actor is already disguised.
                                 type: boolean
                                 default: true
-                        string-sync:execute_command:
-                            command:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fexecute_command.md
-                                desc: The command to execute. Can contain placeholders %a (actor UUID) and %t (target UUID) which will be replaced before execution.
-                                type: string
-                                ext: true
-                            actor_selector:
-                                desc: The string in the command that should be replaced with the actor entity's UUID.
-                                type: string
-                                default: '%a'
-                            target_selector:
-                                desc: The string in the command that should be replaced with the target entity's UUID.
-                                type: string
-                                default: '%t'
-                        string-sync:explode:
+                            change_name:
+                                desc: Whether the disguise also changes the actor’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
+                                type: boolean
+                                default: true
+                        string-origins:explode:
                             power:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fexplode.md
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/explode
                                 desc: The blast radius/power of the explosion
                                 type: number
-                                default: 1
                                 required: true
                             destruction_type:
-                                desc: How the explosion affects blocks.
-                                enum: [destroy, break, none]
+                                link: destruction_type
                             create_fire:
                                 desc: Whether the explosion places fire in the blast area
                                 type: boolean
@@ -1981,122 +1892,162 @@ links:
                             destructible:
                                 desc: Block condition for blocks that are explicitly allowed to be destroyed, taking priority over indestructible
                                 link: block_condition
-                        string-sync:liberate_power:
-                            power:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fliberate_power.md
-                                desc: A single power ID to liberate
-                                link: identifier
-                            powers:
-                                desc: Additional power IDs to liberate
-                                type: list
-                                vals:
-                                    link: identifier
-                            power_types:
-                                desc: Factory-type IDs; all suppressed powers of these types are liberated
-                                type: list
-                                vals:
-                                    link: identifier
-                            power_sources:
-                                desc: Source IDs; suppressed powers granted via a listed source are liberated
-                                type: list
-                                vals:
-                                    link: identifier
-                            ignored_powers:
-                                desc: Power IDs that are never liberated, even if they match another filter
-                                type: list
-                                vals:
-                                    link: identifier
-                            bientity_action:
-                                desc: Executed once for every power that gets liberated
-                                link: bientity_action
-                        string-sync:loop:
+                        string-origins:loop:
                             value:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
-                                desc: Number of times action is executed
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
                                 type: integer
                                 default: 1
-                                min: 1
                             ticks:
-                                desc: Tick interval between iterations. Minimum effective value is 1
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
                                 type: integer
                                 default: 1
-                                min: 1
                             before_action:
-                                desc: Fired once immediately before the first iteration begins
+                                desc: Fired once, immediately, before the first iteration.
                                 link: bientity_action
                             action:
-                                desc: Fired once per iteration
+                                desc: Fired once per iteration.
                                 link: bientity_action
                             after_action:
-                                desc: Fired once after the final iteration completes
+                                desc: Fired once, in the same tick as the final iteration, right after it.
                                 link: bientity_action
-                        string-sync:remove_from_entity_set:
-                            set:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fremove_from_entity_set.md
-                                desc: The ID of the power to remove the target entity from.
-                                link: identifier
-                        string-sync:rope_leash:
-                            max_length:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Frope_leash.md
-                                desc: Maximum rope length in blocks. The actual initial length is the distance from player to target, clamped to this value
+                        string-origins:grab:
+                            duration:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/grab
+                                desc: How long the grab lasts, in ticks. Omit (or use a value ≤ 0) for a continuous grab that lasts until released.
+                                type: integer
+                                default: 0
+                            distance:
+                                desc: How far in front of the actor’s eyes the target is held, in blocks.
                                 type: number
-                                default: 10.0
-                            texture:
-                                desc: Resource location of the texture applied to the rendered rope
-                                link: identifier
-                                default: sync:textures/rope/rope.png
-                            mode:
-                                desc: Controls whether this activation attaches a new leash, detaches an existing one, or toggles between the two for the bi-entity target.
-                                enum: [toggle, attach, detach, detach_all]
-                        string-sync:suppress_power:
-                            power:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Fsuppress_power.md
-                                desc: A single power ID to suppress
-                                link: identifier
-                            powers:
-                                desc: Additional power IDs to suppress
-                                type: list
-                                vals:
-                                    link: identifier
-                            power_types:
-                                desc: Factory-type IDs (e.g. origins:active_self); all powers of these types are suppressed
-                                type: list
-                                vals:
-                                    link: identifier
-                            power_sources:
-                                desc: Source IDs; all powers granted via a listed source are suppressed
-                                type: list
-                                vals:
-                                    link: identifier
-                            ignored_powers:
-                                desc: Power IDs that are never suppressed, even if they match another filter
-                                type: list
-                                vals:
-                                    link: identifier
-                            bientity_action:
-                                desc: Executed once for every power that gets suppressed
-                                link: bientity_action
-                        string-sync:transfer:
-                            mode:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=bientity_actions%2Ftransfer.md
-                                desc: Transfer direction. "steal" takes powers from target to actor. "give" returns the actor's selected stolen package to the target. "auto" reads the actor's current mode
-                                enum: [steal, give, auto]
-                            source:
-                                desc: When stealing, only powers from this specific source are taken. Omit to steal from all sources
-                                link: identifier
-                            transfer_source:
-                                desc: The source identifier under which stolen powers are granted to the actor
-                                link: identifier
-                                default: "sync:transferred"
-                            strip_from_donor:
-                                desc: If true, powers are removed from the donor after being transferred
+                                default: 2
+                            disable_grabber:
+                                desc: While the grab is active, the actor cannot use Apoli power keybinds (active powers, toggles).
+                                type: boolean
+                                default: false
+                            disable_grabbed:
+                                desc: While the grab is active, the target cannot use Apoli power keybinds.
+                                type: boolean
+                                default: false
+                            horizontal_only:
+                                desc: |
+                                    The target only moves left/right with the actor’s camera: it stays at eye height and ignores looking up or down (pitch is treated as level).
+                                type: boolean
+                                default: false
+                            vertical_only:
+                                desc: |
+                                    The target only moves up/down with the actor’s camera: the horizontal direction is frozen to where the actor faced when the grab started, and only pitch moves it.
+                                type: boolean
+                                default: false
+                        string-origins:mount: {}
+                        string-origins:raycast:
+                            aim_at_target:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/raycast
+                                desc: Aim at the target instead of the actor’s look direction.
                                 type: boolean
                                 default: true
+                            stop_at_target:
+                                desc: Clamp the ray’s length to the actor→target distance.
+                                type: boolean
+                                default: true
+                        string-origins:set_in_love: {}
+                        string-origins:tame: {}
+                        string-origins:target_action:
+                            action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/target_action
+                                desc: The entity action type to execute on the target entity.
+                                link: entity_action
+                        string-origins:add_to_entity_set:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_to_entity_set
+                                desc: The ID of the power to add the target entity into.
+                                link: identifier
+                            time_limit:
+                                desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
+                                type: integer
+                                default: unspec
+                        string-origins:remove_from_entity_set:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/remove_from_entity_set
+                                desc: The ID of the power to remove the target entity from.
+                                link: identifier
+                        string-origins:transfer:
+                            mode:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/transfer
+                                desc: steal moves powers target → actor; give moves them actor → target.
+                                enum: [steal, give]
+                            copy:
+                                desc: If false, powers are moved (removed from the donor). If true, they are copied (the donor keeps them).
+                                type: boolean
+                                default: false
+                            sources:
+                                desc: Only transfer powers granted by these sources. If omitted, every source on the donor is transferred (except new_source). This is how you copy one specific origin/layer — filter to the source it was granted under.
+                                type: list
+                                vals:
+                                    link: identifier
+                            new_source:
+                                desc: The source the powers are granted under on the recipient. Grouping under one source lets you later remove them all in one call (see Losing / restoring below).
+                                link: identifier
+                                default: "apoli:transferred"
+                            preserve_source:
+                                desc: If true, powers keep their original source id on the recipient instead of new_source.
+                                type: boolean
+                                default: false
                             actor_action:
-                                desc: Action executed on the actor after the transfer completes
+                                desc: Action run on the actor after the transfer (e.g. a sound or particle).
                                 link: entity_action
                             target_action:
-                                desc: Action executed on the target after the transfer completes
+                                desc: Action run on the target after the transfer.
+                                link: entity_action
+                        string-origins:copy_origin:
+                            from_layer:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/copy_origin
+                                desc: The layer whose origin is read from the target.
+                                link: identifier
+                                default: "origins:origin"
+                            to_layer:
+                                desc: The layer set on the actor to the copied origin. Its powers are granted from this layer’s source, so clearing the actor’s to_layer (e.g. /origin set @s origins:copy <blank>) removes them again — the basis for a temporary copy.
+                        string-origins:store_origin:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin_bientity
+                                desc: The name to store the entry under on the actor.
+                                link: key
+                                required: true
+                            layer:
+                                desc: Which of the target’s layers to read, and the layer recorded with the entry.
+                                link: identifier
+                                default: "origins:origin"
+                            origin:
+                                desc: Store this origin id literally instead of reading the target’s.
+                                link: identifier
+                                default: unspec
+                            clear:
+                                desc: Remove the entry at key from the actor instead of writing one.
+                                type: boolean
+                                default: false
+                        string-origins:transfer_origin:
+                            mode:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/transfer_origin
+                                desc: steal takes the target’s origin onto the actor; give hands the actor’s origin to the target. (Determines which side is the donor and which is the recipient.)
+                                enum: [steal, give]
+                            copy:
+                                desc: If false, the origin is moved — the donor loses it on from_layer entirely. If true, it is copied (the donor keeps it); this is exactly what origins:copy_origin does.
+                                type: boolean
+                                default: false
+                            from_layer:
+                                desc: The layer the origin is read from on the donor.
+                                link: identifier
+                                default: "origins:origin"
+                            to_layer:
+                                desc: The layer the origin is written to on the recipient. Use a dedicated layer (e.g. origins:copy) to add the origin alongside the recipient’s own, or the same layer to replace it.
+                                link: identifier
+                                default: "origins:origin"
+                            actor_action:
+                                desc: Action run on the actor after the transfer (e.g. a sound or particle).
+                                link: entity_action
+                            target_action:
+                                desc: Action run on the target after the transfer.
                                 link: entity_action
           - title: custom
             link: custom_action
@@ -2109,23 +2060,31 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/entity_action_types/
                     enum:
+                      - $Meta Actions
                       - origins:nothing
                       - origins:and
-                      - origins:chance
+                      - origins:random_chance
                       - origins:choice
                       - origins:delay
                       - origins:if_else
                       - origins:if_else_list
-                      - origins:side
+                      - origins:loop
+                      - $General Actions
+                      - origins:action_on_entity_set
                       - origins:add_velocity
                       - origins:add_xp
                       - origins:apply_effect
                       - origins:area_of_effect
+                      - origins:attach_rope
                       - origins:block_action_at
                       - origins:change_resource
+                      - origins:change_selected_slot
+                      - origins:change_slot
                       - origins:clear_effect
                       - origins:crafting_table
                       - origins:damage
+                      - origins:detach_rope
+                      - origins:disguise_as
                       - origins:dismount
                       - origins:drop_inventory
                       - origins:emit_game_event
@@ -2137,99 +2096,63 @@ links:
                       - origins:extinguish
                       - origins:feed
                       - origins:fire_projectile
+                      - origins:force_key_pressed
                       - origins:gain_air
                       - origins:give
-                      - origins:grant_advancement
-                      - origins:grant_power
                       - origins:heal
+                      - origins:inventory_action
                       - origins:modify_death_ticks
                       - origins:modify_inventory
-                      - origins:modify_resource
-                      - origins:modify_stat
                       - origins:passenger_action
                       - origins:play_sound
+                      - origins:random_teleport
                       - origins:raycast
+                      - origins:relative_action
+                      - origins:release_grab
+                      - origins:remove_disguise
                       - origins:replace_inventory
-                      - origins:revoke_advancement
-                      - origins:revoke_power
                       - origins:riding_action
+                      - origins:rope_pull
+                      - origins:run_function
                       - origins:selector_action
                       - origins:set_fall_distance
                       - origins:set_on_fire
-                      - origins:set_resource
+                      - origins:swing_hand
+                      - origins:team
+                      - origins:text
+                      - origins:toggle
+                      - origins:trigger_cooldown
+                      - $Summon Actions
+                      - origins:conjure_equipment
+                      - origins:set_summon_max_life
                       - origins:spawn_effect_cloud
                       - origins:spawn_entity
                       - origins:spawn_particles
-                      - origins:swing_hand
-                      - origins:toggle
-                      - origins:trigger_cooldown
-
-                      - $Apugli
-
-                      - apugli:fire_projectile
-
-                      - $Eggolib
-
-                      - eggolib:calculate_resource
-
-                      - $Origins Math
-
-                      - $Updated Actions
-                      - origins-math:chance
-                      - origins-math:delay
-                      - origins-math:add_velocity
-                      - origins-math:add_xp
-                      - origins-math:area_of_effect
-                      - origins-math:damage
-                      - origins-math:drop_inventory
-                      - origins-math:exhaust
-                      - origins-math:explode
-                      - origins-math:feed
-                      - orignis-math:gain_air
-                      - origins-math:fire_projectile
-                      - origins-math:heal
-                      - origins-math:modify_inventory
-                      - origins-math:play_sound
-                      - origins-math:raycast
-                      - origins-math:set_fall_distance
-                      - origins-math:set_on_fire
-                      - origins-math:set_resource
-                      - origins-math:spawn_effect_cloud
-                      - origins-math:spawn_particles
-                      - $Math Actions
-                      - origins-math:change_resource
-                      - origins-math:variable_change_resource
-                      - origins-math:variable_execute_command
-
-                      - $SYNC
-
-                      - sync:loop
-                      - sync:action_on_entity_set
-                      - sync:attach_rope
-                      - sync:attach_rope_entity
-                      - sync:change_selected_slot
-                      - sync:change_slot
-                      - sync:custom_projectile
-                      - sync:cycle_stolen_power
-                      - sync:disguise_as
-                      - sync:grant_all_powers
-                      - sync:item_cooldown
-                      - sync:print
-                      - sync:radial_menu
-                      - sync:random_teleport
-                      - sync:raycast
-                      - sync:remove_disguise
-                      - sync:revoke_all_powers
-                      - sync:revoke_power
-                      - sync:save_location
-                      - sync:set_no_gravity
-                      - sync:set_summon_max_life_ticks
-                      - sync:summon_clone
-                      - sync:summon_minion
-                      - sync:teleport_to_location
-                      - sync:teleport_to_spawn
-                      - sync:toggle_transfer_mode
-                      - sync:use_selected_stolen_power
+                      - origins:summon_clone
+                      - origins:summon_minion
+                      - $Data Actions
+                      - origins:advancement
+                      - origins:apply_stored_origin
+                      - origins:force_swap
+                      - origins:grant_advancement
+                      - origins:grant_all_powers
+                      - origins:grant_power
+                      - origins:modify_entity_data
+                      - origins:modify_resource
+                      - origins:modify_stat
+                      - origins:open_swap_menu
+                      - origins:radial_menu
+                      - origins:remove_power
+                      - origins:revoke_advancement
+                      - origins:revoke_all_powers
+                      - origins:revoke_power
+                      - origins:store_origin
+                      - origins:store_value
+                      - origins:suppress_power
+                      - origins:unsuppress_power
+                      - $DEPRECATED
+                      - origins:chance
+                      - origins:change_resource
                       
                     more:
                         string-origins:nothing: {}
@@ -2239,8 +2162,9 @@ links:
                                 type: list
                                 vals:
                                     link: entity_action
-                        string-origins:chance:
+                        string-origins:random_chance:
                             chance:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
                                 desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
                                 type: number
                             action:
