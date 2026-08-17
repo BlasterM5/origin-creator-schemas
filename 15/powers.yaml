@@ -649,7 +649,7 @@ links:
                         string-origins:key_pressed:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/key_pressed
-                                link: key
+                                link: keybind
                         string-origins:living: {}
                         string-origins:moving:
                             horizontally:
@@ -1654,7 +1654,7 @@ links:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
                                 desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: percentage
+                                link: number_percent
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -1665,7 +1665,7 @@ links:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
                                 desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: percentage
+                                link: number_percent
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -1708,7 +1708,8 @@ links:
                                 link: bientity_action
                         string-origins:if_else_list:
                             actions:
-                                desc: A list of actions associated with conditions to check. The first one in the list for which the condition holds will be executed. Basically a less indentation-heavy way to represent a deeply nested If-Else Action.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
                                 type: list
                                 vals:
                                     type: object
@@ -2012,7 +2013,7 @@ links:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin_bientity
                                 desc: The name to store the entry under on the actor.
-                                link: key
+                                link: meta_key
                                 required: true
                             layer:
                                 desc: Which of the target’s layers to read, and the layer recorded with the entry.
@@ -2134,7 +2135,6 @@ links:
                       - origins:advancement
                       - origins:apply_stored_origin
                       - origins:force_swap
-                      - origins:grant_advancement
                       - origins:grant_all_powers
                       - origins:grant_power
                       - origins:modify_entity_data
@@ -2143,7 +2143,6 @@ links:
                       - origins:open_swap_menu
                       - origins:radial_menu
                       - origins:remove_power
-                      - origins:revoke_advancement
                       - origins:revoke_all_powers
                       - origins:revoke_power
                       - origins:store_origin
@@ -2153,6 +2152,11 @@ links:
                       - $DEPRECATED
                       - origins:chance
                       - origins:change_resource
+                      - origins:drop_inventory
+                      - origins:modify_inventory
+                      - origins:replace_inventory
+                      - origins:grant_advancement
+                      - origins:revoke_advancement
                       
                     more:
                         string-origins:nothing: {}
@@ -2166,17 +2170,21 @@ links:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
                                 desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                type: number
+                                type: number_percent
+                                required: true
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
+                                required: true
                             fail_action:
                                 desc: The action to execute if the specified action in the action field is not executed.
                                 link: entity_action
-                        string-origins-math:chance:
+                                default: unspec
+                        string-origins:chance:
                             chance:
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                link: math_number
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
+                                link: number_percent
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
@@ -2185,7 +2193,8 @@ links:
                                 link: entity_action
                         string-origins:choice:
                             actions:
-                                desc: A list of actions, one of which is choosen randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
+                                desc: Each object has to have an element for Action Type and a weight for Integer.
                                 type: list
                                 vals:
                                     type: object
@@ -2199,31 +2208,27 @@ links:
                                             link: entity_action
                         string-origins:delay:
                             action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
                                 desc: The action which will be executed after the delay.
                                 link: entity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
-                        string-origins-math:delay:
-                            action:
-                                desc: The action which will be executed after the delay.
-                                link: entity_action
-                            ticks:
-                                desc: The amount of ticks until the action is executed.
-                                link: math_integer
                         string-origins:if_else:
                             condition:
-                                desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
+                                desc: A condition based on the type of action.
                                 link: entity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: entity_action
                             else_action:
-                                desc: If specified, this action will be executed when the condition evaluates to false.
+                                desc: If present, this action will be executed when the condition evaluates to false.
                                 link: entity_action
                         string-origins:if_else_list:
                             actions:
-                                desc: A list of actions associated with conditions to check. The first one in the list for which the condition holds will be executed. Basically a less indentation-heavy way to represent a deeply nested If-Else Action.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
                                 type: list
                                 vals:
                                     type: object
@@ -2234,355 +2239,483 @@ links:
                                         action:
                                             desc: An action which might be executed.
                                             link: entity_action
-                        string-origins:side:
-                            side:
-                                desc: The side, either "client" or "server", to apply this action on.
-                                enum: [client, server]
+                        string-origins:loop:
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                            before_action:
+                                desc: Fired once, immediately, before the first iteration.
+                                link: entity_action
                             action:
-                                desc: The action to apply.
+                                desc: Fired once per iteration.
+                                link: entity_action
+                            after_action:
+                                desc: Fired once, in the same tick as the final iteration, right after it.
                                 link: entity_action
                         string-origins:add_velocity:
                             x:
-                                desc: The amount of velocity to add on the x-axis. Defaults to 0.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_velocity
+                                desc: The amount of velocity to add on the x-axis.
                                 type: number
+                                default: 0
                             y:
-                                desc: The amount of velocity to add on the y-axis. Defaults to 0.
+                                desc: The amount of velocity to add on the y-axis.
                                 type: number
+                                default: 0
                             z:
-                                desc: The amount of velocity to add on the z-axis. Defaults to 0.
+                                desc: The amount of velocity to add on the z-axis.
                                 type: number
+                                default: 0
                             space:
-                                desc: The space to perform the velocity addition in.
-                                link: space_data
-                            client:
-                                desc: If this is false, the action will not execute on the client.
-                                type: boolean
-                                default: true
-                            server:
-                                desc: If this is false, the action will not execute on the server.
-                                type: boolean
-                                default: true
+                                desc: Determines how the direction of the velocity to add/set will be calculated.
+                                link: space
                             set:
-                                desc: If this is true, the action will act as a "set" velocity action, overriding the entity's current velocity instead of adding to it.
+                                desc: If this is true, the action will act as a “set” velocity action, overriding the entity’s current velocity instead of adding to it.
                                 type: boolean
-                        string-origins-math:add_velocity:
-                            x:
-                                desc: The amount of velocity to add on the x-axis. Defaults to 0.
-                                link: math_number
-                            y:
-                                desc: The amount of velocity to add on the y-axis. Defaults to 0.
-                                link: math_number
-                            z:
-                                desc: The amount of velocity to add on the z-axis. Defaults to 0.
-                                link: math_number
-                            space:
-                                desc: The space to perform the velocity addition in.
-                                link: space_data
-                            client:
-                                desc: If this is false, the action will not execute on the client.
-                                type: boolean
-                                default: true
-                            server:
-                                desc: If this is false, the action will not execute on the server.
-                                type: boolean
-                                default: true
-                            set:
-                                desc: If this is true, the action will act as a "set" velocity action, overriding the entity's current velocity instead of adding to it.
-                                type: boolean
+                                default: false
                         string-origins:add_xp:
                             points:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_xp
                                 desc: If set, this is the amount experience points that will be given to the player. Can not be negative.
-                                type: integer
-                                min: 0
+                                link: expression_integer
                             levels:
                                 desc: If set, this is the amount experience levels that will be given to the player. Can be negative and thus used to subtract levels.
-                                type: integer
-                        string-origins-math:add_xp:
-                            points:
-                                desc: If set, this is the amount experience points that will be given to the player. Can not be negative.
-                                link: math_integer_min_0
-                            levels:
-                                desc: If set, this is the amount experience levels that will be given to the player. Can be negative and thus used to subtract levels.
-                                link: math_integer
+                                type: expression_integer
+                        string-origins:advancement:
+                            advancement:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
+                                desc: Grants or revokes an advancement.
+                                link: identifier
+                            criteria:
+                                type: list
+                                vals:
+                                    type: string
+                                    ext: true
+                            criterion:
+                                type: string
+                                ext: true
+                            selection:
+                                link: selection
+                            revoke:
+                                link: boolean_optional
+                        string-origins:grant_advancement:
+                            advancement:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
+                                desc: (DEPRECATED) Grants or revokes an advancement.
+                                link: identifier
+                            criteria:
+                                type: list
+                                vals:
+                                    type: string
+                                    ext: true
+                            criterion:
+                                type: string
+                                ext: true
+                            selection:
+                                link: selection
+                            revoke:
+                                type: boolean
+                                default: false
+                        string-origins:revoke_advancement:
+                            advancement:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
+                                desc: (DEPRECATED) Grants or revokes an advancement.
+                                link: identifier
+                            criteria:
+                                type: list
+                                vals:
+                                    type: string
+                                    ext: true
+                            criterion:
+                                type: string
+                                ext: true
+                            selection:
+                                link: selection
+                            revoke:
+                                type: boolean
+                                default: true
                         string-origins:apply_effect:
                             effect:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/apply_effect
                                 desc: If set, this status effect will be applied by this action.
-                                link: effect
+                                link: status_effect_instance
                             effects:
                                 desc: If set, these status effects will be applied by this action.
                                 type: list
                                 vals:
-                                    link: effect
+                                    link: status_effect_instance
                         string-origins:area_of_effect:
                             radius:
-                                desc: Determines the radius of the area. Defaults to 16.
-                                type: number
-                                default: 16
-                            include_target:
-                                desc: Determines whether the entity this action was executed on is included in the radius check.
-                                type: boolean
-                            bientity_condition:
-                                desc: If specified, only execute the specified bi-entity action if this bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entities within the specified radius).
-                                link: bientity_condition
-                            bientity_action:
-                                desc: If specified, this bi-entity action type may be executed on either or both the 'actor' (the entity that has the power) and target (the entities within the specified radius).
-                                link: bientity_action
-                        string-origins-math:area_of_effect:
-                            radius:
-                                desc: Determines the radius of the area. Defaults to 16.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/area_of_effect
+                                desc: The size of the area — a single number (uniform on all axes) or {"x":.., "y":.., "z":..} for independent per-axis extents.
                                 or:
                                   - type: number
                                     default: 16
-                                  - link: identifier
-                            include_target:
-                                desc: Determines whether the entity this action was executed on is included in the radius check.
-                                type: boolean
+                                  - link: vector
+                            shape:
+                                desc: The outline of the area.
+                                link: shape
                             bientity_condition:
-                                desc: If specified, only execute the specified bi-entity action if this bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entities within the specified radius).
+                                desc: If specified, the specified bi-entity action will only be executed on either or both the ’actor’ or ’target(s)’ that fulfill this bi-entity condition.
                                 link: bientity_condition
                             bientity_action:
-                                desc: If specified, this bi-entity action type may be executed on either or both the 'actor' (the entity that has the power) and target (the entities within the specified radius).
+                                desc: The bi-entity action to execute on either or both the ’actor’ or the ’target(s)‘.
                                 link: bientity_action
+                        string-origins:attach_rope:
+                            from:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/attach_rope
+                                desc: One end of the rope.
+                                link: rope_endpoint
+                            to:
+                                desc: |
+                                    The other end. The default reproduces the classic grapple (a block you look at).
+                                link: rope_endpoint
+                            slot:
+                                desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
+                                type: string
+                            texture:
+                                desc: The texture the rope is drawn with.
+                                link: identifier
+                                default: "apoli:textures/rope/rope.png"
+                            toggle:
+                                desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
+                                type: boolean
+                                default: true
+                            controllable:
+                                desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
+                                type: boolean
+                                default: true
+                            mode:
+                                link: rope_mode
+                            break_beyond:
+                                desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
+                                type: number
+                                default: 0
+                            min_length:
+                                desc: Shortest the rope can reel to.
+                                type: number
+                                default: 1
+                            max_length:
+                                desc: Longest the rope can be.
+                                type: number
+                                default: 30
+                            start_length:
+                                desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
+                                type: number
+                            stiffness:
+                                desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
+                                type: number
+                                default: 0.1
+                            radial_damping:
+                                desc: How much outward speed is bled off at the length limit.
+                                type: number
+                                default: 0.85
+                            spring_scaling:
+                                desc: Extra softening while swinging inward.
+                                type: number
+                                default: 0.65
+                            swing_boost:
+                                desc: Speed multiplier applied to a sprinting player’s swing.
+                                type: number
+                                default: 1.08
+                            max_swing_speed:
+                                desc: Cap on the sprint swing boost.
+                                type: number
+                                default: 0.7
+                            reel_step:
+                                desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
+                                type: number
+                                default: 0.2
+                            slack_pull_rate:
+                                desc: Multiplier applied to reeling in while there is slack.
+                                type: number
+                                default: 5.0
+                            constrain_from:
+                                desc: Whether the physics may pull the from end (only matters when it is an entity).
+                                type: boolean
+                                default: true
+                            constrain_to:
+                                desc: Whether the physics may pull the to end.
+                                type: boolean
+                                default: true
                         string-origins:block_action_at:
                             block_action:
-                                desc: The block action to execute at the position of the entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/block_action_at
+                                desc: The block action type to execute.
                                 link: block_action
                         string-origins:change_resource:
                             resource:
-                                desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_resource
+                                desc: (DEPRECATED) The target Resource/Cooldown power.
                                 link: identifier
                             change:
-                                desc: This value will be added to the resource (won't go below min or above max of the Resource Resource (Power Type)).
-                                type: integer
+                                desc: The amount; never exceeds the resource’s min/max when enforce_limits is true. As an Expression it is evaluated each time the action runs, with value bound to the resource’s current value.
+                                link: expression_integer
                             operation:
-                                desc: Determines if the action should add or set the value of the resource. Accepts "add" or "set".
+                                desc: |
+                                    "add" translates to add_base_early; "set" translates to set_base.
                                 enum: [add, set]
+                        string-origins:change_selected_slot:
+                            slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
+                                desc: |
+                                    The hotbar slot to select — 0 is the far left, 8 the far right. Out-of-range values are clamped. With relative: true this is an offset instead.
+                                type: integer
+                                required: true
+                            relative:
+                                type: boolean
+                                default: false
+                        string-origins:change_slot:
+                            slot_a:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_slot
+                                desc: The first slot.
+                                link: item_slot
+                            slot_b:
+                                desc: The second slot.
+                                link: item_slot
+                            operation:
+                                desc: |
+                                    "swap" exchanges the two stacks; "move" puts slot_a’s stack into slot_b and empties slot_a.
+                                enum: ['swap','move']
+                            inventory_type:
+                                desc: Whether the slots refer to the entity’s inventory or to an apoli:inventory power’s container.
+                                link: inventory_type
+                            power:
+                                desc: The apoli:inventory power to act on. Required when inventory_type is "power".
+                                link: identifier
+                                default: unspec
                         string-origins:clear_effect:
                             effect:
-                                desc: If specified, the effect with this ID will be cleared. If not specified, all effects will be cleared.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/clear_effect
+                                desc: If specified, the status effect with this namespace and ID will be cleared. If not specified, all status effects will be cleared.
                                 link: identifier
+                                default: unspec
+                        string-origins:conjure_equipment:
+                            slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/conjure_equipment
+                                desc: |
+                                    The vanilla equipment slot: mainhand, offhand, head, chest, legs or feet.
+                                link: slot
+                            accessory_slot:
+                                desc: An accessory slot to conjure into. Requires Trinkets, Accessories or Curios; without one of those installed this does nothing.
+                                or:
+                                  - link: accessory_slot
+                                  - type: list
+                                    vals:
+                                        link: accessory_slot
+                            item:
+                                desc: The item to conjure — item id, amount and components/NBT.
+                                link: item_stack
+                                required: true
+                            lock:
+                                desc: While true, the item cannot be moved out of its slot via inventory clicking (shift-click included), cannot be dropped with the drop key, and cannot be unequipped from an accessory slot.
+                                type: boolean
+                                default: false
                         string-origins:crafting_table: {}
                         string-origins:damage:
                             amount:
-                                desc: The amount of damage to deal.
-                                type: number
-                                min: 0
-                            source:
-                                desc: The damage source to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                link: damage_source
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/damage
+                                desc: The amount of damage to deal. If omitted, the entity’s max health is used as the base value for the modifier(s).
+                                link: expression_float
                             damage_type:
-                                desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
+                                href: https://minecraft.wiki/w/Damage_type
+                                desc: Defines the properties of the damage source that will be dealt, such as part of its death message, and whether it can bypass armor, shield, etc. (via damage type tags.)
                                 link: identifier
-                        string-origins-math:damage:
-                            amount:
-                                desc: The amount of damage to deal.
-                                link: math_number_min_0
-                            source:
-                                desc: The damage source to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
-                                link: damage_source
-                            damage_type:
-                                desc: The damage type to be used. Controls e.g. the death message, invulnerabilities (e.g. towards fire), or whether armor is taken into account.
+                            modifier:
+                                desc: If specified, this modifier will be applied to the damage taken by the entity.
+                                link: attribute_modifier
+                            modifiers:
+                                desc: If specified, these modifiers will be applied to the damage taken by the entity.
+                                type: list
+                                vals:
+                                    link: attribute_modifier
+                        string-origins:detach_rope:
+                            slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/detach_rope
+                                desc: The labelled rope to cut. If omitted, all ropes owned by the entity are cut.
+                                type: string
+                                default: unspec
+                        string-origins:disguise_as:
+                            entity_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/disguise_as
+                                desc: The mob type to appear as (e.g. minecraft:zombie). Ignored if a player field is set.
                                 link: identifier
+                                default: unspec
+                            player_name:
+                                desc: Name of the player to appear as. Resolved from the server’s profile cache.
+                                type: string
+                                default: unspec
+                            player_uuid:
+                                desc: UUID of the player to appear as. Takes priority over player_name.
+                                link: meta_key
+                            nbt:
+                                desc: Extra NBT applied to the mob disguise (e.g. to set a variant or custom name).
+                                link: nbt
+                            overwrite:
+                                desc: If false, does nothing when the entity is already disguised.
+                                type: boolean
+                                default: true
+                            change_name:
+                                desc: Whether the disguise also changes the entity’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
+                                type: boolean
+                                default: true
+                            before_action:
+                                desc: Runs on the entity before the disguise is applied.
+                                link: entity_action
+                            after_action:
+                                desc: Runs on the entity after the disguise is applied.
+                                link: entity_action
                         string-origins:dismount: {}
+                        string-origins:inventory_action:
+                            link: inventory_action
+                        string-origins:modify_inventory:
+                            link: inventory_action_legacy_modify
+                        string-origins:replace_inventory:
+                            link: inventory_action_legacy_replace
                         string-origins:drop_inventory:
-                            inventory_type:
-                                desc: Either "inventory" or "power". If "inventory", drops items in the player's main inventory. If "power", Drops items to the player's bonus inventory given with a power.
-                                enum: [inventory, power]
-                            entity_action:
-                                desc: If set, applies this action to the entity that has their inventory being dropped.
-                                link: entity_action
-                            item_action:
-                                desc: Item action applied to the items in the given slots.
-                                link: item_action
-                            item_condition:
-                                desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_condition
-                            slots:
-                                link: slots
-                            slot:
-                                link: slot
-                            amount:
-                                desc: If specified, the affected items will be split by this amount.
-                                type: integer
-                            power:
-                                desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to drop.
-                                link: identifier
-                            throw_randomly:
-                                desc: Whether or not to throw the item in a random direction around the player instead of in front of them.
-                                type: boolean
-                            retain_ownership:
-                                desc: Whether or not the item's "Owner" tag is set to the player the item came from.
-                                type: boolean
-                                default: true
-                        string-origins-math:drop_inventory:
-                            inventory_type:
-                                desc: Either "inventory" or "power". If "inventory", drops items in the player's main inventory. If "power", Drops items to the player's bonus inventory given with a power.
-                                enum: [inventory, power]
-                            entity_action:
-                                desc: If set, applies this action to the entity that has their inventory being dropped.
-                                link: entity_action
-                            item_action:
-                                desc: Item action applied to the items in the given slots.
-                                link: item_action
-                            item_condition:
-                                desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_condition
-                            slots:
-                                link: slots
-                            slot:
-                                link: slot
-                            amount:
-                                desc: If specified, the affected items will be split by this amount.
-                                link: math_integer
-                            power:
-                                desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to drop.
-                                link: identifier
-                            throw_randomly:
-                                desc: Whether or not to throw the item in a random direction around the player instead of in front of them.
-                                type: boolean
-                            retain_ownership:
-                                desc: Whether or not the item's "Owner" tag is set to the player the item came from.
-                                type: boolean
-                                default: true
+                            link: inventory_action_legacy_drop
                         string-origins:emit_game_event:
                             event:
-                                desc: The ID of a game event to emit. Click to see vanilla game events.
+                                desc: The namespace and ID of a game event. See the Minecraft Wiki for a chart of game events and their vibration amplitudes.
                                 href: https://minecraft.wiki/w/Sculk_Sensor#Vibration_amplitudes
                                 link: identifier
                         string-origins:ender_chest: {}
                         string-origins:equipped_item_action:
                             equipment_slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/equipped_item_action
                                 desc: Which equipped item to execute the action on.
                                 enum: [mainhand, offhand, head, chest, legs, feet]
                             action:
-                                desc: The item action to execute.
+                                desc: The item action type to execute on the item stack in the specified equipment slot.
                                 link: item_action
                         string-origins:execute_command:
                             command:
-                                desc: The command to execute (from the perspective of the entity!).
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/execute_command
+                                desc: The command to execute on the entity.
                                 type: string
                                 ext: true
                         string-origins:exhaust:
                             amount:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/exhaust
                                 desc: The amount of exhaustion to apply to the player.
-                                type: number
-                        string-origins-math:exhaust:
-                            amount:
-                                desc: The amount of exhaustion to apply to the player.
-                                link: math_number
+                                type: expression_float
                         string-origins:explode:
                             power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/explode
                                 desc: Determines the power of the explosion.
                                 type: number
                             destruction_type:
-                                desc: Determines if the explosion should destroy the terrain, destroy the terrain and drop the loot of the blocks, or none. Accepts either "destroy", "break" or "none".
-                                enum: [break, destroy, none]
+                                link: destruction_type
                             damage_self:
-                                desc: Determines if the player should take damage from the explosion.
+                                desc: Determines if the entity that invoked the action should take damage from the summoned explosion.
                                 type: boolean
                                 default: true
                             indestructible:
-                                desc: If set, blocks specified in this block condition object is not destroyed by the explosion.
+                                desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
                                 link: block_condition
                             destructible:
-                                desc: If set, blocks specified in this block condition object will be the only blocks destroyed by the explosion.
+                                desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
                                 link: block_condition
                             create_fire:
-                                desc: Determines if the explosion should create fire.
+                                desc: Determines if the summoned explosion should create fire.
                                 type: boolean
-                        string-origins-math:explode:
-                            power:
-                                desc: Determines the power of the explosion.
-                                link: math_number
-                            destruction_type:
-                                desc: Determines if the explosion should destroy the terrain, destroy the terrain and drop the loot of the blocks, or none. Accepts either "destroy", "break" or "none".
-                                enum: [break, destroy, none]
-                            damage_self:
-                                desc: Determines if the player should take damage from the explosion.
-                                type: boolean
-                                default: true
-                            indestructible:
-                                desc: If set, blocks specified in this block condition object is not destroyed by the explosion.
-                                link: block_condition
-                            destructible:
-                                desc: If set, blocks specified in this block condition object will be the only blocks destroyed by the explosion.
-                                link: block_condition
-                            create_fire:
-                                desc: Determines if the explosion should create fire.
-                                type: boolean
+                                default: false
                         string-origins:extinguish: {}
                         string-origins:feed:
                             food:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/feed
                                 desc: The food amount to restore.
-                                type: integer
+                                type: expression_integer
                             saturation:
-                                desc: The saturation amount to restore.
-                                type: number
-                        string-origins-math:feed:
-                            food:
-                                desc: The food amount to restore.
-                                link: math_integer
-                            saturation:
-                                desc: The saturation amount to restore.
-                                link: math_number
+                                desc: The amount of saturation points to restore.
+                                type: expression_float
                         string-origins:fire_projectile:
                             entity_type:
-                                desc: The ID of the entity type that will be fired.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
+                                desc: The identifier of the projectile or entity that will be launched.
+                                link: identifier
+                            entity_id:
+                                desc: Identifier for tracking the projectile
+                                link: identifier
+                            texture_location:
+                                desc: If specified, the texture used for the custom projectile and entity_type is ignored.
                                 link: identifier
                             count:
-                                desc: The amount of projectiles to fire each use. Defaults to 1.
-                                type: integer
+                                desc: The amount of projectiles to fire each use.
                                 default: 1
                                 min: 1
                             speed:
-                                desc: The speed applied to the fired projectile. Defaults to 1.5.
+                                desc: The speed applied to the fired projectile.
                                 type: number
                                 min: 0
                                 default: 1.5
                             divergence:
-                                desc: How much each projectile fired is affected by random spread. Defaults to 1.
+                                desc: How much each projectile fired is affected by random spread.
                                 type: number
                                 min: 0
                                 default: 1
-                            tag:
-                                desc: NBT data of the entity.
-                                type: string
-                                ext: true
-                            projectile_action:
-                                desc: An action which will run on the projectile.
-                                link: entity_action
-                        string-origins-math:fire_projectile:
-                            entity_type:
-                                desc: The ID of the entity type that will be fired.
+                            sound:
+                                desc: If set, the sound with this ID will be played when the power is used.
                                 link: identifier
-                            count:
-                                desc: The amount of projectiles to fire each use. Defaults to 1.
-                                or:
-                                  - type: integer
-                                    default: 1
-                                    min: 1
-                                  - link: identifier
-                            speed:
-                                desc: The speed applied to the fired projectile. Defaults to 1.5.
-                                or: 
-                                  - type: number
-                                    min: 0
-                                    default: 1.5
-                                  - link: identifier
-                            divergence:
-                                desc: How much each projectile fired is affected by random spread. Defaults to 1.
-                                or:
-                                  - type: number
-                                    min: 0
-                                    default: 1
-                                  - link: identifier
                             tag:
-                                desc: NBT data of the entity.
-                                type: string
-                                ext: true
-                            projectile_action:
-                                desc: An action which will run on the projectile.
+                                desc: NBT data to apply to projectiles.
+                                link: nbt
+                            entity_action_before_firing:
+                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
                                 link: entity_action
+                            projectile_action:
+                                desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
+                                link: entity_action
+                            tick_bientity_action:
+                                desc: 	If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+                                link: bientity_action
+                            bientity_action_after_firing:
+                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                                link: bientity_action
+                            block_condition:
+                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                                link: block_condition
+                            block_action_on_hit:
+                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                                link: block_action
+                            block_action_cancels_miss_action:
+                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                                type: boolean
+                                default: false
+                            bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bientity_condition
+                            bientity_action_on_miss:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                                link: bientity_action
+                            bientity_action_on_hit:
+                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                                link: bientity_action
+                            owner_bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bientity_condition
+                            owner_target_bientity_action_on_hit:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+                                link: bientity_action
+                        string-origins:force_key_pressed:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/force_key_pressed
+                                desc: The key to press. Any vanilla or modded keybind translation key, or an Apoli active key.
+                                link: keybind
+                            duration:
+                                desc: How many ticks to hold it.
+                                type: integer
+                                default: 1
+                                min: 1
+                            release:
+                                desc: Cancel a force that is still running on this key instead of starting one.
+                                type: boolean
+                                default: false
                         string-origins:gain_air:
                             value:
                                 desc: The amount of breath to restore.
@@ -3664,6 +3797,7 @@ links:
                                 link: item_action
                         string-origins:choice:
                             actions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
                                 desc: A list of actions, one of which is choosen randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
@@ -3702,7 +3836,8 @@ links:
                                 link: item_action
                         string-origins:if_else_list:
                             actions:
-                                desc: A list of actions associated with conditions to check. The first one in the list for which the condition holds will be executed. Basically a less indentation-heavy way to represent a deeply nested If-Else Action.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
                                 type: list
                                 vals:
                                     type: object
@@ -3887,6 +4022,7 @@ links:
                                 link: block_action
                         string-origins:choice:
                             actions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
                                 desc: A list of actions, one of which is choosen randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
@@ -3918,7 +4054,8 @@ links:
                                 link: block_action
                         string-origins:if_else_list:
                             actions:
-                                desc: A list of actions associated with conditions to check. The first one in the list for which the condition holds will be executed. Basically a less indentation-heavy way to represent a deeply nested If-Else Action.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
                                 type: list
                                 vals:
                                     type: object
@@ -4568,7 +4705,7 @@ links:
                             ext: true
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: key
+                            link: keybind
                         projectile_action:
                             desc: An action which will run on the projectile.
                             link: entity_action
@@ -4593,7 +4730,7 @@ links:
                             link: item_condition
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: key
+                            link: keybind
                         recoverable:
                             desc: Whether or not the player will be given back the contents of the inventory when the power is lost.
                             type: boolean
@@ -4662,7 +4799,7 @@ links:
                             link: identifier
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: key
+                            link: keybind
                     string-origins:lava_vision:
                         s:
                             desc: Near view. Vanilla default is 0.25, or 0.0 if you are under the effect of Fire Resistance.
@@ -4953,7 +5090,7 @@ links:
                             max: 1
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: key
+                            link: keybind
                     string-origins:toggle:
                         active_by_default:
                             desc: Whether this power starts in the on state rather than the off state.
@@ -4961,7 +5098,7 @@ links:
                             default: true
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: key
+                            link: keybind
                         retain_state:
                             desc: Whether this power switches back to default if the condition is no longer met.
                             type: boolean
@@ -5239,7 +5376,7 @@ links:
                             link: hud_render
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: key
+                            link: keybind
                     string-origins:attacker_action_when_hit:
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the attacker.
@@ -6287,7 +6424,7 @@ links:
                                 link: bientity_action
                             key:
                                 desc: Which active key this power should respond to.
-                                link: key
+                                link: keybind
                     string-sync:edible_item:
                         item_condition:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fedible_item.md
@@ -6960,8 +7097,8 @@ links:
         default: 3
     opt_comparison:
         desc: How the state should be compared to the specified value.
-        enum: ['<', '<=', '>', '>=', '==', '!=']
-        unspec: true
+        enum: ['','<', '<=', '>', '>=', '==', '!=']
+        unspec: ''
     vector:
         desc: An object that specifies the X, Y and Z coordinates of a certain point in space.
         type: object
@@ -7413,13 +7550,23 @@ links:
             bientity_action:
                 desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
                 link: bientity_action
-    namespace:
-        type: string
-        allow: '*a-z0-9_\/:.-'
-        hook: [ns]
 
 # New unified data type definitions (removes the need to specify the same ones over and over)
 
+    accessory_slot:
+        or:
+          - type: string
+            allow: 'a-z0-9_.-/'
+          - type: object
+            props:
+                group:
+                    link: meta_key
+                slot:
+                    link: meta_key
+                index:
+                    type: integer
+                provider:
+                    enum: ['accessories','curios','trinkets']
     action_result:
         enum: ['consume_partial','consume','fail','pass','success']
         desc: |
@@ -7500,7 +7647,7 @@ links:
             set_total:						NewTotal = Modifier (last, overrides everything)
     boolean_optional:
         enum: ['','false','true']
-        default: unspec
+        unspec: ''
     comparison:
         desc: |
             Specify how the two values should be compared:
@@ -7679,8 +7826,8 @@ links:
                 vals:
                     link: status_effect_instance_chance
     hand:
-        desc: Indicates which hand of the entity. main_hand and off_hand are the official variables, other variables are offered only for compatibility.
-        enum: ['main_hand','off_hand','mainhand','offhand','MAIN_HAND','OFF_HAND','MAINHAND','OFFHAND']
+        desc: Indicates which hand of the entity.
+        enum: ['main_hand','off_hand']
     heightmap_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/heightmap-type
         desc: |
@@ -7787,6 +7934,97 @@ links:
         type: integer
         min: -1
         max: 2147483647
+    inventory_action:
+        or:
+          - title: modify
+            operation: 'modify'
+            link: inventory_action_common
+          - title: replace
+            operation: 'replace'
+            link: inventory_action_common
+            link: inventory_action_replace
+          - title: drop
+            operation: 'drop'
+            link: inventory_action_common
+            link: inventory_action_drop
+    inventory_action_legacy_modify:
+        operation: 'modify'
+        link: inventory_action_common
+    inventory_action_legacy_replace:
+        operation: 'replace'
+        link: inventory_action_common
+        link: inventory_action_replace
+    inventory_action_legacy_drop:
+        operation: 'drop'
+        link: inventory_action_common
+        link: inventory_action_drop
+    inventory_action_common:
+        inventory_type:
+            desc: Whether to walk the entity’s own inventory or a power’s inventory.
+            link: inventory_type
+        entity_action:
+            desc: Executed on the entity once, before the slots are walked.
+            link: entity_action
+        item_action:
+            desc: If specified, only items fulfilling this condition are affected.
+            link: item_action
+        item_condition:
+            desc: If set, this item condition must match the items in the given slots to have the action applied.
+            link: item_condition
+        slot:
+            desc: Restrict to a single slot.
+            link: item_slot
+        slots:
+            desc: Restrict to these slots. For a power inventory, use the container.N form (raw slot index).
+            type: list
+            vals:
+                link: item_slot
+        power:
+            desc: The apoli:inventory to walk, when inventory_type is "power".
+            link: identifier
+            default: unspec
+        process_mode:
+            desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
+            link: process_mode
+        limit:
+            desc: Max number of stacks (or items, in items mode) to affect. <= 0 means no limit.
+            type: integer
+            default: 0
+        item_action:
+            desc: Required-in-spirit for modify (without it modify is a no-op); optional post-step for replace/drop.
+            link: item_action
+    inventory_action_description:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
+        desc: |
+            operation	|Per-slot behaviour					|Empty slots
+            modify		|Runs item_action on the stack.		|skipped
+            replace		|Swaps the stack for stack,			|included
+                        |then runs item_action (if any)		|
+                        |on the replacement.				|
+            drop		|Drops the stack into the world,	|skipped
+                        |then runs item_action (if any)		|
+                        |on the dropped stack first.		|
+    inventory_action_drop:
+        throw_randomly:
+            desc: drop only — scatter items in random directions (death-drop style).
+            default: false
+        retain_ownership:
+            desc: drop only — keep the dropping entity as the item’s thrower.
+            type: boolean
+            default: true
+        amount:
+            desc: drop only — split this many off each matching stack instead of dropping the whole stack.
+            type: integer
+            default: unspec
+    inventory_action_replace:
+        stack:
+            desc: replace only — the replacement item.
+            link: item_stack
+        merge_nbt:
+            desc: |
+                replace only — merge the old item’s data onto the replacement. (1.20.1: NBT tag; 1.21.1: data components.)
+            type: boolean
+            default: false
     inventory_type:
         desc: Determines whether to reference the inventory of the entity or the inventory of the power present in the entity.
         enum: ['inventory','power']
@@ -7815,7 +8053,7 @@ links:
                     default: 1
             tag:
                 link: nbt
-    key:
+    keybind:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/key
         desc: Defines which key an active power reacts to - a built-in key or one you define in a datapack. See the doc for more information.
         type: object
@@ -7839,6 +8077,9 @@ links:
             desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
             type: boolean
             default: false
+    meta_key:
+        type: string
+        allow: 'a-z0-9._-'
     model_part_keyframe:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-part-keyframe
         desc: One point on a Model Part Transformation's timeline. The value that part should have reached at a given time.
@@ -7893,7 +8134,7 @@ links:
                 link: easing
     model_parts:
         enum: ['','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
-        default: unspec
+        unspec: ''
     nbt:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/nbt
         desc: A String or Object that defines a named binary tag (NBT) for storing arbitrary data. See the doc for more information.
@@ -8038,6 +8279,11 @@ links:
             spring	a soft elastic pull past length, so the rope visibly stretches and eases back (a rubber band).
             rigid	holds a fixed distance both ways — pulled in when too far and pushed out when too close (a rod/pole).
         enum: ['leash','spring','rigid']
+    selection:
+        desc: Selection is not yet defined.
+        type: string
+        ext: true
+        default: unspec
     set_iteration:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/set-iteration
         desc: |
