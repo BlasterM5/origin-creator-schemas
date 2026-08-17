@@ -2152,6 +2152,8 @@ links:
                       - $DEPRECATED
                       - origins:chance
                       - origins:change_resource
+                      - origins:change_entity_data
+                      - origins:set_entity_data
                       - origins:drop_inventory
                       - origins:modify_inventory
                       - origins:replace_inventory
@@ -2285,7 +2287,7 @@ links:
                                 link: expression_integer
                             levels:
                                 desc: If set, this is the amount experience levels that will be given to the player. Can be negative and thus used to subtract levels.
-                                type: expression_integer
+                                link: expresion_integer
                         string-origins:advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
@@ -2603,7 +2605,7 @@ links:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/exhaust
                                 desc: The amount of exhaustion to apply to the player.
-                                type: expression_float
+                                link: expresion_float
                         string-origins:explode:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/explode
@@ -2630,10 +2632,10 @@ links:
                             food:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/feed
                                 desc: The food amount to restore.
-                                type: expression_integer
+                                link: expresion_integer
                             saturation:
                                 desc: The amount of saturation points to restore.
-                                type: expression_float
+                                link: expresion_float
                         string-origins:fire_projectile:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
@@ -2718,104 +2720,65 @@ links:
                                 default: false
                         string-origins:gain_air:
                             value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/gain_air
                                 desc: The amount of breath to restore.
-                                type: integer
-                        string-origins-math:gain_air:
-                            value:
-                                desc: The amount of breath to restore.
-                                link: math_integer
+                                link: expression_integer
                         string-origins:give:
                             stack:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/give
                                 desc: The item stack to give to the entity.
                                 link: item_stack
                             item_action:
-                                desc: If set, executes an item action on the item stack before it's given to the player.
+                                desc: If specified, the specified item action type will be executed on the item stack before it’s given to the player.
                                 link: item_action
                             preferred_slot:
-                                desc: If set, this will prioritize the action to put the item in the specified slot. Accepts "chest", "feet", "head", "legs", "mainhand" or "offhand".
-                                enum: [chest, feet, head, legs, mainhand, offhand]
-                                unspec: true
-                        string-origins:grant_advancement:
-                            advancement:
-                                desc: The namespace and ID of the advancement to be granted to the player.
+                                desc: If specified, this will prioritize the action to put the item in the specified slot.
+                                link: item_slot
+                        string-origins:grant_all_powers:
+                            from:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_all_powers
+                                desc: The source(s) to draw powers from.
+                                or:
+                                  - title: single
+                                    link: identifier
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: identifier
+                            source:
+                                desc: The source id the grants are recorded under. If unspecified, uses the 'from' ID.
                                 link: identifier
+                            namespace:
+                                desc: Only grant powers in this namespace.
+                                link: meta_key
+                            include_hidden:
+                                desc: Whether to include powers marked hidden.
+                                type: boolean
+                                default: true
                         string-origins:grant_power:
                             power:
-                                desc: The ID of the power to be granted to the entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_power
+                                desc: The namespace and ID of the power to be granted to the entity.
                                 link: identifier
                             source:
-                                desc: The source of the power. Can realistically be anything, but make sure to keep note of it.
-                                type: string
+                                desc: The namespace and ID of the source of the granted power.
+                                type: identifier
                         string-origins:heal:
                             amount:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/heal
                                 desc: The amount of health to restore.
-                                type: number
-                        string-origins-math:heal:
-                            amount:
-                                desc: The amount of health to restore.
-                                link: math_number
+                                link: expression_float
                         string-origins:modify_death_ticks:
                             modifier:
-                                desc: If specified, this modifier will be applied to its corresponding attribute.
-                                link: a_mod
-                        string-origins:modify_inventory:
-                            inventory_type:
-                                desc: Either "inventory" or "power". If "inventory", applies modifications to the player's main inventory. If "power", Applies modifications to the player's bonus inventory given with a power.
-                                enum: [inventory, power]
-                            entity_action:
-                                desc: If set, applies this action to the entity that has their inventory being modified.
-                                link: entity_action
-                            item_action:
-                                desc: Item action applied to the items in the given slots.
-                                link: item_action
-                            item_condition:
-                                desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_condition
-                            slots:
-                                link: slots
-                            slot:
-                                link: slot
-                            power:
-                                desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to modify.
-                                link: identifier
-                            process_mode:
-                                link: process_mode
-                            limit:
-                                desc: Determines the max amount of times the action should modify item stacks in the inventory. If the specified value is <= 0, then there will be no limit.
-                                type: integer
-                                default: 0
-                        string-origins-math:modify_inventory:
-                            inventory_type:
-                                desc: Either "inventory" or "power". If "inventory", applies modifications to the player's main inventory. If "power", Applies modifications to the player's bonus inventory given with a power.
-                                enum: [inventory, power]
-                            entity_action:
-                                desc: If set, applies this action to the entity that has their inventory being modified.
-                                link: entity_action
-                            item_action:
-                                desc: Item action applied to the items in the given slots.
-                                link: item_action
-                            item_condition:
-                                desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_condition
-                            slots:
-                                link: slots
-                            slot:
-                                link: slot
-                            power:
-                                desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to modify.
-                                link: identifier
-                            process_mode:
-                                link: process_mode
-                            limit:
-                                desc: Determines the max amount of times the action should modify item stacks in the inventory. If the specified value is <= 0, then there will be no limit.
-                                link: math_integer_0
-                        string-origins:modify_resource:
-                            resource:
-                                desc: The resource to modify.
-                                link: identifier
-                            modifier:
-                                desc: The modifier to apply to the given power resource.
-                                link: a_mod
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_death_ticks
+                                desc: This modifier will be applied to the current death ticks value of the entity.
+                                link: attribute_modifier
+                        string-origins:modify_entity_data:
+                            link: modify_entity_data
+                        string-origins:set_entity_data:
+                            link: modify_entity_data
+                        string-origins:change_entity_data:
+                            link: modify_entity_data
                         string-origins:modify_stat:
                             stat:
                                 desc: The statistic to modify.
@@ -8135,6 +8098,34 @@ links:
     model_parts:
         enum: ['','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
         unspec: ''
+    modify_entity_data:
+        data:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
+            desc: |
+                Which property to change:
+                data				|Type		|Property
+                no_gravity			|boolean	|Whether the entity ignores gravity.
+                invulnerable		|boolean	|Whether the entity is invulnerable.
+                silent				|boolean	|Whether the entity makes sounds.
+                glowing				|boolean	|Whether the entity has the glowing outline.
+                invisible			|boolean	|Whether the entity is invisible.
+                custom_name_visible	|boolean	|Whether the entity’s custom name is always shown.
+                no_ai				|boolean	|Disables AI (mobs only).
+                fall_distance		|number		|The accumulated fall distance.
+                air					|number		|Remaining air (in ticks).
+                fire_ticks			|number		|Remaining fire (in ticks).
+            or:
+                - title: vanilla
+                enum: ['no_gravity','invulnerable','silent','glowing','invisible','custom_name_visible','no_ai','fall_distance','air','fire_ticks']
+                - title: custom
+                link: meta_key
+        value:
+            desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
+            or:
+                - title: boolean
+                link: boolean_optional
+                - title: number
+                type: number
     nbt:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/nbt
         desc: A String or Object that defines a named binary tag (NBT) for storing arbitrary data. See the doc for more information.
