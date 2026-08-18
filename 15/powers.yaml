@@ -1642,6 +1642,7 @@ links:
                       - origins:transfer_origin
                       - $DEPRECATED
                       - origins:chance
+                      - origins:raycast_between
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
@@ -1952,6 +1953,18 @@ links:
                                 desc: Clamp the ray’s length to the actor→target distance.
                                 type: boolean
                                 default: true
+                            link: raycast_action
+                        string-origins:raycast_between:
+                            aim_at_target:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/raycast
+                                desc: (DEPRECATED) Aim at the target instead of the actor’s look direction.
+                                type: boolean
+                                default: true
+                            stop_at_target:
+                                desc: Clamp the ray’s length to the actor→target distance.
+                                type: boolean
+                                default: true
+                            link: raycast_action
                         string-origins:set_in_love: {}
                         string-origins:tame: {}
                         string-origins:target_action:
@@ -2779,127 +2792,117 @@ links:
                             link: modify_entity_data
                         string-origins:change_entity_data:
                             link: modify_entity_data
+                        string-origins:modify_resource:
+                            resource:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_resource
+                                desc: The apoli:resource or apoli:cooldown power to modify. Any power with a built-in cooldown also works.
+                                link: identifier
+                            modifier:
+                                desc: The modifier to apply to the current value of the target power.
+                                link: attribute_modifier
                         string-origins:modify_stat:
                             stat:
-                                desc: The statistic to modify.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_stat
+                                desc: The type and name of the statistic to be modified.
                                 link: stat
                             modifier:
-                                desc: The modifier to apply to the given stat.
-                                link: a_mod
+                                desc: This modifier will be applied to the current value of the statistic specified.
+                                link: attribute_modifier
                         string-origins:passenger_action:
                             action:
-                                desc: If set, executes the specified action on the passenger entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/passenger_action
+                                desc: If specified, this action will be executed on the passenger entity.
                                 link: entity_action
-                            bientity_action:
-                                desc: If set, executes the specified action that can execute on both the passenger and the entity that's being ridden.
-                                link: bientity_action
                             bientity_condition:
-                                desc: If set, only execute the specified actions if the bi-entity condition is fulfilled.
+                                desc: If specified, the specified actions will only be executed if this condition is fulfilled by either the ‘actor’ (the entity being ridden) or the ‘target’ (the passenger entity) or both.
                                 link: bientity_condition
+                            bientity_action:
+                                desc: If specified, this action will be executed on either the ‘actor’ (the entity being ridden) or the ‘target’ (the passenger entity) or both.
+                                link: bientity_action
                             recursive:
-                                desc: If set to true, executes the specified actions on all the passenger entities, if there are more than one.
+                                desc: If set to true, the specified action(s) will be executed on all the passenger entities.
                                 type: boolean
+                                default: false
                         string-origins:play_sound:
                             sound:
-                                desc: ID of the sound to play.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/play_sound
+                                desc: The ID of the sound event to play.
                                 link: identifier
+                            category:
+                                link: sound_category
                             volume:
-                                desc: The volume of the sound.
+                                desc: The volume of the sound event.
                                 type: number
                                 default: 1
                                 min: 0
                             pitch:
-                                desc: The pitch of the sound.
+                                desc: The pitch of the sound event.
                                 type: number
                                 default: 1
                                 min: 0
                                 max: 2
-                        string-origins-math:play_sound:
-                            sound:
-                                desc: ID of the sound to play.
+                            follow_entity:
+                                desc: Whether the sound moves with the entity instead of staying at the position it started at.
+                                type: boolean
+                                default: false
+                            global:
+                                desc: Whether the sound is audible at any distance, ignoring the usual range falloff. Defaults to whatever follow_entity is.
+                                link: boolean_optional
+                            internal:
+                                desc: Whether to skip playing the sound for the entity itself, so only other players hear it. Only has an effect when the entity is a player.
+                                type: boolean
+                                default: false
+                        string-origins:radial_menu:
+                            entries:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/radial_menu
+                                desc: An array of radial menu entry objects.
+                                type: list
+                                vals:
+                                    link: radial_menu_entry
+                                required: true
+                            sprite_location:
+                                desc: Custom texture for the radial menu background (256x256 pixels)
                                 link: identifier
-                            volume:
-                                desc: The volume of the sound.
-                                or: 
-                                  - type: number
-                                    default: 1
-                                    min: 0
-                                  - link: identifier
-                            pitch:
-                                desc: The pitch of the sound.
-                                or:
-                                  - type: number
-                                    default: 1
-                                    min: 0
-                                    max: 2
-                                  - link: identifier
+                                default: unspec
+                        string-origin:random_teleport:
+                            area_width:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/random_teleport
+                                desc: Determines the width of the area.
+                                type: number
+                                default: 8
+                            area_height:
+                                desc: Determines the height of the area.
+                                type: number
+                                default: 8
+                            heightmap:
+                                desc: If specified, the location will be anchored above the highest Y level of the world determined by this heightmap type.
+                                link: heightmap_type
+                            attempts:
+                                desc: Determines how many attempts the entity should be teleported to a random location. Defaults to area_width 2 + area_height 2.
+                                type: integer
+                                default: unspec
+                            landing_block_condition:
+                                desc: If specified, the entity will only be teleported on top of a block that fulfills this block condition. Otherwise, the entity will only be teleported on blocks that blocks movement/have solid collision.
+                                link: block_condition
+                            landing_condition:
+                                desc: |
+                                    If specified, the entity will only be teleported to a location if the entity fulfills this entity condition. Otherwise, the entity will only be teleported to a location that is empty (e.g: no blocks and fluids.)
+                                link: entity_condition
+                            landing_offset:
+                                desc: Determines the offset of the location of where the entity will be teleported. If the X and Z offsets are specified, the X and Z coordinates of the location will be divided (floored) before applying the offset.
+                                link: vector
+                            loaded_chunks_only:
+                                desc: Determines whether the entity should only be teleported in loaded chunks. It is recommended to keep this set to true for performance reasons.
+                                type: boolean
+                                default: true
+                            sucess_action:
+                                desc: If specified, this entity action will be executed on the entity after it’s been successfully teleported to a random location.
+                                link: entity_action
+                            fail_action:
+                                desc: If specified, this entity action will be executed on the entity upon failing to be teleported on a random location.
+                                link: entity_action
                         string-origins:raycast:
-                            distance:
-                                desc: Determines the maximum distance the raycast will travel.
-                                type: number
-                                default: 20
-                            block:
-                                desc: If set to false, the raycast will ignore blocks.
-                                type: boolean
-                                default: true
-                            entity:
-                                desc: If set to false, the raycast will ignore entities.
-                                type: boolean
-                                default: true
-                            shape_type:
-                                desc: |
-                                    Determines how the raycast handles blocks.
-
-                                    If set to "outline", the raycast will take the shape of the collision box of the block into account.
-                                    If set to "visual", the raycast will ignore blocks that are see-through (e.g: Glass, Tinted Glass, etc.).
-                                    If set to "collider", the raycast will take physical collision of the block into account.
-                                enum: [outline, visual, collider]
-                            fluid_handling:
-                                desc: |
-                                    Determines how the raycast handles fluids.
-
-                                    If set to "any", the raycast will ignore source and flowing fluids.
-                                    If set to "source", the raycast will only go through source fluids.
-                                    If set to "none", the raycast won't go through any kind of fluids.
-                                enum: [any, source, none]
-                                gap: true
-                            bientity_condition:
-                                desc: If specified, the specified bi-entity action type will only be executed if the specified bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
-                                link: bientity_condition
-                            bientity_action:
-                                desc: If specified, this bi-entity action type will be executed on either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
-                                link: bientity_action
-                            block_action:
-                                desc: If specified, this block action type will be executed on the block the raycast has hit.
-                                link: block_action
-                                gap: true
-                            before_action:
-                                desc: If specified, execute this entity action type before casting a ray.
-                                link: entity_action
-                            hit_action:
-                                desc: If specified, execute this entity action type if the raycast has hit an entity/block.
-                                link: entity_action
-                            miss_action:
-                                desc: If specified, execute this entity action type if the raycast did not hit an entity/block.
-                                link: entity_action
-                                gap: true
-                            command_at_hit:
-                                desc: The command to execute upon the block/entity the raycast has hit.
-                                type: string
-                                ext: true
-                            command_hit_offset:
-                                desc: Determines the offset of the command specified in the command_at_hit field.
-                                type: number
-                            command_along_ray:
-                                desc: The command to execute for each step of the raycast.
-                                type: string
-                                ext: true
-                            command_step:
-                                desc: Determines the size of the step of the raycast. Defaults to 1.
-                                type: number
-                            command_along_ray_only_on_hit:
-                                desc: Determines if the command specified in the command_along_ray field should be executed only if the raycast has hit a block/entity.
-                                type: boolean
+                            link: raycast_action
                         string-origins-math:raycast:
                             distance:
                                 desc: Determines the maximum distance the raycast will travel.
@@ -3169,304 +3172,6 @@ links:
                         string-origins:trigger_cooldown:
                             power:
                                 desc: ID of the cooldown power which should trigger, as if that power has just been used.
-                                link: identifier
-                        string-apugli:fire_projectile:
-                            entity_type:
-                                desc: The ID of the entity type that will be fired.
-                                link: identifier
-                            count:
-                                desc: The amount of projectiles to fire each use. Defaults to 1.
-                                or:
-                                  - type: integer
-                                    default: 1
-                                    min: 1
-                                  - link: identifier
-                            speed:
-                                desc: The speed applied to the fired projectile. Defaults to 1.5.
-                                or: 
-                                  - type: number
-                                    min: 0
-                                    default: 1.5
-                                  - link: identifier
-                            divergence:
-                                desc: How much each projectile fired is affected by random spread. Defaults to 1.
-                                or:
-                                  - type: number
-                                    min: 0
-                                    default: 1
-                                  - link: identifier
-                            sound:
-                                desc: If set, the sound with this ID will be played when the power is used.
-                                link: identifier
-                            tag:
-                                desc: NBT data of the entity.
-                                type: string
-                                ext: true
-                            bientity_action:
-                                desc: An action which will run on the projectile.
-                                link: bientity_action
-                        string-eggolib:calculate_resource:
-                            target:
-                                desc: The namespace, path and ID of the power to calculate the value of.
-                                link: identifier
-                            operation:
-                                desc: Determines how the value of the source power will be calculated to the value of the target power.
-                                link: math_operation
-                            source:
-                                desc: The namespace, path and ID of the power to use the value of.
-                                link: identifier
-                        string-origins-math:change_resource:
-                            resource:
-                                desc: The namespace and ID of the power that uses the Resource (Power Type) or it's extensions, or has a built-in cooldown.
-                                link: identifier
-                            change:
-                                desc: This value will be added to the resource (won't go below min or above max of the Resource (Power Type)).
-                                link: math_number
-                            operation:
-                                desc: Determines if the action should add or set the value of the resource.
-                                enum: [add,set]
-                        string-origins-math:variable_change_resource:
-                            resource:
-                                desc: The namespace and ID of the power that uses the Resource (Power Type) or has a built-in cooldown.
-                                link: identifier
-                            expression:
-                                desc: The mathematical expression that gives the value that will be added to/set as the value (won't go below min or above max of the Resource (Power Type)).
-                                link: expression
-                            variables:
-                                desc: A variable declaration declaring variables used inside the command.
-                                link: variables
-                            operation:
-                                desc: Determines if the action should add or set the value of the resource.
-                                enum: [add,set]
-                        string-origins-math:variable_execute_command:
-                            command:
-                                desc: The command to execute on the entity.
-                                type: string
-                                ext: true
-                            variables:
-                                desc: A variable declaration declaring variables used inside the command.
-                                link: variables
-                        string-sync:action_on_entity_set:
-                            set:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Faction_on_entity_set.md
-                                desc: The Entity Set power to act upon
-                                link: identifier
-                            bientity_action:
-                                desc: Action to execute on each entity in the set
-                                link: bientity_action
-                            bientity_condition:
-                                desc: Condition to filter which entities receive the action
-                                link: bientity_condition
-                            limit:
-                                desc: Maximum number of entities to affect (0 = no limit)
-                                type: integer
-                                default: 0
-                            reverse:
-                                desc: Whether to process entities in reverse order
-                                type: boolean
-                                default: false
-                        string-sync:attach_rope:
-                            max_length:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fattach_rope.md
-                                desc: Maximum rope length in blocks. The actual initial length is the distance from the player to the anchor block, clamped to this value
-                                type: number
-                                default: 30.0
-                            texture:
-                                desc: Resource location of the texture applied to the rendered rope
-                                link: identifier
-                                default: sync:textures/rope/rope.png
-                            mode:
-                                desc: Controls whether this activation attaches a new rope, detaches an existing one, or toggles between the two for the block the player is looking at.
-                                enum: [toggle, attach, detach, detach_all]
-                        string-sync:attach_rope_entity:
-                            max_length:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fattach_rope_entity.md
-                                desc: Maximum rope length in blocks. The actual initial length is the distance from the player to the target entity, clamped to this value
-                                type: number
-                                default: 30.0
-                            texture:
-                                desc: Resource location of the texture applied to the rendered rope
-                                link: identifier
-                                default: sync:textures/rope/rope.png
-                            mode:
-                                desc: Controls whether this activation attaches a new rope, detaches an existing one, or toggles between the two for the entity the player is looking at.
-                                enum: [toggle, attach, detach, detach_all]
-                        string-sync:change_selected_slot:
-                            slot:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fchange_selected_slot.md
-                                desc: The hotbar slot to select. Must be in the range 0 (far-left) to 8 (far-right). Values outside this range are clamped automatically
-                                type: integer
-                                min: 0
-                                max: 8
-                                default: 0
-                        string-sync:change_slot:
-                            slot_a:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fchange_slot.md
-                                desc: The first slot. Uses Apoli's standard slot names
-                                link: identifier
-                            slot_b:
-                                href: https://origins.readthedocs.io/en/latest/types/data_types/item_slot/
-                                desc: The second slot. See link for Apoli's standard slot names
-                                link: identifier
-                            operation:
-                                desc: Either "swap" or "move".
-                                enum: [swap, move]
-                            inventory_type:
-                                desc: Either "inventory" (player/entity inventory) or "power" (an apoli:inventory power)
-                                enum: [inventory, power]
-                            power:
-                                desc: Required when inventory_type is "power". Points to an apoli:inventory power
-                                link: identifier
-                        string-sync:custom_projectile:
-                            entity_id:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fcustom_projectile.md
-                                desc: Identifier for tracking the projectile
-                                link: identifier
-                            texture_location:
-                                desc: If specified, the texture used for the custom projectile.
-                                link: identifier
-                            count:
-                                desc: The amount of projectiles to fire each use.
-                                type: integer
-                                default: 1
-                                min: 1
-                            speed:
-                                desc: The speed applied to the fired projectile.
-                                type: number
-                                default: 1.5
-                            divergence:
-                                desc: How much each projectile fired is affected by random spread.
-                                type: number
-                                default: 1.0
-                                min: 0
-                            sound:
-                                desc: If set, the sound with this ID will be played when the power is used.
-                                link: identifier
-                            tag:
-                                desc: NBT data to apply to projectiles
-                                type: string
-                                ext: true
-                            entity_action_before_firing:
-                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-                                link: entity_action
-                            bientity_action_after_firing:
-                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                                link: bientity_action
-                            block_condition:
-                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                                link: block_condition
-                            block_action_on_hit:
-                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-                                link: block_action
-                            block_action_cancels_miss_action:
-                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                                type: boolean
-                                default: false
-                            bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            owner_bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            bientity_action_on_miss:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                                link: bientity_action
-                            bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bientity_action
-                            tick_bientity_action:
-                                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
-                                link: bientity_action
-                        string-sync:cycle_stolen_power:
-                            delta:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fcycle_stolen_power.md
-                                desc: How many slots to advance. Positive moves forward, negative moves backward
-                                type: integer
-                                default: 1
-                        string-sync:disguise_as:
-                            entity_type:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fdisguise_as.md
-                                desc: The entity type to disguise as
-                                link: identifier
-                            nbt:
-                                desc: NBT data applied to the disguise entity. Used to set visual attributes such as variant, color, size, or custom name that the disguise adopts
-                                type: string
-                                ext: true
-                            overwrite:
-                                desc: If false, the action does nothing when the entity already has an active disguise
-                                type: boolean
-                                default: true
-                            before_action:
-                                desc: Executed on the entity immediately before the disguise is applied
-                                link: entity_action
-                            after_action:
-                                desc: Executed on the entity immediately after the disguise is applied
-                                link: entity_action
-                        string-sync:grant_all_powers:
-                            source: 
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fgrant_all_powers.md
-                                desc: The source identifier whose powers should be granted
-                                link: identifier
-                        string-sync:item_cooldown:
-                            items:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fitem_cooldown.md
-                                desc: Specific items to set cooldowns on.
-                                type: list
-                                vals:
-                                    link: identifier
-                                default: unspec
-                            item_tags:
-                                desc: Item tags matching multiple items to set cooldowns on. At least one of items or item_tags must be provided.
-                                type: list
-                                vals:
-                                    link: identifier
-                            ticks:
-                                desc: Duration of the cooldown in game ticks (20 ticks = 1 second).
-                                type: integer
-                                default: 20
-                                min: 1
-                        string-sync:loop:
-                            value:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
-                                desc: Number of times action is executed
-                                type: integer
-                                default: 1
-                            ticks:
-                                desc: Tick interval between iterations. Minimum effective value is 1
-                                type: integer
-                                default: 1
-                                min: 1
-                            before_action:
-                                desc: Fired once immediately before the first iteration begins
-                                link: entity_action
-                            action:
-                                desc: Fired once per iteration
-                                link: entity_action
-                            after_action:
-                                desc: Fired once after the final iteration completes
-                                link: entity_action
-                        string-sync:print:
-                            message:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fprint.md
-                                desc: The message to print
-                                type: string
-                            show_in_chat:
-                                desc: Whether to also send the message to the player's chat
-                                type: boolean
-                                default: false
-                            logger_id:
-                                desc: Custom logger identifier for console output
-                                type: string
-                                default: "Sync/PrintAction"
-                        string-sync:radial_menu:
-                            entries:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fradial_menu.md
-                                desc: An array of radial menu entry objects.
-                                type: list
-                                vals:
-                                    link: radial_menu_entry
-                            sprite_location:
-                                desc: Custom texture for the radial menu background (256x256 pixels)
                                 link: identifier
                         string-sync:random_teleport:
                             area_width:
@@ -8234,6 +7939,118 @@ links:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/process-mode
         desc: A String that determines how an item stack is processed; be it either being modified or evaluated. See the doc for more information.
         enum: ['items','stacks']
+    raycast_action:
+        distance:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/raycast
+            desc: Maximum range for both block and entity raycasting. Defaults to the entity’s effective reach.
+            type: number
+            default: unspec
+        block:
+            desc: Whether the ray can hit blocks
+            type: boolean
+            default: true
+        entity:
+            desc: Whether the ray can hit entities
+            type: boolean
+            default: true
+        shape_type:
+            link: shape_type
+        fluid_handling:
+            link: fluid_handling
+        space:
+            link: space
+        direction:
+            desc: Custom ray direction. If omitted, uses the entity’s current look direction
+            link: vector
+        pierce:
+            desc: Shorthand that sets both pierce_blocks and pierce_entities.
+            type: boolean
+            default: false
+        pierce_blocks:
+            desc: If true, the ray passes through blocks: block_action runs on every block the ray intersects (up to 128), blocks stop culling entities behind them, and the ray traces its full length.
+            type: boolean
+            unspec: false
+        pierce_entities:
+            desc: |
+                If true, the ray passes through entities: bientity_action runs on every entity along the ray instead of only the nearest.
+            type: boolean
+            unspec: false
+        particle:
+            desc: Particle to spawn at intervals along the ray
+            link: particle_effect
+        spacing:
+            desc: Distance in blocks between each particle spawn along the ray
+            type: float
+            default: 0.5
+        entity_distance:
+            desc: Maximum range for entity detection only. Overrides distance for entities
+            type: number
+            default: unspec
+        block_distance:
+            desc: Maximum range for block detection only. Overrides distance for blocks
+            type: number
+            default: unspec
+        radius:
+            desc: |
+                Thickens the ray into a beam for entity detection — a single number (uniform) or a vector { "x": .., "y": .., "z": .. } (width / height / depth). Entities within this half-extent of the ray line are hit. Block detection still uses the centre line.
+            link: vector
+        cone_angle:
+            desc: Turns entity detection into a directional cone attack — hits every entity within this many degrees of the ray direction, out to the entity range. Takes the place of radius for entities; block detection still follows the centre line.
+            type: number
+            default: unspec
+            gap: true
+        bientity_condition:
+            desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
+            link: bientity_condition
+        block_condition:
+            desc: If specified, block_action only runs when the hit block satisfies this condition
+            link: block_condition
+        bientity_action:
+            desc: Action executed on each entity hit (actor = source, target = hit entity)
+            link: bientity_action
+        block_action:
+            desc: Action executed on the block hit by the ray
+            link: block_action
+            gap: true
+        before_action:
+            desc: Action executed on the source entity before the ray is cast
+            link: entity_action
+        hit_action:
+            desc: Action executed on the source entity when the ray hits anything
+            link: entity_action
+        miss_action:
+            desc: 	Action executed on the source entity when the ray hits nothing
+            link: entity_action
+            gap: true
+        command_at_hit:
+            desc: Command to run at the hit position — the nearest hit, whether that is a block or an entity. Not run on a miss.
+            type: string
+            ext: true
+        command_hit_offset:
+            desc: Distance in blocks to push the command_at_hit position back out of what was hit — along the block face normal for a block hit, back along the ray for an entity hit
+            type: number
+            default: 0
+        command_along_ray:
+            desc: Command to run repeatedly at intervals along the ray
+            type: string
+            ext: true
+        command_step:
+            desc: Interval in blocks between each execution of command_along_ray
+            type: number
+            default: 1
+        command_along_ray_only_on_hit:
+            desc: If true, command_along_ray only runs when the ray hits something
+            type: boolean
+            default: false
+        chain_direction:
+            desc: For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
+            enum: ['','forward','reflect','custom']
+            unspec: ''
+        chain:
+            desc: Another raycast fired from this ray’s end point (its hit position, or the max-range point on a miss). Lets rays bounce and branch for visual effects. Nests recursively — a chain may itself have a chain.
+            type: object
+            props:
+                link: raycast_action
     render_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/render-type
         desc: Selects how a texture is drawn onto the model — the blend/cull/lighting style of a render layer. See the doc for more information.
@@ -8300,6 +8117,10 @@ links:
             outline		The ray will take the shape of the block into account, only stopping if the ray has hit a face of a block.
             visual		The ray will only stop at blocks that are not considered transparent. (e.g: blocks that aren’t see-through)
         enum: ['collider','outline','visual']
+    sound_category:
+        desc: If specified, this specifies the category and options the sound event falls under. Otherwise, uses the category specified in the entity that invoked this action.
+        enum: ['',['master','music','record','weather','block','hostile','neutral','players','ambient','voice']
+        unspec: ''
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
         desc: A String that defines which coordinate system is used for directions. See the doc for more information
