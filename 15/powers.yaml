@@ -2903,122 +2903,92 @@ links:
                                 link: entity_action
                         string-origins:raycast:
                             link: raycast_action
-                        string-origins-math:raycast:
-                            distance:
-                                desc: Determines the maximum distance the raycast will travel.
-                                link: math_number_20
-                            block:
-                                desc: If set to false, the raycast will ignore blocks.
-                                type: boolean
-                                default: true
-                            entity:
-                                desc: If set to false, the raycast will ignore entities.
-                                type: boolean
-                                default: true
-                            shape_type:
-                                desc: |
-                                    Determines how the raycast handles blocks.
-
-                                    If set to "outline", the raycast will take the shape of the collision box of the block into account.
-                                    If set to "visual", the raycast will ignore blocks that are see-through (e.g: Glass, Tinted Glass, etc.).
-                                    If set to "collider", the raycast will take physical collision of the block into account.
-                                enum: [outline, visual, collider]
-                            fluid_handling:
-                                desc: |
-                                    Determines how the raycast handles fluids.
-
-                                    If set to "any", the raycast will ignore source and flowing fluids.
-                                    If set to "source", the raycast will only go through source fluids.
-                                    If set to "none", the raycast won't go through any kind of fluids.
-                                enum: [any, source, none]
-                                gap: true
+                        string-origins:relative_action:
+                            target:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/relative_action
+                                enum: [passenger_action,riding_action]
+                            action:
+                                link: entity_action
                             bientity_condition:
-                                desc: If specified, the specified bi-entity action type will only be executed if the specified bi-entity condition type is fulfilled by either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
                                 link: bientity_condition
                             bientity_action:
-                                desc: If specified, this bi-entity action type will be executed on either or both the 'actor' (the entity that has the power) or 'target' (the entity that was hit by the raycast).
                                 link: bientity_action
-                            block_action:
-                                desc: If specified, this block action type will be executed on the block the raycast has hit.
-                                link: block_action
-                                gap: true
-                            before_action:
-                                desc: If specified, execute this entity action type before casting a ray.
-                                link: entity_action
-                            hit_action:
-                                desc: If specified, execute this entity action type if the raycast has hit an entity/block.
-                                link: entity_action
-                            miss_action:
-                                desc: If specified, execute this entity action type if the raycast did not hit an entity/block.
-                                link: entity_action
-                                gap: true
-                            command_at_hit:
-                                desc: The command to execute upon the block/entity the raycast has hit.
-                                type: string
-                                ext: true
-                            command_hit_offset:
-                                desc: Determines the offset of the command specified in the command_at_hit field.
-                                link: math_number_0
-                            command_along_ray:
-                                desc: The command to execute for each step of the raycast.
-                                type: string
-                                ext: true
-                            command_step:
-                                desc: Determines the size of the step of the raycast. Defaults to 1.
-                                link: math_number_1
-                            command_along_ray_only_on_hit:
-                                desc: Determines if the command specified in the command_along_ray field should be executed only if the raycast has hit a block/entity.
+                            recursive:
                                 type: boolean
-                        string-origins:replace_inventory:
-                            inventory_type:
-                                desc: Either "inventory" or "power". If "inventory", applies replacements to the player's main inventory. If "power", Applies replacements to the player's bonus inventory given with a power.
-                                enum: [inventory, power]
-                            entity_action:
-                                desc: If set, applies this action to the entity that has their inventory being replaced.
-                                link: entity_action
-                            item_action:
-                                desc: Item action applied to the items in the given slots.
-                                link: item_action
-                            item_condition:
-                                desc: If set, this item condition must match the items in the given slots to have the action applied.
-                                link: item_condition
-                            slots:
-                                link: slots
-                            slot:
-                                link: slot
-                            power:
-                                desc: If "Inventory Type" is set to "power", this is the power linked to the inventory to replace.
-                                link: identifier
-                            stack:
-                                desc: The item stack to replace with.
-                                link: item_stack
-                            merge_nbt:
-                                desc: Determines whether to merge the NBTs of the item that will be replaced and the NBTs of the item that will be used as a replacement.
-                                type: boolean
-                        string-origins:revoke_advancement:
-                            advancement:
-                                desc: The namespace and ID of the advancement to be revoked from the player.
-                                link: identifier
+                                default: false
+                        string-origins:release_grab: {}
+                        string-origins:remove_disguise: {}
+                        string-origins:remove_power:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/remove_power
+                            desc: The ID of the power to remove from the entity.
+                            link: identifier
+                        string-origins:revoke_all_powers:
+                            source:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_all_powers
+                                desc: The source(s) to revoke powers from.
+                                or:
+                                  - title: single
+                                    link: identifier
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: identifier
                         string-origins:revoke_power:
                             power:
-                                desc: The ID of the power to be revoked from the entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_power
+                                desc: The namespace and ID of the power to be revoked from the entity.
                                 link: identifier
                             source:
-                                desc: The source of the power.
-                                type: string
+                                desc: The namespace and ID of the source of the power.
+                                link: identifier
                         string-origins:riding_action:
                             action:
-                                desc: If set, executes the specified action on the entity that's been ridden.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/riding_action
+                                desc: 	If specified, this action will be executed on the entity being ridden.
                                 link: entity_action
-                            bientity_action:
-                                desc: If set, executes the specified action that can execute on both the passenger and the entity that's being ridden.
-                                link: bientity_action
                             bientity_condition:
-                                desc: If set, only execute the specified actions if the bi-entity condition is fulfilled.
+                                desc: If specified, only execute the specified actions if this condition is fulfilled by either the ‘actor’ (the passenger entity) or the ‘target’ (entity being ridden) or both.
                                 link: bientity_condition
+                            bientity_action:
+                                desc: If specified, this action will be executed on either the ‘actor’ (the passenger entity) or the ‘target’ (the entity being ridden) or both.
+                                link: bientity_action
                             recursive:
-                                desc: If set to true, executes the specified actions on all entities that are being ridden, if there are more than one.
+                                desc: If set to true, the specified action(s) will be executed on all entities that are being ridden.
                                 type: boolean
+                                default: false
+                        string-origins:rope_pull:
+                            slot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/rope_pull
+                                desc: Only act on the rope in this slot. If omitted, every rope the entity owns is affected.
+                                link: meta_key
+                                default: unspec
+                            which:
+                                desc: |
+                                    Which end to push: self (launch the actor toward the far end), other (drag the far entity toward the actor), or both.
+                                enum: ['self','other','both']
+                            speed:
+                                desc: Magnitude of the velocity applied along the rope. This is your “launch speed”.
+                                type: number
+                                default: 1
+                            set:
+                                desc: If true, replaces the pushed entity’s velocity instead of adding to it.
+                                type: boolean
+                                default: false
+                            reel:
+                                desc: Also shorten the rope by this amount each time the action runs (a scripted reel-in).
+                                type: number
+                                default: 0
+                        string-origins:run_function:
+                            function:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/run_function
+                                desc: The apoli:function power to run.
+                                link: identifier
+                                required: true
+                            arguments:
+                                desc: One entry per parameter the function declares. Values may be any JSON the target field accepts.
+                                type: object
+                                props:
+                                    extend: function_arguments
                         string-origins:selector_action:
                             selector:
                                 href: https://minecraft.wiki/w/Target_selectors
@@ -3033,13 +3003,14 @@ links:
                                 link: bientity_condition
                         string-origins:set_fall_distance:
                             fall_distance:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_fall_distance
                                 desc: The desired fall distance value.
                                 type: number
                         string-origins:set_on_fire:
                             duration:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_on_fire
                                 desc: The amount of seconds the entity should burn.
-                                type: integer
-                                default: 4
+                                link: expression_integer
                         string-origins:set_resource:
                             resource:
                                 desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
@@ -7493,6 +7464,9 @@ links:
                 type: list
                 vals:
                     link: status_effect_instance_chance
+    function_arguments:
+        type: string
+        ext: true
     hand:
         desc: Indicates which hand of the entity.
         enum: ['main_hand','off_hand']
