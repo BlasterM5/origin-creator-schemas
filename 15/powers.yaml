@@ -340,9 +340,7 @@ links:
                             biomes:
                                 desc: If specified, only evaluate the condition to true if the biome the entity is in matches one of the specified namespace and IDs.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
-                                type: list
-                                vals:
-                                    link: identifier
+                                link: identifier_array
                             condition:
                                 desc: If specified, only evaluate the condition to true if the biome the entity is in fulfills the specified biome condition type.
                                 link: biome_condition
@@ -1997,9 +1995,7 @@ links:
                                 default: false
                             sources:
                                 desc: Only transfer powers granted by these sources. If omitted, every source on the donor is transferred (except new_source). This is how you copy one specific origin/layer — filter to the source it was granted under.
-                                type: list
-                                vals:
-                                    link: identifier
+                                link: identifier_array
                             new_source:
                                 desc: The source the powers are granted under on the recipient. Grouping under one source lets you later remove them all in one call (see Losing / restoring below).
                                 link: identifier
@@ -2751,13 +2747,7 @@ links:
                             from:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_all_powers
                                 desc: The source(s) to draw powers from.
-                                or:
-                                  - title: single
-                                    link: identifier
-                                  - title: multiple
-                                    type: list
-                                    vals:
-                                        link: identifier
+                                link: identifier_single_or_array
                             source:
                                 desc: The source id the grants are recorded under. If unspecified, uses the 'from' ID.
                                 link: identifier
@@ -2926,13 +2916,7 @@ links:
                             source:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_all_powers
                                 desc: The source(s) to revoke powers from.
-                                or:
-                                  - title: single
-                                    link: identifier
-                                  - title: multiple
-                                    type: list
-                                    vals:
-                                        link: identifier
+                                link: identifier_single_or_array
                         string-origins:revoke_power:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_power
@@ -3011,15 +2995,19 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_on_fire
                                 desc: The amount of seconds the entity should burn.
                                 link: expression_integer
-                        string-origins:set_resource:
-                            resource:
-                                desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                link: identifier
-                            value:
-                                desc: The value the resource will be set to (won't go below min or above max of the Resource).
+                        string-origins:set_summon_max_life:
+                            amount:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_summon_max_life
+                                desc: The new lifetime in ticks. 0 or less = permanent until killed. Must be run on the summon, has no effect if run directly on the player.
                                 type: integer
+                                default: 0
+                                required: true
+                            summon_id:
+                                desc: If set, only summons whose summon_id matches are affected. If unset, any summon is affected.
+                                link: identifier
                         string-origins:spawn_effect_cloud:
                             radius:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_effect_cloud
                                 desc: The radius of the cloud.
                                 type: number
                                 default: 3
@@ -3032,337 +3020,243 @@ links:
                                 type: integer
                                 default: 10
                             effect:
-                                desc: If set, this status effect will be applied by the cloud to the entities inside it.
-                                link: effect
+                                desc: If specified, this status effect will be applied by the cloud to entities inside of it.
+                                link: status_effect_instance
                             effects:
-                                desc: If set, these status effects will be applied by the cloud to the entities inside it.
+                                desc: If specified, these status effects will be applied by the cloud to entities inside of it.
                                 type: list
                                 vals:
-                                    link: effect
-                        string-origins-math:set_fall_distance:
-                            fall_distance:
-                                desc: The desired fall distance value.
-                                link: math_number
-                        string-origins-math:set_on_fire:
-                            duration:
-                                desc: The amount of seconds the entity should burn.
-                                link: math_integer
-                                default: 4
-                        string-origins-math:set_resource:
-                            resource:
-                                desc: ID of the power type that defines the resource to change the value of. Must be a Resource (Power Type) which exists on the player.
-                                link: identifier
-                            value:
-                                desc: The value the resource will be set to (won't go below min or above max of the Resource).
-                                link: math_integer
-                        string-origins-math:spawn_effect_cloud:
-                            radius:
-                                desc: The radius of the cloud.
-                                link: math_number
-                                default: 3
-                            radius_on_use:
-                                desc: How much the radius should change when an effect is applied.
-                                link: math_number
-                                default: -0.5
-                            wait_time:
-                                desc: How many ticks to wait until the cloud takes effect.
-                                link: math_integer
-                                default: 10
-                            effect:
-                                desc: If set, this status effect will be applied by the cloud to the entities inside it.
-                                link: effect
-                            effects:
-                                desc: If set, these status effects will be applied by the cloud to the entities inside it.
-                                type: list
-                                vals:
-                                    link: effect
+                                    link: status_effect_instance
                         string-origins:spawn_entity:
                             entity_type:
-                                desc: The ID of the entity type that will be spawned.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_entity
+                                desc: The namespace and ID of the entity type that will be spawned.
                                 link: identifier
                             tag:
-                                desc: When set, this NBT data will be applied to the new entity when it is spawned.
-                                type: string
-                                ext: true
+                                desc: If specified, this NBT data will be applied to the entity that will be spawned.
+                                link: nbt
                             entity_action:
-                                desc: When set, this action will be executed on the new entity when it is spawned.
+                                desc: If specified, the specified entity action type will be executed on the entity that will be spawned when it is spawned.
                                 link: entity_action
+                            bientity_action:
+                                desc: If specified, this bi-entity action will be executed on either or both the actor (the entity that invoked the entity action) and the target (the spawned entity).
+                                link: bientity_action
                         string-origins:spawn_particles:
                             particle:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_particles
                                 desc: The particle type that will be spawned.
-                                link: particle_data
+                                link: particle_effect
+                            bientity_condition:
+                                desc: If specified, the particle will only be visible if this bi-entity condition is fulfilled by either or both the entity that has the power and the entity looking at the entity that has the power.
+                                link: bientity_condition
                             count:
                                 desc: How much of the specified particle type will be spawned.
                                 type: integer
                                 min: 1
                                 default: 1
                             speed:
-                                desc: Determines the speed of the specified particle type. Defaults to 0.
+                                desc: Determines the speed of the specified particle type.
                                 type: number
                                 default: 0
                             force:
                                 desc: If set to true, the specified particle type that will be spawned can be seen from a far distance.
                                 type: boolean
                             spread:
-                                desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in. Defaults to (0.5, 0.25, 0.5).
+                                desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in. Defaults to (0.5, 0.5, 0.5).
                                 link: vector
-                            offset_y:
-                                desc: The offset of where the particle will be centered in the Y axis. Defaults to 0.5.
+                            offset_x:
+                                desc: The offset of where the particle will be centered in the X axis.
                                 type: number
-                                default: 0.5
-                        string-origins-math:spawn_particles:
-                            particle:
-                                desc: The particle type that will be spawned.
-                                link: particle_data
-                            count:
-                                desc: How much of the specified particle type will be spawned.
-                                link: math_integer_1
-                                min: 1
-                            speed:
-                                desc: Determines the speed of the specified particle type. Defaults to 0.
-                                link: math_number_0
-                            force:
-                                desc: If set to true, the specified particle type that will be spawned can be seen from a far distance.
-                                type: boolean
-                            spread:
-                                desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in. Defaults to (0.5, 0.25, 0.5).
-                                link: vector
-                            offset_y:
-                                desc: The offset of where the particle will be centered in the Y axis. Defaults to 0.5.
-                                link: math_number
-                                default: 0.5
-                        string-origins:swing_hand:
-                            hand:
-                                desc: Determines which hand is swung.
-                                enum: [MAIN_HAND, OFF_HAND]
                                 default: 0
-                        string-origins:toggle:
-                            power:
-                                desc: The namespace and ID of a power that uses the origins:toggle power type to toggle the state of.
-                                link: identifier
-                        string-origins:trigger_cooldown:
-                            power:
-                                desc: ID of the cooldown power which should trigger, as if that power has just been used.
-                                link: identifier
-                        string-sync:random_teleport:
-                            area_width:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Frandom_teleport.md
-                                desc: The width of the teleport search area (diameter)
-                                type: number
-                                default: 8.0
-                            area_height:
-                                desc: The height of the teleport search area (diameter)
-                                type: number
-                                default: 8.0
-                            heightmap:
-                                desc: Optional heightmap type to find valid positions
-                                enum: [world_surface, world_surface_wg, ocean_floor, ocean_floor_wg, motion_blocking, motion_blocking_no_leaves]
-                            attempts:
-                                desc: Number of random positions to try (defaults to area_width^2 + area_height^2)
-                                type: integer
-                            landing_block_condition:
-                                desc: Condition that landing block must satisfy
-                                link: block_condition
-                            landing_condition:
-                                desc: Condition that the teleported entity must satisfy at landing location
-                                link: entity_condition
-                            landing_offset:
-                                desc: Offset from the found landing position
-                                link: vector
-                            loaded_chunks_only:
-                               desc: Whether to only teleport to already loaded chunks
-                               type: boolean
-                               default: true
-                            success_action:
-                                desc: Action to execute on successful teleport
-                                link: entity_action
-                            fail_action:
-                                desc: Action to execute if all attempts fail
-                                type: entity_action
-                        string-sync:raycast:
-                            distance:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fraycast.md
-                                desc: Maximum range for both block and entity raycasting. Defaults to the entity's effective reach (respecting reach-entity-attributes if present)
-                                type: number
-                            block:
-                                desc: Whether the ray can hit blocks
-                                type: boolean
-                                default: true
-                            entity:
-                                desc: Whether the ray can hit entities
-                                type: boolean
-                                default: true
-                            shape_type:
-                                desc: The shape type used for block collision detection
-                                enum: [visual, collider, outline]
-                            fluid_handling:
-                                desc: How fluids are treated during block raycasting
-                                enum: [any, source_only, none]
-                            space:
-                                desc: The coordinate space in which direction is interpreted
-                                link: space_data
-                            direction:
-                                desc: Custom ray direction. If omitted, uses the entity's current look direction
-                                link: vector
-                            pierce:
-                                desc: If true, the ray passes through entities and bientity_action is executed on every entity hit before the first block
-                                type: boolean
-                                default: false
-                            particle:
-                                link: particle_data
-                            spacing:
-                                desc: Distance in blocks between each particle spawn along the ray
+                            offset_y:
+                                desc: The offset of where the particle will be centered in the Y axis. Defaults to 0.5.
                                 type: number
                                 default: 0.5
-                            entity_distance:
-                                desc: Maximum range for entity detection only. Overrides distance for entities
+                            offset_z:
+                                desc: The offset of where the particle will be centered in the Z axis.
                                 type: number
-                            block_distance:
-                                desc: Maximum range for block detection only. Overrides distance for blocks
-                                type: number
-                            bientity_condition:
-                                desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
-                                link: bientity_condition
-                            block_condition:
-                                desc: If specified, block_action only runs when the hit block satisfies this condition
-                                link: block_condition
-                            bientity_action:
-                                desc: Action executed on each entity hit (actor = source, target = hit entity)
-                                link: bientity_action
-                            block_action:
-                                desc: Action executed on the block hit by the ray
-                                link: block_action
-                            before_action:
-                                desc: If specified, execute this entity action type before casting a ray.
-                                link: entity_action
-                            hit_action:
-                                desc: If specified, execute this entity action type if the raycast has hit an entity/block.
-                                link: entity_action
-                            miss_action:
-                                desc: If specified, execute this entity action type if the raycast did not hit an entity/block.
-                                link: entity_action
-                                gap: true
-                            command_at_hit:
-                                desc: The command to execute upon the block/entity the raycast has hit.
-                                type: string
-                                ext: true
-                            command_hit_offset:
-                                desc: Determines the offset of the command specified in the command_at_hit field.
-                                type: number
-                            command_along_ray:
-                                desc: The command to execute for each step of the raycast.
-                                type: string
-                                ext: true
-                            command_step:
-                                desc: Determines the size of the step of the raycast. Defaults to 1.
-                                type: number
-                            command_along_ray_only_on_hit:
-                                desc: Determines if the command specified in the command_along_ray field should be executed only if the raycast has hit a block/entity.
-                                type: boolean
-                        string-sync:remove_disguise: {}
-                        string-sync:revoke_all_powers:
-                            source:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Frevoke_all_powers.md
-                                desc: The source identifier whose powers should be removed
-                                link: identifier
-                        string-sync:revoke_power:
-                            power:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Frevoke_power.md
-                                desc: The power type to remove
-                                link: identifier
-                        string-sync:save_location:
-                            id:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsave_location.md
-                                desc: Unique identifier for this saved location
-                                link: identifier
-                                required: true
-                            overwrite:
-                                desc: Whether to overwrite an existing location with the same ID
-                                type: boolean
-                                default: true
-                        string-sync:set_no_gravity:
-                            value:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fset_no_gravity.md
-                                desc: If present, sets the entity’s no‑gravity flag to this value. If omitted, toggles the current value.
-                                enum: [true, false]
-                                default: unspec
-                        string-sync:set_summon_max_life_ticks:
-                            amount:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fset_summon_max_life.md
-                                desc: The lifetime of the summon in ticks
-                                type: integer
-                        string-sync:summon_clone:
-                            can_sit:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsummon_clone.md
-                                desc: Whether the clone can sit when right-clicked by its owner
-                                type: boolean
-                                default: true
+                                default: 0
+                        string-origins:summon_clone:
                             can_attack:
-                                desc: Whether the clone can attack hostile mobs
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_clone
+                                desc: Whether the clone attacks the owner’s enemies.
+                                type: boolean
+                                default: true
+                            can_sit:
+                                desc: Whether the owner can toggle the clone sitting by right-clicking it.
                                 type: boolean
                                 default: true
                             follow_owner:
-                                desc: Whether the clone follows its owner
+                                desc: Whether the clone follows the owner when far away.
                                 type: boolean
                                 default: true
                             inherit_equipment:
-                                desc: Whether the clone copies the player's armor and held items at the moment of summoning
+                                desc: Whether the clone copies the owner’s worn/held equipment.
                                 type: boolean
                                 default: true
                             inherit_enchantments:
-                                desc: Whether inherited equipment also copies its enchantments
+                                desc: Whether inherited equipment keeps its enchantments (and other components).
                                 type: boolean
                                 default: true
+                            slim:
+                                desc: Forces the slim arm model. Only used when custom textures are set; otherwise the owner’s model is mirrored.
+                                type: boolean
+                                default: false
                             wide_texture:
-                                desc: Custom skin texture used when the owner has a wide (classic/default) arm model
+                                desc: Custom texture for the wide model. If unset, the owner’s skin is used.
                                 link: identifier
+                                default: unspec
                             slim_texture:
-                                desc: Custom skin texture used when the owner has a slim arm model
+                                desc: Custom texture for the slim model. If unset, the owner’s skin is used.
                                 link: identifier
+                                default: unspec
+                            max_life_ticks:
+                                desc: Ticks before the clone vanishes. 0 or less = permanent until killed.
+                                type: integer
+                                default: 1200
+                            summon_id:
+                                desc: A tag used by apoli:set_summon_max_life to target this clone.
+                                type: identifier
+                                default: unspec
+                            powers:
+                                desc: Powers to grant the clone on spawn.
+                                link: identifier_array
                             bientity_action:
-                                desc: Action executed after the clone is summoned. The actor is the player who summoned the clone; the target is the clone itself.
+                                desc: Runs once after the clone spawns, with the owner as actor and the clone as target.
                                 link: bientity_action
-                        string-sync:summon_minion:
+                        string-origins:summon_minion:
                             texture:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fsummon_minion.md
-                                desc: Texture for the minion
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_minion
+                                desc: The minion’s texture.
                                 link: identifier
-                                default: "sync:textures/entity/minion_template.png"
+                                default: "apoli:textures/entity/minion_template.png"
                             follow_owner:
-                                desc: Whether the minion follows its owner
+                                desc: If true, the minion follows the owner (and floats, ignoring gravity).
                                 type: boolean
-                                default: true
+                                default: false
                             follow_offset:
-                                desc: Offset position when following
+                                desc: Position offset from the owner when following (and the spawn offset).
                                 link: vector
                             scale:
-                                desc: Size multiplier for the minion
+                                desc: Render/hitbox scale.
                                 type: number
                                 default: 1.0
                             invulnerable:
-                                desc: Whether the minion can take damage
+                                desc: Whether the minion is invulnerable.
                                 type: boolean
                                 default: false
                             max_life_ticks:
-                                desc: Lifespan in ticks (20 ticks = 1 second)
+                                desc: Ticks before the minion vanishes. 0 or less = permanent until killed.
                                 type: integer
                                 default: 1200
-                            bientity_action:
-                                desc: Action to execute on the minion after summoning
-                                link: bientity_action
-                        string-sync:teleport_to_location:
-                            id:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fteleport_to_location.md
-                                desc: The identifier of the saved location to teleport to
+                            summon_id:
+                                desc: A tag used by apoli:set_summon_max_life to target this minion.
                                 link: identifier
-                        string-sync:teleport_to_spawn:
-                            player_spawn:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=entity_actions%2Fteleport_to_spawn.md
-                                desc: If true, teleports to the player's personal spawn point (bed or respawn anchor). If false, teleports to the world spawn point in the overworld.
+                                default: unspec
+                            powers:
+                                desc: Powers to grant the minion on spawn. Granting it a geometry-mode apoli:custom_model_render replaces the minion’s model with a Blockbench one.
+                                link: identifier_array
+                            bientity_action:
+                                desc: Runs once after the minion spawns, with the owner as actor and the minion as target.
+                                link: bientity_action
+                        string-origins:suppress_power:
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/suppress_power
+                                desc: The power(s) to suppress.
+                                link: identifier_single_or_array
+                            source:
+                                desc: The tag(s) the suppression is filed under. Unsuppressing must name the same source.
+                                link: identifier_single_or_array
+                        string-origins:swing_hand:
+                            hand:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/swing_hand
+                                desc: Determines which hand is swung.
+                                enum: ['MAIN_HAND', 'OFF_HAND']
+                        string-origins:team:
+                            operation:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
+                                desc: |
+                                    What operation to perform:
+                                    join	Adds the entity to the team. Any properties on team are applied to it first.
+                                    leave	Removes the entity from whatever team it is on.
+                                    create	Makes the team (if missing) and applies the properties, without joining it.
+                                    modify	Applies the properties to an existing team. Does nothing if the team does not exist.
+                                    empty	Removes every member from the team.
+                                    delete	Deletes the team entirely.
+                                enum: ['join','leave','create','modify','empty','delete']
+                            team:
+                                desc: Which team, and which properties to set. If omitted, the entity’s current team is used.
+                                link: team
+                            create_if_missing:
+                                desc: For join and create, make the team if it does not exist yet.
+                                type: boolean
+                                default: true
+                        string-origins:text:
+                            text:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/text
+                                desc: What to display. A plain string/text component, or a list of text entries (see below) concatenated in order — entries whose condition fails are skipped.
+                                or:
+                                  - title: simple
+                                    type: string
+                                    ext: true
+                                    required: true
+                                  - title: single
+                                    link: text_component
+                                  - title: multiple
+                                    link: text_component
+                            bar:
+                                desc: Where to display the text.
+                                enum: ['actionbar','title','subtitle','top_left','top_center','top_right','left','right','bottom_left','bottom_right']
+                            bold:
+                                desc: Base bold styling.
                                 type: boolean
                                 default: false
-                        string-sync:toggle_transfer_mode: {}
-                        string-sync:use_selected_stolen_power: {}
+                            italic:
+                                desc: Base italic styling.
+                                type: boolean
+                                default: false
+                            underlined:
+                                desc: Base underline styling.
+                                type: boolean
+                                default: false
+                            strikethrough:
+                                desc: Base strikethrough styling.
+                                type: boolean
+                                default: false
+                            fadein:
+                                desc: Fade-in time in ticks.
+                                type: integer
+                                default: 10
+                                min: 0
+                            duration:
+                                desc: |
+                                    How long the text stays fully visible, in ticks. -1 keeps it until replaced or cleared (like a duration: -1 Apply Effect).
+                                type: integer
+                                default: 70
+                                min: -1
+                            fadeout:
+                                desc: Fade-out time in ticks.
+                                type: integer
+                                default: 20
+                                min: 0
+                        string-origins:toggle:
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/toggle
+                                desc: The namespace and ID of the power that uses the Toggle (Power Type).
+                                link: identifier
+                        string-origins:trigger_cooldown:
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
+                                desc: The apoli:cooldown power to trigger. (The legacy field resource is still accepted as an alias.)
+                                link: identifier
+                        string-origins:unsuppress_power:
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/unsuppress_power
+                                desc: The power(s) to unsuppress.
+                                link: identifier_single_or_array
+                            source:
+                                desc: The source(s) to lift. Must match what suppressed the power.
+                                link: identifier_single_or_array
           - title: custom
             link: custom_action
     item_action:
@@ -3533,9 +3427,7 @@ links:
                                 link: identifier
                             enchantments:
                                 desc: If set, specifies a single enchantment to remove,
-                                type: list
-                                vals:
-                                    link: identifier
+                                link: identifier_array
                             levels:
                                 desc: If set, specifies the maximum number of levels to remove.
                                 type: integer
@@ -3548,9 +3440,7 @@ links:
                                 link: identifier
                             enchantments:
                                 desc: If set, specifies a single enchantment to remove,
-                                type: list
-                                vals:
-                                    link: identifier
+                                link: identifier_array
                             levels:
                                 desc: If set, specifies the maximum number of levels to remove.
                                 link: math_integer
@@ -4249,9 +4139,7 @@ links:
                             link: identifier
                         effects:
                             desc: If specified, the effects with these IDs can not be applied to the player.
-                            type: list
-                            vals:
-                                link: identifier
+                            link: identifier_array
                     string-origins:elytra_flight:
                         render_elytra:
                             desc: Whether an Elytra should render on the player's back while this power is active.
@@ -5437,9 +5325,7 @@ links:
                             link: identifier
                         status_effects:
                             desc: If specified, the namespace and ID of the status effects that will have their amplifiers modified.
-                            type: list
-                            vals:
-                                link: identifier
+                            link: identifier_array
                         modifier:
                             desc: The modifier to apply to the amplifier of the specified status effect.
                             link: a_mod
@@ -5449,9 +5335,7 @@ links:
                             link: identifier
                         status_effects:
                             desc: If specified, the namespace and ID of the status effects that will have their durations modified.
-                            type: list
-                            vals:
-                                link: identifier
+                            link: identifier_array
                         modifier:
                             desc: The modifier to apply to the duration of the specified status effect.
                             link: a_mod
@@ -5573,9 +5457,7 @@ links:
                             link: identifier
                         features:
                             desc: If specified, these feature renderers will not be rendered.
-                            type: list
-                            vals:
-                                link: identifier
+                            link: identifier_array
                     string-origins:prevent_game_event:
                         event:
                             desc: If specified, the game event with this namespace and ID will be prevent from being emitted by the entity.
@@ -5583,9 +5465,7 @@ links:
                             link: identifier
                         events:
                             desc: If specified, the game events with these namespace and IDs will be prevent from being emitted by the entity.
-                            type: list
-                            vals:
-                                link: identifier
+                            link: identifier_array
                         tag:
                             desc: If specified, the game events inside game event tag will be prevented from being emitted by the entity.
                             link: identifier
@@ -5710,30 +5590,26 @@ links:
                     string-apugli:prevent_sound:
                         category:
                             desc: If specified, all sound events from this category will be prevented from being heard by the entity that has the power.
-                            enum: ['ambient', 'blocks', 'hostile', 'master', 'music', 'neutral', 'players', 'records', 'voice', 'weather']
-                            unspec: true
+                            enum: ['','ambient', 'blocks', 'hostile', 'master', 'music', 'neutral', 'players', 'records', 'voice', 'weather']
+                            unspec: ''
                         categories:
                             desc: If specified, all sound events from these categories will be prevented from being heard by the entity that has the power. Can accept "ambient", "blocks", "hostile", "master", "music", "neutral", "players", "records", "voice" and "weather".
-                            type: list
-                            vals:
-                                link: identifier
-                            unspec: true
+                            link: identifier_array
+                            default: unspec
                         sound:
                             desc: If specified, this sound event will be prevented from being heard by the entity that has the power.
                             link: identifier
-                            unspec: true
+                            default: unspec
                         sounds:
                             desc: If specified, these sound events will be prevented from being heard by the entity that has the power.
                             type: list
                             vals:
                                 link: identifier
-                            unspec: true
+                            default: unspec
                         whitelist:
                             desc: If specified, these sound events will be exempt from being prevented.
-                            type: list
-                            vals:
-                                link: identifier
-                            unspec: true
+                            link: identifier_array
+                            default: unspec
                     string-eggolib:crawling: {}
                     string-origins-math:attribute_like_resource:
                         min:
@@ -5946,9 +5822,7 @@ links:
                                 link: functional_key
                         key_sequence:
                             desc: The exact order of keys (by their translation key) that the player must press to trigger success_action.
-                            type: list
-                            vals: 
-                                link: identifier
+                            link: identifier_array
                     string-sync:action_on_sending_message:
                         message_type:
                             horse: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_sending_message.md
@@ -7344,13 +7218,7 @@ links:
                     desc: The items that need to be put in the crafting grid for the recipe.
                     type: list
                     vals:
-                        or:
-                          - title: single
-                            link: identifier
-                          - title: multiple
-                            type: list
-                            vals:
-                                link: identifier
+                        link: identifier_single_or_array
                 result:
                     desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
                     type: object
@@ -7403,9 +7271,7 @@ links:
             Bounce			ease_in_bounce, ease_out_bounce, ease_in_out_bounce	Hits the target and bounces off it.
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
-        type: list
-        vals:
-            link: identifier
+        link: identifier_array
     equipment_slot:
         enum: ['mainhand','offhand','head','chest','legs','feet']
     expression_float:
@@ -7542,6 +7408,16 @@ links:
         type: string
         allow: '*a-z0-9_#\/:.-'
         hook: [ns]
+    identifier_array:
+        type: list
+        vals:
+            link: identifier
+    identifier_single_or_array:
+        or:
+          - title: single
+            link: identifier
+          - title: multiple
+            link: identifier_array
     ingredient_key:
         - nopanel: true
         link: ingredient
@@ -8093,7 +7969,7 @@ links:
         enum: ['collider','outline','visual']
     sound_category:
         desc: If specified, this specifies the category and options the sound event falls under. Otherwise, uses the category specified in the entity that invoked this action.
-        enum: ['',['master','music','record','weather','block','hostile','neutral','players','ambient','voice']
+        enum: ['','master','music','record','weather','block','hostile','neutral','players','ambient','voice']
         unspec: ''
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
@@ -8201,6 +8077,17 @@ links:
                 friendly_fire:
                     desc: Whether members can damage each other.
                     link: boolean_optional
+    text_component:
+        type: object
+        props:
+            text:
+                desc: The text of this segment (full vanilla text component supported).
+                type: string
+                ext: true
+                required: true
+            condition:
+                desc: The segment only shows while this condition passes (tested on the displaying player, server side).
+                type: entity_condition
     vector:
         type: object
         props:
