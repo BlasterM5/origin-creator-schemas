@@ -3270,46 +3270,33 @@ links:
                     enum:
                       - origins:nothing
                       - origins:and
-                      - origins:chance
+                      - origins:random_chance
                       - origins:choice
                       - origins:delay
                       - origins:if_else
                       - origins:if_else_list
-                      - origins:side
+                      - origins:loop
                       - origins:consume
                       - origins:damage
+                      - origins:holder_action
                       - origins:merge_nbt
                       - origins:modify
                       - origins:remove_enchantment
-
-                      - $Apugli
-
-                      - apugli:cooldown
-                      - apugli:damage
-
-                      - $Origins Math
-
-                      - origins-math:chance
-                      - origins-math:delay
-                      - origins-math:consume
-                      - origins-math:damage
-                      - origins-math:remove-enchantment
-
-                      - $SYNC
-
-                      - sync:loop
-                      - sync:cooldown
-                      - sync:holder_action
+                      - $DEPRECATED
+                      - origins:chance
+                      - origins:holder
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
                                 desc: These actions will be executed one after the other (but in the same tick).
                                 type: list
                                 vals:
                                     link: item_action
-                        string-origins:chance:
+                        string-origins:random_chance:
                             chance:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
                                 desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
                                 type: number
                             action:
@@ -3318,10 +3305,11 @@ links:
                             fail_action:
                                 desc: The action to execute if the specified action in the action field is not executed.
                                 link: item_action
-                        string-origins-math:chance:
+                        string-origins:chance:
                             chance:
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                link: math_number
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
+                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
+                                type: number
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -3331,7 +3319,7 @@ links:
                         string-origins:choice:
                             actions:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-                                desc: A list of actions, one of which is choosen randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
+                                desc: Each object has to have an element for Action Type and a weight for Integer.
                                 type: list
                                 vals:
                                     type: object
@@ -3345,27 +3333,22 @@ links:
                                             link: item_action
                         string-origins:delay:
                             action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
                                 desc: The action which will be executed after the delay.
                                 link: item_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
-                        string-origins-math:delay:
-                            action:
-                                desc: The action which will be executed after the delay.
-                                link: item_action
-                            ticks:
-                                desc: The amount of ticks until the action is executed.
-                                link: math_integer
                         string-origins:if_else:
                             condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
                                 desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
                                 link: item_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: item_action
                             else_action:
-                                desc: If specified, this action will be executed when the condition evaluates to false.
+                                desc: If present, this action will be executed when the condition evaluates to false.
                                 link: item_action
                         string-origins:if_else_list:
                             actions:
@@ -3381,119 +3364,79 @@ links:
                                         action:
                                             desc: An action which might be executed.
                                             link: item_action
-                        string-origins:side:
-                            side:
-                                desc: The side, either "client" or "server", to apply this action on.
-                                enum: [client, server]
+                        string-origins:loop:
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                            before_action:
+                                desc: Fired once, immediately, before the first iteration.
+                                link: item_action
                             action:
-                                desc: The action to apply.
+                                desc: Fired once per iteration.
+                                link: item_action
+                            after_action:
+                                desc: Fired once, in the same tick as the final iteration, right after it.
                                 link: item_action
                         string-origins:consume:
                             amount:
-                                desc: The amount of items to remove. Defaults to 1.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/consume
+                                desc: The amount of items to remove.
                                 type: integer
                                 default: 1
                         string-origins:damage:
                             amount:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/damage
                                 desc: The amount of damage it should do to the item stack.
                                 type: integer
                                 default: 1
-                            ignore_unbreaking:
-                                desc: Determines if this action should ignore the Unbreaking enchantment.
-                                type: boolean
-                        string-origins-math:consume:
-                            amount:
-                                desc: The amount of items to remove. Defaults to 1.
-                                link: math_integer_1
-                        string-origins-math:damage:
-                            amount:
-                                desc: The amount of damage it should do to the item stack.
-                                link: math_integer_1
-                            ignore_unbreaking:
-                                desc: Determines if this action should ignore the Unbreaking enchantment.
-                                type: boolean
-                        string-origins:merge_nbt:
-                            nbt:
-                                desc: The NBT to merge into the item.
-                                type: string
-                                ext: true
-                        string-origins:modify:
-                            modifier:
-                                desc: The ID of an item modifier to apply to the item stack.
-                                link: identifier
-                        string-origins:remove_enchantment:
-                            enchantment:
-                                desc: If set, specifies a single enchantment to remove,
-                                link: identifier
-                            enchantments:
-                                desc: If set, specifies a single enchantment to remove,
-                                link: identifier_array
-                            levels:
-                                desc: If set, specifies the maximum number of levels to remove.
-                                type: integer
-                            reset_repair_cost:
-                                desc: Whether or not to reset the repair cost on the item.
-                                type: boolean
-                        string-origins-math:remove_enchantment:
-                            enchantment:
-                                desc: If set, specifies a single enchantment to remove,
-                                link: identifier
-                            enchantments:
-                                desc: If set, specifies a single enchantment to remove,
-                                link: identifier_array
-                            levels:
-                                desc: If set, specifies the maximum number of levels to remove.
-                                link: math_integer
-                            reset_repair_cost:
-                                desc: Whether or not to reset the repair cost on the item.
-                                type: boolean
-                        string-apugli:cooldown:
-                            ticks:
-                                desc: The amount of ticks that the cooldown should be active for.
-                                href: https://apugli.readthedocs.io/en/latest/types/item_action_types/cooldown
-                                type: integer
-                                default: 20
-                        string-apugli:damage:
-                            amount:
-                                desc: The amount of damage it should do to the item stack.
-                                href: https://apugli.readthedocs.io/en/latest/types/item_action_types/damage
-                                type: integer
                             ignore_unbreaking:
                                 desc: Determines if this action should ignore the Unbreaking enchantment.
                                 type: boolean
                                 default: false
-                        string-sync:cooldown:
-                            ticks:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_actions%2Fcooldown.md
-                                desc: Duration of the cooldown in game ticks (20 ticks = 1 second).
-                                type: integer
-                                default: 20
-                                min: 1
-                        string-sync:holder_action:
+                        string-origins:holder_action:
                             action:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=item_actions%2Fholder_action.md
-                                desc: The action to perform on the holder of this item stack.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
+                                desc: The entity action to execute on the holder of the item stack.
                                 link: entity_action
-                        string-sync:loop:
-                            value:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
-                                desc: Number of times action is executed
+                        string-origins:holder:
+                            or:
+                              - action:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
+                                    desc: (DEPRECATED) The entity action to execute on the holder of the item stack.
+                                    link: entity_action
+                              - entity_action:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
+                                    desc: (DEPRECATED) The entity action to execute on the holder of the item stack.
+                                    link: entity_action
+                        string-origins:merge_nbt:
+                            nbt:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/merge_nbt
+                                desc: The NBT to merge to the item’s NBT.
+                                link: nbt
+                        string-origins:modify:
+                            modifier:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/modify
+                                desc: The ID of an item modifier.
+                                link: identifier
+                        string-origins:remove_enchantment:
+                            enchantment:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/remove_enchantment
+                                desc: If specified, this enchantment will be removed from the item.
+                                link: identifier
+                            enchantments:
+                                desc: If specified, these enchantments will be removed from the item.
+                                link: identifier_array
+                            levels:
+                                desc: If specified, only the enchantments that has the specified level will be removed from the item.
                                 type: integer
-                                default: 1
-                            ticks:
-                                desc: Tick interval between iterations. Minimum effective value is 1
-                                type: integer
-                                default: 1
-                                min: 1
-                            before_action:
-                                desc: Fired once immediately before the first iteration begins
-                                link: item_action
-                            action:
-                                desc: Fired once per iteration
-                                link: item_action
-                            after_action:
-                                desc: Fired once after the final iteration completes
-                                link: item_action
+                            reset_repair_cost:
+                                desc: Determines whether the ‘repair cost’ of the item should be reset.
+                                type: boolean
           - title: custom
             link: custom_action
     block_action:
