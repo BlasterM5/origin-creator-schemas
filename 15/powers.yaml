@@ -3297,8 +3297,8 @@ links:
                         string-origins:random_chance:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                type: number
+                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -3308,8 +3308,8 @@ links:
                         string-origins:chance:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                type: number
+                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -3319,7 +3319,7 @@ links:
                         string-origins:choice:
                             actions:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-                                desc: Each object has to have an element for Action Type and a weight for Integer.
+                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
                                     type: object
@@ -3455,6 +3455,7 @@ links:
                       - origins:delay
                       - origins:if_else
                       - origins:if_else_list
+                      - origins:loop
                       - origins:offset
                       - origins:side
                       - origins:area_of_effect
@@ -3464,7 +3465,7 @@ links:
                       - origins:explode
                       - origins:modify_block_state
                       - origins:set_block
-
+type: number
                       - $Apugli
 
                       - apugli:destroy
@@ -3478,14 +3479,27 @@ links:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
                                 desc: These actions will be executed one after the other (but in the same tick).
                                 type: list
                                 vals:
                                     link: block_action
+                        string-origins:random_chance:
+                            chance:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
+                            action:
+                                desc: The action which might be executed.
+                                link: block_action
+                            fail_action:
+                                desc: The action to execute if the specified action in the action field is not executed.
+                                link: block_action
                         string-origins:chance:
                             chance:
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                type: number
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
                             action:
                                 desc: The action which might be executed.
                                 link: block_action
@@ -3495,7 +3509,7 @@ links:
                         string-origins:choice:
                             actions:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-                                desc: A list of actions, one of which is choosen randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
+                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
                                     type: object
@@ -3538,8 +3552,27 @@ links:
                                         action:
                                             desc: An action which might be executed.
                                             link: block_action
+                        string-origins:loop:
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                            before_action:
+                                desc: Fired once, immediately, before the first iteration.
+                                link: block_action
+                            action:
+                                desc: Fired once per iteration.
+                                link: block_action
+                            after_action:
+                                desc: Fired once, in the same tick as the final iteration, right after it.
+                                link: block_action
                         string-origins:offset:
                             action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/offset
                                 desc: The action to apply with the given offset.
                                 link: block_action
                             x:
@@ -3551,147 +3584,127 @@ links:
                             z:
                                 desc: How much to offset the position on the z-axis. Defaults to 0.
                                 type: integer
-                        string-origins:side:
-                            side:
-                                desc: The side, either "client" or "server", to apply this action on.
-                                enum: [client, server]
-                            action:
-                                desc: The action to apply.
-                                link: block_action
                         string-origins:area_of_effect:
                             radius:
-                                desc: Determines the radius of the area to execute the action on.
-                                type: integer
-                                default: 10
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/area_of_effect
+                                desc: The size of the area — a single number (uniform on all axes) or {"x":.., "y":.., "z":..} for independent per-axis extents (e.g. a flat layer).
+                                or:
+                                    - title: simple
+                                      type: integer
+                                      default: 16
+                                    - title: custom
+                                      link: vector
                             shape:
-                                desc: The shape in which to affect blocks.
-                                enum: [cube, star, sphere]
+                                link: shape
                             block_condition:
-                                desc: If specified, the specified action will only apply to blocks that fulfill this condition.
+                                desc: If specified, the specified block action will only be executed on blocks that fulfill this block condition.
                                 link: block_condition
                             block_action:
-                                desc: The action to apply to the blocks.
+                                desc: The block action to execute on the blocks within the specified radius.
                                 link: block_action
                         string-origins:add_block:
                             block:
-                                desc: The ID of the block to place at the specified action position. Adding means setting the block at the position, offset by the direction of the action.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/add_block
+                                desc: The namespace and ID of the block to place.
                                 link: identifier
+                            nbt:
+                                desc: The NBT data to give the block.
+                                link: nbt
                         string-origins:bonemeal:
                             effects:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/bonemeal
                                 desc: Determines if the particle and other visual effects of the bonemeal-ing action should appear.
                                 type: boolean
                                 default: true
                         string-origins:execute_command:
                             command:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/execute_command
                                 desc: The command to execute.
                                 type: string
                                 ext: true
                         string-origins:explode:
                             power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/explode
                                 desc: Determines the power of the explosion.
                                 type: number
                             destruction_type:
-                                desc: Determines if the explosion should destroy the terrain, destroy the terrain and drop the loot of the blocks, or none. Accepts either "destroy", "break" or "none".
-                                enum: [break, destroy, none]
-                            damage_self:
-                                desc: Determines if the exploding block should be affected by the summoned explosion.
-                                type: boolean
-                                default: true
+                                desc: Determines the effect of the explosion to the terrain.
+                                enum: ['break','destroy','none']
                             indestructible:
-                                desc: If set, blocks specified in this block condition object is not destroyed by the explosion.
+                                desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
                                 link: block_condition
                             destructible:
-                                desc: If set, blocks specified in this block condition object will be the only blocks destroyed by the explosion.
+                                desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
                                 link: block_condition
                             create_fire:
-                                desc: Determines if the explosion should create fire.
-                                type: boolean
-                        string-origins:modify_block_state:
-                            property:
-                                desc: |
-                                    The name of the property that should be checked. Examples are facing or age. See: Block States (MC Wiki)
-                                type: string
-                            operation:
-                                desc: Determines how the value specified in the change field is operated on the specified property. Accepts "add" or "set".
-                                enum: [add, set]
-                                default: 0
-                            change:
-                                desc: If specified, the value to add, remove or set to/from the specified property if the specified property is an integer.
-                                type: integer
-                            value:
-                                desc: If specified, the boolean to use as the new value for the specified property if the specified property is a boolean.
-                                type: boolean
-                            enum:
-                                desc: If specified, the string to use as the new value for the specified property if the specified property is a string.
-                                type: string
-                            cycle:
-                                desc: If specified, cycles through all the states of the specified property, regardless if it's a string, integer, or boolean.
-                                type: boolean
-                        string-origins:set_block:
-                            block:
-                                desc: The ID of the block to place at the targeted position, overwriting the block already there.
-                                type: string
-                        string-apugli:destroy:
-                            drop_block:
-                                desc: Whether the block is dropped upon destroying it.
-                                href: https://apugli.readthedocs.io/en/latest/types/block_action_types/destroy/
-                                type: boolean
-                        string-sync:ghost_block:
-                            block:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=block_actions%2Fghost_block.md
-                                desc: The block ID to temporarily place
-                                link: identifier
-                            nbt:
-                                desc: NBT data for the block entity (if the block has one)
-                                type: string
-                                ext: true
-                                unspec: none
-                            tick:
-                                desc: How long the ghost block lasts in ticks (20 ticks = 1 second)
-                                type: integer
-                                min: 1
-                                default: 20
-                            block_action:
-                                desc: Action to execute on the ghost block after placement
-                                link: block_action
-                            add_block:
-                                desc: If true, places the block adjacent to the target position (using the direction parameter)
+                                desc: Determines if the summoned explosion should create fire.
                                 type: boolean
                                 default: false
+                        string-origins:ghost_block:
+                            block:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/ghost_block
+                                desc: The block to place, in its default state.
+                                link: identifier
+                                required: true
+                            nbt:
+                                desc: Block entity data applied to the placed block.
+                                link: nbt
+                            duration:
+                                desc: How many ticks the ghost block lasts. Also accepted as tick.
+                                type: integer
+                                default: 20
+                                min: 0
+                            block_action:
+                                desc: Run at the ghost block’s position right after it is placed.
+                                link: block_action
                             end_action:
-                                desc: Action to execute when the ghost block expires/reverts
-                                link: block_action
-                        string-sync:loop:
-                            value:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=meta_actions%2Floop.md
-                                desc: Number of times action is executed
-                                type: integer
-                                default: 1
-                            ticks:
-                                desc: Tick interval between iterations. Minimum effective value is 1
-                                type: integer
-                                default: 1
-                                min: 1
-                            before_action:
-                                desc: Fired once immediately before the first iteration begins
-                                link: block_action
-                            action:
-                                desc: Fired once per iteration
-                                link: block_action
-                            after_action:
-                                desc: Fired once after the final iteration completes
-                                link: block_action
-                        string-sync:spawn_entity:
+                                desc: Run at the position right after the original block is put back.
+                                link: end_action
+                        string-origins:modify_block_state:
+                            property:
+                                href: https://minecraft.wiki/w/Block_states
+                                desc: |
+                                    The name of the property that will be modified. Examples are facing or age. See the link for more information.
+                                link: block_state
+                            operation:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/modify_block_state
+                                desc: Determines how the value specified in the change field is operated on the specified property. Accepts "add" or "set".
+                                enum: ['add','set']
+                                default: 'add'
+                            cycle:
+                                desc: If set to true, changes the property to the next state in the cycle, ignoring all other optional fields. All property types can use this operation.
+                                type: boolean
+                            or:
+                              - title: integer
+                                change:
+                                    desc: If specified, the value to add, remove or set to/from the specified property if the specified property is an integer.
+                                    type: integer
+                              - title: boolean
+                                value:
+                                    desc: If specified, the boolean to use as the new value for the specified property if the specified property is a boolean.
+                                    type: boolean
+                              - title: string
+                                enum:
+                                    desc: If specified, the string to use as the new value for the specified property if the specified property is a string.
+                                    link: meta_key
+                        string-origins:set_block:
+                            block:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/set_block
+                                desc: The namespace and ID of the block to place.
+                                link: identifier
+                            nbt:
+                                desc: The NBT data to give the block.
+                                link: nbt
+                        string-origins:spawn_entity:
                             entity_type:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=block_actions%2Fspawn_entity.md
-                                desc: Type of entity to spawn
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/spawn_entity
+                                desc: The ID of the type of entity that will be spawned.
                                 link: identifier
                             tag:
-                                desc: NBT data for the entity
-                                type: string
-                                ext: true
+                                desc: If specified, this NBT data will be applied to the entity that will be spawned.
+                                link: nbt
                             entity_action:
-                                desc: Action to execute on the spawned entity
+                                desc: If specified, this entity action will be executed on the spawned entity.
                                 link: entity_action
           - title: custom
             link: custom_action
@@ -7101,6 +7114,8 @@ links:
             min_total:						NewTotal = max(Total, Modifier)
             max_total:						NewTotal = min(Total, Modifier)
             set_total:						NewTotal = Modifier (last, overrides everything)
+    block_state:
+        enum: ['age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','copper_golem_base','cracked','crafting','creaking_heart_state','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
     boolean_optional:
         enum: ['','false','true']
         unspec: ''
