@@ -7823,112 +7823,326 @@ type: number
               - title: '01 - Resources and Mobs'
                 sprite_location:
                     const: "origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png"
-                bar_index:
-                    or:
-                      - title: '00 - Orb of Origin'
+                or:
+                  - title: '00 - Orb of Origin'
+                    bar_index:
                         const: 0
-                      - title: '01 - Copper'
+                  - title: '01 - Copper'
+                    bar_index:
                         const: 1
-                      - title: '02 - Iron'
+                    icon_index:
+                        or:
+                          - title: '0 - Copper Ingot'
+                            const: 0
+                          - title: '1 - Copper Block'
+                            const: 1
+                          - title: '2 - Copper Block - Exposed'
+                            const: 2
+                          - title: '3 - Copper Block - Weathered'
+                            const: 3
+                          - title: '4 - Copper Block - Oxidized'
+                            const: 4
+                          - title: '5 - Copper Ore - Raw'
+                            const: 5
+                  - title: '02 - Iron'
+                    bar_index:
                         const: 2
-                      - title: '03 - Gold'
+                    icon_index:
+                        or:
+                          - title: '0 - Iron Ingot'
+                            const: 0
+                          - title: '1 - Iron Block'
+                            const: 1
+                          - title: '2 - Iron Ore - Raw'
+                            const: 2
+                  - title: '03 - Gold'
+                    bar_index:
                         const: 3
-                      - title: '04 - Lapis Lazuli'
+                    icon_index:
+                        or:
+                          - title: '0 - Gold Ingot'
+                            const: 0
+                          - title: '1 - Gold Block'
+                            const: 1
+                          - title: '2 - Gold Ore - Raw'
+                            const: 2
+                  - title: '04 - Lapis Lazuli'
+                    bar_index:
                         const: 4
-                      - title: '05 - Redstone'
+                    icon_index:
+                        or:
+                          - title: '0 - Lapis Lazuli'
+                            const: 0
+                          - title: '1 - Lapis Lazuli Block'
+                            const: 1
+                  - title: '05 - Redstone'
+                    bar_index:
                         const: 5
-                      - title: '06 - Coal'
+                    icon_index:
+                        or:
+                          - title: '0 - Redstone Dust'
+                            const: 0
+                          - title: '1 - Redstone Block'
+                            const: 1
+                  - title: '06 - Coal'
+                    bar_index:
                         const: 6
-                      - title: '07 - Diamond'
+                    icon_index:
+                        or:
+                          - title: '0 - Coal'
+                            const: 0
+                          - title: '1 - Coal Block'
+                            const: 1
+                  - title: '07 - Diamond'
+                    bar_index:
                         const: 7
-                      - title: '08 - Netherite'
+                    icon_index:
+                        or:
+                          - title: '0 - Diamond'
+                            const: 0
+                          - title: '1 - Diamond Block'
+                            const: 1
+                  - title: '08 - Netherite'
+                    bar_index:
                         const: 8
-                      - title: '09 - Nether Quartz'
+                    icon_index:
+                        or:
+                          - title: '0 - Netherite Ingot'
+                            const: 0
+                          - title: '1 - Netherite Block'
+                            const: 1
+                          - title: '2 - Netherite Scrap'
+                            const: 2
+                          - title: '3 - Ancient Debris'
+                            const: 3
+                  - title: '09 - Nether Quartz'
+                    bar_index:
                         const: 9
-                      - title: '10 - Amethyst'
+                    icon_index:
+                        or:
+                          - title: '0 - Nether Quartz'
+                            const: 0
+                          - title: '1 - Nether Quartz Block'
+                            const: 1
+                  - title: '10 - Amethyst'
+                    bar_index:
                         const: 10
-                      - title: '11 - Wind Charge'
+                    icon_index:
+                        or:
+                          - title: '0 - Amethyst Shard'
+                            const: 0
+                          - title: '1 - Anethyst Block'
+                            const: 1
+                  - title: '11 - Wind Charge'
+                    bar_index:
                         const: 11
-                      - title: '12 - Shulker'
+                    icon_index:
+                        or:
+                          - title: '0 - Wind Charge'
+                            const: 0
+                          - title: '1 - Breeze'
+                            const: 1
+                          - title: '2 - Breeze Rod'
+                            const: 2
+                  - title: '12 - Shulker'
+                    bar_index:
                         const: 12
-                      - title: '13 - Spider'
+                  - title: '13 - Spider'
+                    bar_index:
                         const: 13
-                      - title: '14 - Fish'
+                    icon_index:
+                        or:
+                          - title: '0 - Spider'
+                            const: 0
+                          - title: '1 - Spider Eye'
+                            const: 1
+                          - title: '2 - Cave Spider'
+                            const: 2
+                  - title: '14 - Fish'
+                    bar_index:
                         const: 14
-                      - title: '15 - Phantom'
+                    icon_index:
+                        or:
+                          - title: '0 - Cod'
+                            const: 0
+                          - title: '1 - Salmon'
+                            const: 1
+                          - title: '2 - Tropical Fish'
+                            const: 2
+                          - title: '3 - Pufferfish'
+                            const: 3
+                  - title: '15 - Phantom'
+                    bar_index:
                         const: 15
-                      - title: '16 - Nautilus'
+                    icon_index:
+                        or:
+                          - title: '0 - Phantom Body'
+                            const: 0
+                          - title: '1 - Phantom Head'
+                            const: 1
+                          - title: '2 - Phantom Membrane'
+                            const: 3
+                  - title: '16 - Nautilus'
+                    bar_index:
                         const: 16
-                      - title: '17 - Squid'
+                    icon_index:
+                        or:
+                          - title: '0 - Nautilus Shell'
+                            const: 0
+                          - title: '1 - Nautilus'
+                            const: 1
+                          - title: '2 - Nautilus Armor'
+                            const: 2
+                  - title: '17 - Squid'
+                    bar_index:
                         const: 17
-                      - title: '18 - Glow Squid'
+                    icon_index:
+                        or:
+                          - title: '0 - Ink Sac'
+                            const: 0
+                          - title: '1 - Squid'
+                            const: 1
+                  - title: '18 - Glow Squid'
+                    bar_index:
                         const: 18
-                      - title: '19 - Sniffer'
+                    icon_index:
+                        or:
+                          - title: '0 - Glow Ink Sac'
+                            const: 0
+                          - title: '1 - Glow Squid'
+                            const: 1
+                  - title: '19 - Sniffer'
+                    bar_index:
                         const: 19
-                      - title: '20 - Turtle Shell'
+                    icon_index:
+                        or:
+                          - title: '0 - Sniffer'
+                            const: 0
+                          - title: '1 - Sniffer Egg'
+                            const: 1
+                  - title: '20 - Turtle Shell'
+                    bar_index:
                         const: 20
-                      - title: '21 - Armadillo'
+                  - title: '21 - Armadillo'
+                    bar_index:
                         const: 21
-                      - title: '22 - Vines'
+                    icon_index:
+                        or:
+                          - title: '0 - Armadillo Scute'
+                            const: 0
+                          - title: '1 - Armadillo'
+                            const: 1
+                          - title: '2 - Armadillo - Defense Curl'
+                            const: 2
+                  - title: '22 - Vines'
+                    bar_index:
                         const: 22
-                      - title: '23 - Slime'
+                    icon_index:
+                        or:
+                          - title: '0 - Mossy Stone'
+                            const: 0
+                          - title: '1 - Vines'
+                            const: 1
+                  - title: '23 - Slime'
+                    bar_index:
                         const: 23
-                      - title: '24 - Magma Cube'
+                    icon_index:
+                        or:
+                          - title: '0 - Slime Block'
+                            const: 0
+                          - title: '1 - Slime'
+                            const: 1
+                          - title: '2 - Slimeball'
+                            const: 2
+                  - title: '24 - Magma Cube'
+                    bar_index:
                         const: 24
+                    icon_index:
+                        or:
+                          - title: '0 - Magma Block'
+                            const: 0
+                          - title: '1 - Magma Cube'
+                            const: 1
+                          - title: '2 - Magma Cream'
+                            const: 2
               - title: '02 - Effects and Blocks'
                 sprite_location:
                     const: "origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png"
-                bar_index:
-                    or:
-                      - title: '00 - TNT'
+                or:
+                  - title: '00 - TNT'
+                    bar_index:
                         const: 0
-                      - title: '01 - Brick'
+                  - title: '01 - Brick'
+                    bar_index:
                         const: 1
-                      - title: '02 - Bed'
+                  - title: '02 - Bed'
+                    bar_index:
                         const: 2
-                      - title: '03 - Target'
+                  - title: '03 - Target'
+                    bar_index:
                         const: 3
-                      - title: '04 - Sculk Echo'
+                  - title: '04 - Sculk Echo'
+                    bar_index:
                         const: 4
-                      - title: '05 - Grass Block'
+                  - title: '05 - Grass Block'
+                    bar_index:
                         const: 5
-                      - title: '06 - Lava Bucket'
+                  - title: '06 - Lava Bucket'
+                    bar_index:
                         const: 6
-                      - title: '07 - Bubble'
+                  - title: '07 - Bubble'
+                    bar_index:
                         const: 7
-                      - title: '08 - Sonic Resonance'
+                  - title: '08 - Sonic Resonance'
+                    bar_index:
                         const: 8
-                      - title: '09 - Firework'
+                  - title: '09 - Firework'
+                    bar_index:
                         const: 9
-                      - title: '10 - Cooked Ham Thigh'
+                  - title: '10 - Cooked Ham Thigh'
+                    bar_index:
                         const: 10
-                      - title: '11 - Honey'
+                  - title: '11 - Honey'
+                    bar_index:
                         const: 11
-                      - title: '12 - Endermite'
+                  - title: '12 - Endermite'
+                    bar_index:
                         const: 12
-                      - title: '13 - Silverfish'
+                  - title: '13 - Silverfish'
+                    bar_index:
                         const: 13
-                      - title: '14 - Rotten Flesh Zombie'
+                  - title: '14 - Rotten Flesh Zombie'
+                    bar_index:
                         const: 14
-                      - title: '15 - Lucky Block'
+                  - title: '15 - Lucky Block'
+                    bar_index:
                         const: 15
-                      - title: '16 - Crimson<->Warped Fungus'
+                  - title: '16 - Crimson<->Warped Fungus'
+                    bar_index:
                         const: 16
-                      - title: '17 - Beacon'
+                  - title: '17 - Beacon'
+                    bar_index:
                         const: 17
-                      - title: '18 - Bread'
+                  - title: '18 - Bread'
+                    bar_index:
                         const: 18
-                      - title: '19 - Illager Watcher'
+                  - title: '19 - Illager Watcher'
+                    bar_index:
                         const: 19
-                      - title: '20 - Crafting Table'
+                  - title: '20 - Crafting Table'
+                    bar_index:
                         const: 20
-                      - title: '21 - Furnace'
+                  - title: '21 - Furnace'
+                    bar_index:
                         const: 21
-                      - title: '22 - Bookshelf'
+                  - title: '22 - Bookshelf'
+                    bar_index:
                         const: 22
-                      - title: '23 - Campfire'
+                  - title: '23 - Campfire'
+                    bar_index:
                         const: 23
-                      - title: '24 - Compass'
+                  - title: '24 - Compass'
+                    bar_index:
                         const: 24
               - title: '03 - Indicators'
                 sprite_location:
