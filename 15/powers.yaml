@@ -3719,20 +3719,22 @@ type: number
                     string-origins:sprite: {}
                     string-origins:crafting_recipe:
                         recipe:
-                            desc: The recipe to display, including an id field which can be any arbitrary identifier.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/origins/badge_crafting_recipe
+                            desc: The id of the recipe to display. It is looked up at data-pack load and its grid is drawn from the real recipe.
                             id: recipes
                             link: power_recipe
                         prefix:
-                            desc: If specified, this text will be used as the prefix for the tooltip.
+                            desc: A line shown above the grid.
                             id: item_modifiers
                             link: jsontxt
                         suffix:
-                            desc: If specified, this text will be used as the suffix for the tooltip.
+                            desc: A line shown below the grid.
                             id: item_modifiers
                             link: jsontxt
                     string-origins:keybind:
                         text:
-                            desc: The text to use in the tooltip when hovering over the badge. "%s" will be translated to the keybind specified in the power.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/origins/badge_keybind
+                            desc: A translation key, not a literal. Its first argument (%s) is filled with the bound key name.
                             id: item_modifiers
                             link: jsontxt
                     string-origins:tooltip:
@@ -3784,107 +3786,109 @@ type: number
                   - $Regular Types
 
                   - origins:simple
-                  - origins:attribute_modify_transfer
                   - origins:attribute
-                  - origins:burn
                   - origins:climbing
-                  - origins:conditioned_attribute
-                  - origins:conditioned_restrict_armor
                   - origins:cooldown
                   - origins:creative_flight
-                  - origins:damage_over_time
+                  - origins:custom_model_render
                   - origins:disable_regen
+                  - origins:disable_slot
+                  - origins:edible_item
                   - origins:effect_immunity
                   - origins:elytra_flight
+                  - origins:emissive
                   - origins:entity_glow
-                  - origins:entity_group
+                  - origins:entity_set
                   - origins:exhaust
-                  - origins:fire_immunity
                   - origins:fire_projectile
                   - origins:freeze
+                  - origins:function
+                  - origins:game_event_listener
                   - origins:grounded
-                  - origins:ignore_water
+                  - origins:ignore_fluid
                   - origins:inventory
                   - origins:invisibility
                   - origins:invulnerability
                   - origins:item_on_item
                   - origins:keep_inventory
-                  - origins:launch
-                  - origins:lava_vision
                   - origins:model_color
-                  - origins:night_vision
                   - origins:overlay
                   - origins:particle
                   - origins:phasing
+                  - origins:pose
                   - origins:recipe
                   - origins:replace_loot_table
+                  - origins:replace_sound_emission
+                  - origins:replace_sound_reception
                   - origins:resource
                   - origins:restrict_armor
+                  - origins:scare_mobs
                   - origins:self_glow
                   - origins:shader
                   - origins:shaking
+                  - origins:show_both_arms
                   - origins:stacking_status_effect
                   - origins:starting_equipment
-                  - origins:status_bar_texture
                   - origins:swimming
-                  - origins:toggle_night_vision
                   - origins:toggle
                   - origins:tooltip
                   - origins:walk_on_fluid
+                  - origins:water_breathing
 
                   - $Action Types
 
                   - origins:action_on_being_used
                   - origins:action_on_block_break
+                  - origins:action_on_block_place
                   - origins:action_on_block_use
                   - origins:action_on_callback
+                  - origins:action_on_collision
+                  - origins:action_on_death
                   - origins:action_on_entity_use
                   - origins:action_on_hit
+                  - origins:action_on_item_pickup
                   - origins:action_on_item_use
+                  - origins:action_on_key_press
+                  - origins:action_on_key_sequence
+                  - origins:action_on_kill
                   - origins:action_on_land
+                  - origins:action_on_sending_message
+                  - origins:action_on_swap
+                  - origins:action_on_use
                   - origins:action_on_wake_up
                   - origins:action_over_time
-                  - origins:action_when_damage_taken
                   - origins:action_when_hit
-                  - origins:active_self
-                  - origins:attacker_action_when_hit
-                  - origins:self_action_on_hit
-                  - origins:self_action_on_kill
-                  - origins:self_action_when_hit
-                  - origins:target_action_on_hit
 
                   - $Modify Types
 
-                  - origins:modify_air_speed
-                  - origins:modify_attribute
                   - origins:modify_block_render
+                  - origins:modify_block_stuck_speed
                   - origins:modify_break_speed
-                  - origins:modify_camera_submersion
                   - origins:modify_crafting
-                  - origins:modify_damage_dealt
-                  - origins:modify_damage_taken
+                  - origins:modify_cursor_speed
+                  - origins:modify_damage
+                  - origins:modify_enchantment_level
                   - origins:modify_exhaustion
                   - origins:modify_falling
-                  - origins:modify_fluid_render
-                  - origins:modify_food
                   - origins:modify_grindstone
                   - origins:modify_harvest
                   - origins:modify_healing
-                  - origins:modify_insomnia_ticks
                   - origins:modify_jump
-                  - origins:modify_lava_speed
+                  - origins:modify_label_render
+                  - origins:modify_model_parts
+                  - origins:modify_player_model
                   - origins:modify_player_spawn
                   - origins:modify_projectile_damage
                   - origins:modify_slipperiness
-                  - origins:modify_status_effect_amplifier
-                  - origins:modify_status_effect_duration
                   - origins:modify_swim_speed
+                  - origins:modify_type_tag
                   - origins:modify_velocity
                   - origins:modify_xp_gain
 
                   - $Prevent Types
 
                   - origins:prevent_being_used
+                  - origins:prevent_block_place
                   - origins:prevent_block_selection
                   - origins:prevent_block_use
                   - origins:prevent_death
@@ -3894,167 +3898,148 @@ type: number
                   - origins:prevent_entity_use
                   - origins:prevent_feature_render
                   - origins:prevent_game_event
+                  - origins:prevent_item_pickup
                   - origins:prevent_item_use
+                  - origins:prevent_powers
                   - origins:prevent_sleep
                   - origins:prevent_sprinting
+                  - origins:prevent_use
 
-                  - $Addon Types (Require Addons!)
+                  - $DEPRECATED
+                  - origins:active_self
+                  - origins:action_when_damage_taken
+                  - origins:attacker_action_when_hit
+                  - origins:conditioned_attribute
+                  - origins:damage_over_time
+                  - origins:entity_group
+                  - origins:fire_immunity
+                  - origins:ignore_water
+                  - origins:launch
+                  - origins:lava_vision
+                  - origins:modify_air_speed
+                  - origins:modify_attribute
+                  - origins:modify_camera_submersion
+                  - origins:modify_damage_dealt
+                  - origins:modify_damage_taken
+                  - origins:modify_fluid_render
+                  - origins:modify_food
+                  - origins:modify_insomnia_ticks
+                  - origins:modify_lava_speed
+                  - origins:modify_status_effect_amplifier
+                  - origins:modify_status_effect_duration
+                  - origins:night_vision
+                  - origins:self_action_on_hit
+                  - origins:self_action_on_kill
+                  - origins:self_action_when_hit
+                  - origins:status_bar_texture
+                  - origins:target_action_on_hit
+                  - origins:toggle_night_vision
 
-                  - extraorigins:modify_size
-
-                  - $Apugli
-
-                  - apugli:custom_death_sound
-                  - apugli:custom_hurt_sound
-                  - apugli:edible_item
-                  - apugli:energy_swirl
-                  - apugli:mobs_ignore
-                  - apugli:prevent_sound
-
-                  - $Eggolib
-
-                  - eggolib:crawling
-
-                  - $Origins Math
-                  
-                  - $Additional Resource Types
-                  - origins-math:attribute_like_resource
-                  - origins-math:math_resource
-                  - origins-math:modifiable_resource
-
-                  - $Linked Resource Types
-                  - origins-math:attribute_linked_resource
-                  - origins-math:current_biome_linked_resource
-                  - origins-math:damage_dealt_linked_resource
-                  - origins-math:damage_taken_linked_resource
-                  - origins-math:living_entity_linked_resource
-                  - origins-math:healing_linked_resource
-                  - origins-math:nbt_linked_resource
-                  - origins-math:player_linked_resource
-                  - origins-math:scoreboard_linked_resource
-                  - origins-math:status_effect_linked_resource
-
-                  - $Modify Types
-                  - origins-math:modify_attribute_linked_resource
-                  - origins-math:modify_knockback
-                  - origins-math:modify_resource_maximum
-                  - origins-math:modify_resource_minimum
-                  - origins-math:modify_simple
-
-                  - $SYNC
-
-                  - sync:action_on_death
-                  - sync:action_on_key_sequence
-                  - sync:action_on_sending_message
-                  - sync:body_part_damage_modifier
-                  - sync:custom_projectile
-                  - sync:edible_item
-                  - sync:emissive
-                  - sync:energy_swirl
-                  - sync:entity_set
-                  - sync:entity_texture_overlay
-                  - sync:flip_model
-                  - sync:mobs_ignore
-                  - sync:modify_enchantment_damage_dealt
-                  - sync:modify_enchantment_level
-                  - sync:modify_jade_tooltip
-                  - sync:modify_label_render
-                  - sync:modify_model_parts
-                  - sync:modify_player_model
-                  - sync:pose
-                  - sync:prevent_creative_flight
-                  - sync:prevent_sprinting_particles
-                  - sync:prevent_teleport
-                  - sync:sprinting
                   
                 more:
-                    string-origins:attribute_modify_transfer:
-                        attribute:
-                            desc: The namespace and ID of the attribute to transfer the value from.
-                            href: https://minecraft.wiki/w/Attribute
-                            type: string
-                        class:
-                            desc: The path and ID of the class to transfer the value of an attribute to.
-                            type: string
-                        multiplier:
-                            desc: Determines the multiplier for the value. Defaults to 1.
-                            type: number
                     string-origins:attribute:
                         modifier:
-                            desc: If specified, this modifier will be applied to its corresponding attribute.
-                            link: aa_mod
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
+                            desc: A single modifier applied to its attribute.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to their corresponding attributes.
+                            desc: Multiple modifiers applied to their respective attribute fields.
                             type: list
                             vals:
-                                link: aa_mod
+                                link: attribute_modifier
                         update_health:
-                            desc: When true, the player's health percentage will update to match their new maximum health.
+                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
                             default: true
-                    string-origins:burn:
-                        interval:
-                            desc: Interval between being set on fire, in ticks.
-                            type: integer
-                            min: 0
-                        burn_duration:
-                            desc: Time the fire should last on the player each time it is set, in seconds.
-                            type: integer
-                            min: 0
+                    string-origins:conditioned_attribute:
+                        modifier:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
+                            desc: (DEPRECATED) A single modifier applied to its attribute.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Multiple modifiers applied to their respective attribute fields.
+                            type: list
+                            vals:
+                                link: attribute_modifier
+                        update_health:
+                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
+                            type: boolean
+                            default: true
                     string-origins:climbing:
                         allow_holding:
-                            desc: If true, the player is able to hold onto blocks.
+                            desc: If true, the entity that has the power is able to hold onto blocks.
                             type: boolean
                             default: true
                         hold_condition:
-                            desc: If set and allow_holding is true, players with the power who are sneaking and meet this condition are "holding onto the block", meaning they won't be affected by gravity.
+                            desc: If specified and allow_holding is true, the entity that has the power will be able to ‘hold onto the block’ (not affected by gravity) if this condition is fulfilled, otherwise, defaults to if the entity is sneaking.
                             link: entity_condition
-                    string-origins:conditioned_attribute:
-                        modifier:
-                            desc: If specified, this modifier will be applied to its corresponding attribute.
-                            link: aa_mod
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to their corresponding attributes.
-                            type: list
-                            vals:
-                                link: aa_mod
-                        tick_rate:
-                            desc: The frequency (in ticks) with which to check the condition. Lower values mean the condition changes are detected more quickly, but this comes at a potentially huge performance cost.
-                            type: integer
-                            default: 20
-                            min: 1
-                        update_health:
-                            desc: When true, the player's health percentage will update to match their new maximum health.
-                            type: boolean
-                            default: true
-                    string-origins:conditioned_restrict_armor:
-                        head:
-                            desc: If set, items which satisfy this condition can not be equipped in the head slot.
-                            link: item_condition
-                        chest:
-                            desc: If set, items which satisfy this condition can not be equipped in the chest slot.
-                            link: item_condition
-                        legs:
-                            desc: If set, items which satisfy this condition can not be equipped in the legs slot.
-                            link: item_condition
-                        feet:
-                            desc: If set, items which satisfy this condition can not be equipped in the feet slot.
-                            link: item_condition
-                        tick_rate:
-                            desc: The frequency (in ticks) with which to check the condition. Lower values mean the condition changes are detected more quickly, but this comes at a potentially huge performance cost.
-                            type: integer
-                            default: 80
-                            min: 1
                     string-origins:cooldown:
                         cooldown:
-                            desc: Cooldown duration in ticks.
-                            type: integer
-                            min: 0
-                            default: 1
+                            desc: The number of ticks the cooldown needs to recharge from 0 back to cooldown. Becomes the resource’s max.
+                            link: expression_integer
                         hud_render:
-                            desc: Specifies how and if a cooldown bar is rendered.
+                            desc: Determines how the cooldown is visualized on the HUD.
                             link: hud_render
+                        persistent:
+                            desc: When true, the cooldown’s remaining ticks survive server restart (so a player who used their ult and logged off doesn’t get to reuse it on login). When false, the cooldown resets to ready (value 0) whenever the entity rejoins the world.
+                            type: boolean
+                            default: true
                     string-origins:creative_flight: {}
+                    string-origins:custom_model_render:
+                        mode:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/custom_model_render/
+                            desc: texture (re-skin the vanilla model) or geometry (draw a custom Blockbench model).
+                            enum: ['texture','geometry']
+                        render_type:
+                            desc: Draw style — translucent, cutout, cutout_no_cull, solid, emissive/glow, eyes.
+                            enum: ['solid','translucent','cutout','cutout_no_cull','emissive','glow','eyes']
+                        body_parts:
+                            desc: |
+                                In texture mode, restrict an overlay to these parts: head, hat, body, right_arm, left_arm, right_leg, left_leg on a player, main, flat2, flat3 on a minion. In geometry mode, render only the bones with these names — any bone name in your own model, not just the vanilla ones. Every bone you do not name is hidden, and hiding a bone hides everything nested under it.
+                            link: body_part
+                        wide_texture_location:
+                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
+                            desc: The namespace and ID of the wide (Steve) texture location.
+                            link: identifier
+                        slim_texture_location:
+                            desc: The namespace and ID of the slim (Alex) texture location.
+                            link: identifier
+                        show_first_person:
+                            desc: Enables showing the texture in first person view.
+                            type: boolean
+                            default: false
+                        render_as_overlay:
+                            desc: If true, renders over existing texture; if false, replaces it.
+                            type: boolean
+                            default: false
+                        red:
+                            desc: Red color channel multiplier (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        green:
+                            desc: Green color channel multiplier (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        blue:
+                            desc: Blue color channel multiplier (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        alpha:
+                            desc: Alpha/transparency (0.0-1.0).
+                            type: number
+                            default: 1.0
+                            min: 0.0
+                            max: 1.0
+                        hide_cape:
+                            desc: Whether to hide the player's cape.
+                            type: boolean
+                            default: false
                     string-origins:damage_over_time:
                         interval:
                             desc: Duration of ticks to wait between the damage.
@@ -4470,16 +4455,17 @@ type: number
                             link: entity_action
                     string-origins:restrict_armor:
                         head:
-                            desc: If set, items which satisfy this condition can not be equipped in the head slot.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/restrict_armor/
+                            desc: If specified, items which fulfills this condition cannot be equipped in the head equipment slot.
                             link: item_condition
                         chest:
-                            desc: If set, items which satisfy this condition can not be equipped in the chest slot.
+                            desc: If specified, items which fulfills this condition cannot be equipped in the chest equipment slot.
                             link: item_condition
                         legs:
-                            desc: If set, items which satisfy this condition can not be equipped in the legs slot.
+                            desc: If specified, items which fulfills this condition cannot be equipped in the legs equipment slot.
                             link: item_condition
                         feet:
-                            desc: If set, items which satisfy this condition can not be equipped in the feet slot.
+                            desc: If specified, items which fulfills this condition cannot be equipped in the feet equipment slot.
                             link: item_condition
                     string-origins:self_glow:
                         entity_condition:
@@ -5967,50 +5953,6 @@ type: number
                             type: integer
                             default: 1
                             min: 1
-                    string-sync:entity_texture_overlay:
-                        wide_texture_location:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
-                            desc: The namespace and ID of the wide (Steve) texture location.
-                            link: identifier
-                        slim_texture_location:
-                            desc: The namespace and ID of the slim (Alex) texture location.
-                            link: identifier
-                        show_first_person:
-                            desc: Enables showing the texture in first person view.
-                            type: boolean
-                            default: false
-                        render_as_overlay:
-                            desc: If true, renders over existing texture; if false, replaces it.
-                            type: boolean
-                            default: false
-                        red:
-                            desc: Red color channel multiplier (0.0-1.0).
-                            type: number
-                            default: 1.0
-                            min: 0.0
-                            max: 1.0
-                        green:
-                            desc: Green color channel multiplier (0.0-1.0).
-                            type: number
-                            default: 1.0
-                            min: 0.0
-                            max: 1.0
-                        blue:
-                            desc: Blue color channel multiplier (0.0-1.0).
-                            type: number
-                            default: 1.0
-                            min: 0.0
-                            max: 1.0
-                        alpha:
-                            desc: Alpha/transparency (0.0-1.0).
-                            type: number
-                            default: 1.0
-                            min: 0.0
-                            max: 1.0
-                        hide_cape:
-                            desc: Whether to hide the player's cape.
-                            type: boolean
-                            default: false
                     string-sync:flip_model:
                         flip_view:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fflip_model.md
@@ -6418,53 +6360,6 @@ type: number
                 type: string
             modifier:
                 link: math_aa_mod
-    hud_render:
-        desc: An Object used to define how a resource or cooldown bar should be rendered.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/hud_render/
-        type: object
-        props:
-            should_render:
-                desc: Whether the bar should be visible or not.
-                type: boolean
-                default: true
-            sprite_location:
-                desc: The path to the file in the assets which contains what the bar looks like. See the List of resource bar files for a list of files included by default in the mod. Defaults to "origins:textures/gui/resource_bar.png".
-                href: https://origins.readthedocs.io/en/latest/misc/extras/sprites/
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            bar_index:
-                desc: The indexed position of the bar on the sprite to use. Please note that indexes start at 0.
-                type: integer
-                min: 0
-            condition:
-                desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
-                link: entity_condition
-            inverted:
-                desc: If set to true, inverts the way the hud render process (it'll look like its value is being decreased).
-                type: boolean
-    math_hud_render:
-        desc: An Origins Math Object used to define how a resource or cooldown bar should be rendered.
-        href: https://origins-math.readthedocs.io/en/latest/notes/custom_hud_renders/
-        type: object
-        props:
-            should_render:
-                desc: Whether the bar should be visible or not.
-                type: boolean
-                default: true
-            sprite_location:
-                desc: The path to the file in the assets which contains what the bar looks like. See the List of resource bar files for a list of files included by default in the mod. Defaults to "origins:textures/gui/resource_bar.png".
-                href: https://origins.readthedocs.io/en/latest/misc/extras/sprites/
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            bar_index:
-                desc: The indexed position of the bar on the sprite to use. Please note that indexes start at 0.
-                link: math_integer_min_0
-            condition:
-                desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
-                link: entity_condition
-            inverted:
-                desc: If set to true, inverts the way the hud render process (it'll look like its value is being decreased).
-                type: boolean
     damage_source:
         desc: (DEPRECATED) An Object used to specify how to deal damage to an entity.
         href: https://origins.readthedocs.io/en/latest/types/data_types/damage_source/
@@ -7339,6 +7234,760 @@ type: number
         order:
             desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
             type: integer
+    hud_render_textures:
+    or:
+      - title: built-in
+        or:
+          - title: 'Apace'
+            sprite_location:
+                const: "origins:textures/gui/sprites/hud_render/apace/resource_bar_01.png"
+            bar_index:
+                or:
+                  - title: '00 - Gunpowder'
+                    const: 0
+                  - title: '01 - Water Droplet'
+                    const: 1
+                  - title: '02 - Lightning Bolt'
+                    const: 2
+                  - title: '03 - Purple Cross'
+                    const: 3
+                  - title: '04 - Wings'
+                    const: 4
+                  - title: '05 - Spiderweb'
+                    const: 5
+                  - title: '06 - Ender Pearl'
+                    const: 6
+                  - title: '07 - Fire'
+                    const: 7
+                  - title: '08 - Vine'
+                    const: 8
+          - title: 'Huang'
+            or:
+              - title: '01 - Symbols'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png"
+                bar_index:
+                    or:
+                      - title: '00 - Charge Beam'
+                        const: 0
+                      - title: '01 - Up Arrow - Dark Blue'
+                        const: 1
+                      - title: '02 - Spear'
+                        const: 2
+                      - title: '03 - Rocket - Light Blue'
+                        const: 3
+                      - title: '04 - Heart'
+                        const: 4
+                      - title: '05 - Ghost'
+                        const: 5
+                      - title: '06 - Totem of Undying'
+                        const: 6
+                      - title: '07 - Fire Charge'
+                        const: 7
+                      - title: '08 - Tornado'
+                        const: 8
+                      - title: '09 - White Rabbit'
+                        const: 9
+                      - title: '10 - Tidal Wave'
+                        const: 10
+                      - title: '11 - Igloo'
+                        const: 11
+                      - title: '12 - Ice Ball'
+                        const: 12
+                      - title: '13 - Sandstone'
+                        const: 13
+                      - title: '14 - Sun'
+                        const: 14
+                      - title: '15 - Wither Rose'
+                        const: 15
+                      - title: '16 - Red Sand'
+                        const: 16
+                      - title: '17 - Netherite Hoe'
+                        const: 17
+                      - title: '18 - Iron Heart'
+                        const: 18
+                      - title: '19 - Beacon'
+                        const: 19
+                      - title: '20 - Runner'
+                        const: 20
+                      - title: '21 - The World'
+                        const: 21
+                      - title: '22 - Copper Coin'
+                        const: 22
+                      - title: '23 - Tonic - Purple'
+                        const: 23
+                      - title: '24 - Emerald'
+                        const: 24
+              - title: '02 - Symbols'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png"
+                bar_index:
+                    or:
+                      - title: '00 - Steel Diamond'
+                        const: 0
+                      - title: '01 - Clock'
+                        const: 1
+                      - title: '02 - Bomb'
+                        const: 2
+                      - title: '03 - Battery'
+                        const: 3
+                      - title: '04 - Scorpion'
+                        const: 4
+                      - title: '05 - Red Lightning'
+                        const: 5
+                      - title: '06 - Elder Guardian'
+                        const: 6
+                      - title: '07 - Werewolf'
+                        const: 7
+                      - title: '08 - Tree'
+                        const: 8
+                      - title: '09 - Glaciers'
+                        const: 9
+                      - title: '10 - Desert'
+                        const: 10
+                      - title: '11 - Gun'
+                        const: 11
+                      - title: '12 - Knife'
+                        const: 12
+                      - title: '13 - Backpack'
+                        const: 13
+                      - title: '14 - Withering Heart'
+                        const: 14
+                      - title: '15 - Wildfire'
+                        const: 15
+                      - title: '16 - Water'
+                        const: 16
+                      - title: '17 - Moon'
+                        const: 17
+                      - title: '18 - Cooked Beef'
+                        const: 18
+                      - title: '19 - Dark Blue Mushroom'
+                        const: 19
+                      - title: '20 - Buttercup'
+                        const: 20
+          - title: 'Isaac Fanta'
+            or:
+              - title: '01 - Numbers'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png"
+                bar_index:
+                    or:
+                      - title: '00 - Red 1'
+                        const: 0
+                      - title: '01 - Dark Blue 2'
+                        const: 1
+                      - title: '02 - Green 3'
+                        const: 2
+                      - title: '03 - Yellow 4'
+                        const: 3
+                      - title: '04 - Orange 5'
+                        const: 4
+                      - title: '05 - Light Blue 6'
+                        const: 5
+                      - title: '06 - Pink 7'
+                        const: 6
+                      - title: '07 - Magenta 8'
+                        const: 7
+                      - title: '08 - Purple 9'
+                        const: 8
+              - title: '02 - Symbols'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png"
+                bar_index:
+                    or:
+                      - title: '00 - Bone'
+                        const: 0
+                      - title: '01 - Broken Bone'
+                        const: 1
+                      - title: '02 - Clock'
+                        const: 2
+                      - title: '03 - White R'
+                        const: 3
+                      - title: '04 - White L'
+                        const: 4
+                      - title: '05 - Blue P'
+                        const: 5
+                      - title: '06 - Miku'
+                        const: 6
+          - title: 'Spider Kolo'
+            or:
+              - title: '01 - Colored Orbs'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png"
+                or:
+                  - title: '00 - Gold Diamond'
+                    bar_index:
+                        const: 0
+                  - title: '01 - Emerald Diamond'
+                    bar_index:
+                        const: 1
+                  - title: '02 - Water Orb'
+                    bar_index:
+                        const: 2
+                    icon_index:
+                        or:
+                          - title: '0 - Water Orb'
+                            const: 0
+                          - title: '1 - Water Orb'
+                            const: 1
+                  - title: '03 - Lava Orb'
+                    bar_index:
+                        const: 3
+                    icon_index:
+                        or:
+                          - title: '0 - Lava Orb'
+                            const: 0
+                          - title: '1 - Lava Orb - Specular Highlight'
+                            const: 1
+                  - title: '04 - Ice Orb'
+                    bar_index:
+                        const: 4
+                    icon_index:
+                        or:
+                          - title: '0 - Ice Orb'
+                            const: 0
+                          - title: '1 - Ice Orb'
+                            const: 1
+                  - title: '05 - Blood'
+                    bar_index:
+                        const: 5
+                  - title: '06 - Creeper Face'
+                    bar_index:
+                        const: 6
+                  - title: '07 - Brown Mushroom'
+                    bar_index:
+                        const: 7
+                  - title: '08 - Red Mushroom'
+                    bar_index:
+                        const: 8
+                    icon_index:
+                        or:
+                          - title: '0 - Red Mushroom'
+                            const: 0
+                          - title: '1 - Blank'
+                            const: 1
+                          - title: '2 - White Orb Upper Half'
+                            const: 2
+                  - title: '09 - White Orb'
+                    bar_index:
+                        const: 9
+                    icon_index:
+                        or:
+                          - title: '0 - White Orb'
+                            const: 0
+                          - title: '1 - Blank'
+                            const: 1
+                          - title: '2 - White Orb Lower Half'
+                            const: 2
+                  - title: '10 - Orange Orb'
+                    bar_index:
+                        const: 10
+                  - title: '11 - Purple Orb'
+                    bar_index:
+                        const: 11
+                  - title: '12 - Blue Orb'
+                    bar_index:
+                        const: 12
+                  - title: '13 - Gold Orb'
+                    bar_index:
+                        const: 13
+                  - title: '14 - Green Orb'
+                    bar_index:
+                        const: 14
+                  - title: '15 - Pink Orb'
+                    bar_index:
+                        const: 15
+                  - title: '16 - Charcoal Orb'
+                    bar_index:
+                        const: 16
+                  - title: '17 - Gray Orb'
+                    bar_index:
+                        const: 17
+                  - title: '18 - Navy Orb'
+                    bar_index:
+                        const: 18
+                  - title: '19 - Violet Orb'
+                    bar_index:
+                        const: 19
+                  - title: '20 - Dark Blue Orb'
+                    bar_index:
+                        const: 20
+                  - title: '21 - Brown Orb'
+                    bar_index:
+                        const: 21
+                  - title: '22 - Dark Green Orb'
+                    bar_index:
+                        const: 22
+                  - title: '23 - Dark Red Orb'
+                    bar_index:
+                        const: 23
+                  - title: '24 - Black Orb'
+                    bar_index:
+                        const: 24
+              - title: '02 - Tools'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png"
+                or:
+                  - title: '00 - Iron Shield'
+                    bar_index:
+                        const: 0
+                  - title: '01 - Iron Sword'
+                    bar_index:
+                        const: 1
+                  - title: '02 - Leather Boots'
+                    bar_index:
+                        const: 2
+                    icon_index:
+                        or:
+                          - title: '0 - Leather Boot'
+                            const: 0
+                          - title: '1 - Leather Ankle Boot'
+                            const: 1
+                  - title: '03 - Iron Pickaxe'
+                    bar_index:
+                        const: 3
+                  - title: '04 - Iron Axe'
+                    bar_index:
+                        const: 4
+                  - title: '05 - Iron Mace'
+                    bar_index:
+                        const: 5
+                  - title: '06 - Tin Cylinder'
+                    bar_index:
+                        const: 6
+                  - title: '07 - Eye'
+                    bar_index:
+                        const: 7
+                  - title: '08 - Shining Diamond'
+                    bar_index:
+                        const: 8
+                    icon_index:
+                        or:
+                          - title: '0 - Small Diamond'
+                            const: 0
+                          - title: '1 - Large Diamond'
+                            const: 1
+                          - title: '2 - Small Diamond'
+                            const: 2
+                  - title: '09 - Red Cross'
+                    bar_index:
+                        const: 9
+                  - title: '10 - Green Potion'
+                    bar_index:
+                        const: 10
+                  - title: '11 - Gold Potion'
+                    bar_index:
+                        const: 11
+                  - title: '12 - Red Potion'
+                    bar_index:
+                        const: 12
+                  - title: '13 - Blue Potion'
+                    bar_index:
+                        const: 13
+                  - title: '14 - Redstone Dust'
+                    bar_index:
+                        const: 14
+                  - title: '15 - Water'
+                    bar_index:
+                        const: 15
+                  - title: '16 - Magnet'
+                    bar_index:
+                        const: 16
+                  - title: '17 - White Skull'
+                    bar_index:
+                        const: 17
+                  - title: '18 - Marsh Skull'
+                    bar_index:
+                        const: 18
+                  - title: '19 - Obsidian Skull'
+                    bar_index:
+                        const: 19
+                  - title: '20 - Green Skull'
+                    bar_index:
+                        const: 20
+                  - title: '21 - Slime'
+                    bar_index:
+                        const: 21
+                  - title: '22 - Leaf'
+                    bar_index:
+                        const: 22
+                  - title: '23 - Block Moon'
+                    bar_index:
+                        const: 23
+                  - title: '24 - Block Sun'
+                    bar_index:
+                        const: 24
+              - title: '03 - Icons'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png"
+                or:
+                  - title: '00 - Hashtag'
+                    bar_index:
+                        const: 0
+                    icon_index:
+                        or:
+                          - title: '00 - 6-Point 2x1'
+                            const: 0
+                          - title: '01 - Blank'
+                            const: 1
+                          - title: '02 - Diamond'
+                            const: 2
+                          - title: '03 - Cross'
+                            const: 3
+                          - title: '04 - Hashtag - Large'
+                            const: 4
+                          - title: '05 - Hashtag'
+                            const: 5
+                          - title: '06 - Spiny Diamond'
+                            const: 6
+                          - title: '07 - Round'
+                            const: 7
+                          - title: '08 - Blank'
+                            const: 8
+                          - title: '09 - Round'
+                            const: 9
+                          - title: '10 - Cross - Tilted'
+                            const: 10
+                          - title: '11 - 6-Point 1x2 Large'
+                            const: 11
+                          - title: '12 - 6-Point 2x1 Large'
+                            const: 12
+                          - title: '13 - 6-Point 1x2 Small'
+                            const: 13
+                          - title: '14 - 6-point 2x1 Small'
+                            const: 14
+                  - title: '01 - Chest'
+                    bar_index:
+                        const: 1
+                  - title: '02 - Cat Yarn'
+                    bar_index:
+                        const: 2
+                    icon_index:
+                        or:
+                          - title: '0 - Red Yarn'
+                            const: 0
+                          - title: '1 - Orange Cat'
+                            const: 1
+                  - title: '03 - Cheese Mouse'
+                    bar_index:
+                        const: 3
+                    icon_index:
+                        or:
+                          - title: '0 - Cheese Wedge'
+                            const: 0
+                          - title: '1 - White Mouse'
+                            const: 1
+                  - title: '04 - Rat'
+                    bar_index:
+                        const: 4
+                    icon_index:
+                        or:
+                          - title: '0 - Gray Rat'
+                            const: 0
+                          - title: '1 - Brown Rat'
+                            const: 1
+                  - title: '05 - Bone'
+                    bar_index:
+                        const: 5
+                  - title: '06 - Dough'
+                    bar_index:
+                        const: 6
+                    icon_index:
+                        or:
+                          - title: '0 - Dough'
+                            const: 0
+                          - title: '1 - Egg'
+                  - title: '07 - Nether Portal'
+                    bar_index:
+                        const: 7
+                    icon_index:
+                        or:
+                          - title: '0 - Portal - Small'
+                            const: 0
+                          - title: '1 - Portal - Large'
+                            const: 1
+                  - title: '08 - Treasure Map'
+                    bar_index:
+                        const: 8
+                  - title: '09 - Hourglass Clock'
+                    bar_index:
+                        const: 9
+                    icon_index:
+                        or:
+                          - title: '0 - Hourglass - Slim'
+                            const: 0
+                          - title: '1 - Hourglass - Wide'
+                            const: 1
+                          - title: '2 - Hourglass - Slim - Right-Aligned'
+                            const: 2
+                          - title: '3 - Clock'
+                            const: 3
+                  - title: '10 - Rose'
+                    bar_index:
+                        const: 10
+                  - title: '11 - Oak Tree'
+                    bar_index:
+                        const: 11
+                  - title: '12 - Diamond'
+                    bar_index:
+                        const: 12
+                  - title: '13 - Music Note'
+                    bar_index:
+                        const: 13
+                    icon_index:
+                        or:
+                          - title: '0 - 1/8 Note - Bold'
+                            const: 0
+                          - title: '1 - 1/8 Note'
+                            const: 1
+                          - title: '2 - 1/8 Note - Faded'
+                            const: 2
+                  - title: '14 - Goggles'
+                    bar_index:
+                        const: 14
+                    icon_index:
+                        or:
+                          - title: '0 - Goggles - Blue Lens'
+                            const: 0
+                          - title: '1 - Goggles - White Lens'
+                            const: 1
+                  - title: '15 - Sponge'
+                    bar_index:
+                        const: 15
+                  - title: '16 - Up Arrow - Light Blue'
+                    bar_index:
+                        const: 16
+                    icon_index:
+                        or:
+                          - title: '0 - Up Arrow - Wide'
+                            const: 0
+                          - title: '1 - Up Arrow - Slim'
+                            const: 1
+                  - title: '17 - Down Arrow - Red'
+                    bar_index:
+                        const: 17
+                    icon_index:
+                        or:
+                          - title: '0 - Down Arrow - Wide'
+                            const: 0
+                          - title: '1 - Down Arrow - Slim'
+                            const: 1
+                  - title: '18 - Stars'
+                    bar_index:
+                        const: 18
+                  - title: '19 - Gray Dye'
+                    bar_index:
+                        const: 19
+                  - title: '20 - Charcoal'
+                    bar_index:
+                        const: 20
+                  - title: '21 - Green Clone'
+                    bar_index:
+                        const: 21
+                  - title: '22 - Pattern'
+                    bar_index:
+                        const: 22
+                  - title: '23 - Feather'
+                    bar_index:
+                        const: 23
+                  - title: '24 - Shears'
+                    bar_index:
+                        const: 24
+          - title: 'Stella'
+            sprite_location:
+                const: "origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png"
+            bar_index:
+                or:
+                  - title: '00 - Pride Orb - LGBT'
+                    const: 0
+                  - title: '01 - Pride Orb - Trans'
+                    const: 1
+                  - title: '02 - Pride Orb - Lesbian'
+                    const: 2
+                  - title: '03 - Pride Orb - Non-Binary'
+                    const: 3
+                  - title: '04 - Pride Orb - Bi'
+                    const: 4
+                  - title: '05 - Pride Orb - Pan'
+                    const: 5
+                  - title: '06 - Pride Orb - Gay'
+                    const: 6
+                  - title: '07 - Pride Orb - Inter'
+                    const: 7
+                  - title: '08 - Pride Orb - Ace'
+                    const: 8
+                  - title: '09 - Pride Orb - Demi'
+                    const: 9
+          - title: 'Vevehki'
+            or:
+              - title: '01 - Resources and Mobs'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png"
+                bar_index:
+                    or:
+                      - title: '00 - Orb of Origin'
+                        const: 0
+                      - title: '01 - Copper'
+                        const: 1
+                      - title: '02 - Iron'
+                        const: 2
+                      - title: '03 - Gold'
+                        const: 3
+                      - title: '04 - Lapis Lazuli'
+                        const: 4
+                      - title: '05 - Redstone'
+                        const: 5
+                      - title: '06 - Coal'
+                        const: 6
+                      - title: '07 - Diamond'
+                        const: 7
+                      - title: '08 - Netherite'
+                        const: 8
+                      - title: '09 - Nether Quartz'
+                        const: 9
+                      - title: '10 - Amethyst'
+                        const: 10
+                      - title: '11 - Wind Charge'
+                        const: 11
+                      - title: '12 - Shulker'
+                        const: 12
+                      - title: '13 - Spider'
+                        const: 13
+                      - title: '14 - Fish'
+                        const: 14
+                      - title: '15 - Phantom'
+                        const: 15
+                      - title: '16 - Nautilus'
+                        const: 16
+                      - title: '17 - Squid'
+                        const: 17
+                      - title: '18 - Glow Squid'
+                        const: 18
+                      - title: '19 - Sniffer'
+                        const: 19
+                      - title: '20 - Turtle Shell'
+                        const: 20
+                      - title: '21 - Armadillo'
+                        const: 21
+                      - title: '22 - Vines'
+                        const: 22
+                      - title: '23 - Slime'
+                        const: 23
+                      - title: '24 - Magma Cube'
+                        const: 24
+              - title: '02 - Effects and Blocks'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png"
+                bar_index:
+                    or:
+                      - title: '00 - TNT'
+                        const: 0
+                      - title: '01 - Brick'
+                        const: 1
+                      - title: '02 - Bed'
+                        const: 2
+                      - title: '03 - Target'
+                        const: 3
+                      - title: '04 - Sculk Echo'
+                        const: 4
+                      - title: '05 - Grass Block'
+                        const: 5
+                      - title: '06 - Lava Bucket'
+                        const: 6
+                      - title: '07 - Bubble'
+                        const: 7
+                      - title: '08 - Sonic Resonance'
+                        const: 8
+                      - title: '09 - Firework'
+                        const: 9
+                      - title: '10 - Cooked Ham Thigh'
+                        const: 10
+                      - title: '11 - Honey'
+                        const: 11
+                      - title: '12 - Endermite'
+                        const: 12
+                      - title: '13 - Silverfish'
+                        const: 13
+                      - title: '14 - Rotten Flesh Zombie'
+                        const: 14
+                      - title: '15 - Lucky Block'
+                        const: 15
+                      - title: '16 - Crimson<->Warped Fungus'
+                        const: 16
+                      - title: '17 - Beacon'
+                        const: 17
+                      - title: '18 - Bread'
+                        const: 18
+                      - title: '19 - Illager Watcher'
+                        const: 19
+                      - title: '20 - Crafting Table'
+                        const: 20
+                      - title: '21 - Furnace'
+                        const: 21
+                      - title: '22 - Bookshelf'
+                        const: 22
+                      - title: '23 - Campfire'
+                        const: 23
+                      - title: '24 - Compass'
+                        const: 24
+              - title: '03 - Indicators'
+                sprite_location:
+                    const: "origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png"
+                bar_index:
+                    or:
+                      - title: '00 - Experience'
+                        const: 0
+                      - title: '01 - Skulls'
+                        const: 1
+                      - title: '02 - Brewing Stand'
+                        const: 2
+                      - title: '03 - Nebula Star'
+                        const: 3
+                      - title: '04 - Temperature'
+                        const: 4
+                      - title: '05 - Moon Phase'
+                        const: 5
+                      - title: '06 - Brightness'
+                        const: 6
+                      - title: '07 - Yin Yang'
+                        const: 7
+                      - title: '08 - Yang Yin'
+                        const: 8
+                      - title: '09 - Undertale Attack Bar'
+                        const: 9
+                      - title: '10 - Taste the Rainbow'
+                        const: 10
+                      - title: '11 - Face'
+                        const: 11
+                      - title: '12 - Soul'
+                        const: 12
+                      - title: '13 - Brush'
+                        const: 13
+                      - title: '14 - Lantern'
+                        const: 14
+                      - title: '15 - Red Fist'
+                        const: 15
+                      - title: '16 - Pizza'
+                        const: 16
+                      - title: '17 - Angry Eyes'
+                        const: 17
+                      - title: '18 - Sugar'
+                        const: 18
+                      - title: '19 - Light'
+                        const: 19
+                      - title: '20 - Pottery Sherd'
+                        const: 20
+                      - title: '21 - Glow Berries'
+                        const: 21
+                      - title: '22 - Synthwave Crystal'
+                        const: 22
+      - title: custom
+        sprite_location:
+            link: identifier
+        bar_index:
+            type: integer
+            min: 0
+            default: 0
     icon:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
         desc: An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
@@ -7628,9 +8277,9 @@ type: number
                 air					|number		|Remaining air (in ticks).
                 fire_ticks			|number		|Remaining fire (in ticks).
             or:
-                - title: vanilla
+              - title: vanilla
                 enum: ['no_gravity','invulnerable','silent','glowing','invisible','custom_name_visible','no_ai','fall_distance','air','fire_ticks']
-                - title: custom
+              - title: custom
                 link: meta_key
         value:
             desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
