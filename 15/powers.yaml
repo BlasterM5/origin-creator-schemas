@@ -8072,27 +8072,77 @@ type: number
                   - title: '00 - TNT'
                     bar_index:
                         const: 0
+                    icon_index:
+                        or:
+                          - title: '0 - TNT Block'
+                            const: 0
+                          - title: '1 - Dynamite'
+                            const: 1
                   - title: '01 - Brick'
                     bar_index:
                         const: 1
+                    icon_index:
+                        or:
+                          - title: '0 - Brick'
+                            const: 0
+                          - title: '1 - Bricks (Block)'
+                            const: 1
+                          - title: '2 - Furnace Fire'
+                            const: 2
                   - title: '02 - Bed'
                     bar_index:
                         const: 2
+                    icon_index:
+                        or:
+                          - title: '0 - Bed'
+                            const: 0
+                          - title: '1 - Bed Item'
+                            const: 1
                   - title: '03 - Target'
                     bar_index:
                         const: 3
+                    icon_index:
+                        or:
+                          - title: '0 - Target Block'
+                            const: 0
+                          - title: '1 - Bow and Arrow'
+                            const: 1
                   - title: '04 - Sculk Echo'
                     bar_index:
                         const: 4
+                    icon_index:
+                        or:
+                          - title: '0 - Echo Shard'
+                            const: 0
+                          - title: '1 - Sculk Block'
+                            const: 1
+                          - title: '2 - Warden'
+                            const: 2
+                          - title: '3 - Warden'
+                            const: 3
+                          - title: '4 - Sculk Sensor'
+                            const: 4
                   - title: '05 - Grass Block'
                     bar_index:
                         const: 5
+                    icon_index:
+                        or:
+                          - title: '0 - Grass Block'
+                            const: 0
+                          - title: '1 - Dirt Block'
+                            const: 1
                   - title: '06 - Lava Bucket'
                     bar_index:
                         const: 6
                   - title: '07 - Bubble'
                     bar_index:
                         const: 7
+                    icon_index:
+                        or:
+                          - title: '0 - Bubble - Large'
+                            const: 0
+                          - title: '1 - Bubbles'
+                            const: 1
                   - title: '08 - Sonic Resonance'
                     bar_index:
                         const: 8
@@ -8105,45 +8155,145 @@ type: number
                   - title: '11 - Honey'
                     bar_index:
                         const: 11
+                    icon_index:
+                        or:
+                          - title: '0 - Honeycomb'
+                            const: 0
+                          - title: '1 - Honey Bottle'
+                            const: 1
                   - title: '12 - Endermite'
                     bar_index:
                         const: 12
                   - title: '13 - Silverfish'
                     bar_index:
                         const: 13
+                    icon_index:
+                        or:
+                          - title: '0 - Stone - Pattern'
+                            const: 0
+                          - title: '1 - Silverfish'
+                            const: 1
                   - title: '14 - Rotten Flesh Zombie'
                     bar_index:
                         const: 14
+                    icon_index:
+                        or:
+                          - title: '0 - Rotten Flesh'
+                            const: 0
+                          - title: '1 - Bone'
+                            const: 1
+                          - title: '2 - Zombie'
+                            const: 2
+                          - title: '3 - Husk'
+                            const: 3
+                          - title: '4 - Drowned'
+                            const: 4
                   - title: '15 - Lucky Block'
                     bar_index:
                         const: 15
-                  - title: '16 - Crimson<->Warped Fungus'
+                    icon_index:
+                        or:
+                          - title: '0 - [?] Block'
+                            const: 0
+                          - title: '1 - [!] Block'
+                            const: 1
+                  - title: '16 - Crimson<->Warped Mushroom'
                     bar_index:
                         const: 16
+                    icon_index:
+                        or:
+                          - title: '0 - Crimson Mushroom'
+                            const: 0
+                          - title: '1 - Warped Mushroom'
+                            const: 1
                   - title: '17 - Beacon'
                     bar_index:
                         const: 17
+                    icon_index:
+                        or:
+                          - title: '0 - Beacon'
+                            const: 0
+                          - title: '1 - Beacon Light'
+                            const: 1
                   - title: '18 - Bread'
                     bar_index:
                         const: 18
-                  - title: '19 - Illager Watcher'
+                  - title: '19 - Illusioner'
                     bar_index:
                         const: 19
+                    icon_index:
+                         or:
+                          - title: '0 - Illusioner - Shadow'
+                            const: 0
+                          - title: '1 - Illusioner - Light'
+                            const: 1
+                          - title: '2 - Illusioner'
+                            const: 2
                   - title: '20 - Crafting Table'
                     bar_index:
                         const: 20
+                    icon_index:
+                        or:
+                          - title: '0 - Crafting Table'
+                            const: 0
+                          - title: '1 - Crafter'
+                            const: 1
+                          - title: '2 - Smithing Table'
+                            const: 2
                   - title: '21 - Furnace'
                     bar_index:
                         const: 21
+                    icon_index:
+                        or:
+                          - title: '0 - Furnace'
+                            const: 0
+                          - title: '1 - Smoker'
+                            const: 1
+                          - title: '2 - Blast Furnace'
+                            const: 2
+                          - title: '3 - Furnace - Lit'
+                            const: 3
+                          - title: '4 - Smoker - Lit'
+                            const: 4
+                          - title: '5 - Blast Furnace - Lit'
+                            const: 5
                   - title: '22 - Bookshelf'
                     bar_index:
                         const: 22
+                    icon_index:
+                        or:
+                          - title: '0 - Bookshelf'
+                            const: 0
+                          - title: '1 - Book'
+                            const: 1
+                          - title: '2 - Enchanting Table'
+                            const: 2
+                          - title: '3 - Lectern'
+                            const: 3
                   - title: '23 - Campfire'
                     bar_index:
                         const: 23
+                    icon_index:
+                        or:
+                          - title: '0 - Campfire'
+                            const: 0
+                          - title: '1 - Soul Campfire'
+                            const: 1
+                          - title: '2 - Fire with Smoke'
+                            const: 2
                   - title: '24 - Compass'
                     bar_index:
                         const: 24
+                    icon_index:
+                        or:
+                          - title: '0 - Compass'
+                            const: 0
+                          - title: '1 - Treasure Map'
+                            const: 1
+                          - title: '2 - Cartography Table'
+                            const: 2
+                          - title: '3 - Lodestone'
+                            const: 3
               - title: '03 - Indicators'
                 sprite_location:
                     const: "origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png"
