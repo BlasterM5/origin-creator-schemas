@@ -3203,7 +3203,9 @@ links:
                                   - title: single
                                     link: text_component
                                   - title: multiple
-                                    link: text_component
+                                    type: list
+                                    vals:
+                                        link: text_component
                             bar:
                                 desc: Where to display the text.
                                 enum: ['actionbar','title','subtitle','top_left','top_center','top_right','left','right','bottom_left','bottom_right']
@@ -3967,6 +3969,7 @@ type: number
                             default: true
                     string-origins:climbing:
                         allow_holding:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/climbing/
                             desc: If true, the entity that has the power is able to hold onto blocks.
                             type: boolean
                             default: true
@@ -3975,6 +3978,7 @@ type: number
                             link: entity_condition
                     string-origins:cooldown:
                         cooldown:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/cooldown/
                             desc: The number of ticks the cooldown needs to recharge from 0 back to cooldown. Becomes the resource’s max.
                             link: expression_integer
                         hud_render:
@@ -3986,32 +3990,70 @@ type: number
                             default: true
                     string-origins:creative_flight: {}
                     string-origins:custom_model_render:
-                        mode:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/custom_model_render/
-                            desc: texture (re-skin the vanilla model) or geometry (draw a custom Blockbench model).
-                            enum: ['texture','geometry']
+                        or:
+                          - title: 'Geometry Mode'
+                            mode:
+                                const: 'geometry'
+                            model_location:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/powers/custom_model_render/
+                                desc: |
+                                    The Blockbench model. mymod:cape resolves to assets/mymod/geo/cape.geo.json (the standard Blockbench/GeckoLib folder) — assets/mymod/models/apoli/cape.geo.json also works. Export from Blockbench as Bedrock geometry (.geo.json).
+                                link: identifier
+                                required: true
+                            texture_location:
+                                desc: The texture that UV-maps onto the model, e.g. mymod:textures/entity/cape.png.
+                                link: identifier
+                                required: true
+                            render_as_overlay:
+                                desc: Minions only! false replaces the minion’s own model with yours; true draws yours on top of it. Ignored on players, where geometry is always drawn over the player model.
+                                type: boolean
+                                default: false
+                            animations:
+                                desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
+                                or:
+                                  - title: 'single'
+                                    link: model_animation
+                                  - title: 'multiple'
+                                    type: list
+                                    vals:
+                                        link: model_animation
+                          - title: 'Texture Mode'
+                            mode:
+                                const: 'texture'
+                            wide_texture_location:
+                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
+                                desc: Texture for the wide (Steve) model.
+                                link: identifier
+                            slim_texture_location:
+                                desc: Texture for the slim (Alex) model.
+                                link: identifier
+                            render_as_overlay:
+                                desc: false replaces the skin; true draws the texture as an overlay layer honouring render_type, body_parts and the tint.
+                                type: boolean
+                                default: false
+                            hide_cape:
+                                desc: Hide the holder’s cape while active.
+                                type: boolean
+                                default: false
                         render_type:
-                            desc: Draw style — translucent, cutout, cutout_no_cull, solid, emissive/glow, eyes.
-                            enum: ['solid','translucent','cutout','cutout_no_cull','emissive','glow','eyes']
+                            link: render_type
                         body_parts:
                             desc: |
                                 In texture mode, restrict an overlay to these parts: head, hat, body, right_arm, left_arm, right_leg, left_leg on a player, main, flat2, flat3 on a minion. In geometry mode, render only the bones with these names — any bone name in your own model, not just the vanilla ones. Every bone you do not name is hidden, and hiding a bone hides everything nested under it.
-                            link: body_part
-                        wide_texture_location:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
-                            desc: The namespace and ID of the wide (Steve) texture location.
-                            link: identifier
-                        slim_texture_location:
-                            desc: The namespace and ID of the slim (Alex) texture location.
-                            link: identifier
-                        show_first_person:
-                            desc: Enables showing the texture in first person view.
-                            type: boolean
-                            default: false
-                        render_as_overlay:
-                            desc: If true, renders over existing texture; if false, replaces it.
-                            type: boolean
-                            default: false
+                            or:
+                              - title: 'Player - All/Single Part'
+                                link: body_part
+                              - title: 'Player - Multiple Parts'
+                                type: list
+                                vals:
+                                    link: body_part
+                              - title: 'Minion - All/Single Part'
+                                enum: ['','main','flat2','flat3']
+                                unspec: ''
+                              - title: 'Minion - Multiple Parts'
+                                type: list
+                                vals:
+                                    enum: ['main','flat2','flat3']
                         red:
                             desc: Red color channel multiplier (0.0-1.0).
                             type: number
@@ -4036,8 +4078,17 @@ type: number
                             default: 1.0
                             min: 0.0
                             max: 1.0
-                        hide_cape:
-                            desc: Whether to hide the player's cape.
+                        scale:
+                            desc: Scales the drawn geometry outward from the model origin (aura/shell effect above 1.0).
+                            type: number
+                            default: 1.0
+                        hidden_slots:
+                            desc: Hide this render whenever any listed slot is occupied — e.g. ["head"] hides a custom hat model when a real helmet is worn.
+                            type: list
+                            vals:
+                                link: equipment_slot
+                        show_first_person:
+                            desc: Also draw on the holder’s own arm in first person. In texture mode that is the overlay texture; in geometry mode it is the model’s right_arm / left_arm bones (and everything nested under them), posed onto the vanilla first-person arm.
                             type: boolean
                             default: false
                     string-origins:damage_over_time:
@@ -6915,7 +6966,15 @@ type: number
                 desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
                 link: bientity_action
 
+
+
+
+
 # New unified data type definitions (removes the need to specify the same ones over and over)
+
+
+
+
 
     accessory_slot:
         or:
@@ -6972,14 +7031,10 @@ type: number
                 link: attribute_modifier_operation
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                or:
-                  - type: number
-                    default: 0
-                  - type: string
-                    ext: true
+                link: expression_float
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
-                type: string
+                link: meta_key
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: identifier
@@ -7042,7 +7097,7 @@ type: number
             type: object
             props:
                 type:
-                    enum: ['crafting_shaped']
+                    const: 'crafting_shaped'
                 id:
                     desc: An ID for this recipe. Has to be unique among all recipes, otherwise there will be a conflict.
                     link: identifier
@@ -7063,7 +7118,7 @@ type: number
             type: object
             props:
                 type:
-                    enum: ['crafting_shapeless']
+                    const: 'crafting_shapeless'
                 id:
                     desc: An ID for this recipe. Has to be unique among all recipes, otherwise there will be a conflict.
                     link: identifier
@@ -7089,8 +7144,7 @@ type: number
           - title: origins
             enum: ['genericDamageOverTime','genericDamageOverTime.player','hurt_by_water','hurt_by_water.player','no_water_for_gills','no_water_for_gills.player']
           - title: custom
-            type: string
-            allow: 'a-zA-Z0-9_.-'
+            link: meta_key
     destruction_type:
         desc: |
             Determines the effect of the explosion to the terrain:
@@ -7213,17 +7267,7 @@ type: number
             desc: Whether the bar should be visible or not
             type: boolean
             default: true
-        sprite_location:
-            desc: The path to the file in the asets which contains what the bar looks like.
-            link: identifier
-        bar_index:
-            desc: The indexed position of the bar on the sprite to use. Please note that indexes start at 0.
-            type: integer
-            min: 0
-        icon_idex:
-            desc: The indexed position of the icon on the sprite to use.
-            type: integer
-            min: 0
+        link: hud_render_textures
         condition:
             desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
             link: entity_condition
@@ -7240,7 +7284,7 @@ type: number
         or:
           - title: 'Apace'
             sprite_location:
-                const: "origins:textures/gui/sprites/hud_render/apace/resource_bar_01.png"
+                const: "origins:textures/gui/sprites/hud_render/apace/resource_bar.png"
             bar_index:
                 or:
                   - title: '00 - Gunpowder'
@@ -7249,7 +7293,7 @@ type: number
                     const: 1
                   - title: '02 - Lightning Bolt'
                     const: 2
-                  - title: '03 - Purple Cross'
+                  - title: '03 - Purple X'
                     const: 3
                   - title: '04 - Wings'
                     const: 4
@@ -8541,8 +8585,15 @@ type: number
                             const: 1
       - title: custom
         sprite_location:
+            desc: The path to the file in the assets which contains what the bar looks like.
             link: identifier
         bar_index:
+            desc: The indexed position of the bar on the sprite to use.
+            type: integer
+            min: 0
+            default: 0
+        icon_index:
+            desc: The indexed position of the icon on the sprite to use.
             type: integer
             min: 0
             default: 0
@@ -8620,25 +8671,31 @@ type: number
     inventory_action:
         or:
           - title: modify
-            operation: 'modify'
+            operation:
+                const: 'modify'
             link: inventory_action_common
           - title: replace
-            operation: 'replace'
+            operation:
+                const: 'replace'
             link: inventory_action_common
             link: inventory_action_replace
           - title: drop
-            operation: 'drop'
+            operation:
+                const: 'drop'
             link: inventory_action_common
             link: inventory_action_drop
     inventory_action_legacy_modify:
-        operation: 'modify'
+        operation:
+            const: 'modify'
         link: inventory_action_common
     inventory_action_legacy_replace:
-        operation: 'replace'
+        operation:
+            const: 'replace'
         link: inventory_action_common
         link: inventory_action_replace
     inventory_action_legacy_drop:
-        operation: 'drop'
+        operation:
+            const: 'drop'
         link: inventory_action_common
         link: inventory_action_drop
     inventory_action_common:
@@ -8697,8 +8754,7 @@ type: number
             default: true
         amount:
             desc: drop only — split this many off each matching stack instead of dropping the whole stack.
-            type: integer
-            default: unspec
+            type: integer_optional
     inventory_action_replace:
         stack:
             desc: replace only — the replacement item.
@@ -8743,8 +8799,7 @@ type: number
         props:
             key:
                 desc: The keybinding’s translation key.
-                type: string
-                allow: 'a-z0-9._-'
+                link: meta_key
             continuous:
                 desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
                 type: boolean
@@ -8763,6 +8818,25 @@ type: number
     meta_key:
         type: string
         allow: 'a-z0-9._-'
+    model_animation:
+        animation:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-animation/
+            desc: The animation file. mymod:wings resolves to assets/mymod/animations/wings.animation.json (.json also works).
+            link: identifier
+            required: true
+        name:
+            desc: Which animation inside the file to play, e.g. animation.wings.flap. A Blockbench animation file usually holds several.
+            link: meta_key
+        condition:
+            desc: Only play this entry when the holder fulfils this condition.
+            link: entity_condition
+        speed:
+            desc: Playback rate. 2.0 is twice as fast, 0.5 half.
+            type: number
+            default: 1.0
+        loop:
+            desc: Overrides the animation’s own loop setting. true loops forever, false plays once and stops. Blockbench’s “Hold on last frame” is honoured when this field is absent.
+            link: boolean_optional
     model_part_keyframe:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-part-keyframe
         desc: One point on a Model Part Transformation's timeline. The value that part should have reached at a given time.
@@ -9057,19 +9131,28 @@ type: number
             desc: If true, command_along_ray only runs when the ray hits something
             type: boolean
             default: false
-        chain_direction:
-            desc: For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
-            enum: ['','forward','reflect','custom']
-            unspec: ''
         chain:
             desc: Another raycast fired from this ray’s end point (its hit position, or the max-range point on a miss). Lets rays bounce and branch for visual effects. Nests recursively — a chain may itself have a chain.
             type: object
             props:
                 link: raycast_action
+        chain_direction:
+            desc: For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
+            enum: ['','forward','reflect','custom']
+            unspec: ''
     render_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/render-type
-        desc: Selects how a texture is drawn onto the model — the blend/cull/lighting style of a render layer. See the doc for more information.
-        enum: ['translucent','translucent-cull','cutout','cutout_no_cull','solid','emissive','eyes']
+        desc: |
+            Selects how a texture is drawn onto the model — the blend/cull/lighting style of a render layer.
+            render_type			Description
+            translucent			Standard semi-transparent draw (back faces culled-free, alpha blended). The default, and the classic overlay look. Honours the tint and alpha.
+            translucent_cull	Like translucent but with back-face culling. Slightly cheaper; use when the texture has no see-through interior faces.
+            cutout				Hard-edged: each pixel is either fully opaque or fully transparent (no partial alpha). Good for crisp re-textures and decals.
+            cutout_no_cull		cutout without back-face culling, so thin/flat geometry is visible from both sides.
+            solid				Fully opaque draw; the alpha channel is ignored.
+            emissive			Glowing: drawn unlit (full-bright) and alpha-blended, but still tinted. Aliases: glow, translucent_emissive. Great for auras and energy effects that should shine in the dark.
+            eyes				The vanilla “eyes” style — always full-bright and untinted (the tint fields are ignored). Classic glowing-eyes / mob-eyes look.
+        enum: ['translucent','translucent_cull','cutout','cutout_no_cull','solid','emissive','eyes']
     rope_endpoint:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/rope-endpoint
         desc: Describes one end of a rope (how it is chosen at runtime) used by the from and to fields of the Attach Rope. See the doc for more information.
@@ -9247,9 +9330,8 @@ type: number
         props:
             text:
                 desc: The text of this segment (full vanilla text component supported).
-                type: string
-                ext: true
-                required: true
+                id: item_modifiers
+                link: jsontxt
             condition:
                 desc: The segment only shows while this condition passes (tested on the displaying player, server side).
                 type: entity_condition
