@@ -8297,54 +8297,248 @@ type: number
               - title: '03 - Indicators'
                 sprite_location:
                     const: "origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png"
-                bar_index:
-                    or:
-                      - title: '00 - Experience'
+                or:
+                  - title: '00 - Experience'
+                    bar_index:
                         const: 0
-                      - title: '01 - Skulls'
+                    icon_index:
+                        or:
+                          - title: '0 - Experience Orb - Large'
+                            const: 0
+                          - title: '1 - Experience Bottle'
+                            const: 1
+                  - title: '01 - Skulls'
+                    bar_index:
                         const: 1
-                      - title: '02 - Brewing Stand'
+                    icon_index:
+                        or:
+                          - title: '0 - Skull Breathing Fire'
+                            const: 0
+                          - title: '1 - Skull Breathing Soul Fire'
+                            const: 1
+                          - title: '2 - Armored Skull, Fire'
+                            const: 2
+                          - title: '3 - Armored Skull, Soul Fire'
+                            const: 3
+                          - title: '4 - Spider Skull Breathing Fire'
+                            const: 4
+                          - title: '5 - Spider Skull Breathing Soul Fire'
+                            const: 5
+                  - title: '02 - Brewing Stand'
+                    bar_index:
                         const: 2
-                      - title: '03 - Nebula Star'
+                    icon_index:
+                        or:
+                          - title: '0 - Brewing Stand'
+                            const: 0
+                          - title: '1 - Cauldron'
+                            const: 1
+                          - title: '2 - Fire Potion'
+                            const: 2
+                  - title: '03 - Nebula Star'
+                    bar_index:
                         const: 3
-                      - title: '04 - Temperature'
+                    icon_index:
+                        or:
+                          - title: '0 - Nebula Orb'
+                            const: 0
+                          - title: '1 - 4-Point Star'
+                            const: 1
+                          - title: '2 - 5-Point Star'
+                            const: 2
+                  - title: '04 - Temperature'
+                    bar_index:
                         const: 4
-                      - title: '05 - Moon Phase'
+                  - title: '05 - Moon Phase'
+                    bar_index:
                         const: 5
-                      - title: '06 - Brightness'
+                    icon_index:
+                        or:
+                          - title: '0 - Full Moon'
+                            const: 0
+                          - title: '1 - Waning Gibbous'
+                            const: 1
+                          - title: '2 - Third Quarter'
+                            const: 2
+                          - title: '3 - Waning Crescent'
+                            const: 3
+                          - title: '4 - Full Moon'
+                            const: 4
+                          - title: '5 - Waxing Crescent'
+                            const: 5
+                          - title: '6 - First Quarter'
+                            const: 6
+                          - title: '7 - Waxing Gibbous'
+                            const: 7
+                  - title: '06 - Brightness'
+                    bar_index:
                         const: 6
-                      - title: '07 - Yin Yang'
+                    icon_index:
+                        or:
+                          - title: '0 - Shaded Light Ring'
+                            const: 0
+                          - title: '1 - Shadow Swirl'
+                            const: 1
+                  - title: '07 - Yin Yang'
+                    bar_index:
                         const: 7
-                      - title: '08 - Yang Yin'
+                    icon_index:
+                        or:
+                          - title: '0 - Yin Yang'
+                            const: 0
+                          - title: '1 - Yang Yin'
+                            const: 1
+                  - title: '08 - Yang Yin'
+                    bar_index:
                         const: 8
-                      - title: '09 - Undertale Attack Bar'
+                    icon_index:
+                        or:
+                          - title: '0 - Yin Yang'
+                            const: 0
+                          - title: '1 - Yang Yin'
+                            const: 1
+                  - title: '09 - Attack Bar'
+                    bar_index:
                         const: 9
-                      - title: '10 - Taste the Rainbow'
+                    icon_index:
+                        or:
+                          - title: '0 - Hitmarker - Lit'
+                            const: 0
+                          - title: '1 - Hitmarker - Unlit'
+                            const: 1
+                  - title: '10 - Taste the Rainbow'
+                    bar_index:
                         const: 10
-                      - title: '11 - Face'
+                  - title: '11 - Face'
+                    bar_index:
                         const: 11
-                      - title: '12 - Soul'
+                    icon_index:
+                        or:
+                          - title: '0 - Asian'
+                            const: 0
+                          - title: '1 - White'
+                            const: 1
+                          - title: '2 - Hispanic'
+                            const: 2
+                          - title: '3 - Black'
+                            const: 3
+                  - title: '12 - Soul'
+                    bar_index:
                         const: 12
-                      - title: '13 - Brush'
+                    icon_index:
+                        or:
+                          - title: '0 - Blue Soul'
+                            const: 0
+                          - title: '1 - Soul Sand'
+                            const: 1
+                  - title: '13 - Brush'
+                    bar_index:
                         const: 13
-                      - title: '14 - Lantern'
+                    icon_index:
+                        or:
+                          - title: '0 - Brush'
+                            const: 0
+                          - title: '1 - Suspicious Sand'
+                            const: 1
+                  - title: '14 - Lantern'
+                    bar_index:
                         const: 14
-                      - title: '15 - Red Fist'
+                    icon_index:
+                        or:
+                          - title: '0 - Lantern'
+                            const: 0
+                          - title: '1 - Soul Lantern'
+                            const: 1
+                          - title: '2 - Torch'
+                            const: 2
+                          - title: '3 - Soul Torch'
+                            const: 3
+                  - title: '15 - Red Fist'
+                    bar_index:
                         const: 15
-                      - title: '16 - Pizza'
+                    icon_index:
+                        or:
+                          - title: '0 - Red Fist - Outlined'
+                            const: 0
+                          - title: '1 - Red Fist - No Outline'
+                            const: 1
+                  - title: '16 - Pizza'
+                    bar_index:
                         const: 16
-                      - title: '17 - Angry Eyes'
+                    icon_index:
+                        or:
+                          - title: '0 - Pizza'
+                            const: 0
+                          - title: '1 - Pizza Slice'
+                            const: 1
+                  - title: '17 - Angry Eyes'
+                    bar_index:
                         const: 17
-                      - title: '18 - Sugar'
+                  - title: '18 - Sugar'
+                    bar_index:
                         const: 18
-                      - title: '19 - Light'
+                    icon_index:
+                        or:
+                          - title: '0 - Sugar'
+                            const: 0
+                          - title: '1 - Sugarcane'
+                            const: 1
+                  - title: '19 - Light'
+                    bar_index:
                         const: 19
-                      - title: '20 - Pottery Sherd'
+                    icon_index:
+                        or:
+                          - title: '0 - Lens Flare'
+                            const: 0
+                          - title: '1 - Angel Wings and Halo'
+                            const: 1
+                  - title: '20 - Rusting Iron'
+                    bar_index:
                         const: 20
-                      - title: '21 - Glow Berries'
+                    icon_index:
+                        or:
+                          - title: '0 - Rusting Iron Ingot'
+                            const: 0
+                          - title: '1 - Rusting Iron Block'
+                            const: 1
+                  - title: '21 - Pottery Sherd'
+                    bar_index:
                         const: 21
-                      - title: '22 - Synthwave Crystal'
+                    icon_index:
+                        or:
+                          - title: '0 - Pottery Sherd'
+                            const: 0
+                          - title: '1 - Ancient Vase'
+                            const: 1
+                  - title: '22 - Glow Berries'
+                    bar_index:
                         const: 22
+                    icon_index:
+                        or:
+                          - title: '0 - Glow Berries'
+                            const: 0
+                          - title: '1 - Glow Berry Bush'
+                            const: 1
+                  - title: '23 - Creaking Resin'
+                    bar_index:
+                        const: 23
+                    icon_index:
+                        or:
+                          - title: '0 - Creaking Resin'
+                            const: 0
+                          - title: '1 - Creaking Resin Brick'
+                            const: 1
+                          - title: '2 - The Creaking'
+                            const: 2
+                  - title: '24 - Prismatic Crystal'
+                    bar_index:
+                        const: 24
+                    icon_index:
+                        or:
+                          - title: '0 - Prismatic Square'
+                            const: 0
+                          - title: '1 - Prismatic Triangle'
+                            const: 1
       - title: custom
         sprite_location:
             link: identifier
