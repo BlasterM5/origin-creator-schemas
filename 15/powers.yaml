@@ -3848,7 +3848,6 @@ type: number
                   - origins:action_on_callback
                   - origins:action_on_collision
                   - origins:action_on_death
-                  - origins:action_on_entity_use
                   - origins:action_on_hit
                   - origins:action_on_item_pickup
                   - origins:action_on_item_use
@@ -3915,6 +3914,7 @@ type: number
                   - $DEPRECATED
                   - origins:active_self
                   - origins:action_on_being_used
+                  - origins:action_on_entity_use
                   - origins:action_when_damage_taken
                   - origins:attacker_action_when_hit
                   - origins:burn
@@ -4894,7 +4894,7 @@ type: number
                             desc: Determines if the power should be activated if the player used the specified hand(s).
                             type: list
                             vals:
-                                enum: ['main_hand','off_hand']
+                                link: hand
                         result_stack:
                             desc: If specified, this item stack will be given to the ’actor’ entity.
                             link: item_stack
@@ -4908,6 +4908,45 @@ type: number
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
                             default: 'success'
+                    string-origins:action_on_block_place:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_block_place/
+                            desc: If specified, the specified actions will only be executed if the item the player has used to place a block fulfills this item condition.
+                            link: item_condition
+                        place_to_condition:
+                            desc: If specified, the specified actions will only be executed if the block at the position of the block the player is about to place fulfills this block condition.
+                            link: block_condition
+                        place_on_condition:
+                            desc: If specified, the specified actions will only be executed if the block the player is about to place a block on fulfills this block condition.
+                            link: block_condition
+                        directions:
+                            desc: Determines whether the specified actions should be executed if the player is about to place a block at the specified side(s) of a block.
+                            type: list
+                            vals:
+                                link: block_facing
+                        hands:
+                            desc: Determines whether the specified actions should be executed if the player used the specified hand(s) when trying to place a block.
+                            type: list
+                            vals:
+                                link: hand
+                        entity_action:
+                            desc: If specified, this entity action will be executed on the player upon placing a block.
+                            link: entity_action
+                        held_item_action:
+                            desc: If specified, this item action will be executed on the item the player has used to place a block.
+                            link: item_action
+                        place_to_action:
+                            desc: If specified, this block action will be executed at the position of the block the player has placed.
+                            link: block_action
+                        place_on_action:
+                            desc: If specified, this block action will be executed on the block the player placed a block on.
+                            link: block_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the player upon placing a block.
+                            link: item_stack
+                        result_item_action:
+                            desc: If specified, this item action will be executed on the item that will be given to the player upon placing a block.
+                            link: item_action
                     string-origins:action_on_block_break:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_block_break/
@@ -4925,21 +4964,22 @@ type: number
                             link: entity_action
                     string-origins:action_on_block_use:
                         block_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_block_use/
                             desc: If specified, only execute the specified actions if this condition is fulfilled by the used block.
                             link: block_condition
                         item_condition:
-                            desc: If specified, only execute the specified actions if this condition is fulfilled by the item in the 'actor' (the player that has the power) entity's specified hand(s) determined by the hands string field.
+                            desc: If specified, only execute the specified actions if this condition is fulfilled by the item in the ‘actor’ (the player that has the power) entity’s specified hand(s) determined by the hands string field.
                             link: item_condition
                         directions:
-                            desc: If specified, only execute the specified actions if you used the specified face of the block. Defaults to all directions.
+                            desc: If specified, only execute the specified actions if you used the specified face of the block.
                             type: list
                             vals:
-                                enum: [north, east, south, west, up, down]
+                                link: block_facing
                         hands:
-                            desc: Determines if the power should be activated if the player used the specified hand(s). Accepts "off_hand", "main_hand" or both. Defaults to both.
+                            desc: Determines if the power should be activated if the player used the specified hand(s). Accepts "off_hand", "main_hand" or both.
                             type: list
                             vals:
-                                type: string
+                                link: hand
                         entity_action:
                             desc: If specified, this entity action type will be executed if all conditions are met.
                             link: entity_action
@@ -4947,23 +4987,25 @@ type: number
                             desc: If specified, the used block will run this action if all conditions are met.
                             link: block_action
                         result_stack:
-                            desc: If specified, gives the item to the 'actor' (the player that has the power) entity.
+                            desc: If specified, gives the item to the ‘actor’ (the player that has the power) entity.
                             link: item_stack
                         held_item_action:
-                            desc: If specified, this action will be executed on the item used for right-clicking the 'target' entity in the specified hand(s) determined by the hands string field.
+                            desc: If specified, this action will be executed on the item used for right-clicking the ‘target’ entity in the specified hand(s) determined by the hands string field.
                             link: item_action
                         result_item_action:
-                            desc: If specified, this action will be executed on the item that is given to the 'actor' (the player that has the power) entity.
+                            desc: If specified, this action will be executed on the item that is given to the ‘actor’ (the player that has the power) entity.
                             link: item_action
                         action_result:
-                            desc: Determines the result of the 'use action'. Defaults to "success".
-                            enum: [success, consume, consume_partial, fail, pass]
+                            desc: Determines the result of the ‘use’ action.
+                            link: action_result
+                            default: 'success'
                     string-origins:action_on_callback:
                         entity_action_chosen:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_callback/
                             desc: If set, this action will be executed on the player when the player chooses their origin on the last layer through the menu - by using the Orb of Origin or missing an origin or joining for the first time - if the power was gained from any of the layers.
                             link: entity_action
                         execute_chosen_when_orb:
-                            desc: When this is false, the entity_action_chosen will not be executed when the player changes their origin with an orb, but only when the player chooses an origin for the first time or their origin was reset to origins:empty via a command.
+                            desc: When this is false, the entity_action_chosen will not be executed when the player changes their origin with an Orb of Origin item.
                             type: boolean
                             default: true
                         entity_action_gained:
@@ -4981,83 +5023,387 @@ type: number
                         entity_action_respawned:
                             desc: If specified, this action will be executed on the player right after the player respawns. This action will be executed after the action in entity_action_removed.
                             link: entity_action
-                    string-origins:action_on_entity_use:
-                        bientity_action:
-                            desc: If set, executes a bi-entity action that can execute on both the 'actor' (player) and 'target' entity.
-                            link: bientity_action
+                    string-origins:action_on_collision:
                         bientity_condition:
-                            desc: If set, only execute the specified actions if the bi-entity condition is fulfilled.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_collision/
+                            desc: Gates firing on the (actor, target) pair.
+                            link: bientity_condition
+                        target_condition:
+                            desc: Gates firing on the target.
+                            link: entity_condition
+                        radius:
+                            desc: Extra blocks to inflate the holder’s bounding box by before looking for overlaps. 0.0 means the boxes must actually touch.
+                            type: number
+                            default: 0
+                        include_riding:
+                            desc: Whether to also fire for the entity the holder is riding, its passengers, and entities sharing its vehicle.
+                            type: boolean
+                            default: false
+                        bientity_action:
+                            desc: Action run with the actor/target pair.
+                            link: bientity_action
+                        entity_action:
+                            desc: Action run on the actor (the entity that has the power).
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the entity being collided with.
+                            link: entity_action
+                        cooldown:
+                            desc: Ticks the power needs to recharge between fires. 0 fires every tick, for every colliding entity.
+                            type: integer
+                            min: 0
+                            default: 0
+                        hud_render:
+                            desc: How the cooldown is shown on the HUD.
+                            link: hud_render
+                    string-origins:action_on_death:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_death/
+                            desc: The action to be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        damage_condition:
+                            desc: If specified, the specified action will only be executed if this condition is fulfilled by the damage dealt by the ’actor’ entity.
+                            link: damage_condition
+                        bientity_action:
+                            desc: The action to be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
+                    string-origins:action_on_entity_use:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_entity_use/
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
                             link: bientity_condition
                         item_condition:
                             desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
                             link: item_condition
                         hands:
-                            desc: Determines if the power should be activated if the player used a specific hand slot. Accepts "off_hand", "main_hand" or both.
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
                             type: list
                             vals:
-                                type: string
-                        result_stack:
-                            desc: If set, gives the result item stack to the player.
-                            link: item_stack
+                                link: hand
+                        bientity_action:
+                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
                         held_item_action:
-                            desc: If set, executes an item action on the item stack used for right-clicking the entity in the specified hand slot.
+                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_action
                         result_item_action:
-                            desc: If set, executes an item action on the result item stack.
+                            desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
                             link: item_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the ’actor’ entity.
+                            link: item_stack
                         action_result:
-                            desc: Determines the result of the action. Accepts "consume", "consume_partial", "fail", "pass" or "success".
-                            enum: [consume, consume_partial, fail, pass, success]
-                            default: 4
-                        priority:
-                            desc: Specifies which actions this action should override. Higher numbers mean it's higher priority, which means it will override actions with lower priorities that would have otherwise executed.
-                            type: integer
-                            default: 0
+                            desc: Determines the result of the ‘use’ action.
+                            link: action_result
+                            default: 'success'
                     string-origins:action_on_hit:
+                        attacker_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
+                            desc: Gates firing on the attacker (the holder).
+                            link: entity_condition
+                        bientity_condition:
+                            desc: Gates firing on the (actor, target) pair.
+                            link: bientity_condition
+                        damage_condition:
+                            desc: Gates firing on the damage that was dealt.
+                            link: damage_condition
+                        target_condition:
+                            desc: Gates firing on the target.
+                        self_action:
+                            desc: Action run on the actor (the entity that has the power).
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
+                            link: entity_action
                         bientity_action:
                             desc: The action to execute upon hit.
                             link: bientity_action
+                        target_action:
+                            desc: Action run on the target (the entity that was hit).
+                            link: entity_action
+                        entity_action_target: ['self','attacker','target']
+                        entity_action:
+                            desc: Legacy field. Runs on whichever side entity_action_target names.
+                        cooldown:
+                            desc: Ticks the power needs to recharge between fires.
+                            type: integer
+                            min: 0
+                            default: 1
+                        hud_render:
+                            desc: How the cooldown is shown on the HUD.
+                            link: hud_render
+                    string-origins:self_action_on_hit:
+                        attacker_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
+                            desc: (DEPRECATED) Gates firing on the attacker (the holder).
+                            link: entity_condition
                         bientity_condition:
-                            desc: If set, the action will only trigger when this bi-entity condition is fulfilled.
+                            desc: Gates firing on the (actor, target) pair.
                             link: bientity_condition
                         damage_condition:
-                            desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the entity that has the power.
+                            desc: Gates firing on the damage that was dealt.
                             link: damage_condition
+                        target_condition:
+                            desc: Gates firing on the target.
+                        self_action:
+                            desc: Action run on the actor (the entity that has the power).
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        bientity_action:
+                            desc: The action to execute upon hit.
+                            link: bientity_action
+                        target_action:
+                            desc: Action run on the target (the entity that was hit).
+                            link: entity_action
+                        entity_action:
+                            desc: Legacy field. Runs on the actor (power holder).
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
+                            desc: Ticks the power needs to recharge between fires.
+                            type: integer
+                            min: 0
+                            default: 1
+                        hud_render:
+                            desc: How the cooldown is shown on the HUD.
+                            link: hud_render
+                    string-origins:target_action_on_hit:
+                        attacker_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
+                            desc: (DEPRECATED) Gates firing on the attacker (the holder).
+                            link: entity_condition
+                        bientity_condition:
+                            desc: Gates firing on the (actor, target) pair.
+                            link: bientity_condition
+                        damage_condition:
+                            desc: Gates firing on the damage that was dealt.
+                            link: damage_condition
+                        target_condition:
+                            desc: Gates firing on the target.
+                        self_action:
+                            desc: Action run on the actor (the entity that has the power).
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        bientity_action:
+                            desc: The action to execute upon hit.
+                            link: bientity_action
+                        target_action:
+                            desc: Action run on the target (the entity that was hit).
+                            link: entity_action
+                        entity_action:
+                            desc: Legacy field. Runs on the target.
+                        cooldown:
+                            desc: Ticks the power needs to recharge between fires.
+                            type: integer
+                            min: 0
+                            default: 1
+                        hud_render:
+                            desc: How the cooldown is shown on the HUD.
+                            link: hud_render
+                    string-origins:action_on_item_pickup:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_item_pickup/
+                            desc: If specified, the actions will only be executed if this bi-entity condition is fulfilled by either or both the ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        item_condition:
+                            desc: If specified, the actions will only be executed if this item condition is fulfilled by the item about to be picked up.
+                            link: item_condition
+                        bientity_action:
+                            desc: If specified, this bi-entity action will be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
+                        item_action:
+                            desc: If specified, this item action will be executed on the item that was picked up.
+                            link: item_action
+                    string-origins:action_on_item_use:
+                        item_condition:
+                            desc: If specified, the actions will only execute if this condition is fulfilled by the item before use.
+                            link: item_condition
+                        entity_action:
+                            desc: If specified, this action will be executed on the player after they use an item.
+                            link: entity_action
+                        item_action:
+                            desc: 	If specified, this action will be executed on the remaining item.
+                            link: item_action
+                        trigger:
+                            link: use_trigger
+                        priority:
+                            desc: |
+                                Determines execution order when several of these powers fire on the same trigger (higher runs first), and which phase the power runs in: priority >= 0 runs before the vanilla item logic of the trigger point, priority < 0 runs after it.
+                            type: integer
+                            default: 0
+                    string-origins:action_on_key_press:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_key_press/
+                            desc: The action to execute on the player.
+                            link: entity_action
+                        cooldown:
+                            desc: Interval of ticks this power needs to recharge before the power can be triggered again.
                             type: integer
                             min: 0
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
-                    string-origins:action_on_item_use:
+                        key:
+                            desc: Which active key this power should respond to.
+                            link: keybind
+                    string-origins:active_self:
                         entity_action:
-                            desc: If set, this action will be executed on the player after they use the item.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_key_press/
+                            desc: (DEPRECATED) The action to execute on the player.
                             link: entity_action
-                        item_action:
-                            desc: If set, this action will be executed on the remaining item stack.
-                            link: item_action
-                        item_condition:
-                            desc: If set, the actions will only trigger when this item condition is met by the item stack before use.
-                            link: item_condition
-                        trigger:
-                            desc: |
-                                Defines when the action is executed.
-                                "finish" - The action will execute when the entity finishes (as in, completes) using an item which has a use duration, such as eating food.
-                                "start" - The action will execute when the entity starts using an item which has a use duration.
-                                "stop" - The action will execute when the entity stops using an item which has a use duration, before the maximum use duration has been reached. Compared to finish, this can be used to detect shooting a bow, for example.
-                                "during" - The action will be called every tick while the entity is using an item which has a use duration.
-                                "instant" - The action will not fire for items with a use duration, but will instead fire when an item is used which triggers its effect instantly, such as an ender pearl or splash potion.
-                            enum: [finish, start, stop, during, instant]
-                        priority:
-                            desc: Determines the execution priority of the power.
+                        cooldown:
+                            desc: Interval of ticks this power needs to recharge before the power can be triggered again.
                             type: integer
+                            min: 0
+                            default: 1
+                        hud_render:
+                            desc: Determines how the cooldown of this power is visualized on the HUD.
+                            link: hud_render
+                        key:
+                            desc: Which active key this power should respond to.
+                            link: keybind
+                    string-origins:action_on_key_sequence:
+                        success_action:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_key_sequence/
+                            desc: Run when the whole sequence has been entered.
+                            link: entity_action
+                        fail_action:
+                            desc: Run when a key press breaks a partial match.
+                            link: entity_action
+                        cooldown:
+                            desc: Ticks to ignore input for after a success.
+                            type: integer
+                            min: 0
                             default: 0
+                        timeout:
+                            desc: Ticks of no tracked key press before a partial combo is forgotten. 0 never expires.
+                            type: integer
+                            min: 0
+                            default: 20
+                        hud_render:
+                            desc: Cooldown display.
+                            link: hud_render
+                        keys:
+                            desc: The keys this power watches. Each may carry its own action, run on every press.
+                            type: list
+                            vals:
+                                link: keybind
+                        key_sequence:
+                            desc: The combo, as key names in order.
+                            type: list
+                            vals:
+                                link: meta_key
+                    string-origins:action_on_kill:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_kill/
+                            desc: Gates firing on the (killer, victim) pair.
+                            link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the killer.
+                            link: entity_condition
+                        damage_condition:
+                            desc: Gates firing on the killing damage.
+                            link: damage_condition
+                        target_condition:
+                            desc: Gates firing on the entity that died.
+                            link: target_condition
+                        bientity_action:
+                            desc: Action run with the (killer, victim) pair.
+                            link: bientity_action
+                        self_action:
+                            desc: Action run on the killer (the entity that has the power).
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the entity that died.
+                            link: entity_action
+                        entity_action_target:
+                            desc: Which entity entity_action runs on. Set automatically by the legacy IDs.
+                            enum: ['self','attacker','target']
+                        entity_action:
+                            desc: Legacy field. Runs on whichever side entity_action_target names.
+                            link: entity_action
+                        cooldown:
+                            desc: Ticks the power needs to recharge between fires.
+                            type: integer
+                            min: 0
+                            default: 1
+                        hud_render:
+                            desc: How the cooldown is shown on the HUD.
+                            link: hud_render
+                    string-origins:self_action_on_kill:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_kill/
+                            desc: (DEPRECATED) Gates firing on the (killer, victim) pair.
+                            link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the killer.
+                            link: entity_condition
+                        damage_condition:
+                            desc: Gates firing on the killing damage.
+                            link: damage_condition
+                        target_condition:
+                            desc: Gates firing on the entity that died.
+                            link: target_condition
+                        bientity_action:
+                            desc: Action run with the (killer, victim) pair.
+                            link: bientity_action
+                        self_action:
+                            desc: Action run on the killer (the entity that has the power).
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the entity that died.
+                            link: entity_action
+                        entity_action:
+                            desc: Legacy field. Runs on whichever side entity_action_target names.
+                            link: entity_action
+                        cooldown:
+                            desc: Ticks the power needs to recharge between fires.
+                            type: integer
+                            min: 0
+                            default: 1
+                        hud_render:
+                            desc: How the cooldown is shown on the HUD.
+                            link: hud_render
                     string-origins:action_on_land:
                         entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_land/
                             desc: The action to execute on the player.
                             link: entity_action
+                    string-origins:action_on_sending_message:
+                        message_type:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_sending_message/
+                            desc: Only react to messages of this chat type, e.g. minecraft:chat. Omit to react to all of them.
+                            or:
+                              - title: built-in
+                                enum: ['all','chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
+                                unspec: 'all'
+                              - title: custom
+                                link: identifier
+                                default: unspec
+                        filter:
+                            desc: A single filter. Merged into filters.
+                            link: message_filter
+                        filters:
+                            desc: Filters tested against the message.
+                            type: list
+                            vals:
+                                link: message_filter
+                        entity_action:
+                            desc: Action run on the holder when a filter matches.
+                            link: entity_action
+                        priority:
+                            desc: Ordering when the holder has several of these powers. Higher runs first.
+                            type: integer
+                            default: 0
                     string-origins:action_on_wake_up:
                         entity_action:
                             desc: If set, this action will be executed on the player when they wake up.
@@ -5116,20 +5462,6 @@ type: number
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
-                    string-origins:active_self:
-                        entity_action:
-                            desc: If set, this action will be executed on the player when a block is broken.
-                            link: entity_action
-                        cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
-                        hud_render:
-                            desc: Determines how the cooldown of this power is visualized on the HUD.
-                            link: hud_render
-                        key:
-                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: keybind
                     string-origins:attacker_action_when_hit:
                         damage_condition:
                             desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the attacker.
@@ -7258,6 +7590,8 @@ type: number
             min_total:						NewTotal = max(Total, Modifier)
             max_total:						NewTotal = min(Total, Modifier)
             set_total:						NewTotal = Modifier (last, overrides everything)
+    block_facing:
+        enum: ['up','down','north','south','east','west']
     block_state:
         enum: ['age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','copper_golem_base','cracked','crafting','creaking_heart_state','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
     boolean_optional:
@@ -8987,15 +9321,75 @@ type: number
     keybind:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/key
         desc: Defines which key an active power reacts to - a built-in key or one you define in a datapack. See the doc for more information.
-        type: object
-        props:
-            key:
-                desc: The keybinding’s translation key.
-                link: meta_key
-            continuous:
-                desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
-                type: boolean
-                default: false
+        or:
+          - title: simple
+            link: meta_keybind
+          - title: advanced
+            type: object
+            props:
+                key:
+                    desc: The keybinding’s translation key.
+                    link: meta_keybind
+                continuous:
+                    desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
+                    type: boolean
+                    default: false
+    meta_keybind:
+        or:
+          - title: built-in
+            enum: [$Origins,'key.origins.primary_active','key.origins.secondary_active',$Apoli,'key.apoli.primary_active','key.apoli.secondary_active',$Minecraft,$Gameplay,'key.attack','key.pickItem','key.use',$Movement,'key.jump','key.sneak','key.sprint','key.left','key.right','key.back','key.forward',$Inventory,'key.drop','key.hotbar.1','key.hotbar.2','key.hotbar.3','key.hotbar.4','key.hotbar.5','key.hotbar.6','key.hotbar.7','key.hotbar.8','key.hotbar.9','key.inventory','key.swapOffhand',$Creative Mode,'key.loadToolbarActivator','key.saveToolbarActivator',$Spectator Mode,'key.spectatorOutlines','key.spectatorHotbar',$Multiplayer,'key.playerlist','key.chat','key.command','key.socialInteractions',$Miscellaneous,'key.advancements','key.quickActions','key.screenshot','key.smoothCamera','key.fullscreen','key.toggleGui','key.togglePerspective','key.toggleSpectatorShaderEffects',$Debug,'key.debug.overlay','key.debug.modifier','key.debug.clearChat','key.debug.copyRecreateCommand','key.debug.copyLocation','key.debug.spectate','key.debug.crash','key.debug.debugOptions','key.debug.dumpDynamicTextures','key.debug.dumpVersion','key.debug.switchGameMode','key.debug.reloadChunk','key.debug.reloadResourcePacks','key.debug.showAdvancedTooltips','key.debug.showChunkBorders','key.debug.showHitboxes','key.debug.profiling','key.debug.improvedTransparency','key.debug.focusPause','key.debug.profilingChart','key.debug.fpsCharts','key.debug.networkCharts']
+          - title: custom
+            link: meta_key
+    message_filter:
+        or:
+          - title: simple
+            type: string
+          - title: advanced
+            type: object
+            props:
+                filter:
+                    desc: A regular expression tested against the message.
+                    type: string
+                    ext: true
+                    required: true
+                match_mode:
+                    desc: |
+                        How much of the message the pattern has to cover.
+                        contains	The pattern is found anywhere in the message
+                        full		The pattern covers the whole message
+                        word		The pattern is found as a whole word
+                        starts_with	The message begins with the pattern
+                        ends_with	The message ends with the pattern
+                    enum: ['contains','full','word','starts_with','ends_with']
+                literal:
+                    desc: |
+                        Treat filter as plain text instead of a regular expression. Use this when the word contains characters like (, [ or ?.
+                    type: boolean
+                    default: false
+                case_insensitive:
+                    desc: |
+                        Ignore letter case. Equivalent to prefixing the pattern with (?i).
+                    type: boolean
+                    default: false
+                inverted:
+                    desc: |
+                        Turn the filter into a veto: if this pattern matches, the whole power stays inert for that message. "inverted": true makes a filter a veto. It never triggers the power on its own; it only stops the power when it matches. Use it to carve exceptions out of a broad pattern.
+                    type: boolean
+                    default: false
+                before_action:
+                    desc: Run before the power’s entity_action.
+                    link: entity_action
+                after_action:
+                    desc: Run after the power’s entity_action.
+                    link: entity_action
+                replacement:
+                    desc: Rewrite the matched text before the message is broadcast. Regex replacements work, so $1 is the first capture group.
+                    type: string
+                    ext: true
+                prevent:
+                    desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
+                    type: boolean
+                    default: false
     meta_condition_chance:
         chance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
@@ -9557,6 +9951,15 @@ type: number
             condition:
                 desc: The segment only shows while this condition passes (tested on the displaying player, server side).
                 type: entity_condition
+    use_trigger:
+        desc: |
+            Defines when the action is executed.
+            finish		The action will execute when the entity finishes (as in, completes) using an item which has a use duration, such as eating food.
+            start		The action will execute when the entity starts using an item which has a use duration.
+            stop		The action will execute when the entity stops using an item which has a use duration, before the maximum use duration has been reached. Compared to finish, this can be used to detect shooting a bow, for example.
+            during		The action will be called every tick while the entity is using an item which has a use duration.
+            instant		The action will not fire for items with a use duration, but will instead fire when an item is used which triggers its effect instantly, such as an ender pearl or splash potion.
+        enum: ['finish', 'start', 'stop', 'during', 'instant']
     vector:
         type: object
         props:
