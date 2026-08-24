@@ -3939,18 +3939,53 @@ type: number
                   - origins:target_action_on_hit
                   - origins:toggle_night_vision
 
-                  
                 more:
                     string-origins:attribute:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
                             desc: A single modifier applied to its attribute.
-                            link: attribute_modifier
+                            link: attribute_modifier_attribute
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
                             type: list
                             vals:
-                                link: attribute_modifier
+                                link: attribute_modifier_attribute
+                        update_health:
+                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
+                            type: boolean
+                            default: true
+                    string-origins:conditioned_attribute:
+                        attribute:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
+                            desc: (DEPRECATED) The vanilla attribute id this modifier targets.
+                            link: identifier
+                            required: true
+                        modifier:
+                            desc: A single modifier applied to its attribute.
+                            link: attribute_modifier_legacy
+                        modifiers:
+                            desc: Multiple modifiers applied to their respective attribute fields.
+                            type: list
+                            vals:
+                                link: attribute_modifier_legacy
+                        update_health:
+                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
+                            type: boolean
+                            default: true
+                    string-origins:modify_attribute:
+                        attribute:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
+                            desc: (DEPRECATED) The vanilla attribute id this modifier targets.
+                            link: identifier
+                            required: true
+                        modifier:
+                            desc: A single modifier applied to its attribute.
+                            link: attribute_modifier_legacy
+                        modifiers:
+                            desc: Multiple modifiers applied to their respective attribute fields.
+                            type: list
+                            vals:
+                                link: attribute_modifier_legacy
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
@@ -5070,7 +5105,7 @@ type: number
                     string-origins:action_on_entity_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_entity_use/
-                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
+                            desc: (DEPRECATED) If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
                             link: bientity_condition
                         item_condition:
                             desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
@@ -5323,8 +5358,7 @@ type: number
                             desc: Action run on the entity that died.
                             link: entity_action
                         entity_action_target:
-                            desc: Which entity entity_action runs on. Set automatically by the legacy IDs.
-                            enum: ['self','attacker','target']
+                            link: entity_action_target
                         entity_action:
                             desc: Legacy field. Runs on whichever side entity_action_target names.
                             link: entity_action
@@ -5363,7 +5397,7 @@ type: number
                             desc: Action run on the entity that died.
                             link: entity_action
                         entity_action:
-                            desc: Legacy field. Runs on whichever side entity_action_target names.
+                            desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
                             desc: Ticks the power needs to recharge between fires.
@@ -5404,56 +5438,137 @@ type: number
                             desc: Ordering when the holder has several of these powers. Higher runs first.
                             type: integer
                             default: 0
+                    string-origins:action_on_use:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        item_condition:
+                            desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
+                            link: item_condition
+                        hands:
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
+                            type: list
+                            vals:
+                                link: hand
+                        target_used:
+                            desc: false = listen on the actor side (entity-use); true = listen on the target side (being-used). Authored automatically when using the legacy aliases.
+                            type: boolean
+                            default: false
+                        bientity_action:
+                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
+                        held_item_action:
+                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
+                            link: item_action
+                        result_item_action:
+                            desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
+                            link: item_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the ’actor’ entity.
+                            link: item_stack
+                        action_result:
+                            desc: Determines the result of the ‘use’ action.
+                            link: action_result
+                            default: 'success'
                     string-origins:action_on_wake_up:
-                        entity_action:
-                            desc: If set, this action will be executed on the player when they wake up.
-                            link: entity_action
-                        block_action:
-                            desc: If set, this action will be executed on the bed block.
-                            link: block_action
                         block_condition:
-                            desc: If set, the actions will only trigger when this block condition is met by the bed block.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_wake_up/
+                            desc: If specified, the specified actions will only execute if this condition is fulfilled by the bed block.
                             link: block_condition
+                        block_action:
+                            desc: If specified, this action will be executed on the bed block.
+                            link: block_action
+                        entity_action:
+                            desc: If specified, this action will be executed on the player when they wake up.
+                            link: entity_action
                     string-origins:action_over_time:
                         interval:
-                            desc: Interval of ticks between subsequent executions of the action. Must be a value of at least 1.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_over_time/
+                            desc: Interval of ticks between subsequent executions of the specified actions. Must be a value of at least 1.
                             type: integer
                             min: 1
                             default: 20
-                        entity_action:
-                            desc: The action to execute on the player each interval.
-                            link: entity_action
+                        onset_delay:
+                            desc: Ticks to wait after the condition first becomes true before entity_action starts running. rising_action still fires immediately.
+                            link: expression_integer
                         rising_action:
                             desc: The action to execute on the first interval tick in which the condition became true.
+                            link: entity_action
+                        entity_action:
+                            desc: The action to execute on the entity that has the power each interval.
                             link: entity_action
                         falling_action:
                             desc: The action to execute on the first interval tick in which the condition became false.
                             link: entity_action
-                    string-origins:action_when_damage_taken:
+                    string-origins:action_when_hit:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_when_hit/
+                            desc: Gates firing on the (actor, target) pair. Fails if there is no attacker.
+                            link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the attacker. Fails if there is no attacker.
+                            link: entity_condition
+                        target_condition:
+                            desc: Gates firing on the target (the holder).
+                            link: entity_condition
                         damage_condition:
-                            desc: If specified, the action will only trigger when this condition holds for the specified type of damage.
+                            desc: Gates firing on the damage that was dealt.
                             link: damage_condition
+                        bientity_action:
+                            desc: The action to execute upon being hit.
+                            link: bientity_action
+                        self_action:
+                            desc: Action run on the target (the entity that has the power).
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the actor (the entity that dealt the damage).
+                            link: entity_action
+                        entity_action_target:
+                            link: entity_action_target
                         entity_action:
-                            desc: The action to be executed upon taking damage.
+                            desc: Legacy field. Runs on whichever side entity_action_target names.
                             link: entity_action
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the power can be triggered again.
+                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
                             type: integer
                             min: 0
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
-                    string-origins:action_when_hit:
+                    string-origins:action_when_damage_taken:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_when_hit/
+                            desc: (DEPRECATED) Gates firing on the (actor, target) pair. Fails if there is no attacker.
+                            link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the attacker. Fails if there is no attacker.
+                            link: entity_condition
+                        target_condition:
+                            desc: Gates firing on the target (the holder).
+                            link: entity_condition
+                        damage_condition:
+                            desc: Gates firing on the damage that was dealt.
+                            link: damage_condition
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        bientity_condition:
-                            desc: If set, the action will only trigger when this bi-entity condition is fulfilled.
-                            link: bientity_condition
-                        damage_condition:
-                            desc: If set, the action will only trigger when this condition holds for the specified type of damage.
-                            link: damage_condition
+                        self_action:
+                            desc: Action run on the target (the entity that has the power).
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the actor (the entity that dealt the damage).
+                            link: entity_action
+                        entity_action:
+                            desc: Legacy field. Runs on the actor.
+                            link: entity_action
                         cooldown:
                             desc: Interval of ticks this power needs to recharge before the action can be executed again.
                             type: integer
@@ -5463,46 +5578,33 @@ type: number
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
                     string-origins:attacker_action_when_hit:
-                        damage_condition:
-                            desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the attacker.
-                            link: damage_condition
-                        entity_action:
-                            desc: The action to execute on the attacker.
-                            link: entity_action
-                        cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
-                            default: 1
-                        hud_render:
-                            desc: Determines how the cooldown of this power is visualized on the HUD.
-                            link: hud_render
-                    string-origins:self_action_on_hit:
-                        damage_condition:
-                            desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the player.
-                            link: damage_condition
-                        target_condition:
-                            desc: If set, the action will only be triggered when a target matching this condition is hit.
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_when_hit/
+                            desc: (DEPRECATED) Gates firing on the (actor, target) pair. Fails if there is no attacker.
+                            link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the attacker. Fails if there is no attacker.
                             link: entity_condition
-                        entity_action:
-                            desc: The action to execute on the player.
-                            link: entity_action
-                        cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
-                        hud_render:
-                            desc: Determines how the cooldown of this power is visualized on the HUD.
-                            link: hud_render
-                    string-origins:self_action_on_kill:
-                        damage_condition:
-                            desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the player.
-                            link: damage_condition
                         target_condition:
-                            desc: If set, the action will only be triggered when a target matching this condition is killed.
+                            desc: Gates firing on the target (the holder).
                             link: entity_condition
+                        damage_condition:
+                            desc: Gates firing on the damage that was dealt.
+                            link: damage_condition
+                        bientity_action:
+                            desc: The action to execute upon being hit.
+                            link: bientity_action
+                        self_action:
+                            desc: Action run on the target (the entity that has the power).
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the actor (the entity that dealt the damage).
+                            link: entity_action
                         entity_action:
-                            desc: The action to execute on the player.
+                            desc: Legacy field. Runs on the attacker.
                             link: entity_action
                         cooldown:
                             desc: Interval of ticks this power needs to recharge before the action can be executed again.
@@ -5513,29 +5615,33 @@ type: number
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
                     string-origins:self_action_when_hit:
-                        damage_condition:
-                            desc: If set, the action will only trigger when this condition holds for the specified type of damage.
-                            link: damage_condition
-                        entity_action:
-                            desc: The action to execute on the player.
-                            link: entity_action
-                        cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
-                            default: 1
-                        hud_render:
-                            desc: Determines how the cooldown of this power is visualized on the HUD.
-                            link: hud_render
-                    string-origins:target_action_on_hit:
-                        damage_condition:
-                            desc: If set, the action will only trigger when this condition holds for the damage that was dealt by the player.
-                            link: damage_condition
-                        target_condition:
-                            desc: If set, the action will only be triggered when a target matching this condition is hit.
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_when_hit/
+                            desc: (DEPRECATED) Gates firing on the (actor, target) pair. Fails if there is no attacker.
+                            link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the attacker. Fails if there is no attacker.
                             link: entity_condition
+                        target_condition:
+                            desc: Gates firing on the target (the holder).
+                            link: entity_condition
+                        damage_condition:
+                            desc: Gates firing on the damage that was dealt.
+                            link: damage_condition
+                        bientity_action:
+                            desc: The action to execute upon being hit.
+                            link: bientity_action
+                        self_action:
+                            desc: Action run on the target (the entity that has the power).
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                            link: entity_action
+                        attacker_action:
+                            desc: Action run on the actor (the entity that dealt the damage).
+                            link: entity_action
                         entity_action:
-                            desc: The action to execute on the target.
+                            desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
                             desc: Interval of ticks this power needs to recharge before the action can be executed again.
@@ -5547,33 +5653,31 @@ type: number
                             link: hud_render
                     string-origins:modify_air_speed:
                         modifier:
-                            desc: If specified, this modifier will be applied to the entity's air speed.
-                            link: a_mod
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_air_speed/
+                            desc: A single modifier applied to the air speed.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the entity's air speed.
+                            desc: Several modifiers, applied in operation order.
                             type: list
                             vals:
-                                link: a_mod
-                    string-origins:modify_attribute:
-                        attribute:
-                            desc: ID of the attribute of which the modifier should be applied.
-                            href: https://minecraft.wiki/w/Attribute
-                            link: identifier
-                        modifier:
-                            desc: If specified, this modifier will be applied to the entity's attribute.
-                            link: a_mod
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the entity's attribute.
-                            type: list
-                            vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins:modify_block_render:
                         block_condition:
-                            desc: If set, modifies how the block would look like that meets this condition.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_block_render/
+                            desc: If specified, only modify how the blocks that fulfill this condition would look like.
                             link: block_condition
                         block:
-                            desc: The ID of the block that would replace the block that meets the condition from the block_condition object field would look like.
+                            desc: The namespace and ID of the replacement block.
                             link: identifier
+                    string-origins:modify_block_stuck_speed:
+                        block_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_block_stuck_speed/
+                            desc: If specified, only blocks that fulfil this condition are affected. Without it, every block that slows the entity is affected.
+                            link: block_condition
+                        multiplier:
+                            desc: |
+                                The per-axis movement multiplier used instead of the block’s own. 1.0 means no slowdown at all; vanilla cobweb uses {"x": 0.25, "y": 0.05, "z": 0.25}.
+                            link: vector
                     string-origins:modify_break_speed:
                         block_condition:
                             desc: If set, the modifiers will only apply to blocks which satisfy this condition.
@@ -7531,41 +7635,84 @@ type: number
         props:
             operation:
                 link: attribute_modifier_operation
+            attribute:
+                desc: The vanilla attribute id this modifier targets.
+                link: identifier
+                default: unspec
+            name:
+                desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
+                link: meta_key
+                default: unspec
+            resource:
+                desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
+                link: identifier
+                default: unspec
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                or:
-                  - type: number
-                    default: 0
-                  - type: string
-                    ext: true
+                link: expression_float
+            modifier:
+                link: attribute_modifier
+    attribute_modifier_attribute:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
+        type: object
+        props:
+            operation:
+                link: attribute_modifier_operation
             attribute:
                 desc: The vanilla attribute id this modifier targets.
                 link: identifier
                 required: true
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
-                type: string
+                link: meta_key
+                default: unspec
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: identifier
+                default: unspec
+            value:
+                desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
+                link: expression_float
             modifier:
-                link: attribute_modifier
+                link: attribute_modifier_attribute
     attribute_modifier_resource:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
         type: object
         props:
             operation:
                 link: attribute_modifier_operation
-            value:
-                desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                link: expression_float
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
                 link: meta_key
+                default: unspec
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: identifier
+                default: unspec
+            value:
+                desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
+                link: expression_float
             modifier:
                 link: attribute_modifier_resource
+    attribute_modifier_legacy:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
+        type: object
+        props:
+            operation:
+                link: attribute_modifier_operation
+            name:
+                desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
+                link: meta_key
+                default: unspec
+            resource:
+                desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
+                link: identifier
+                default: unspec
+            value:
+                desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
+                link: expression_float
+            modifier:
+                link: attribute_modifier_legacy
     attribute_modifier_operation:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier-operation
         enum: ['add_base_early','addition','multiply_base_additive','multiply_base','multiply_base_multiplicative','standard_multiply_base','standard_divide_base','add_base_late','min_base','max_base','set_base','multiply_total_additive','multiply_total_multiplicative','multiply_total','standard_multiply_total','standard_divide_total','min_total','max_total','set_total']
@@ -7704,6 +7851,9 @@ type: number
             Back			ease_in_back, ease_out_back, ease_in_out_back	Overshoots past the target and settles back. Anticipation.
             Elastic			ease_in_elastic, ease_out_elastic, ease_in_out_elastic	Springs past the target and oscillates.
             Bounce			ease_in_bounce, ease_out_bounce, ease_in_out_bounce	Hits the target and bounces off it.
+    entity_action_target:
+        desc: Which entity entity_action runs on. Set automatically by the legacy IDs.
+        enum: ['self','attacker','target']
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
