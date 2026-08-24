@@ -3801,7 +3801,6 @@ type: number
                   - origins:emissive
                   - origins:entity_glow
                   - origins:entity_set
-                  - origins:exhaust
                   - origins:fire_projectile
                   - origins:freeze
                   - origins:function
@@ -3814,10 +3813,13 @@ type: number
                   - origins:item_on_item
                   - origins:keep_inventory
                   - origins:model_color
+                  - origins:night_vision
                   - origins:overlay
                   - origins:particle
                   - origins:phasing
                   - origins:pose
+                  - origins:receive_action
+                  - origins:receive_condition
                   - origins:recipe
                   - origins:replace_loot_table
                   - origins:replace_sound_emission
@@ -3825,6 +3827,7 @@ type: number
                   - origins:resource
                   - origins:restrict_armor
                   - origins:scare_mobs
+                  - origins:script
                   - origins:self_glow
                   - origins:shader
                   - origins:shaking
@@ -3839,7 +3842,6 @@ type: number
 
                   - $Action Types
 
-                  - origins:action_on_being_used
                   - origins:action_on_block_break
                   - origins:action_on_block_place
                   - origins:action_on_block_use
@@ -3855,7 +3857,6 @@ type: number
                   - origins:action_on_kill
                   - origins:action_on_land
                   - origins:action_on_sending_message
-                  - origins:action_on_swap
                   - origins:action_on_use
                   - origins:action_on_wake_up
                   - origins:action_over_time
@@ -3863,18 +3864,22 @@ type: number
 
                   - $Modify Types
 
+                  - origins:modify_air_speed
                   - origins:modify_block_render
                   - origins:modify_block_stuck_speed
                   - origins:modify_break_speed
+                  - origins:modify_camera_submersion
                   - origins:modify_crafting
                   - origins:modify_cursor_speed
                   - origins:modify_damage
                   - origins:modify_enchantment_level
                   - origins:modify_exhaustion
                   - origins:modify_falling
+                  - origins:modify_food
                   - origins:modify_grindstone
                   - origins:modify_harvest
                   - origins:modify_healing
+                  - origins:modify_hearing_range
                   - origins:modify_jump
                   - origins:modify_label_render
                   - origins:modify_model_parts
@@ -3909,14 +3914,14 @@ type: number
 
                   - $DEPRECATED
                   - origins:active_self
+                  - origins:action_on_being_used
                   - origins:action_when_damage_taken
                   - origins:attacker_action_when_hit
+                  - origins:burn
                   - origins:conditioned_attribute
                   - origins:damage_over_time
-                  - origins:entity_group
-                  - origins:fire_immunity
+                  - origins:exhaust
                   - origins:ignore_water
-                  - origins:launch
                   - origins:lava_vision
                   - origins:modify_air_speed
                   - origins:modify_attribute
@@ -3924,16 +3929,13 @@ type: number
                   - origins:modify_damage_dealt
                   - origins:modify_damage_taken
                   - origins:modify_fluid_render
-                  - origins:modify_food
                   - origins:modify_insomnia_ticks
                   - origins:modify_lava_speed
                   - origins:modify_status_effect_amplifier
                   - origins:modify_status_effect_duration
-                  - origins:night_vision
                   - origins:self_action_on_hit
                   - origins:self_action_on_kill
                   - origins:self_action_when_hit
-                  - origins:status_bar_texture
                   - origins:target_action_on_hit
                   - origins:toggle_night_vision
 
@@ -3953,6 +3955,17 @@ type: number
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
                             default: true
+                    string-origins:burn:
+                        burn_duration:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/burn/
+                            desc: (DEPRECATED) Seconds of fire applied each interval.
+                            type: number
+                            required: true
+                        interval:
+                            desc: Ticks between applications.
+                            type: integer
+                            min: 1
+                            required: true
                     string-origins:conditioned_attribute:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
@@ -4093,125 +4106,180 @@ type: number
                             default: false
                     string-origins:damage_over_time:
                         interval:
-                            desc: Duration of ticks to wait between the damage.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/damage_over_time/
+                            desc: (DEPRECATED) How much damage to deal each interval.
                             type: integer
                             min: 0
+                            default: 20
                         onset_delay:
-                            desc: How many ticks the power has to be active in order to apply the first damage. If not set, this will be equal to interval.
+                            desc: Ticks to wait after the condition becomes true before the first hit.
                             type: integer
                             min: 0
                         damage:
-                            desc: How much damage will be dealt each interval.
+                            desc: How much damage to deal each interval.
                             type: number
                             min: 0
                         damage_easy:
-                            desc: How much damage will be dealt each interval on Easy difficulty. If not set, this will be equal to damage.
+                            desc: Damage dealt on Easy difficulty.
                             type: number
                             min: 0
-                        damage_source:
-                            desc: If set, this is the damage source that will be used to deal the damage.
-                            link: damage_source
                         damage_type:
-                            desc: The damage type this power uses.
+                            desc: The damage type to use.
                             link: identifier
-                        protection_enchantment:
-                            desc: If set, the total amount of levels of this enchantment will be counted on the player's armor to increase the onset_delay.
-                            link: identifier
-                        protection_effectiveness:
-                            desc: If protection_enchantment is set, this multiplier scales how effective it will be (1.0 = time the onset_delay is increased is the same as with Hydrophobia and Water Protection).
-                            type: number
-                            default: 1
                     string-origins:disable_regen: {}
+                    string-origins:disable_slot:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/disable_slot/
+                            desc: Only refuse items matching this condition. Omit it to seal the slot against everything.
+                            link: item_condition
+                        slot:
+                            desc: A single slot to disable.
+                            link: item_slot
+                        slots:
+                            desc: Several slots to disable. Merged with slot.
+                            type: list
+                            vals:
+                                link: item_slot
+                    string-origins:edible_item:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/edible_item/
+                            desc: If specified, will only make the item edible and the specified actions will only be executed if this condition is fulfilled by the item.
+                            link: item_condition
+                        food_component:
+                            desc: The food component that the item grants upon eating it.
+                            link: food_component
+                        entity_action:
+                            desc: If specified, this action will be executed on the player upon consuming an item.
+                            link: entity_action
+                        item_action:
+                            desc: If specified, this action will be executed on the item consumed by the player.
+                            link: item_action
+                        result_item_action:
+                            desc: If specified, this action will be executed on the item that is given to the player as a result of consuming an item.
+                            link: item_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the player.
+                            link: item_stack
+                        consume_animation:
+                            desc: Determines whether the animation effect for consuming the item should be “eating” ("eat", displays particle effects based on the item) or “drinking” ("drink", no particle effects.)
+                            enum: ['eat','drink']
+                        consume_sound:
+                            desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
+                            link: identifier
+                            default: 'entity.generic.eat'
+                        consuming_time_modifier:
+                            desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
+                            link: attribute_modifier
+                        consuming_time_modifiers:
+                            desc: If specified, these modifiers will be applied on the maximum time the item is being consumed (in ticks).
+                            type: list
+                            vals:
+                                link: attribute_modifiers
                     string-origins:effect_immunity:
                         inverted:
-                            desc: If set to true, only the effect(s) specified can be applied to the player.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/effect_immunity/
+                            desc: Determines whether to make the entity immune to the status effect(s) that aren’t specified.
                             type: boolean
                         effect:
-                            desc: If specified, the effect with this ID can not be applied to the player.
+                            desc: If specified, only the status effect with this namespace and ID can not be applied to the entity that has the power.
                             link: identifier
                         effects:
-                            desc: If specified, the effects with these IDs can not be applied to the player.
+                            desc: If specified, only the status effects with the specified namespace and IDs can not be applied to the entity that has the power.
                             link: identifier_array
                     string-origins:elytra_flight:
                         render_elytra:
-                            desc: Whether an Elytra should render on the player's back while this power is active.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/elytra_flight/
+                            desc: Determines whether an Elytra should render on the player’s back while this power is active.
                             type: boolean
                             default: false
                         texture_location:
-                            desc: If set, this will be the texture used by an Elytra granted by this power.
+                            desc: If specified, this will be the texture used by the Elytra granted by this power.
                             link: identifier
                     string-origins:entity_glow:
                         entity_condition:
-                            desc: If set, only entities which fulfill this condition will glow for the player with this power.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/entity_glow/
+                            desc: If specified, only entities which fulfill this condition will glow for the player that has the power.
                             link: entity_condition
                         bientity_condition:
-                            desc: If set, only entities which fulfill this bi-entity condition in relation to the power holder will glow for the player with this power.
+                            desc: If specified, the power will only be active if this condition is fulfilled by either or both the ‘actor’ (the player that has the power) and ‘target’ (the entity that would glow) entities.
                             link: bientity_condition
                         use_teams:
-                            desc: Whether glowing entities should use their team's color with their glow. If set to false the entity will instead use the red, green and blue fields within this power type.
+                            desc: Determines whether glowing entities should use their team’s color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
                             default: true
                         red:
                             desc: |
-                                Value by which the red component of the glow will be multiplied. Range: 0 - 1. Defaults to 1.
-                            type: number
+                                Value by which the red component of the glow will be multiplied. Range: 0.0 - 1.0.
+                            link: number_percent
+                            default: 1
                         green:
                             desc: |
-                                Value by which the green component of the glow will be multiplied. Range: 0 - 1. Defaults to 1.
-                            type: number
+                                Value by which the green component of the glow will be multiplied. Range: 0.0 - 1.0.
+                            link: number_percent
+                            default: 1
                         blue:
                             desc: |
-                                Value by which the blue component of the glow will be multiplied. Range: 0 - 1. Defaults to 1.
-                            type: number
-                    string-origins:entity_group:
-                        group:
-                            desc: The group to associate with the player. One of default, undead, arthropod, illager, or aquatic. Click for more information about the entity groups.
-                            href: https://minecraft.wiki/w/Mob#Classification
-                            enum: [default, undead, arthropod, illager, aquatic]
+                                Value by which the blue component of the glow will be multiplied. Range: 0.0 - 1.0.
+                            type: number_percent
+                            default: 1
+                        self_glow_target:
+                            desc: If true, the power makes the entity that has the power glow for everyone else, instead of making other entities glow for the holder. The apoli:self_glow type ID is an alias for this power with self_glow_target defaulting to true (see Self Glow).
+                            type: boolean
+                            default: false
+                    string-origins:entity_set:
+                        action_on_add:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/entity_set/
+                            desc: If specified, this bi-entity action will be executed on either or both the ’actor’ and the ’target’ upon the ’target’ being added to the set.
+                            link: bientity_action
+                        action_on_remove:
+                            desc: If specified, this bi-entity action will be executed on either or both the ’actor’ and the ’target’ upon the ’target’ being removed from the set.
+                            link: bientity_action
                     string-origins:exhaust:
                         interval:
-                            desc: Duration of ticks to wait between applying exhaustion.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/exhaust/
+                            desc: (DEPRECATED) Ticks between applications.
                             type: integer
                             min: 0
                             default: 20
                         exhaustion:
-                            desc: How much exhaustion will be applied each interval.
+                            desc: Exhaustion added each interval.
                             type: number
-                    string-origins:fire_immunity: {}
                     string-origins:fire_projectile:
                         entity_type:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
                             desc: The ID of the entity type that will be fired.
                             link: identifier
+                        texture_location:
+                            desc: If specified, the texture used for the projectile and the entity_type will be ignored.
+                            link: identifier
                         cooldown:
-                            desc: The number of ticks the player has to wait between uses of this power.
+                            desc: Interval of ticks this power needs to recharge before the power can be triggered again.
                             type: integer
                             min: 0
                             default: 1
                         hud_render:
-                            desc: Specifies how and if a cooldown bar is rendered.
+                            desc: 	Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
                         count:
-                            desc: The amount of projectiles to fire each use. Defaults to 1.
-                            type: integer
+                            desc: The amount of projectiles to fire each use.
                             default: 1
                             min: 1
                         interval:
-                            desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0 (default), it will fire all the projectiles at the same tick.
+                            desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
                             type: integer
-                            min: 0
                             default: 0
-                        start_delay:
-                            desc: Determines how long the start of the firing process is delayed (in ticks). Defaults to 0.
-                            type: integer
                             min: 0
+                        start_delay:
+                            desc: Determines how long the start of the firing process is delayed (in ticks).
+                            type: integer
                             default: 0
                         speed:
-                            desc: The speed applied to the fired projectile. Defaults to 1.5.
+                            desc: The speed applied to the fired projectile.
                             type: number
                             min: 0
                             default: 1.5
                         divergence:
-                            desc: How much each projectile fired is affected by random spread. Defaults to 1.
+                            desc: How much each projectile fired is affected by random spread.
                             type: number
                             min: 0
                             default: 1
@@ -4219,44 +4287,109 @@ type: number
                             desc: If set, the sound with this ID will be played when the power is used.
                             link: identifier
                         tag:
-                            desc: NBT data of the entity.
-                            type: string
-                            ext: true
-                        key:
-                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: keybind
+                            desc: NBT data to apply to projectiles.
+                            link: nbt
+                        allow_conditional_cancelling:
+                            desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
+                            type: boolean
+                            default: false
+                        block_action_cancels_miss_action:
+                            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                            type: boolean
+                            default: false
+                        entity_action_before_firing:
+                            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+                            link: entity_action
                         projectile_action:
-                            desc: An action which will run on the projectile.
+                            desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
                             link: entity_action
                         shooter_action:
-                            desc: An action which will run on the shooter of the projectile, i.e. the entity with the power.
+                            desc: If specified, this entity action will be executed on the entity that has the power.
                             link: entity_action
+                        tick_bientity_action:
+                            desc: 	If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+                            link: bientity_action
+                        bientity_action_after_firing:
+                            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                            link: bientity_action
+                        block_condition:
+                            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                            link: block_condition
+                        block_action_on_hit:
+                            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                            link: block_action
+                        block_action_cancels_miss_action:
+                            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                            type: boolean
+                            default: false
+                        bientity_condition:
+                            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                            link: bientity_condition
+                        bientity_action_on_miss:
+                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                            link: bientity_action
+                        bientity_action_on_hit:
+                            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                            link: bientity_action
+                        owner_bientity_condition:
+                            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                            link: bientity_condition
+                        owner_target_bientity_action_on_hit:
+                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+                            link: bientity_action
+                        key:
+                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
+                            link: keybind
                     string-origins:freeze: {}
+                    string-origins:function:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/function/
+                            desc: What the function does. Runs on whichever entity called it. Formatting NYI in The Origin Creator. Use Custom for your actions if parameterized for now.
+                            link: entity_action
+                        parameters:
+                            desc: The argument names the body uses. Leave it out and it is read from the [name] placeholders in the body.
+                            type: list
+                            vals:
+                                type: string
                     string-origins:grounded: {}
-                    string-origins:ignore_water: {}
+                    string-origins:ignore_fluid:
+                        fluid_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/ignore_fluid/
+                            desc: The fluid condition type to check the fluid state at the position.
+                            link: fluid_condition
+                    string-origins:ignore_water:
+                        fluid_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/ignore_fluid/
+                            desc: (DEPRECATED) The fluid condition type to check the fluid state at the position.
+                            link: fluid_condition
                     string-origins:inventory:
                         title:
-                            desc: The translation key or literal text to use as the display name for the inventory. Defaults to "container.inventory".
-                            type: string
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/inventory/
+                            desc: The translation key or literal text to use as the display name for the inventory.
+                            link: text_component
+                            default: 'container.inventory'
                         container_type:
-                            desc: Determines the type inventory to open. Accepts "chest", "double_chest", "dropper", "dispenser" or "hopper".
-                            enum: [chest, double_chest, dropper, dispenser, hopper]
+                            link: container_type
                         drop_on_death:
                             desc: When this is set to true, the player will drop the items in the inventory on death (vanishing items will vanish!).
                             type: boolean
                         drop_on_death_filter:
                             desc: If this is set, only item stacks matching this condition will be dropped on death.
                             link: item_condition
-                        key:
-                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: keybind
                         recoverable:
-                            desc: Whether or not the player will be given back the contents of the inventory when the power is lost.
+                            desc: Determines if the content of the inventory should be dropped upon losing the power.
                             type: boolean
                             default: true
+                        key:
+                            desc: Which active key this power should respond to.
+                            link: keybind
                     string-origins:invisibility:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/invisibility/
+                            desc: If specified, the ’target’ will only be invisible to ’actors’ (either the player or mobs that may see the target) if the bi-entity condition is fulfilled by either or both of them.
+                            link: bientity_condition
                         render_armor:
-                            desc: Whether or not the player's armor should be shown.
+                            desc: Determines whether armor should be shown or not.
                             type: boolean
                             default: false
                         render_outline:
@@ -4265,35 +4398,44 @@ type: number
                             default: true
                     string-origins:invulnerability:
                         damage_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/invulnerability/
                             desc: Specifies which damage the player will be immune to.
                             link: damage_condition
                     string-origins:item_on_item:
                         using_item_condition:
-                            desc: If set, the actions will only trigger when this condition is met by the item used to right-click an item stack.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/item_on_item/
+                            desc: If specified, the specified actions will only execute if this condition is fulfilled by the item that is used to right-click an item.
                             link: item_condition
                         on_item_condition:
-                            desc: If set, the actions will only trigger when this condition is met by the item stack that's been right-clicked.
+                            desc: If specified, the specified actions will only execute if this condition is fulfilled by the item that has been right-clicked.
                             link: item_condition
                         result:
-                            desc: If set, the specified item stack will be given to the player.
+                            desc: 	If specified, this item will be given to the player.
                             link: item_stack
                         result_from_on_stack:
                             desc: Determines how many items based on the on_item stack will be given as a result for using an item on an item. Mostly to be used in conjunction with result_item_action.
                             type: integer
+                            default: 0
                         using_item_action:
-                            desc: If set, this action will be executed on the item stack used to right-click an item stack.
+                            desc: If specified, this action will be executed on the item that is used to right-click an item.
                             link: item_action
                         on_item_action:
-                            desc: If set, this action will be executed on the item stack that's been right-clicked.
+                            desc: If specified, this action will be executed on the item that has been right-clicked.
                             link: item_action
                         result_item_action:
-                            desc: If set, this action will be executed on the item stack that's been right-clicked.
+                            desc: If specified, this action will be executed on the item that is given to the player.
                             link: item_action
                         entity_action:
-                            desc: If set, this action will be executed on the player after they used an item on an item.
+                            desc: If specified, this action will be executed on the player after they used an item on an item.
                             link: entity_action
+                        click_type:
+                            desc: |
+                                Which click runs the actions: "primary" (or 0) is a left-click, "secondary" (or 1) is a right-click.
+                            enum: ['primary','secondary']
+                            default: 'secondary'
                     string-origins:keep_inventory:
                         item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/keep_inventory/
                             desc: If specified, only make the items that fulfill the specified item condition type persist in the entity's inventory.
                             link: item_condition
                         slots:
@@ -4301,100 +4443,82 @@ type: number
                             type: list
                             vals:
                                 type: integer
-                    string-origins:launch:
-                        cooldown:
-                            desc: The number of ticks the player has to wait between uses of this power.
-                            type: integer
-                            min: 0
-                            default: 1
-                        speed:
-                            desc: The speed applied to the player in the upwards direction.
-                            type: number
-                        hud_render:
-                            desc: Specifies how and if a cooldown bar is rendered.
-                            link: hud_render
-                        sound:
-                            desc: If set, the sound with this ID will be played when the power is used.
-                            link: identifier
-                        key:
-                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: keybind
                     string-origins:lava_vision:
                         s:
-                            desc: Near view. Vanilla default is 0.25, or 0.0 if you are under the effect of Fire Resistance.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/lava_vision/
+                            desc: (DEPRECATED) Alias of start — where the fog starts, in blocks from the camera.
                             type: number
                             default: 0
                         v:
-                            desc: Far view. Vanilla default is 1.0, or 3.0 if you are under the effect of Fire Resistance.
+                            desc: Alias of end — where the fog becomes fully opaque, in blocks.
                             type: number
-                            default: 3
+                            default: 15
                     string-origins:model_color:
                         red:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/model_color/
                             desc: |
-                                Value by which the red component of the texture will be multiplied. Range: 0 - 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the red component of the texture will be multiplied.
+                            link: number_percent
+                            default: 1
                         green:
                             desc: |
-                                Value by which the green component of the texture will be multiplied. Range: 0 - 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the green component of the texture will be multiplied.
+                            link: number_percent
+                            default: 1
                         blue:
                             desc: |
-                                Value by which the blue component of the texture will be multiplied. Range: 0 - 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the blue component of the texture will be multiplied.
+                            link: number_percent
+                            default: 1
                         alpha:
                             desc: |
-                                Value by which the alpha (= transparency) component of the texture will be multiplied. Range: 0 - 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the alpha (= transparency) component of the texture will be multiplied.
+                            link: number_percent
+                            default: 1
+                        parts:
+                            desc: If specified, tints the listed model parts individually instead of the whole model. Each entry is a Part Color object (see below). Parts that are not listed are left untouched. The top-level red/green/blue/alpha fields are ignored when parts is present.
+                            type: list
+                            vals:
+                                link: part_color
                     string-origins:night_vision:
                         strength:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/night_vision/
                             desc: |
-                                This power grants night vision to the player without a status effect. The night vision effect's strength is controlled by this value. Range: 0 - 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                How bright, from 0.0 (no change) to 1.0 (full Night Vision). Values in between give partial darkvision.
+                            link: number_percent
+                            default: 1
                     string-origins:overlay:
                         texture:
-                            desc: The ID of the texture to use as an overlay.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
+                            desc: The namespace and ID of the texture to use as an overlay.
                             link: identifier
                         strength:
                             desc: |
-                                Value by which the alpha (transparency) component of the texture will be multiplied. Range: 0.0 to 1.0. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                If the "texture" draw mode is used, it determines the alpha (transparency) value of the texture. If the "nausea" draw mode is used, it determines the value of how the texture is stretched (1.0 = screen size). Range: 0.0 to 1.0.
+                            link: number_percent
+                            default: 1
                         red:
                             desc: |
-                                Value by which the red component of the texture will be multiplied. Range: 0.0 to 1.0. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the red component of the texture will be multiplied. Range: 0.0 to 1.0.
+                            link: number_percent
+                            default: 1
                         green:
                             desc: |
-                                Value by which the green component of the texture will be multiplied. Range: 0.0 to 1.0. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the green component of the texture will be multiplied. Range: 0.0 to 1.0.
+                            link: number_percent
+                            default: 1
                         blue:
                             desc: |
-                                Value by which the blue component of the texture will be multiplied. Range: 0.0 to 1.0. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the blue component of the texture will be multiplied. Range: 0.0 to 1.0.
+                            link: number_percent
+                            default: 1
                         draw_mode:
                             desc: Determines whether to treat black as transparent or draw the texture as is ("nausea" or "texture" respectively).
-                            enum: [nausea, texture]
+                            enum: ['nausea','texture']
                             default: 1
                         draw_phase:
                             desc: Determines if the overlay should render below or above the HUD ("below_hud" or "above_hud" respectively).
-                            enum: [above_hud, below_hud]
+                            enum: ['above_hud','below_hud']
                             default: 1
                         hide_with_hud:
                             desc: Determines if the overlay should be hidden if the HUD elements are hidden (with F1).
@@ -4405,6 +4529,10 @@ type: number
                             type: boolean
                             default: false
                     string-origins:particle:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/particle/
+                            desc: If specified, the particle will only be visible if this bi-entity condition is fulfilled by either or both the entity that has the power and the entity looking at the entity that has the power.
+                            link: bientity_condition
                         particle:
                             desc: The particle type that will be spawned.
                             link: particle_data
@@ -4419,91 +4547,148 @@ type: number
                             desc: Determines the speed of the specified particle type.
                             type: number
                             default: 0
+                        force:
+                            desc: Determines whether to display the emitted particles within 512 blocks (true) or 32 blocks (false).
+                            type: boolean
+                            default: false
                         spread:
                             desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in.
-                            type: object
-                            props:
-                                x:
-                                    type: number
-                                    default: 0.25
-                                y:
-                                    type: number
-                                    default: 0.5
-                                z:
-                                    type: number
-                                    default: 0.25
+                            link: vector
+                        offset_x:
+                            desc: The offset of where the particle will be centered in the X axis.
+                            type: number
+                            default: 0
                         offset_y:
                             desc: The offset of where the particle will be centered in the Y axis.
                             type: number
-                            default: 1
+                            default: 0.5
+                        offset_z:
+                            desc: The offset of where the particle will be centered in the Z axis.
+                            type: number
+                            default: 0
                         visible_in_first_person:
-                            desc: Determines whether the particle should be visible in first person.
+                            desc: Determines whether the particle type should be visible in first person.
                             type: boolean
+                            default: false
                         visible_while_invisible:
                             desc: Determines whether the particle type should be visible if the entity is invisible.
                             type: boolean
+                            default: false
                     string-origins:phasing:
                         block_condition:
-                            desc: If set, the player will only be able to move through these blocks (or not be able to move through these, depending on what blacklist is set to).
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/phasing/
+                            desc: If specified, the entity will only be able to move through these blocks (or not be able to move through these, depending on what blacklist is set to).
                             link: block_condition
                         blacklist:
-                            desc: If set to true, the block_condition will define which blocks the player can NOT move through.
+                            desc: If set to true, the block_condition field will define which blocks the player can NOT move through.
                             type: boolean
+                            default: false
                         render_type:
-                            desc: Either "none", "remove_blocks", or "blindness" - defines how the phasing will look when inside a block.
-                            enum: [none, blindness, remove_blocks]
+                            desc: Determines how the environment is rendered when “phasing” through (moving) blocks.
+                            enum: ['none','blindness','remove_blocks']
+                            deault: 'blindness'
                         view_distance:
-                            desc: How far the player can look through walls while phasing with the "blindness" render_type.
+                            desc: Determines how far the player can look through walls when “phasing” (moving) through blocks when render_type is set to "blindness".
                             type: number
                             default: 10
                         phase_down_condition:
-                            desc: When specified, this condition needs to be fulfilled in order for blocks below the player to become phasable. Defaults to a condition which checks for sneaking.
+                            desc: If specified, the entity will only be able to “phase” (move) downwards if this condition is fulfilled.
                             link: entity_condition
+                    string-origins:receive_action:
+                        entity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/receive_action/
+                            desc: Gate on the entity action. When it fails, nothing runs — not even action.
+                            link: entity_condition
+                        bientity_condition:
+                            desc: Gate on the bi-entity action.
+                            link: bientity_condition
+                        item_condition:
+                            desc: Gate on the item action.
+                            link: item_condition
+                        entity_action:
+                            desc: Runs when an entity apoli:send_action calls in.
+                            link: entity_action
+                        bientity_action:
+                            desc: Runs when a bi-entity apoli:send_action calls in.
+                            link: bientity_action
+                        item_action:
+                            desc: Runs when an item apoli:send_action calls in.
+                            link: item_action
+                        action:
+                            desc: Runs on the holder whenever this power receives anything, whichever flavour sent it. Fires after the flavour-specific actions above.
+                            link: entity_action
+                    string-origins:receive_condition:
+                        entity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/receive_condition/
+                            desc: The answer given to an entity apoli:send_condition. Absent means “yes” — the sender passes as long as this power exists and is active.
+                            link: entity_condition
+                        bientity_condition:
+                            desc: The answer given to a bi-entity apoli:send_condition.
+                            link: bientity_condition
+                        item_condition:
+                            desc: The answer given to an item apoli:send_condition.
+                            link: item_condition
                     string-origins:recipe:
                         recipe:
-                            id: recipes
-                            extend: power_recipe
-                            desc: The recipe to craft, including an id field which can be any arbitrary (but unique) identifier.
+                            link: crafting_recipe
                     string-origins:replace_loot_table:
                         replace:
-                            desc: A map that maps the ids of loot tables to replace with the ids of other loot tables to replace them with.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/replace_loot_table/
+                            desc: |
+                                An object with "key": "value" pairs that determine which loot table ("key") will be replaced with a new loot table ("value").
                             type: object
                             extra:
-                                type: string
-                                allowkey: '*a-z0-9_#\/:.-'
-                                allow: '*a-z0-9_#\/:.-'
+                                link: meta_key_value_regex
                         priority:
-                            desc: Priority of applying this replacement, vs others.
+                            desc: Determines the application priority of the power.
                             type: integer
                             default: 0
                         bientity_condition:
-                            desc: A bi-entity condition between the player and the entity with a loot table.
+                            desc: If specified, the loot tables will only be replaced if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
                             link: bientity_condition
                         item_condition:
-                            desc: An item condition of the item to change the loot table of.
+                            desc: If specified, the loot tables will only be replaced if the item in the context of the loot tables fulfill this condition.
                             link: item_condition
                         block_condition:
-                            desc: A block condition of the block to change the loot table of.
+                            desc: If specified, the loot tables will only be replaced if the block at the context of the loot tables fulfill this condition.
                             link: block_condition
                     string-origins:resource:
                         min:
-                            desc: The minimum value of the resource.
-                            type: integer
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/resource/
+                            desc: The minimum value of the resource. When an Expression, re-evaluated each tick. Omit it and the resource has no lower bound.
+                            link: expression_integer
                         max:
-                            desc: The maximum value of the resource.
-                            type: integer
+                            desc: The maximum value of the resource. When an Expression, re-evaluated each tick. Omit it and the resource has no upper bound.
+                            link: expression_integer
                         start_value:
-                            desc: The value of the resource when the player first chooses an origin with this power. If not set, this will be the same as min.
+                            desc: The value of the resource when the entity first receives the power.
+                            link: expression_integer
+                        size:
+                            desc: How many values this resource stores. Above 1 the power becomes a table of that many slots, each addressed by a position from 0 to size - 1. Also aliased as positions and slots. There is no upper limit — see Big tables.
                             type: integer
+                            default: 1
                         hud_render:
-                            desc: Specifies how and if the resource is displayed with a bar on the HUD.
+                            desc: Determines how the resource is visualized on the HUD. A bar needs a value to fill up to, so an uncapped resource needs a max on the hud_render — see Hud Render.
                             link: hud_render
+                        enforce_limits:
+                            desc: Whether the resource value is clamped to [min, max].
+                            type: boolean
+                            default: true
+                        retain_value:
+                            desc: |
+                                When enforce_limits is true: if a modification would push the value outside the bounds, keep the old value instead of clamping.
+                            type: boolean
+                            default: false
                         min_action:
-                            desc: If set, this action will be executed on the player whenever the minimum value is reached.
+                            desc: Run on the entity whenever the value reaches min.
                             link: entity_action
                         max_action:
-                            desc: If set, this action will be executed on the player whenever the maximum value is reached.
+                            desc: Run on the entity whenever the value reaches max.
                             link: entity_action
+                        persistent:
+                            desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
+                            type: boolean
+                            default: true
                     string-origins:restrict_armor:
                         head:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/restrict_armor/
@@ -4518,178 +4703,226 @@ type: number
                         feet:
                             desc: If specified, items which fulfills this condition cannot be equipped in the feet equipment slot.
                             link: item_condition
+                    string-origins:scare_mobs:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/scare_mobs/
+                            desc: Which mobs are scared. The actor is the entity with the power, the target is the mob deciding whether to flee. Without it, every mob flees.
+                            bientity_condition
+                        radius:
+                            desc: How close the mob has to be before it starts fleeing.
+                            type: number
+                            default: 6
+                        speed:
+                            desc: Movement speed multiplier while fleeing.
+                            type: number
+                            default: 1
+                    string-origins:script:
+                        on_added:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/script/
+                            desc: Script to run when the power is granted.
+                            link: identifier
+                        on_removed:
+                            desc: Script to run when the power is revoked.
+                            link: identifier
+                        params:
+                            desc: Values handed to the script as params.
+                            link: nbt
                     string-origins:self_glow:
                         entity_condition:
-                            desc: If set, only entities which fulfill this condition will see the entity that has the power glow.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/self_glow/
+                            desc: If specified, only entities that fulfill this condition will see the entity that has the power glow.
                             link: entity_condition
                         bientity_condition:
-                            desc: If set, only entities which fulfill this bi-entity condition in relation to the entity that has the power will see the entity that has the power glow.
+                            desc: If specified, only entities that fulfill this bi-entity condition in relation to the entity that has the power will see the entity that has the power glow.
                             link: bientity_condition
                         use_teams:
-                            desc: Whether glowing entities should use their team's color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
+                            desc: Determines whether glowing entities should use their team’s color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
                             default: true
                         red:
                             desc: |
-                                Value by which the red component of the glow will be multiplied. Range: 0 - 1. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the red component of the glow will be multiplied. Range: 0 - 1.
+                            link: number_percent
+                            default: 1
                         green:
                             desc: |
-                                Value by which the green component of the glow will be multiplied. Range: 0 - 1. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the green component of the glow will be multiplied. Range: 0 - 1.
+                            link: number_percent
+                            default: 1
                         blue:
                             desc: |
-                                Value by which the blue component of the glow will be multiplied. Range: 0 - 1. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
+                                Value by which the blue component of the glow will be multiplied. Range: 0 - 1.
+                            link: number_percent
+                            default: 1
                     string-origins:shader:
                         shader:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/shader/
                             desc: Specifies the location of the shader resource file to use.
                             link: identifier
                         toggleable:
                             desc: Determines if the applied shader can be toggled.
                             type: boolean
                             default: true
+                        priority:
+                            desc: Which shader wins when the entity holds more than one Shader power at once. Highest priority is applied; ties are broken arbitrarily.
+                            type: integer
+                            default: 0
                     string-origins:shaking: {}
+                    string-origins:show_both_arms:
+                        off_hand:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/show_both_arms/
+                            desc: Draw the off arm when the off hand is empty. This is the “see both hands” behaviour.
+                            type: boolean
+                            default: true
+                        main_hand:
+                            desc: Draw the main arm even while the main hand is holding an item, so you see the arm as well as the item. Filled maps are skipped — vanilla already draws both arms for those.
+                            type: boolean
+                            default: false
+                        ghost_arms:
+                            desc: How many extra “ghost” copies of each drawn arm to trail behind the live one while it swings. 0 disables the effect.
+                            type: integer
+                            min: 0
+                            max: 16
+                            default: 0
+                        ghost_spacing:
+                            desc: How far back each ghost sits, as a fraction of one swing. The nth ghost is drawn at the pose the arm held n × ghost_spacing of a swing ago, wrapping into the previous swing. Keep ghost_arms × ghost_spacing at or below 1.0; copies further back than a whole swing are skipped.
+                            type: number
+                            default: 0.12
+                        ghost_alpha:
+                            desc: Opacity of the ghosts (0.0 – 1.0). They are drawn translucent so the live arm reads clearly through them.
+                            link: number_percent
+                            default: 0.35
                     string-origins:simple: {}
                     string-origins:stacking_status_effect:
                         min_stacks:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/stacking_status_effect/
                             desc: The minimum number of stacks. Negative numbers are allowed.
                             type: integer
                         max_stacks:
                             desc: The maximum number of stacks.
                             type: integer
                         duration_per_stack:
-                            desc: When the status effects are applied, their duration will be stacks * duration_per_stack in ticks.
+                            desc: Determines the duration of the specified status effect(s) for each stack.
                             type: integer
                         tick_rate:
                             desc: Determines how fast the power will gain/lose stacks in ticks.
                             type: integer
                             default: 10
                         effect:
-                            desc: If set, this status effect will be applied by this power.
-                            link: effect
+                            desc: If specified, this status effect will be applied on the entity that has the power.
+                            link: status_effect_instance
                         effects:
-                            desc: If set, these status effects will be applied by this power.
+                            desc: If specified, these status effects will be applied on the entity that has the power.
                             type: list
                             vals:
-                                link: effect
+                                link: status_effect_instance
                     string-origins:starting_equipment:
                         stack:
-                            desc: If set, this item stack will be given to the player, optionally into the specified inventory slot.
-                            link: pos_item_stack
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/starting_equipment/
+                            desc: If specified, this item will be given to the player (can be specified in an inventory slot).
+                            link: positioned_item_stack
                         stacks:
-                            desc: If set, these item stacks will be given to the player, optionally into the specified inventory slots.
+                            desc: If specified, these items will be given to the player (can be specified in an inventory slot).
                             type: list
                             vals:
-                                link: pos_item_stack
+                                link: positioned_item_stack
                         recurrent:
-                            desc: When set to true, the starting equipment will always be given to the player after they died, otherwise only once when the power is gained.
+                            desc: Determines whether the specified item(s) should be given after respawning.
                             type: boolean
-                    string-origins:status_bar_texture:
-                        texture:
-                            desc: The ID of the sprite sheet to replace the default one with. Click to see what the vanilla sprite sheet looks like.
-                            href: https://raw.githubusercontent.com/misode/mcmeta/6d496b1a91476c4fdd45fdb093d0319141f9c109/assets/minecraft/textures/gui/icons.png
-                            link: identifier
+                            default: false
                     string-origins:swimming: {}
                     string-origins:toggle_night_vision:
-                        active_by_default:
-                            desc: Whether this power starts in the on state rather than the off state.
-                            type: boolean
-                            default: true
                         strength:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/night_vision/
                             desc: |
-                                This power grants night vision to the player without a status effect. The night vision effect's strength is controlled by this value. Range: 0 - 1. Defaults to 1.
-                            type: number
-                            min: 0
-                            max: 1
-                        key:
-                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
-                            link: keybind
+                                (DEPRECATED) How bright, from 0.0 (no change) to 1.0 (full Night Vision). Values in between give partial darkvision.
+                            link: number_percent
+                            default: 1
                     string-origins:toggle:
                         active_by_default:
-                            desc: Whether this power starts in the on state rather than the off state.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/toggle/
+                            desc: Determines whether the state of this power type should be ON by default.
                             type: boolean
                             default: true
                         key:
-                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key (by default G).
+                            desc: Which active key this power should respond to.
                             link: keybind
                         retain_state:
-                            desc: Whether this power switches back to default if the condition is no longer met.
+                            desc: Determines whether the power remains active even if the specified condition (if any) is no longer met. If set to true, the power will stay in its current state regardless of the condition. If set to false, the power will deactivate when the condition is not fulfilled.
                             type: boolean
                             default: true
                     string-origins:tooltip:
                         item_condition:
-                            desc: If set, only applies the tooltip(s) to the item(s) that meets this condition.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/tooltip/
+                            desc: If specified, the specified tooltip(s) will only apply to items that fulfills this condition.
                             link: item_condition
                         text:
                             desc: If set, apply this string as a tooltip.
-                            type: string
+                            link: text_component
                         texts:
                             desc: If set, apply these strings as a tooltip.
                             type: list
                             vals:
-                                type: string
+                                link: text_component
                         order:
-                            desc: Specifies the position of this tooltip among the other lines of information about the specified item(s).
+                            desc: Determines the placement order of the tooltip(s) of the power.
                             type: integer
                             default: 0
                     string-origins:walk_on_fluid:
                         fluid:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/walk_on_fluid/
                             desc: |
                                 ID of the fluid tag on which the player should be able to walk. Most important examples: minecraft:water and minecraft:lava.
                             link: identifier
+                    string-origins:water_breathing:
+                        suffocate_outside_water:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/water_breathing/
+                            desc: If true, the entity loses air and eventually takes drowning damage whenever its eyes are not in water — the aquatic-creature trade-off.
+                            type: boolean
+                            default: false
                     string-origins:action_on_being_used:
-                        bientity_action:
-                            desc: The action to be executed if specified.
-                            link: bientity_action
                         bientity_condition:
-                            desc: If specified, only execute the specified actions if the bi-entity condition is fulfilled.
-                            link: bientity_condition
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_being_used/
+                            desc: (DEPRECATED) If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
                         item_condition:
-                            desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) determined by the hands string field.
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_condition
+                        bientity_action:
+                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
                         hands:
-                            desc: Determines if the power should be activated if the player used the specified hand(s). Accepts "off_hand", "main_hand" or both.
+                            desc: Determines if the power should be activated if the player used the specified hand(s).
                             type: list
                             vals:
-                                type: string
+                                enum: ['main_hand','off_hand']
                         result_stack:
-                            desc: If specified, gives an item stack to the player.
+                            desc: If specified, this item stack will be given to the ’actor’ entity.
                             link: item_stack
                         held_item_action:
-                            desc: If specified, executes an item action on the item stack used for right-clicking the entity in the specified hand slot.
+                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_action
                         result_item_action:
                             desc: The action to be executed on the result item stack if specified.
                             link: item_action
                         action_result:
-                            desc: Determines the result of the action. Accepts "consume", "consume_partial", "fail", "pass" or "success".
-                            enum: [consume, consume_partial, fail, pass, success]
-                            default: 4
-                        priority:
-                            desc: Specifies which actions this action should override. Higher numbers mean it's higher priority, which means it will override actions with lower priorities that would have otherwise executed.
-                            type: integer
-                            default: 0
+                            desc: Determines the result of the ‘use’ action.
+                            link: action_result
+                            default: 'success'
                     string-origins:action_on_block_break:
-                        entity_action:
-                            desc: If set, this action will be executed on the player when a block is broken.
-                            link: entity_action
-                        block_action:
-                            desc: If set, this action will be executed on the block that is broken.
-                            link: block_action
                         block_condition:
-                            desc: If set, the actions will only trigger when this block condition is met by the broken block.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_block_break/
+                            desc: If set, the specified actions will only trigger when this block condition is met by the broken block.
                             link: block_condition
                         only_when_harvested:
-                            desc: If this is true, the actions will only execute when the player succeeds in harvesting the block (e.g. they will not trigger when stone is broken by hand).
+                            desc: If this is true, the specified actions will only execute when the player succeeds in harvesting the block (e.g. they will not trigger when stone is broken by hand).
                             type: boolean
                             default: true
+                        block_action:
+                            desc: If specified, this action will be executed on the block that is broken.
+                            link: block_action
+                        entity_action:
+                            desc: If specified, this action will be executed on the player when a block is broken.
+                            link: entity_action
                     string-origins:action_on_block_use:
                         block_condition:
                             desc: If specified, only execute the specified actions if this condition is fulfilled by the used block.
@@ -5931,45 +6164,6 @@ type: number
                             key:
                                 desc: Which active key this power should respond to.
                                 link: keybind
-                    string-sync:edible_item:
-                        item_condition:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fedible_item.md
-                            desc: If specified, this action will be executed on the item consumed by the player.
-                            link: item_condition
-                        food_component:
-                            desc: The food component that the item grants upon eating it.
-                            link: food_component
-                        entity_action:
-                            desc: If specified, this action will be executed on the player upon consuming an item.
-                            link: entity_action
-                        item_action:
-                            desc: If specified, this action will be executed on the item consumed by the player.
-                            link: item_action
-                        result_item_action:
-                            desc: If specified, this action will be executed on the item that is given to the player as a result of consuming an item.
-                            link: item_action
-                        result_stack:
-                            desc: If specified, this item stack will be given to the player.
-                            link: item_stack
-                        consume_animation:
-                            desc: Determines whether the animation effect for consuming the item should be "eating" (EAT, displays particle effects based on the item) or "drinking" (DRINK, no particle effects.)
-                            enum: ['EAT','DRINK']
-                        consume_sound:
-                            desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
-                            link: identifier
-                            default: entity.generic.eat
-                        consuming_time_modifier:
-                            desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
-                            link: a_mod
-                        consuming_time_modifiers:
-                            desc: If specified, these modifiers will be applied on the maximum time the item is being consumed (in ticks).
-                            type: list
-                            vals:
-                                link: a_mod
-                        priority:
-                            desc: Determines the priority of which the power will apply its modification to the item. Must be higher than 0 if the item is already edible.
-                            type: integer
-                            default: 0
                     string-sync:emissive:
                         light:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Femissive.md
@@ -8035,7 +8229,7 @@ type: number
                             const: 0
                           - title: '1 - Nautilus'
                             const: 1
-                          - title: '2 - Nautilus Armor'
+                          - title: '2 - Conduit'
                             const: 2
                   - title: '17 - Squid'
                     bar_index:
@@ -8160,12 +8354,10 @@ type: number
                             const: 0
                           - title: '1 - Sculk Block'
                             const: 1
-                          - title: '2 - Warden'
+                          - title: '2 - Shrieker'
                             const: 2
-                          - title: '3 - Warden'
+                          - title: '3 - Sculk Sensor'
                             const: 3
-                          - title: '4 - Sculk Sensor'
-                            const: 4
                   - title: '05 - Grass Block'
                     bar_index:
                         const: 5
@@ -8193,7 +8385,7 @@ type: number
                   - title: '09 - Firework'
                     bar_index:
                         const: 9
-                  - title: '10 - Cooked Ham Thigh'
+                  - title: '10 - Hunger'
                     bar_index:
                         const: 10
                   - title: '11 - Honey'
@@ -8213,7 +8405,7 @@ type: number
                         const: 13
                     icon_index:
                         or:
-                          - title: '0 - Stone - Pattern'
+                          - title: '0 - Chiseled Stone'
                             const: 0
                           - title: '1 - Silverfish'
                             const: 1
@@ -8262,16 +8454,16 @@ type: number
                   - title: '18 - Bread'
                     bar_index:
                         const: 18
-                  - title: '19 - Illusioner'
+                  - title: '19 - Bad Omen'
                     bar_index:
                         const: 19
                     icon_index:
                          or:
-                          - title: '0 - Illusioner - Shadow'
+                          - title: '0 - Bad Omen'
                             const: 0
-                          - title: '1 - Illusioner - Light'
+                          - title: '1 - Trial Omen'
                             const: 1
-                          - title: '2 - Illusioner'
+                          - title: '2 - Raid Omen'
                             const: 2
                   - title: '20 - Crafting Table'
                     bar_index:
@@ -8351,22 +8543,22 @@ type: number
                             const: 0
                           - title: '1 - Experience Bottle'
                             const: 1
-                  - title: '01 - Skulls'
+                  - title: '01 - Trial Chambers'
                     bar_index:
                         const: 1
                     icon_index:
                         or:
-                          - title: '0 - Skull Breathing Fire'
+                          - title: '0 - Trial Key'
                             const: 0
-                          - title: '1 - Skull Breathing Soul Fire'
+                          - title: '1 - Ominous Trial Key'
                             const: 1
-                          - title: '2 - Armored Skull, Fire'
+                          - title: '2 - Trial Spawner'
                             const: 2
-                          - title: '3 - Armored Skull, Soul Fire'
+                          - title: '3 - Ominous Trial Spawner'
                             const: 3
-                          - title: '4 - Spider Skull Breathing Fire'
+                          - title: '4 - Vault'
                             const: 4
-                          - title: '5 - Spider Skull Breathing Soul Fire'
+                          - title: '5 - Ominous Vault'
                             const: 5
                   - title: '02 - Brewing Stand'
                     bar_index:
@@ -8414,14 +8606,14 @@ type: number
                             const: 6
                           - title: '7 - Waxing Gibbous'
                             const: 7
-                  - title: '06 - Brightness'
+                  - title: '06 - Darkness'
                     bar_index:
                         const: 6
                     icon_index:
                         or:
                           - title: '0 - Shaded Light Ring'
                             const: 0
-                          - title: '1 - Shadow Swirl'
+                          - title: '1 - Darkness Status Effect'
                             const: 1
                   - title: '07 - Yin Yang'
                     bar_index:
@@ -8446,11 +8638,11 @@ type: number
                         const: 9
                     icon_index:
                         or:
-                          - title: '0 - Hitmarker - Lit'
+                          - title: '0 - Crosshair - Lit'
                             const: 0
-                          - title: '1 - Hitmarker - Unlit'
+                          - title: '1 - Crosshair - Unlit'
                             const: 1
-                  - title: '10 - Taste the Rainbow'
+                  - title: '10 - Rainbow'
                     bar_index:
                         const: 10
                   - title: '11 - Face'
@@ -8818,6 +9010,14 @@ type: number
     meta_key:
         type: string
         allow: 'a-z0-9._-'
+    meta_key_value:
+        type: string
+        allowkey: '*a-z0-9_#\/:.-'
+        allow: '*a-z0-9_#\/:.-'
+    meta_key_value_regex:
+        type: string
+        allowkey: '*a-z0-9_#\/:.\[\]\(\)\{\}$^?+\|-'
+        allow: '*a-z0-9_#\/:.-'
     model_animation:
         animation:
             href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-animation/
@@ -8982,6 +9182,28 @@ type: number
         scale:
             desc: Scales this layer’s geometry outward from the model origin — the same idea as Sync’s Energy Swirl size. Above 1.0 puffs the texture out past the skin (an aura/shell), below 1.0 pulls it inside. 1.0 sits flush on the body.
             link: number_percent
+    part_color:
+        type: object
+        props:
+            part:
+                link: model_parts
+                required: true
+            red:
+                desc: Red multiplier for this part. Range: 0.0 - 1.0.
+                link: number_percent
+                default: 1
+            green:
+                desc: Green multiplier for this part. Range: 0.0 - 1.0.
+                link: number_percent
+                default: 1
+            blue:
+                desc: Blue multiplier for this part. Range: 0.0 - 1.0.
+                link: number_percent
+                default: 1
+            alpha:
+                desc: Alpha multiplier for this part. Range: 0.0 - 1.0.
+                link: number_percent
+                default: 1
     particle_effect:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/particle-effect
         desc: A data type that's either a String which defines only the particle type or an Object which defines the particle type and its additional parameters.
