@@ -1,4 +1,4 @@
-# 1.10.0
+# 1.10.0-0vergrown
 links:
     bientity_condition:
         unspec: none
@@ -14,18 +14,19 @@ links:
                     enum:
                       - origins:all_of
                       - origins:any_of
-                      - origins:constant
                       - origins:invert
-                      - origins:random_chance
                       - origins:actor_condition
-                      - origins:attack_target
-                      - origins:attacker
+                      - origins:target_condition
                       - origins:both
-                      - origins:can_see
-                      - origins:disguised
-                      - origins:distance
                       - origins:either
                       - origins:equal
+                      - origins:undirected
+                      - origins:attack_target
+                      - origins:attacker
+                      - origins:can_see
+                      - origins:damage_would_kill
+                      - origins:disguised
+                      - origins:distance
                       - origins:in_entity_set
                       - origins:owner
                       - origins:relative_rotation
@@ -34,71 +35,80 @@ links:
                       - origins:riding_root
                       - origins:roped_together
                       - origins:same_team
-                      - origins:target_condition
-                      - origins:undirected
+                      - origins:script
+                      - origins:send_condition
                       - $DEPRECATED
                       - origins:and
                       - origins:or
-                      - origins:chance
                     more:
                         string-origins:all_of:
                             conditions:
-                                desc: Passes when every listed condition passes.
+                                link: description_all_of
                                 type: list
                                 vals:
                                     link: bientity_condition
                         string-origins:and:
                             conditions:
-                                desc: (DEPRECATED) Passes when every listed condition passes.
+                                link: description_and
                                 type: list
                                 vals:
                                     link: bientity_condition
                         string-origins:any_of:
                             conditions:
-                                desc: Passes when any listed condition passes.
+                                link: description_any_of
                                 type: list
                                 vals:
                                     link: bientity_condition
                         string-origins:or:
                             conditions:
-                                desc: (DEPRECATED) Passes when any listed condition passes.
+                                link: description_or
                                 type: list
                                 vals:
                                     link: bientity_condition
-                        string-origins:constant:
-                            link: meta_condition_constant
                         string-origins:invert:
                             condition:
-                                desc: Swaps the context of the target entity and the actor entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/invert/
+                                desc: The bi-entity condition type to check which will have its ‘target’ and ‘actor’ contexts swapped.
                                 link: bientity_condition
-                        string-origins:random_chance:
-                            link: meta_condition_chance
-                        string-origins:chance:
-                            link: meta_condition_chance
                         string-origins:actor_condition:
                             condition:
-                                desc: Checks for an Entity Condition Type on the actor entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/actor_condition/
+                                desc: The entity condition type to check for on the acting entity.
                                 link: entity_condition
                         string-origins:attack_target: {}
                         string-origins:attacker: {}
                         string-origins:both:
                             condition:
-                                desc: Checks for an entity condition on both the actor and target entities.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/both/
+                                desc: The entity condition type to check on both the actor and target entity.
                                 link: entity_condition
                         string-origins:can_see:
-                            condition:
-                                desc: Checks whether the straight path from the actor entity's eyes to the target entity's eyes is unobstructed.
-                                type: object
-                                props:
-                                    shape_type:
-                                        link: shape_type
-                                        default: 'visual'
-                                    fluid_handling:
-                                        link: fluid_handling
-                                        default: 'none'
+                            shape_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/can_see/
+                                link: shape_type
+                                default: 'visual'
+                            fluid_handling:
+                                link: fluid_handling
+                                default: 'none'
+                        string-origins:damage_would_kill:
+                            amount:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/damage_would_kill/
+                                desc: The raw damage to simulate, before any reduction. Expressions are evaluated on the actor.
+                                link: expression_float
+                                required: true
+                            damage_type:
+                                desc: The damage type to simulate, e.g. minecraft:player_attack.
+                                link: damage_type
+                            modifier:
+                                desc: Applied to amount before the simulation.
+                                link: attribute_modifier
+                            modifiers:
+                                desc: Same, for several modifiers.
+                                link: attribute_modifier_array
                         string-origins:disguised: {}
                         string-origins:distance:
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/distance/
                                 desc: Determines how the distance (in blocks) between the actor and target entities should be compared to the specified value.
                                 link: comparison
                             compare_to:
@@ -106,16 +116,19 @@ links:
                                 type: number
                         string-origins:either:
                             condition:
-                                desc: 	The condition type to check on either actor or target entities.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/either/
+                                desc: The condition type to check on either actor or target entities.
                                 link: entity_condition
                         string-origins:equal: {}
                         string-origins:in_entity_set:
                             set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/in_entity_set/
                                 desc: The ID of the power to check whether the target entity is in.
                                 link: identifier
                         string-origins:owner: {}
                         string-origins:relative_rotation:
                             axes:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/relative_rotation/
                                 desc: The axes to get the angle values to calculate, and compare to.
                                 type: list
                                 vals:
@@ -125,14 +138,14 @@ links:
                                 enum: ['head','body']
                                 default: 'head'
                             target_rotation:
-                                desc: Determines the initial position of the rotation for the target. Accepts "head" or "body".
+                                desc: Determines the initial point of the rotation for the target. Accepts "head" or "body".
                                 enum: ['head','body']
                                 default: 'body'
                             comparison:
-                                desc: Determines how the calculated angle value will be compared to the specified value.
+                                desc: Determines how the calculated angle value should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare the calculated angle value to.
+                                desc: The value at which the calculated angle value will be compared to.
                                 type: number
                         string-origins:riding: {}
                         string-origins:riding_recursive: {}
@@ -140,15 +153,33 @@ links:
                         string-origins:roped_together: {}
                         string-origins:same_team:
                             allow_teamless:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/same_team/
                                 desc: If true, two entities that are both on no team count as allied.
                                 type: boolean
+                        string-origins:script:
+                            script:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/script/
+                                desc: The script to run. Either an id registered from KubeJS with ApoliEvents, or the path of a .js file shipped in a data pack at data/<namespace>/apoli/scripts/<path>.js — in which case the .js is part of the id.
+                                link: identifier
+                                required: true
+                            params:
+                                desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
+                                link: nbt
+                        string-origins:send_condition:
+                            receiver:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/send_condition/
+                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
+                                link: identifier
+                                required: true
                         string-origins:target_condition:
                             condition:
-                                desc: The condition to check for on the target entity.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/target_condition/
+                                desc: The entity condition type to check for on the target entity.
                                 link: entity_condition
                         string-origins:undirected:
                             condition:
-                                desc: The bi-entity condition to check for truth before or after swapping the actor and target context.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/undirected/
+                                desc: The bi-entity condition type to check for. Checks if the specified bi-entity condition is true before or after swapping the actor and target context.
                                 link: bientity_condition
           - title: custom
             link: custom_condition
@@ -3914,9 +3945,8 @@ type: number
                             link: attribute_modifier_attribute
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
-                            type: list
-                            vals:
-                                link: attribute_modifier_attribute
+
+                            link: attribute_modifier_array_attribute
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
@@ -3932,9 +3962,8 @@ type: number
                             link: attribute_modifier_legacy
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
-                            type: list
-                            vals:
-                                link: attribute_modifier_legacy
+
+                            link: attribute_modifier_array_legacy
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
@@ -3950,9 +3979,8 @@ type: number
                             link: attribute_modifier_legacy
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
-                            type: list
-                            vals:
-                                link: attribute_modifier_legacy
+
+                            link: attribute_modifier_array_legacy
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
@@ -3975,9 +4003,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
@@ -4170,9 +4197,8 @@ type: number
                             link: attribute_modifier
                         consuming_time_modifiers:
                             desc: If specified, these modifiers will be applied on the maximum time the item is being consumed (in ticks).
-                            type: list
-                            vals:
-                                link: attribute_modifiers
+
+                            link: attribute_modifier_arrays
                     string-origins:effect_immunity:
                         inverted:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/effect_immunity/
@@ -5663,9 +5689,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_block_render:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_block_render/
@@ -5693,17 +5718,15 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the break speed.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                         hardness_modifier:
                             desc: If specified, this modifier will be applied to the effective hardness value of the block while calculating the block’s break speed.
                             link: attribute_modifier
                         hardness_modifiers:
                             desc: If specified, these modifiers will be applied to the effective hardness value of the block while calculating the block’s break speed.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_camera_submersion:
                         from:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera_submersion/
@@ -5775,9 +5798,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_damage_dealt:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
@@ -5794,9 +5816,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_damage_taken:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
@@ -5810,9 +5831,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_enchantment_level:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_enchantment_level/
@@ -5826,9 +5846,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the current level of the specified enchantment from the entity.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_exhaustion:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_exhaustion/
@@ -5836,9 +5855,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the received exhaustion amount.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_falling:
                         velocity:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_falling/
@@ -5858,25 +5876,22 @@ type: number
                             link: attribute_modifier
                         food_modifiers:
                             desc: Several modifiers applied to the item’s nutrition.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                         saturation_modifier:
                             desc: Applied to the item’s saturation modifier.
                             link: attribute_modifier
                         saturation_modifiers:
                             desc: Several modifiers applied to the item’s saturation modifier.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                         eat_ticks_modifier:
                             desc: Applied to how long the item takes to eat, in ticks.
                             link: attribute_modifier
                         eat_ticks_modifiers:
                             desc: Several modifiers applied to the eating time.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                         always_edible:
                             desc: If true, the matching items can be eaten on a full hunger bar.
                             type: boolean
@@ -5939,9 +5954,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to your healing bonus.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_hearing_range:
                         sounds:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_hearing_range/
@@ -5957,9 +5971,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers applied to the base hearing distance.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_jump:
                         entity_action:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_jump/
@@ -5969,9 +5982,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the upwards velocity.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_label_render:
                         tick_rate:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_label_render/
@@ -6072,9 +6084,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the damage amount.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                         self_action:
                             desc: If specified, this action will be executed on the ‘actor’ entity (the entity that has the power) whenever the modifier(s) are applied.
                             link: entity_action
@@ -6091,9 +6102,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the entity's slipperiness.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_status_effect_amplifier:
                         status_effect:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_status_effect_amplifier/
@@ -6107,9 +6117,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_status_effect_duration:
                         status_effect:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_status_effect_duration/
@@ -6123,9 +6132,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_swim_speed:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_swim_speed/
@@ -6133,9 +6141,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the player's swim speed.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_type_tag:
                         tag:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_type_tag/
@@ -6159,9 +6166,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will apply to the specified axes.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:modify_xp_gain:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_xp_gain/
@@ -6169,9 +6175,8 @@ type: number
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will apply to the experience gained.
-                            type: list
-                            vals:
-                                link: attribute_modifier
+
+                            link: attribute_modifier_array
                     string-origins:prevent_being_used:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_being_used/
@@ -6500,6 +6505,10 @@ type: number
                 link: expression_float
             modifier:
                 link: attribute_modifier
+    attribute_modifier_array:
+        type: list
+        vals:
+            link: attribute_modifier
     attribute_modifier_attribute:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
         type: object
@@ -6670,6 +6679,25 @@ type: number
             enum: ['genericDamageOverTime','genericDamageOverTime.player','hurt_by_water','hurt_by_water.player','no_water_for_gills','no_water_for_gills.player']
           - title: custom
             link: meta_key
+    damage_type:
+        or:
+          - title: built-in
+            enum: ['arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','ender_pearl','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','mace_smash','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spear','spit','stalagmite','starve','sting','sulfur_cube_hot','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+          - title: custom
+            link: identifier
+    description_all_of:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+        desc: All must pass. Same flavour as the containing condition.
+    description_and:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+        desc: (DEPRECATED) All must pass. Same flavour as the containing condition.
+    description_any_of:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+        desc: Any one passing is enough. Same flavour as the containing condition.
+    description_or:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+        desc: (DEPRECATED) Any one passing is enough. Same flavour as the containing condition.
+    description_invert:
     destruction_type:
         desc: |
             Determines the effect of the explosion to the terrain:
