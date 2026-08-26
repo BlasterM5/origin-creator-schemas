@@ -455,7 +455,6 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/elytra_flight_possible
                                 desc: If set to true, the entity condition type will check if pressing the key.jump keybind would activate elytra flight if the player had the ability to.
                                 type: boolean
-                                default: false
                             check_abilities:
                                 desc: |
                                     If set to true, the entity condition type will check whether the player has the ability to activate elytra flight. (e.g: wearing an elytra or have a power that uses the apoli:elytra_flight)
@@ -1766,7 +1765,6 @@ links:
                             set:
                                 desc: If this is true, the action will act as a “set” velocity action, overriding the entity’s current velocity instead of adding to it.
                                 type: boolean
-                                default: false
                         string-origins:attach_rope:
                             from:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/attach_rope
@@ -1881,11 +1879,9 @@ links:
                             create_fire:
                                 desc: Whether the explosion places fire in the blast area
                                 type: boolean
-                                default: false
                             at_target:
                                 desc: If true, the explosion originates at the target's position; otherwise it originates at the actor's
                                 type: boolean
-                                default: false
                             indestructible:
                                 desc: Block condition for blocks that are protected from the explosion regardless of destruction_type
                                 link: block_condition
@@ -1925,21 +1921,17 @@ links:
                             disable_grabber:
                                 desc: While the grab is active, the actor cannot use Apoli power keybinds (active powers, toggles).
                                 type: boolean
-                                default: false
                             disable_grabbed:
                                 desc: While the grab is active, the target cannot use Apoli power keybinds.
                                 type: boolean
-                                default: false
                             horizontal_only:
                                 desc: |
                                     The target only moves left/right with the actor’s camera: it stays at eye height and ignores looking up or down (pitch is treated as level).
                                 type: boolean
-                                default: false
                             vertical_only:
                                 desc: |
                                     The target only moves up/down with the actor’s camera: the horizontal direction is frozen to where the actor faced when the grab started, and only pitch moves it.
                                 type: boolean
-                                default: false
                         string-origins:mount: {}
                         string-origins:raycast:
                             aim_at_target:
@@ -1992,7 +1984,6 @@ links:
                             copy:
                                 desc: If false, powers are moved (removed from the donor). If true, they are copied (the donor keeps them).
                                 type: boolean
-                                default: false
                             sources:
                                 desc: Only transfer powers granted by these sources. If omitted, every source on the donor is transferred (except new_source). This is how you copy one specific origin/layer — filter to the source it was granted under.
                                 link: identifier_array
@@ -2003,7 +1994,6 @@ links:
                             preserve_source:
                                 desc: If true, powers keep their original source id on the recipient instead of new_source.
                                 type: boolean
-                                default: false
                             actor_action:
                                 desc: Action run on the actor after the transfer (e.g. a sound or particle).
                                 link: entity_action
@@ -2035,7 +2025,6 @@ links:
                             clear:
                                 desc: Remove the entry at key from the actor instead of writing one.
                                 type: boolean
-                                default: false
                         string-origins:transfer_origin:
                             mode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/transfer_origin
@@ -2044,7 +2033,6 @@ links:
                             copy:
                                 desc: If false, the origin is moved — the donor loses it on from_layer entirely. If true, it is copied (the donor keeps it); this is exactly what origins:copy_origin does.
                                 type: boolean
-                                default: false
                             from_layer:
                                 desc: The layer the origin is read from on the donor.
                                 link: identifier
@@ -2288,7 +2276,6 @@ links:
                             set:
                                 desc: If this is true, the action will act as a “set” velocity action, overriding the entity’s current velocity instead of adding to it.
                                 type: boolean
-                                default: false
                         string-origins:add_xp:
                             points:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_xp
@@ -2331,7 +2318,6 @@ links:
                                 link: selection
                             revoke:
                                 type: boolean
-                                default: false
                         string-origins:revoke_advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
@@ -2480,7 +2466,6 @@ links:
                                 required: true
                             relative:
                                 type: boolean
-                                default: false
                         string-origins:change_slot:
                             slot_a:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_slot
@@ -2526,7 +2511,6 @@ links:
                             lock:
                                 desc: While true, the item cannot be moved out of its slot via inventory clicking (shift-click included), cannot be dropped with the drop key, and cannot be unequipped from an accessory slot.
                                 type: boolean
-                                default: false
                         string-origins:crafting_table: {}
                         string-origins:damage:
                             amount:
@@ -2635,7 +2619,6 @@ links:
                             create_fire:
                                 desc: Determines if the summoned explosion should create fire.
                                 type: boolean
-                                default: false
                         string-origins:extinguish: {}
                         string-origins:feed:
                             food:
@@ -2697,7 +2680,6 @@ links:
                             block_action_cancels_miss_action:
                                 desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
                                 type: boolean
-                                default: false
                             bientity_condition:
                                 desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
                                 link: bientity_condition
@@ -2726,7 +2708,6 @@ links:
                             release:
                                 desc: Cancel a force that is still running on this key instead of starting one.
                                 type: boolean
-                                default: false
                         string-origins:gain_air:
                             value:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/gain_air
@@ -2812,7 +2793,6 @@ links:
                             recursive:
                                 desc: If set to true, the specified action(s) will be executed on all the passenger entities.
                                 type: boolean
-                                default: false
                         string-origins:play_sound:
                             sound:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/play_sound
@@ -2834,14 +2814,12 @@ links:
                             follow_entity:
                                 desc: Whether the sound moves with the entity instead of staying at the position it started at.
                                 type: boolean
-                                default: false
                             global:
                                 desc: Whether the sound is audible at any distance, ignoring the usual range falloff. Defaults to whatever follow_entity is.
                                 link: boolean_optional
                             internal:
                                 desc: Whether to skip playing the sound for the entity itself, so only other players hear it. Only has an effect when the entity is a player.
                                 type: boolean
-                                default: false
                         string-origins:radial_menu:
                             entries:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/radial_menu
@@ -2905,7 +2883,6 @@ links:
                                 link: bientity_action
                             recursive:
                                 type: boolean
-                                default: false
                         string-origins:release_grab: {}
                         string-origins:remove_disguise: {}
                         string-origins:remove_power:
@@ -2939,7 +2916,6 @@ links:
                             recursive:
                                 desc: If set to true, the specified action(s) will be executed on all entities that are being ridden.
                                 type: boolean
-                                default: false
                         string-origins:rope_pull:
                             slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/rope_pull
@@ -2957,7 +2933,6 @@ links:
                             set:
                                 desc: If true, replaces the pushed entity’s velocity instead of adding to it.
                                 type: boolean
-                                default: false
                             reel:
                                 desc: Also shorten the rope by this amount each time the action runs (a scripted reel-in).
                                 type: number
@@ -3101,7 +3076,6 @@ links:
                             slim:
                                 desc: Forces the slim arm model. Only used when custom textures are set; otherwise the owner’s model is mirrored.
                                 type: boolean
-                                default: false
                             wide_texture:
                                 desc: Custom texture for the wide model. If unset, the owner’s skin is used.
                                 link: identifier
@@ -3133,7 +3107,6 @@ links:
                             follow_owner:
                                 desc: If true, the minion follows the owner (and floats, ignoring gravity).
                                 type: boolean
-                                default: false
                             follow_offset:
                                 desc: Position offset from the owner when following (and the spawn offset).
                                 link: vector
@@ -3144,7 +3117,6 @@ links:
                             invulnerable:
                                 desc: Whether the minion is invulnerable.
                                 type: boolean
-                                default: false
                             max_life_ticks:
                                 desc: Ticks before the minion vanishes. 0 or less = permanent until killed.
                                 type: integer
@@ -3212,19 +3184,15 @@ links:
                             bold:
                                 desc: Base bold styling.
                                 type: boolean
-                                default: false
                             italic:
                                 desc: Base italic styling.
                                 type: boolean
-                                default: false
                             underlined:
                                 desc: Base underline styling.
                                 type: boolean
-                                default: false
                             strikethrough:
                                 desc: Base strikethrough styling.
                                 type: boolean
-                                default: false
                             fadein:
                                 desc: Fade-in time in ticks.
                                 type: integer
@@ -3399,7 +3367,6 @@ links:
                             ignore_unbreaking:
                                 desc: Determines if this action should ignore the Unbreaking enchantment.
                                 type: boolean
-                                default: false
                         string-origins:holder_action:
                             action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
@@ -3641,7 +3608,6 @@ type: number
                             create_fire:
                                 desc: Determines if the summoned explosion should create fire.
                                 type: boolean
-                                default: false
                         string-origins:ghost_block:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/ghost_block
@@ -3923,9 +3889,8 @@ type: number
                   - origins:exhaust
                   - origins:ignore_water
                   - origins:lava_vision
-                  - origins:modify_air_speed
                   - origins:modify_attribute
-                  - origins:modify_camera_submersion
+                  - origins:modify_camera_submersion_type
                   - origins:modify_damage_dealt
                   - origins:modify_damage_taken
                   - origins:modify_fluid_render
@@ -4055,7 +4020,6 @@ type: number
                             render_as_overlay:
                                 desc: Minions only! false replaces the minion’s own model with yours; true draws yours on top of it. Ignored on players, where geometry is always drawn over the player model.
                                 type: boolean
-                                default: false
                             animations:
                                 desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
                                 or:
@@ -4078,11 +4042,9 @@ type: number
                             render_as_overlay:
                                 desc: false replaces the skin; true draws the texture as an overlay layer honouring render_type, body_parts and the tint.
                                 type: boolean
-                                default: false
                             hide_cape:
                                 desc: Hide the holder’s cape while active.
                                 type: boolean
-                                default: false
                         render_type:
                             link: render_type
                         body_parts:
@@ -4138,7 +4100,6 @@ type: number
                         show_first_person:
                             desc: Also draw on the holder’s own arm in first person. In texture mode that is the overlay texture; in geometry mode it is the model’s right_arm / left_arm bones (and everything nested under them), posed onto the vanilla first-person arm.
                             type: boolean
-                            default: false
                     string-origins:damage_over_time:
                         interval:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/damage_over_time/
@@ -4226,7 +4187,6 @@ type: number
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/elytra_flight/
                             desc: Determines whether an Elytra should render on the player’s back while this power is active.
                             type: boolean
-                            default: false
                         texture_location:
                             desc: If specified, this will be the texture used by the Elytra granted by this power.
                             link: identifier
@@ -4260,7 +4220,6 @@ type: number
                         self_glow_target:
                             desc: If true, the power makes the entity that has the power glow for everyone else, instead of making other entities glow for the holder. The apoli:self_glow type ID is an alias for this power with self_glow_target defaulting to true (see Self Glow).
                             type: boolean
-                            default: false
                     string-origins:entity_set:
                         action_on_add:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/entity_set/
@@ -4327,11 +4286,9 @@ type: number
                         allow_conditional_cancelling:
                             desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
                             type: boolean
-                            default: false
                         block_action_cancels_miss_action:
                             desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
                             type: boolean
-                            default: false
                         entity_action_before_firing:
                             desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
                             link: entity_action
@@ -4356,7 +4313,6 @@ type: number
                         block_action_cancels_miss_action:
                             desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
                             type: boolean
-                            default: false
                         bientity_condition:
                             desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
                             link: bientity_condition
@@ -4426,7 +4382,6 @@ type: number
                         render_armor:
                             desc: Determines whether armor should be shown or not.
                             type: boolean
-                            default: false
                         render_outline:
                             desc: Determines whether the glowing outline should be shown or not.
                             type: boolean
@@ -4562,7 +4517,6 @@ type: number
                         visible_in_third_person:
                             desc: Determines if the overlay is visible in third person.
                             type: boolean
-                            default: false
                     string-origins:particle:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/particle/
@@ -4585,7 +4539,6 @@ type: number
                         force:
                             desc: Determines whether to display the emitted particles within 512 blocks (true) or 32 blocks (false).
                             type: boolean
-                            default: false
                         spread:
                             desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in.
                             link: vector
@@ -4604,11 +4557,9 @@ type: number
                         visible_in_first_person:
                             desc: Determines whether the particle type should be visible in first person.
                             type: boolean
-                            default: false
                         visible_while_invisible:
                             desc: Determines whether the particle type should be visible if the entity is invisible.
                             type: boolean
-                            default: false
                     string-origins:phasing:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/phasing/
@@ -4617,7 +4568,6 @@ type: number
                         blacklist:
                             desc: If set to true, the block_condition field will define which blocks the player can NOT move through.
                             type: boolean
-                            default: false
                         render_type:
                             desc: Determines how the environment is rendered when “phasing” through (moving) blocks.
                             enum: ['none','blindness','remove_blocks']
@@ -4629,6 +4579,23 @@ type: number
                         phase_down_condition:
                             desc: If specified, the entity will only be able to “phase” (move) downwards if this condition is fulfilled.
                             link: entity_condition
+                    string-origins:pose:
+                        entity_pose:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/pose/
+                            desc: The entity pose to force. One of the vanilla Pose values.
+                            link: entity_pose
+                        arm_pose:
+                            desc: The arm pose to force on humanoid models.
+                            link: arm_pose
+                        hands:
+                            desc: Which hand(s) the arm_pose applies to. Accepts main_hand and/or off_hand (which arm that is follows the player’s main-hand setting). Hands not listed keep their vanilla pose. Has no effect on entity_pose.
+                            type: list
+                            vals:
+                                link: hand
+                        priority:
+                            desc: Pick order when several pose powers are active at once — highest priority wins.
+                            type: integer
+                            default: 0
                     string-origins:receive_action:
                         entity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/receive_action/
@@ -4713,7 +4680,6 @@ type: number
                             desc: |
                                 When enforce_limits is true: if a modification would push the value outside the bounds, keep the old value instead of clamping.
                             type: boolean
-                            default: false
                         min_action:
                             desc: Run on the entity whenever the value reaches min.
                             link: entity_action
@@ -4812,7 +4778,6 @@ type: number
                         main_hand:
                             desc: Draw the main arm even while the main hand is holding an item, so you see the arm as well as the item. Filled maps are skipped — vanilla already draws both arms for those.
                             type: boolean
-                            default: false
                         ghost_arms:
                             desc: How many extra “ghost” copies of each drawn arm to trail behind the live one while it swings. 0 disables the effect.
                             type: integer
@@ -4864,7 +4829,6 @@ type: number
                         recurrent:
                             desc: Determines whether the specified item(s) should be given after respawning.
                             type: boolean
-                            default: false
                     string-origins:swimming: {}
                     string-origins:toggle_night_vision:
                         strength:
@@ -4914,7 +4878,6 @@ type: number
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/water_breathing/
                             desc: If true, the entity loses air and eventually takes drowning damage whenever its eyes are not in water — the aquatic-creature trade-off.
                             type: boolean
-                            default: false
                     string-origins:action_on_being_used:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_being_used/
@@ -5073,7 +5036,6 @@ type: number
                         include_riding:
                             desc: Whether to also fire for the entity the holder is riding, its passengers, and entities sharing its vehicle.
                             type: boolean
-                            default: false
                         bientity_action:
                             desc: Action run with the actor/target pair.
                             link: bientity_action
@@ -5454,7 +5416,6 @@ type: number
                         target_used:
                             desc: false = listen on the actor side (entity-use); true = listen on the target side (being-used). Authored automatically when using the legacy aliases.
                             type: boolean
-                            default: false
                         bientity_action:
                             desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
                             link: bientity_action
@@ -5680,359 +5641,492 @@ type: number
                             link: vector
                     string-origins:modify_break_speed:
                         block_condition:
-                            desc: If set, the modifiers will only apply to blocks which satisfy this condition.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_break_speed/
+                            desc: If specified, the modifier(s) will only apply to the blocks that fulfills this condition.
                             link: block_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the break speed.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the break speed.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
+                        hardness_modifier:
+                            desc: If specified, this modifier will be applied to the effective hardness value of the block while calculating the block’s break speed.
+                            link: attribute_modifier
+                        hardness_modifiers:
+                            desc: If specified, these modifiers will be applied to the effective hardness value of the block while calculating the block’s break speed.
+                            type: list
+                            vals:
+                                link: attribute_modifier
                     string-origins:modify_camera_submersion:
                         from:
-                            desc: Which submersion type to modify. In vanilla, can be none, water or lava.
-                            type: string
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera_submersion/
+                            desc: The submersion to replace.
+                            or:
+                              - title: built-in
+                                enum: ['none','water','lava','powder_snow']
+                              - title: custom
+                                link: identifier
                         to:
-                            desc: Which submersion type to change to. In vanilla, can be none, water or lava.
-                            type: string
+                            desc: What to report instead.
+                            or:
+                              - title: built-in
+                                enum: ['none','water','lava','powder_snow']
+                              - title: custom
+                                link: identifier
+                    string-origins:modify_camera_submersion_type:
+                        from:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera_submersion/
+                            desc: (DEPRECATED) The submersion to replace.
+                            or:
+                              - title: built-in
+                                enum: ['none','water','lava','powder_snow']
+                              - title: custom
+                                link: identifier
+                        to:
+                            desc: What to report instead.
+                            or:
+                              - title: built-in
+                                enum: ['none','water','lava','powder_snow']
+                              - title: custom
+                                link: identifier
                     string-origins:modify_crafting:
                         recipe:
-                            desc: The ID of the recipe to be modified.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_crafting/
+                            desc: If specified, modifies the result item of the recipe that matches the specified namespace and ID.
                             link: identifier
                         item_condition:
-                            desc: If set, it will only apply the item stack from the result field, and trigger the actions when this condition is met by the result item from the crafting recipe.
+                            desc: If specified, the item from the result field and the specified actions will only be applied if this condition is fulfilled by the result item of a recipe.
                             link: item_condition
-                        result:
-                            desc: If set, replaces the result item stack of the recipe.
-                            link: item_stack
                         item_action:
-                            desc: If set, execute this item action on the result item stack.
+                            desc: If specified, this action will be executed on the result item of a recipe.
                             link: item_action
                         item_action_after_crafting:
-                            desc: If set, execute this item action on the result item stack.
+                            desc: If specified, this action will be executed on the result item of a recipe after crafting the said recipe.
                             link: item_action
                         entity_action:
-                            desc: If set, execute this entity action on the player.
+                            desc: If specified, this action will be executed on the player upon crafting a recipe.
                             link: entity_action
                         block_action:
-                            desc: If set, execute this block action at the block used for crafting the recipe.
+                            desc: If specified, this action will be executed on the block used for crafting a recipe.
                             link: block_action
+                        result:
+                            desc: If specified, this item will replace the item of a recipe.
+                            link: item_stack
+                    string-origins:modify_damage:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
+                            desc: Only apply for this attacker/target pairing.
+                            link: bientity_condition
+                        damage_condition:
+                            desc: Only apply to damage matching this.
+                            link: damage_condition
+                        target_used:
+                            desc: false modifies damage the holder deals; true modifies damage the holder takes. Filled in for you by the two aliases.
+                            type: boolean
+                        modifier:
+                            desc: A single modifier applied to the damage amount.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers, applied in operation order.
+                            type: list
+                            vals:
+                                link: attribute_modifier
                     string-origins:modify_damage_dealt:
                         bientity_condition:
-                            desc: If specified, the specified modifier(s) and/or action(s) will only apply if either or both 'actor' and 'target' fulfills this bi-entity condition type.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
+                            desc: (DEPRECATED) Only apply for this attacker/target pairing.
                             link: bientity_condition
                         damage_condition:
-                            desc: If set, the modifiers will only apply to damage which satisfies this condition.
+                            desc: Only apply to damage matching this.
                             link: damage_condition
-                        target_condition:
-                            desc: If set, the action will only be triggered when a target matching this condition is hit.
-                            link: entity_condition
+                        target_used:
+                            desc: false modifies damage the holder deals; true modifies damage the holder takes. Filled in for you by the two aliases.
+                            type: boolean
                         modifier:
-                            desc: If specified, this modifier will be applied to the damage amount.
-                            link: a_mod
+                            desc: A single modifier applied to the damage amount.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the damage amount.
+                            desc: Several modifiers, applied in operation order.
                             type: list
                             vals:
-                                link: a_mod
-                        bientity_action:
-                            desc: If specified, this bi-entity action type will be executed on either or both 'actor' and 'target'.
-                            link: bientity_action
-                        self_action:
-                            desc: If set, this action will be executed on the player whenever this power applies a modification.
-                            link: entity_action
-                        target_action:
-                            desc: If set, this action will be executed on the target whenever this power applies a modification.
-                            link: entity_action
+                                link: attribute_modifier
                     string-origins:modify_damage_taken:
                         bientity_condition:
-                            desc: If specified, the specified modifier(s) and/or action(s) will only apply if either or both 'actor' and 'target' fulfills this bi-entity condition type.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
+                            desc: (DEPRECATED) Only apply for this attacker/target pairing.
                             link: bientity_condition
                         damage_condition:
-                            desc: If set, the modifiers will only apply to damage which satisfies this condition.
+                            desc: Only apply to damage matching this.
                             link: damage_condition
                         modifier:
-                            desc: If specified, this modifier will be applied to the damage amount.
-                            link: a_mod
+                            desc: A single modifier applied to the damage amount.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the damage amount.
+                            desc: Several modifiers, applied in operation order.
                             type: list
                             vals:
-                                link: a_mod
-                        bientity_action:
-                            desc: If specified, this bi-entity action type will be executed on either or both 'actor' and 'target'.
-                            link: bientity_action
-                        self_action:
-                            desc: If set, this action will be executed on the player whenever this power applies a modification.
-                            link: entity_action
-                        attacker_action:
-                            desc: If set, this action will be executed on the attacker whenever this power applies a modification.
-                            link: entity_action
-                        apply_armor_condition:
-                            desc: If set, the damage will only be reduced by armor if the player satisfies this condition.
-                            link: entity_condition
-                        damage_armor_condition:
-                            desc: If set, the player's armor will only be damaged if said player satisfies this condition.
-                            link: entity_condition
+                                link: attribute_modifier
+                    string-origins:modify_enchantment_level:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_enchantment_level/
+                            desc: If specified, only applies/modifies the level of the specified enchantment to/from the entity if the item condition is fulfilled by the item.
+                            link: item_condition
+                        enchantment:
+                            desc: ID of the enchantment to apply/modify the level of to the entity., e.g. minecraft:protection.
+                            link: identifier
+                        modifier:
+                            desc: If specified, this modifier will be applied to the current level of the specified enchantment from the entity.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: If specified, these modifiers will be applied to the current level of the specified enchantment from the entity.
+                            type: list
+                            vals:
+                                link: attribute_modifier
                     string-origins:modify_exhaustion:
                         modifier:
-                            desc: If specified, this modifier will be applied to the exhaustion amount.
-                            link: a_mod
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_exhaustion/
+                            desc: If specified, this modifier will be applied to the received exhaustion amount.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the exhaustion amount.
+                            desc: If specified, these modifiers will be applied to the received exhaustion amount.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins:modify_falling:
                         velocity:
-                            desc: How slow/fast the falling velocity should be.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_falling/
+                            desc: Determines the speed of the falling velocity.
                             type: number
                         take_fall_damage:
-                            desc: Whether the player should take fall damage or not.
+                            desc: Determines whether the entity should take fall damage or not.
                             type: boolean
                             default: true
-                        modifier:
-                            desc: If specified, this modifier will be applied to the falling velocity.
-                            link: a_mod
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the falling velocity.
-                            type: list
-                            vals:
-                                link: a_mod
-                    string-origins:modify_fluid_render:
-                        block_condition:
-                            desc: If set, modifies how the block that meets this condition would look like.
-                            link: block_condition
-                        fluid_condition:
-                            desc: If set, modifies how the fluid that meets the condition would look like.
-                            link: fluid_condition
-                        fluid:
-                            desc: The ID of the fluid that would replace how the block/fluid that meets the conditions in the block_condition and/or fluid_condition object field would look like.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
                     string-origins:modify_food:
                         item_condition:
-                            desc: If set, the modifiers will only apply to food items which satisfy this condition.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_food/
+                            desc: If specified, the power only applies to items fulfilling this condition. Omit it and the power applies to everything the holder eats.
                             link: item_condition
-                        item_action:
-                            desc: If specified, this item action type will be executed on the remaining item stacks that was consumed.
-                            link: item_action
-                        replace_stack:
-                            desc: If specified, this item stack will replace the item stack that was consumed after consuming it.
-                            link: item_stack
                         food_modifier:
-                            desc: If specified, this modifier will be applied to the food amount gained by eating.
-                            link: a_mod
+                            desc: Applied to the item’s nutrition (hunger shanks).
+                            link: attribute_modifier
                         food_modifiers:
-                            desc: If specified, these modifiers will be applied to the food amount gained by eating.
+                            desc: Several modifiers applied to the item’s nutrition.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                         saturation_modifier:
-                            desc: If set, this modifier will apply to the saturation gained by eating.
-                            link: a_mod
+                            desc: Applied to the item’s saturation modifier.
+                            link: attribute_modifier
                         saturation_modifiers:
-                            desc: If set, these modifiers will apply to the saturation gained by eating.
+                            desc: Several modifiers applied to the item’s saturation modifier.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
+                        eat_ticks_modifier:
+                            desc: Applied to how long the item takes to eat, in ticks.
+                            link: attribute_modifier
+                        eat_ticks_modifiers:
+                            desc: Several modifiers applied to the eating time.
+                            type: list
+                            vals:
+                                link: attribute_modifier
+                        always_edible:
+                            desc: If true, the matching items can be eaten on a full hunger bar.
+                            type: boolean
+                        prevent_effects:
+                            desc: If true, the status effects the food would apply are dropped.
+                            type: boolean
+                        replace_stack:
+                            desc: If specified, the holder is left with this stack after eating instead of whatever the food would normally leave (bowls, bottles, nothing).
+                            link: item_stack
                         entity_action:
                             desc: If set, this action will be executed on the player when eating this item.
                             link: entity_action
-                        always_edible:
-                            desc: If set to true, makes it so that the food item can still be eaten regardless if the player's hunger bar is full.
-                            type: boolean
-                        prevent_effects:
-                            desc: If set to true, prevent status effects from being applied.
-                            type: boolean
+                        item_action:
+                            desc: If specified, this item action type will be executed on the remaining item stacks that was consumed.
+                            link: item_action
                     string-origins:modify_grindstone:
-                        block_condition:
-                            desc: Optional, a block condition that must match the grindstone for the power to be applied.
-                            link: block_condition
-                        block_action:
-                            desc: Optional. a block action applied to the grindstone after grinding is complete.
-                            link: block_action
                         top_condition:
-                            desc: Optional, an item condition that must match the top slot of the grindstone for the power to be applied.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_grindstone/
+                            desc: If specified, the specified actions will only be executed if the item stack from the top input slot of the Grindstone fulfills this condition.
                             link: item_condition
                         bottom_condition:
-                            desc: Optional, an item condition that must match the bottom slot of the grindstone for the power to be applied.
+                            desc: If specified, the specified actions will only be executed if the item stack from the bottom input slot of the Grindstone fulfills this condition.
                             link: item_condition
                         output_condition:
-                            desc: Optional, an item condition that must match the output of the grindstone for the power to be applied.
+                            desc: If specified, the specified actions will only be executed if the item stack from the output/result slot of the Grindstone fulfills this condition.
                             link: item_condition
                         item_action:
-                            desc: Optional, an item action applied to the item before grinding.
+                            desc: If specified, this action will be executed on the result item stack.
                             link: item_action
                         item_action_after_grinding:
-                            desc: Optional, an item action applied to the item after grinding.
+                            desc: If specified, this action will be executed on the result item stack after the grinding process.
                             link: item_action
                         result_type:
-                            desc: If specified, changes how the result stack is gotten. Use "specified" to use the stack specified by "Result Stack"
+                            desc: Determines whether to not change the initial item stack ("unchanged"), replace it with the item stack specified in the result_stack field ("specified"), replace it with the item stack from the top input slot of a Grindstone block ("from_top") or replace it with the item stack from the bottom input slot of a Grindstone block ("from_bottom").
                             enum: [unchanged, specified, from_top, from_bottom]
-                            unspec: true
                         result_stack:
-                            desc: If specified, changes the result stack that comes from the grindstone. Make sure "Result Type" is set to "specified."
+                            desc: If specified, this item stack will be used as a replacement only if the result_type field has a value of "specified".
                             link: item_stack
+                        block_action:
+                            desc: If specified, this action will be executed on the Grindstone block upon taking the item stack from the result slot of the said Grindstone block.
+                            link: block_action
                         entity_action:
-                            desc: Optional, an entity action applied on the player after grinding is complete.
+                            desc: If specified, this action will be executed on the player upon taking the item stack from the result slot of a Grindstone.
                             link: entity_action
                         xp_modifier:
-                            desc: If set, this modifier will apply to the xp gained by grinding the item.
-                            link: a_mod
+                            desc: If specified, this modifier will be applied to the value of the experience received from removing an enchantment from an item stack.
+                            link: attribute_modifier
                     string-origins:modify_harvest:
                         block_condition:
-                            desc: If set, the modification will only apply to blocks which satisfy this condition.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_harvest/
+                            desc: If specified, only blocks that fulfill this condition are affected.
                             link: block_condition
                         allow:
-                            desc: When true, the player will be able to harvest the blocks. When false, the player will not be able to harvest the blocks.
+                            desc: Determines whether the player is be able to harvest the block.
                             type: boolean
-                            default: false
                     string-origins:modify_healing:
                         modifier:
-                            desc: If specified, this modifier will be applied to the entity's healing.
-                            link: a_mod
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_healing/
+                            desc: If specified, this modifier will be applied to your healing bonus.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the entity's healing.
+                            desc: If specified, these modifiers will be applied to your healing bonus.
                             type: list
                             vals:
-                                link: a_mod
-                    string-origins:modify_insomnia_ticks:
+                                link: attribute_modifier
+                    string-origins:modify_hearing_range:
+                        sounds:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_hearing_range/
+                            desc: Apply to ordinary game sounds.
+                            type: boolean
+                            unspec: true
+                        voice:
+                            desc: Apply to Simple Voice Chat proximity audio.
+                            type: boolean
+                            unspec: true
                         modifier:
-                            desc: If specified, this modifier will be applied to the insomnia ticks.
-                            link: a_mod
+                            desc: A single modifier applied to the base hearing distance.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the insomnia ticks.
+                            desc: Several modifiers applied to the base hearing distance.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins:modify_jump:
-                        modifier:
-                            desc: If specified, this modifier will be applied to the upwards jump velocity.
-                            link: a_mod
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the upwards jump velocity.
-                            type: list
-                            vals:
-                                link: a_mod
                         entity_action:
-                            desc: If set, this action will execute when the player jumps.
-                            link: entity_action
-                    string-origins:modify_lava_speed:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_jump/
+                            desc: If specified, this action will be executed on the entity that has the power whenever the entity jumps.
                         modifier:
-                            desc: If specified, this modifier will be applied to the player's speed in lava.
-                            link: a_mod
+                            desc: If specified, this modifier will be applied to the upwards velocity.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the player's speed in lava.
+                            desc: If specified, these modifiers will be applied to the upwards velocity.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
+                    string-origins:modify_label_render:
+                        tick_rate:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_label_render/
+                            desc: How often (in ticks) the server re-resolves text and re-checks the power’s condition. Higher = cheaper.
+                            type: integer
+                            default: 20
+                        bientity_condition:
+                            desc: Tested with the viewer as actor and the holder as target, client-side.
+                            link: bientity_condition
+                        entity_condition:
+                            desc: Tested against the viewer (the player looking at the holder), client-side. The label modification only applies for viewers who pass.
+                            link: entity_condition
+                        before_parse_action:
+                            desc: Runs on the holder (server side) right before each text resolve.
+                            link: entity_action
+                        text:
+                            desc: |
+                                Replacement label text. Selector/score components (e.g. {"selector": "@s"}, score lookups) are resolved on the server every tick_rate ticks. Omit for a mode-only power (e.g. just hiding the label).
+                            link: text_component
+                        render_mode:
+                            desc: default (label shows normally), hide_partially (renders like a sneaking player’s, dim, not visible through walls), hide_completely (no label at all).
+                            enum: ['default','hide_partially','hide_completely']
+                        override_chat_name:
+                            desc: |
+                                Player holders only: the resolved label replaces their name everywhere the server uses a display name: chat, both directions of /msg (the “X whispers to you” line and the “You whisper to X” line), /say, /me, team chat, death messages, advancement announcements and join/leave messages.
+                            type: boolean
+                        override_tab_name:
+                            desc: |
+                                Player holders only: the resolved label also replaces their name in the multiplayer tab list.
+                            type: boolean
+                        after_parse_action:
+                            desc: Runs on the holder (server side) whenever a resolve produced a changed text.
+                            link: entity_action
+                        priority:
+                            desc: When several modify_label_render powers apply to the same holder, the highest priority (that passes its viewer conditions) wins.
+                            type: integer
+                            default: 0
+                    string-origins:modify_model_parts:
+                        transformations:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_model_parts/
+                            desc: The list of edits to apply. Each entry targets one part and one property.
+                            type: list
+                            vals:
+                                link: model_part_transformation
+                        override_pose:
+                            desc: Poses whose vanilla animation is thrown away before transformations run, so the edits start from the standing pose. Takes the same vanilla Pose names as apoli:pose’s entity_pose.
+                            type: list
+                            vals:
+                                link: entity_pose
+                    string-origins:modify_player_model:
+                        model:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_model/
+                            desc: Which model to apply. Resolved against registered addon models first, then as a Figura avatar.
+                            link: identifier
                     string-origins:modify_player_spawn:
                         dimension:
-                            desc: ID of the dimension the player should spawn in. Vanilla dimensions are minecraft:overworld, minecraft:the_nether and minecraft:the_end, but IDs of custom/modded dimensions should also work.
-                            link: identifier
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_spawn/
+                            desc: The namespace and ID of the dimension the player should spawn in.
+                            or:
+                              - title: built-in
+                                enum: ['overworld','nether','the_end']
+                              - title: custom
+                                link: identifier
                         biome:
-                            desc: If set, the player will spawn in the biome with this ID.
+                            desc: If specified, the player will only spawn in the biome that matches the specified namespace and ID.
                             href: https://minecraft.wiki/w/Biome#Biome_IDs
-                            link: identifier
+                            or:
+                              - title: built-in
+                                link: biome
+                              - title: custom
+                                link: identifier
                         structure:
-                            desc: ID of the structure the player should spawn in. Keep in mind that the structure needs to generate in the specified dimension!
+                            desc: If specified, the player will only spawn in the specified namespace and ID of the structure. The structure needs to generate in the specified dimension.
                             href: https://minecraft.wiki/w/Commands/locate#Arguments
-                            link: identifier
+                            or:
+                              - title: built-in
+                                link: structure
+                              - title: custom
+                                link: identifier
                         spawn_strategy:
-                            desc: Either default or center. default tries to find a spawn close to the coordinates of the overworld spawn (while considering the dimension_distance_multiplier). center tries to spawn the player close to 0, 0 of the dimension.
-                            enum: [default, center]
+                            desc: Determines whether the player should spawn near the world spawnpoint (0, 0) of the dimension ("center") or near the coordinates of the Overworld spawnpoint (whilst considering the value of the dimension_distance_multiplier field) ("default").
+                            enum: ['default', 'center']
                         dimension_distance_multiplier:
-                            desc: Needs to be set when spawn_strategy is default. Defines the ratio of overworld blocks to blocks in this dimension, e.g. for the Nether this would be 0.125.
+                            desc: |
+                                Defines the ratio of Overworld blocks to blocks in the specified dimension. e.g: for The Nether dimension, this would be set to 0.125. This needs to be set when spawn_strategy is set to "default"
                             type: number
-                            default: 1
+                            default: unspec
                     string-origins:modify_projectile_damage:
                         damage_condition:
-                            desc: If set, the modifiers will only apply to damage which satisfies this condition.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_projectile_damage/
+                            desc: If specified, the specified modifier(s) and action(s) will only apply if the dealt damage fulfills by this condition.
                             link: damage_condition
                         target_condition:
-                            desc: If set, the action will only be triggered when a target matching this condition is hit.
+                            desc: If specified, the specified modifier(s) and action(s) will only apply if the the entity that has been hit fulfills this condition.
                             link: entity_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the damage amount.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the damage amount.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                         self_action:
-                            desc: If set, this action will be executed on the player whenever this power applies a modification.
+                            desc: If specified, this action will be executed on the ‘actor’ entity (the entity that has the power) whenever the modifier(s) are applied.
                             link: entity_action
                         target_action:
-                            desc: If set, this action will be executed on the target whenever this power applies a modification.
+                            desc: If specified, this action will be executed on the the entity that has been hit whenever the modifier(s) are applied.
                             link: entity_action
                     string-origins:modify_slipperiness:
                         block_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_slipperiness/
                             desc: If specified, the modifier(s) will only apply to the blocks that fulfills this condition.
                             link: block_condition
                         modifier:
-                            desc: If specified, this modifier will be applied to the entity's slipperiness.
-                            link: a_mod
+                            desc: If specified, this modifier will be applied to the entity’s slipperiness.
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the entity's slipperiness.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins:modify_status_effect_amplifier:
                         status_effect:
-                            desc: If specified, the namespace and ID of the status effect that will have its amplifier modified.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_status_effect_amplifier/
+                            desc: Restrict to one effect.
                             link: identifier
                         status_effects:
-                            desc: If specified, the namespace and ID of the status effects that will have their amplifiers modified.
+                            desc: Restrict to several. Empty means every effect.
                             link: identifier_array
                         modifier:
-                            desc: The modifier to apply to the amplifier of the specified status effect.
-                            link: a_mod
+                            desc: A single modifier applied to the amplifier.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers.
+                            type: list
+                            vals:
+                                link: attribute_modifier
                     string-origins:modify_status_effect_duration:
                         status_effect:
-                            desc: If specified, the namespace and ID of the status effect that will have its duration modified.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_status_effect_duration/
+                            desc: Restrict to one effect.
                             link: identifier
                         status_effects:
-                            desc: If specified, the namespace and ID of the status effects that will have their durations modified.
+                            desc: Restrict to several. Empty means every effect.
                             link: identifier_array
                         modifier:
-                            desc: The modifier to apply to the duration of the specified status effect.
-                            link: a_mod
+                            desc: A single modifier applied to the duration, in ticks.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers.
+                            type: list
+                            vals:
+                                link: attribute_modifier
                     string-origins:modify_swim_speed:
                         modifier:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_swim_speed/
                             desc: If specified, this modifier will be applied to the player's swim speed.
-                            link: a_mod_red
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the player's swim speed.
                             type: list
                             vals:
-                                link: a_mod_red
+                                link: attribute_modifier
+                    string-origins:modify_type_tag:
+                        tag:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_type_tag/
+                            desc: |
+                                The entity type tag(s) to change membership of. A leading # is optional.
+                            link: identifier_single_or_array
+                            required: true
+                        included:
+                            desc: true adds the entity to the tag; false removes it, even if its entity type is genuinely in the tag.
+                            type: boolean
+                            default: true
                     string-origins:modify_velocity:
-                        modifier:
-                            desc: If specified, this modifier will be applied to the player's velocity in the given axes.
-                            link: a_mod
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the player's velocity in the given axes.
-                            type: list
-                            vals:
-                                link: a_mod
                         axes:
-                            desc: The axes to modify.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_velocity/
+                            desc: Used to specify the axes affected by this modifier.
                             type: list
                             vals:
-                                enum: [x, y, z]
+                                enum: ['x','y','z']
+                        modifier:
+                            desc: If specified, this modifier will apply to velocity in the specified axes.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: If specified, these modifiers will apply to the specified axes.
+                            type: list
+                            vals:
+                                link: attribute_modifier
                     string-origins:modify_xp_gain:
                         modifier:
-                            desc: If specified, this modifier will be applied to the experience gained.
-                            link: a_mod
+                            desc: If specified, this modifier will apply to the experience gained.
+                            link: attribute_modifier
                         modifiers:
-                            desc: If specified, these modifiers will be applied to the experience gained.
+                            desc: If specified, these modifiers will apply to the experience gained.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins:prevent_block_selection:
                         block_condition:
                             desc: When set, only blocks which meet this condition will be unable to be selected.
@@ -6310,7 +6404,6 @@ type: number
                         retain_value:
                             desc: Whether or not the previous value of the resource is retained.
                             type: boolean
-                            default: false
                         min_action:
                             desc: (EXPERIMENTAL) If specified, this action will be executed on the entity whenever the minimum value is reached.
                             link: entity_action
@@ -6340,12 +6433,12 @@ type: number
                             link: bientity_action
                         modifier:
                             desc: If specified, this modifier will be applied to the damage dealt.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the damage dealt.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins-math:damage_taken_linked_resource:
                         duration:
                             desc: The amount of ticks the damage amount is stored for.
@@ -6358,12 +6451,12 @@ type: number
                             link: bientity_action
                         modifier:
                             desc: If specified, this modifier will be applied to the damage taken.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the damage taken.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins-math:living_entity_linked_resource:
                         property:
                             desc: The specific property of the entity that this power will take as it's value.
@@ -6401,55 +6494,55 @@ type: number
                             link: identifier
                         modifier:
                             desc: If specified, this modifier will be applied to the resource' added values.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the resource's added values.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins-math:modify_knockback:
                         x:
                             desc: The modifiers to apply to the knockback on the x-axis.
-                            link: a_mod
+                            link: attribute_modifier
                         y:
                             desc: The modifiers to apply to the knockback on the y-axis.
-                            link: a_mod
+                            link: attribute_modifier
                         z:
                             desc: The modifiers to apply to the knockback on the z-axis.
-                            link: a_mod
+                            link: attribute_modifier
                     string-origins-math:modify_resource_maximum:
                         resource:
                             desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
                             link: identifier
                         modifier:
                             desc: If specified, this modifier will be applied to the resource's maximum value.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the resource's maximum value.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins-math:modify_resource_minimum:
                         resource:
                             desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
                             link: identifier
                         modifier:
                             desc: If specified, this modifier will be applied to the resource's minimum value.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the resource's minimum value.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-origins-math:modify_simple:
                         modifier:
                             desc: If specified, this modifier will be applied to the resource's minimum value.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the resource's minimum value.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-sync:action_on_death:
                         bientity_action:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_death.md
@@ -6516,11 +6609,9 @@ type: number
                         require_hit_data:
                             desc: If true, the power only fires when real positional hit data is available (projectiles and player melee). Mob attacks and environmental damage are ignored entirely.
                             type: boolean
-                            default: false
                         show_hit_location:
                             desc: DEBUG ONLY! If true, logs and displays the hit location (Head/Torso/Limbs/Feet) and normalized coordinates to both the target and attacker. Useful for testing.
                             type: boolean
-                            default: false
                     string-sync:custom_projectile:
                             cooldown:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fcustom_projectile.md
@@ -6562,7 +6653,6 @@ type: number
                             allow_conditional_cancelling:
                                 desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power's condition.
                                 type: boolean
-                                default: false
                             entity_action_before_firing:
                                 desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
                                 link: entity_action
@@ -6578,7 +6668,6 @@ type: number
                             block_action_cancels_miss_action:
                                 desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
                                 type: boolean
-                                default: false
                             bientity_condition:
                                 desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
                                 link: bientity_condition
@@ -6639,7 +6728,6 @@ type: number
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fflip_model.md
                             desc: Flip the player's view as well
                             type: boolean
-                            default: false
                     string-sync:mobs_ignore:
                         mob_condition:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmobs_ignore.md
@@ -6672,12 +6760,12 @@ type: number
                             link: bientity_condition
                         modifier:
                             desc: Modifier applied repeatedly to scale the bonus per enchantment level.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: Multiple modifiers applied repeatedly.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                         bientity_action:
                             desc: Action to execute on the attacker and target when damage is dealt.
                             link: bientity_action
@@ -6691,33 +6779,29 @@ type: number
                             link: item_condition
                         modifier:
                             desc: If specified, this modifier will be applied to the current level of the specified enchantment from the entity.
-                            link: a_mod
+                            link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the current level of the specified enchantment from the entity.
                             type: list
                             vals:
-                                link: a_mod
+                                link: attribute_modifier
                     string-sync:modify_jade_tooltip:
                         hide_tooltip:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=mod_compat%2Fmodify_jade_tooltip.md
                             desc: If true, hides the Jade tooltip entirely when this entity is looked at
                             type: boolean
-                            default: false
                         display_name:
                             desc: Replaces the entity's name line in the tooltip
                             type: string
                         hide_health:
                             desc: If true, hides the health hearts row
                             type: boolean
-                            default: false
                         hide_armor:
                             desc: If true, hides the armor row
                             type: boolean
-                            default: false
                         hide_potion_effects:
                             desc: If true, hides the potion effects row
                             type: boolean
-                            default: false
                         priority:
                             desc: When multiple powers of this type are active, only the one with the highest priority takes effect
                             type: integer
@@ -6770,18 +6854,6 @@ type: number
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_player_model.md
                             desc: The model variant to use.
                             enum: [FOUR_ARMS, STINKFLY]
-                    string-sync:pose:
-                        entity_pose:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fpose.md
-                            desc: TThe full-body pose to force the entity into.
-                            enum: [STANDING, FALL_FLYING, SLEEPING, SWIMMING, SPIN_ATTACK, CROUCHING, LONG_JUMPING, DYING, CROAKING, USING_TONGUE, SITTING, ROARING, SNIFFING, EMERGING, DIGGING]
-                        arm_pose:
-                            desc: The arm pose to force on the entity (both arms).
-                            enum: [EMPTY, ITEM, BLOCK, BOW_AND_ARROW, THROW_SPEAR, CROSSBOW_CHARGE, CROSSBOW_HOLD, SPYGLASS, TOOT_HORN, BRUSH]
-                        priority:
-                            desc: Priority level (higher overrides lower).
-                            type: integer
-                            default: 0
                     string-sync:prevent_creative_flight:
                         entity_action:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fprevent_creative_flight.md
@@ -6798,7 +6870,6 @@ type: number
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fsprinting.md
                             desc: If true, only sprints when the entity is providing movement input (forward key or sprint key). If false, always sprints when moving.
                             type: boolean
-                            default: false
             fabric:load_conditions:
                 desc: Checks for the following namespaces or mods to be loaded and loads the power if true.
                 gap: before
@@ -6873,738 +6944,8 @@ type: number
                 allow: '*a-z0-9_#\/:.-'
         extra:
             link: nany
-    item_stack:
-        desc: An Object which defines a new item stack.
-        type: object
-        props:
-            item:
-                id: predicates
-                link: item
-            amount:
-                desc: Size of the stack. Defaults to 1.
-                type: integer
-                min: 1
-            tag:
-                desc: NBT data of the item.
-                type: string
-                ext: true
-    pos_item_stack:
-        extend: item_stack
-        props:
-            slot:
-                link: slot
-    aa_mod_op:
-        href: https://origins.readthedocs.io/en/latest/types/data_types/attributed_attribute_modifier_operation/
-        desc: "Can be one of\n\"addition\", which adds (or subtracts) the modifier value to the base value.\n    (NewValue = OldValue + ModifierValue).\n\"multiply_base\", which adds (or subtracts) the base value multiplied by the modifier value to the base value.\n    (NewValue = OldValue + (BaseValue * ModifierValue)).\n\"multiply_total\", which multiplies the total value by the modifier value + 1.\n    (NewValue = OldValue * (1 + ModifierValue)).\n\nThe BaseValue for that attribute for the entity in question after ONLY all \"addition\" operations have been applied.\nAll \"addition\" operations occur first, then all \"multiply_base\" operations, then on the result all \"multiply_total\" operations are applied."
-        enum: [addition, multiply_base, multiply_total]
-    a_mod_op:
-        href: https://origins.readthedocs.io/en/latest/types/data_types/attribute_modifier_operation/
-        desc: |
-            Can be one of
-            "add_base_early", which adds (or subtracts) the modifier value to the base value. (NewBaseValue = BaseValue + ModifierValue).
-            "origins-math:standard_multiply_base", which multiplies the current base value by the modifier value. (NewBaseValue = BaseValue * ModifierValue).
-            "origins-math:standard_divide_base", which divides the current base value by the modifier value. (NewBaseValue = BaseValue / ModifierValue).
-            "multiply_base_additive", which adds (or subtracts) the base value multiplied by the modifier value to the current base value. (NewBaseValue = BaseValue + (BaseValue * ModifierValue)).
-            "multiply_base_multiplicative", which multiplies the current base value by the modifier value. (NewBaseValue = BaseValue * (1 + ModifierValue)).
-            "add_base_late", which adds (or subtracts) the modifier value to the base value. (NewBaseValue = BaseValue + ModifierValue).
-            "min_base", which uses the modifier value as the minimum value for the base value using Java's built-in Math#max method. (NewBaseValue = Math.max(BaseValue, ModifierValue)).
-            "max_base", which uses the modifier value as the maximum value for the base value using Java's built-in Math#min method. (NewBaseValue = Math.min(BaseValue, ModifierValue)).
-            "set_base", which sets the modifier value as the base value. (NewBaseValue = ModifierValue).
-            "origins-math:standard_multiply_total", which multiplies the current total value by the modifier value. (NewTotalValue = TotalValue * ModifierValue).
-            "origins-math:standard_divide_total", which divides the current total value by the modifier value. (NewTotalValue = TotalValue / ModifierValue).
-            "multiply_total_additive", which multiplies the total value by the current total value multiplied by the modifier value. (NewTotalValue = TotalValue * (TotalValue * ModifierValue)).
-            "multiply_total_multiplicative", which multiplies the total value by the modifier value + 1. (NewTotalValue = TotalValue * (1 + ModifierValue)).
-            "min_total", which uses the modifier value as the minimum value for the total value using Java's built-in Math#max method. (NewTotalValue = Math.max(TotalValue, ModifierValue)).
-            "max_total", which uses the modifier value as the maximum value for the total value using Java's built-in Math#min method. (NewTotalValue = Math.min(TotalValue, ModifierValue)).
-            "set_total", which sets the modifier value as the total value. (NewTotalValue = ModifierValue).
-
-            The listed values are ordered based on the order of priority; with add_base_early being applied before the other modifiers and set_total being applied last.
-
-            The other three options are only here for legacy support.
-        enum:
-          - add_base_early
-          - origins-math:standard_multiply_base
-          - origins-math:standard_divide_base
-          - multiply_base_additive
-          - multiply_base_multiplicative
-          - add_base_late
-          - min_base
-          - max_base
-          - set_base
-          - origins-math:standard_multiply_total
-          - origins-math:standard_divide_total
-          - multiply_total_additive
-          - multiply_total_multiplicative
-          - min_total
-          - max_total
-          - set_total
-          - addition
-          - multiply_base
-          - multiply_total
-    a_mod:
-        desc: An Object used to specify how a specific attribute should be modified.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/attribute_modifier/
-        type: object
-        props:
-            operation:
-                link: a_mod_op
-            value:
-                desc: The value with which to apply the operation to the value.
-                type: number
-                default: 0
-            resource:
-                desc: If specified, the value of this power will be used instead of the value specified in the value field.
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            name:
-                desc: (Optional) A descriptive name for the modifier, describing where it comes from.
-                type: string
-            modifier:
-                link: a_mod
-    a_mod_red:
-        desc: An Object used to specify how a specific attribute should be modified.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/attribute_modifier/
-        type: object
-        props:
-            operation:
-                link: aa_mod_op
-            value:
-                desc: The value with which to apply the operation to the value.
-                type: number
-                default: 0
-            resource:
-                desc: If specified, the value of this power will be used instead of the value specified in the value field.
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            name:
-                desc: (Optional) A descriptive name for the modifier, describing where it comes from.
-                type: string
-            modifier:
-                link: a_mod_red
-    math_a_mod:
-        desc: An Object used to specify how a specific attribute should be modified.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/attribute_modifier/
-        type: object
-        props:
-            operation:
-                link: a_mod_op
-            value:
-                desc: The value with which to apply the operation to the value.
-                link: math_number_0
-            resource:
-                desc: If specified, the value of this power will be used instead of the value specified in the value field.
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            name:
-                desc: (Optional) A descriptive name for the modifier, describing where it comes from.
-                type: string
-            modifier:
-                link: math_a_mod
-    aa_mod:
-        desc: An Object used to specify how a specific attribute should be modified. Basically an Attribute Modifier with an additional attribute field.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/attributed_attribute_modifier/
-        type: object
-        props:
-            attribute:
-                desc: ID of the attribute which will be modified by this modifier.
-                href: https://minecraft.wiki/w/Attribute
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            operation:
-                link: aa_mod_op
-            value:
-                desc: The value with which to apply the operation to the value.
-                type: number
-                default: 0
-            name:
-                desc: (Optional) A descriptive name for the modifier, describing where it comes from.
-                type: string
-            modifier:
-                link: aa_mod
-    math_aa_mod:
-        desc: An Object used to specify how a specific attribute should be modified. Basically an Attribute Modifier with an additional attribute field.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/attributed_attribute_modifier/
-        type: object
-        props:
-            attribute:
-                desc: ID of the attribute which will be modified by this modifier.
-                href: https://minecraft.wiki/w/Attribute
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            operation:
-                link: aa_mod_op
-            value:
-                desc: The value with which to apply the operation to the value.
-                link: math_number_0
-            name:
-                desc: (Optional) A descriptive name for the modifier, describing where it comes from.
-                type: string
-            modifier:
-                link: math_aa_mod
-    damage_source:
-        desc: (DEPRECATED) An Object used to specify how to deal damage to an entity.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/damage_source/
-        type: object
-        props:
-            name:
-                desc: The name of the damage source. Controls death message as well as other interactions. Consider vanilla damage sources when picking a name.
-                href: https://origins.readthedocs.io/en/latest/misc/extras/damage_source_names/#list_of_vanilla_damage_source_names
-                type: string
-            bypasses_armor:
-                desc: When true, armor values are not taken into account when calculating the actual damage amount taken.
-                type: boolean
-            fire:
-                desc: When true, the damage will be considered fire damage.
-                type: boolean
-            unblockable:
-                desc: When true, the damage will be unblockable (not reduced by resistance effects or protection enchantments).
-                type: boolean
-            magic:
-                desc: When true, the damage will be considered magic damage.
-                type: boolean
-            out_of_world:
-                desc: When true, the damage will be considered "out of world" damage, i.e. damage from falling into the void.
-                type: boolean
-    key:
-        or:
-          - title: new
-            type: object
-            props:
-                key:
-                    desc: A string specifying the keybinding. Click for possible vanilla and origins values.
-                    href: https://origins.readthedocs.io/en/latest/misc/extras/keybindings/
-                    type: string
-                continuous:
-                    desc: Whether the keybinding should only trigger the power on the first tick the key is held down, or, if set to true, continuously on each tick while the key is held.
-                    type: boolean
-          - title: old
-            enum: [primary, secondary]
-        unspec: true
-    effect:
-        desc: An Object used to define a status effect with duration, amplifier, etc.
-        type: object
-        props:
-            effect:
-                desc: ID of the status effect
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            duration:
-                desc: Duration of the status effect in ticks.
-                type: integer
-                default: 100
-            amplifier:
-                desc: The strength of the status effect (0 being level 1).
-                type: integer
-                default: 0
-            is_ambient:
-                desc: Makes the particle effects of the status effect is less noticeable.
-                type: boolean
-            show_particles:
-                desc: Whether the status effect will spawn particles on the entity.
-                type: boolean
-                default: true
-            show_icon:
-                desc: Whether the status effect will show an icon on the HUD.
-                type: boolean
-                default: true
-    math_effect:
-        desc: An Object used to define a status effect with duration, amplifier, etc.
-        type: object
-        props:
-            effect:
-                desc: ID of the status effect
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-            duration:
-                desc: Duration of the status effect in ticks.
-                or:
-                  - type: integer
-                    default: 100
-                  - type: string
-                    allow: '*a-z0-9_\/:.-'
-            amplifier:
-                desc: The strength of the status effect (0 being level 1).
-                link: math_integer_0
-            is_ambient:
-                desc: Makes the particle effects of the status effect is less noticeable.
-                type: boolean
-            show_particles:
-                desc: Whether the status effect will spawn particles on the entity.
-                type: boolean
-                default: true
-            show_icon:
-                desc: Whether the status effect will show an icon on the HUD.
-                type: boolean
-                default: true
-    comparison:
-        desc: How the state should be compared to the specified value.
-        enum: ['<', '<=', '>', '>=', '==', '!=']
-        default: 3
-    opt_comparison:
-        desc: How the state should be compared to the specified value.
-        enum: ['','<', '<=', '>', '>=', '==', '!=']
-        unspec: ''
-    vector:
-        desc: An object that specifies the X, Y and Z coordinates of a certain point in space.
-        type: object
-        props:
-            x:
-                desc: The X coordinate of the point.
-                type: number
-                default: 0
-            y:
-                desc: The Y coordinate of the point.
-                type: number
-                default: 0
-            z:
-                desc: The X coordinate of the point.
-                type: number
-                default: 0
-    math_vector:
-        desc: An object that specifies the X, Y and Z coordinates of a certain point in space.
-        type: object
-        props:
-            x:
-                desc: The X coordinate of the point.
-                link: math_number_0
-            y:
-                desc: The Y coordinate of the point.
-                link: math_number_0
-            z:
-                desc: The X coordinate of the point.
-                link: math_number_0
-    particle_data:
-        desc: Either a String which defines the particle type or an Object which defines the particle type and its additional parameters.
-        or:
-          - type: string
-            allow: '*a-z0-9_#\/:.-'
-          - type: object
-            props:
-                type:
-                    desc: The namespace and ID of the particle type.
-                    type: string
-                    allow: '*a-z0-9_#\/:.-'
-                params:
-                    desc: The additional parameter(s) for the particle type.
-                    type: string
-                    ext: true
-    slot:
-        desc: A slot in an inventory to apply to.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/item_slot/
-        or:
-          - type: string
-            allow: '*a-z0-9_#\/:.-'
-          - type: integer
-    slots:
-        desc: A list of slots in an inventory to apply to.
-        href: https://origins.readthedocs.io/en/latest/types/data_types/item_slot/
-        or:
-          - name: new
-            type: list
-            vals:
-                type: string
-                allow: '*a-z0-9_#\/:.-'
-          - name: old
-            type: list
-            vals:
-                link: slot
-    process_mode:
-        desc: Determines how the item stack(s) in the specified inventory/inventories are processed. If "items", matching item stacks are processed, counted, or deleted as individual items. If "stacks", matching item stacks are processed, counted, matched, or deleted as one.
-        enum: [items, stacks]
-    apugli_status_effect_chance:
-        desc: An Object which defines a status effect with a chance.
-        href: https://apugli.readthedocs.io/en/latest/types/data_types/status_effect_chance
-        type: object
-        props:
-            effect:
-                desc: The status effect instance which is used when the chance is successful.
-                link: effect
-            chance:
-                desc: The chance for the status effect to trigger.
-                link: math_number
-    apugli_weighted_sound_event:
-        desc: Either a Identifier that defines the sound event or an Object which defines a sound event with volume and pitch alongside weight.
-        href: https://apugli.readthedocs.io/en/latest/types/data_types/weighted_sound_event
-        or:
-          - type: string
-            desc: the namespace and ID of the sound to play
-            allow: '*a-z0-9_#\/:.-'
-          - type: object
-            props:
-                sound:
-                    desc: The namespace and ID of the sound to play.
-                    link: apugli_sound_event_vol_pitch
-                sounds:
-                    desc: The namespace and ID of the sounds to play.
-                    type: list
-                    vals:
-                        link: apugli_sound_event_vol_pitch
-                weight:
-                    desc: The weight for the sound effect to play in a randomiser. The higher this is, the more likely it'll be selected.
-                    link: math_integer
-    apugli_sound_event_vol_pitch:
-        desc: Either a Identifier that defines the sound event or an Object which defines a sound event with pitch and volume.
-        href: https://apugli.readthedocs.io/en/latest/types/data_types/sound_event_with_volume_and_pitch
-        or:
-          - type: string
-            desc: The namespace and ID of the sound to play.
-            allow: '*a-z0-9_#\/:.-'
-          - type: object
-            props:
-                sound:
-                    desc: The namespace and ID of the sound to play.
-                    type: string
-                    allow: '*a-z0-9_#\/:.-'
-                volume:
-                    desc: The volume at which the sound will play.
-                    link: math_number
-                pitch:
-                    desc: The pitch at which the sound will play.
-                    link: math_number
-    fabric_load_conditions:
-        desc: Checks if namespaces or mods are loaded, and loads this power if true.
-        type: object
-        props:
-            condition:
-                desc: What condition to check for
-                enum: ['fabric:any_mod_loaded','fabric:all_mods_loaded','fabric:any_namespace_loaded','fabric:all_namespaces_loaded']
-            values:
-                desc: List of namespaces
-                type: list
-                vals:
-                    type: string
-                    allow: '*a-z0-9_#\/:.-'
-    stat:
-        type: object
-        href: https://minecraft.wiki/w/Statistics#Resource_location
-        props:
-            type:
-                type: string
-                allow: 'a-z0-9_:.-'
-            id:
-                type: string
-                allow: 'a-z0-9_:.-'
-    math_operation:
-        enum: ['add','divide','max','min','modulo','multiply','set','subtract']
-        default: 0
-    expression:
-        type: string
-        href: https://origins-math.readthedocs.io/en/latest/types/data_types/expression/
-        ext: true
-        allow: '*a-z0-9_#^%!\/:.,+-\(\)\[\]'
-    variables:
-        type: object
-        href: https://origins-math.readthedocs.io/en/latest/types/data_types/variable_declaration/
-        extra:
-            allowkey: 'a-z0-9_\/:.-'
-            type: string
-            allow: '*a-z0-9_\/:.-'
-    math_number:
-        desc: A Float or Identifier that links to a Resource (Power Type) or it's extensions, or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: number
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_number_0:
-        desc: A Float or Identifier that links to a Resource (Power Type) or it's extensions, or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: number
-            default: 0
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_number_1:
-        desc: A Float or Identifier that links to a Resource (Power Type) or it's extensions, or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: number
-            default: 1.0
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_number_min_0:
-        desc: A positive Float or Identifier that links to a Resource (Power Type) or it's extensions, or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: number
-            min: 0
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_number_20:
-        desc: A Float or Identifier that links to a Resource (Power Type) or it's extensions, or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: number
-            default: 20
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_integer:
-        desc: An Integer or Identifier that links to a Modifiable Resource (Power Type), Resource (Power Type) or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: integer
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_integer_0:
-        desc: An Integer or Identifier that links to a Modifiable Resource (Power Type), Resource (Power Type) or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: integer
-            default: 0
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_integer_min_0:
-        desc: A positive Integer or Identifier that links to a Modifiable Resource (Power Type), Resource (Power Type) or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: integer
-            min: 0
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_integer_1:
-        desc: An Integer or Identifier that links to a Modifiable Resource (Power Type), Resource (Power Type) or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: integer
-            default: 1
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_integer_20:
-        desc: An Integer or Identifier that links to a Modifiable Resource (Power Type), Resource (Power Type) or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: integer
-            default: 20
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    integer_amp:
-        desc: The minimum and maximum amplifier of the status effect.
-        type: integer
-        min: 0
-        max: 2147483647
-    integer_dur:
-        desc: The minimum and maximum duration of the status effect.
-        type: integer
-        min: -1
-        max: 2147483647
-    math_integer_amp:
-        desc: A positive Integer or Identifier that links to a Modifiable Resource (Power Type), Resource (Power Type) or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: integer
-            min: 0
-            max: 2147483647
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    math_integer_dur:
-        desc: An Integer or Identifier that links to a Modifiable Resource (Power Type), Resource (Power Type) or a power type that has a built-in cooldown (using remaining ticks as the value).
-        or:
-          - type: integer
-            min: -1
-            max: 2147483647
-          - type: string
-            allow: '*a-z0-9_\/:.-'
-    a_val:
-        enum: [BASE,TOTAL]
-    biome_property:
-        enum: [TEMPERATURE,HUMIDITY]
-    player_property:
-        enum: 
-          - FOOD_LEVEL
-          - SATURATION
-          - HEALTH
-          - RELATIVE_HEALTH
-          - ABSORPTION
-          - BREATHING
-          - FIRE_TICKS
-          - FROZEN_TICKS
-          - FREEZING_SCALE
-          - EXP_LEVEL
-          - EXP_POINTS
-          - EXP_SCORE
-          - SLEEP_TIMER
-          - STUCK_ARROWS
-          - FALL_DISTANCE
-          - TIME_OF_DAY
-          - AGE
-          - X
-          - Y
-          - Z
-          - VELOCITY_X
-          - VELOCITY_Y
-          - VELOCITY_Z
-          - PITCH
-          - YAW
-          - ROLL
-    entity_property:
-        enum:
-          - HEALTH
-          - RELATIVE_HEALTH
-          - ABSORPTION
-          - BREATHING
-          - FIRE_TICKS
-          - FROZEN_TICKS
-          - FREEZING_SCALE
-          - STUCK_ARROWS
-          - FALL_DISTANCE
-          - TIME_OF_DAY
-          - AGE
-          - X
-          - Y
-          - Z
-          - VELOCITY_X
-          - VELOCITY_Y
-          - VELOCITY_Z
-          - PITCH
-          - YAW
-          - ROLL
-    effect_property:
-        enum: [AMPLIFIER,DURATION]
-    radial_menu_entry:
-        type: object
-        props:
-            item:
-                desc: The item stack to display within the button for the entry.
-                link: item_stack
-            entity_action:
-                desc: The entity action to be executed if the player clicks on this entry.
-                link: entity_action
-            condition:
-                desc: The condition that must be true for this entry to appear in the list.
-                link: entity_condition
-            distance:
-                desc: The distance, in pixels, this entry will travel from the center. If -1, it will use 1/4th of the screen's width.
-                type: integer
-                default: -1
-            velocity:
-                desc: The speed, in pixels per tick, at which the entry will move from the center. If -1, it will travel however fast it needs to travel to be at the destination in 3 seconds. (To calculate a distance and velocity values for a specific time, use the formula time = distance / velocity. As an average rule of thumb, the distance when distance is -1 will be around 40.)
-                type: integer
-                default: -1
-            icon_width:
-                desc: Width of the radial menu icon.
-                type: integer
-                default: 16
-            icon_height:
-                desc: Height of the radial menu icon.
-                type: integer
-                default: 16
-            item_width:
-                desc: Width of the radial menu item.
-                type: integer
-                default: 16
-            item_height:
-                desc: Height of the radial menu item.
-                type: integer
-                default: 16
-            button_width:
-                desc: Width of the radial menu button.
-                type: integer
-                default: 16
-            button_height:
-                desc: Height of the radial menu button.
-                type: integer
-                default: 20
-            highlight_icon_texture:
-                desc: Namespace ID of the highlighted radial menu icon.
-                type: string
-                allow: '*a-z0-9_\/:.-'
-            highlight_button_texture:
-                desc: Namespace ID of the highlighted radial menu button.
-                type: string
-                allow: '*a-z0-9_\/:.-'
-            tooltip:
-                desc: Tooltip when hovering on the radial menu button.
-                id: item_modifiers
-                link: jsontxt
-    functional_key:
-        desc: The translation key of the keybind.
-        or:
-          - type: string
-            allow: 'a-z0-9_\/:.-'
-          - type: object
-            props:
-                key:
-                    desc: The translation key of the keybind.
-                    type: string
-                    allow: 'a-z0-9_\/:.-'
-                continuous:
-                    desc: If true, the key is considered pressed every tick it is held down; if false, it only fires once per press.
-                    type: boolean
-                    default: false
-                action:
-                    link: entity_action
-    space_data:
-        href: https://origins.readthedocs.io/en/latest/misc/extras/space/#space
-        enum:
-          - world
-          - local
-          - local_horizontal
-          - local_horizontal_normalized
-          - velocity
-          - velocity_normalized
-          - velocity_horizontal
-          - velocity_horizontal_normalized
-    body_part_modifier:
-        href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=data_types%2Fbody_part_modifier_entry.md
-        or:
-          - title: simple
-            link: body_part
-          - title: custom
-            link: custom_body_part
-    body_part:
-        type: object
-        props:
-            body_part:
-                desc: A named preset defining the body region.
-                enum: [any, head, torso, chest, back, left_arm, right_arm, legs, feet, achilles_heel]
-            modifier:
-                desc: A single modifier to apply when the hit falls within this region.
-                link: a_mod
-            modifiers:
-                desc: Multiple modifiers to apply when the hit falls within this region. Applied in order. Can be used together with modifier.
-                type: list
-                vals:
-                    link: a_mod
-            bientity_action:
-                desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
-                link: bientity_action
-    custom_body_part:
-        type: object
-        props:
-            x_min:
-                desc: Minimum X bound of the region (entity's right side = −1).
-                type: number
-                default: -1.0
-            x_max:
-                desc: Maximum X bound of the region (entity's left side = +1).
-                type: number
-                default: 1.0
-            y_min:
-                desc: Minimum Y bound of the region (feet = 0).
-                type: number
-                default: 0.0
-            y_max:
-                desc: Maximum Y bound of the region (top of head = 1).
-                type: number
-                default: 1.0
-            z_min:
-                desc: Minimum Z bound of the region (front of entity = −1).
-                type: number
-                default: -1.0
-            z_max:
-                desc: Maximum Z bound of the region (back of entity = +1).
-                type: number
-                default: 1.0
-            modifier:
-                desc: A single modifier to apply when the hit falls within this region.
-                link: a_mod
-            modifiers:
-                desc: Multiple modifiers to apply when the hit falls within this region. Applied in order. Can be used together with modifier.
-                type: list
-                vals:
-                    link: a_mod
-            bientity_action:
-                desc: If set, this action is executed when this body region is hit. The actor (first entity) is the attacker; the target (second entity) is the entity being hit.
-                link: bientity_action
-
-
-
-
 
 # New unified data type definitions (removes the need to specify the same ones over and over)
-
-
-
-
 
     accessory_slot:
         or:
@@ -7629,6 +6970,8 @@ type: number
             fail	Indicates that the action is not performed and prevents other actions from performing.
             pass	Indicates that the action is not performed but allows other actions to perform.
             success	Indicates that the action is performed and the actor’s hand is swung.
+    arm_pose:
+        enum: ['empty','item','block','bow_and_arrow','throw_spear','crossbow_charge','crossbow_hold','spyglass','toot_horn','brush']
     attribute_modifier:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
         type: object
@@ -7737,6 +7080,8 @@ type: number
             min_total:						NewTotal = max(Total, Modifier)
             max_total:						NewTotal = min(Total, Modifier)
             set_total:						NewTotal = Modifier (last, overrides everything)
+    biome:
+        enum: ['the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','pale_garden','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark','nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas','the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
     block_facing:
         enum: ['up','down','north','south','east','west']
     block_state:
@@ -7854,6 +7199,8 @@ type: number
     entity_action_target:
         desc: Which entity entity_action runs on. Set automatically by the legacy IDs.
         enum: ['self','attacker','target']
+    entity_pose:
+        enum: ['standing','crouching','swimming','fall_flying','sleeping','spin_attack','sitting','sliding','shooting','inhaling']
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
@@ -7898,15 +7245,12 @@ type: number
             meat:
                 desc: Whether this food component counts as meat or not.
                 type: boolean
-                default: false
             always_edible:
                 desc: Whether this food component is edible at full hunger or not.
                 type: boolean
-                default: false
             snack:
                 desc: Whether this food component takes as long as dried kelp to eat (16 ticks) or not (32 ticks).
                 type: boolean
-                default: false
             effect:
                 desc: A status effect and the chance of it triggering upon consuming something with this food component.
                 link: status_effect_instance_chance
@@ -7952,7 +7296,6 @@ type: number
         inverted:
             desc: If set to true, inverts the way the hud renders (full will look empty and vice versa)
             type: boolean
-            default: false
         order:
             desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
             type: integer
@@ -9423,7 +8766,7 @@ type: number
     inventory_action_drop:
         throw_randomly:
             desc: drop only — scatter items in random directions (death-drop style).
-            default: false
+            type: boolean
         retain_ownership:
             desc: drop only — keep the dropping entity as the item’s thrower.
             type: boolean
@@ -9439,7 +8782,6 @@ type: number
             desc: |
                 replace only — merge the old item’s data onto the replacement. (1.20.1: NBT tag; 1.21.1: data components.)
             type: boolean
-            default: false
     inventory_type:
         desc: Determines whether to reference the inventory of the entity or the inventory of the power present in the entity.
         enum: ['inventory','power']
@@ -9483,7 +8825,6 @@ type: number
                 continuous:
                     desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
                     type: boolean
-                    default: false
     meta_keybind:
         or:
           - title: built-in
@@ -9515,17 +8856,14 @@ type: number
                     desc: |
                         Treat filter as plain text instead of a regular expression. Use this when the word contains characters like (, [ or ?.
                     type: boolean
-                    default: false
                 case_insensitive:
                     desc: |
                         Ignore letter case. Equivalent to prefixing the pattern with (?i).
                     type: boolean
-                    default: false
                 inverted:
                     desc: |
                         Turn the filter into a veto: if this pattern matches, the whole power stays inert for that message. "inverted": true makes a filter a veto. It never triggers the power on its own; it only stops the power when it matches. Use it to carve exceptions out of a broad pattern.
                     type: boolean
-                    default: false
                 before_action:
                     desc: Run before the power’s entity_action.
                     link: entity_action
@@ -9539,7 +8877,6 @@ type: number
                 prevent:
                     desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
                     type: boolean
-                    default: false
     meta_condition_chance:
         chance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
@@ -9550,7 +8887,6 @@ type: number
         value:
             desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
             type: boolean
-            default: false
     meta_key:
         type: string
         allow: 'a-z0-9._-'
@@ -9610,7 +8946,6 @@ type: number
             override_animation:
                 desc: For pitch/yaw/roll only. If true, the value becomes the absolute rotation and the vanilla animation for that axis is ignored (“locked”). If false, it is added on top of the animation.
                 type: boolean
-                default: false
             keyframes:
                 desc: A timeline of values. When set, this replaces value and the part animates instead of holding still. The clock starts at 0 the moment the power becomes active.
                 type: list
@@ -9619,7 +8954,6 @@ type: number
             loop:
                 desc: If true, the keyframe timeline repeats forever. If false, it plays once and holds the last keyframe’s value.
                 type: boolean
-                default: false
             duration:
                 desc: Ticks to fade the whole transformation in when the power becomes active. 0 applies it instantly, which is the original behaviour.
                 type: number
@@ -9634,8 +8968,8 @@ type: number
                 desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
                 link: easing
     model_parts:
-        enum: ['','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
-        unspec: ''
+        enum: ['whole_body','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
+        unspec: 'whole_body'
     modify_entity_data:
         data:
             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
@@ -9820,11 +9154,9 @@ type: number
         pierce:
             desc: Shorthand that sets both pierce_blocks and pierce_entities.
             type: boolean
-            default: false
         pierce_blocks:
             desc: If true, the ray passes through blocks: block_action runs on every block the ray intersects (up to 128), blocks stop culling entities behind them, and the ray traces its full length.
             type: boolean
-            unspec: false
         pierce_entities:
             desc: |
                 If true, the ray passes through entities: bientity_action runs on every entity along the ray instead of only the nearest.
@@ -9896,7 +9228,6 @@ type: number
         command_along_ray_only_on_hit:
             desc: If true, command_along_ray only runs when the ray hits something
             type: boolean
-            default: false
         chain:
             desc: Another raycast fired from this ray’s end point (its hit position, or the max-range point on a miss). Lets rays bounce and branch for visual effects. Nests recursively — a chain may itself have a chain.
             type: object
@@ -9934,7 +9265,6 @@ type: number
             entities:
                 desc: For raycast - whether the ray can attach to an entity it hits.
                 type: boolean
-                default: false
             blocks:
                 desc: For raycast - whether the ray can attach to a block it hits. When both entities and blocks are enabled the nearest hit wins.
                 type: boolean
@@ -10023,11 +9353,9 @@ type: number
               - ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
-                default: false
               - is_ambient:
                 desc: (DEPRECATED) Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
-                default: false
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
                 type: boolean
@@ -10060,11 +9388,9 @@ type: number
               - ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
-                default: false
               - is_ambient:
                 desc: (DEPRECATED) Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
-                default: false
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
                 type: boolean
@@ -10076,6 +9402,8 @@ type: number
             chance:
                 desc: Chance of the status effect taking effect.
                 link: number_percent
+    structure:
+        enum: ['ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
     team:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
         desc: A scoreboard team, given either by name or as a set of properties to match.
