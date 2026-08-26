@@ -6120,6 +6120,7 @@ type: number
                                 link: attribute_modifier
                     string-origins:modify_xp_gain:
                         modifier:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_xp_gain/
                             desc: If specified, this modifier will apply to the experience gained.
                             link: attribute_modifier
                         modifiers:
@@ -6127,749 +6128,209 @@ type: number
                             type: list
                             vals:
                                 link: attribute_modifier
-                    string-origins:prevent_block_selection:
-                        block_condition:
-                            desc: When set, only blocks which meet this condition will be unable to be selected.
-                            link: block_condition
                     string-origins:prevent_being_used:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_being_used/
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        item_condition:
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by the item used by the ’actor’ entity for right-clicking the ’target’ entity.
+                            link: item_condition
+                        hands:
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both.
+                            type: list
+                            vals:
+                                link: hand
+                        result_stack:
+                            desc: If specified, this item stack will be given to the ’actor’ entity.
+                            link: item_stack
                         bientity_action:
                             desc: The action to execute upon preventing other players from right-clicking the entity that has the power if specified.
                             link: bientity_action
-                        bientity_condition:
-                            desc: If specified, only execute the specified actions if the bi-entity condition is fulfilled.
-                            link: bientity_condition
-                        item_condition:
-                            desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the other player's specified hand(s) equipment slot determined by the hands string field.
-                            link: item_condition
-                        hands:
-                            desc: Determines if the power should be activated if the other player used the specified hand slot(s). Accepts "off_hand", "main_hand" or both.
-                            type: list
-                            vals:
-                                enum: [off_hand, main_hand]
-                        result_stack:
-                            desc: If specified, gives an item stack to the player.
-                            link: item_stack
                         held_item_action:
-                            desc: If specified, executes an item action on the item stack used for right-clicking the entity in the specified hand slot.
+                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_action
                         result_item_action:
-                            desc: If specified, executes an item action on the given item stack.
+                            desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
                             link: item_action
+                    string-origins:prevent_block_place:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_block_place/d
+                            desc: If specified, the specified actions will only be executed if the item the player has used to try to place a block fulfills this item condition.
+                            link: item_condition
+                        place_to_condition:
+                            desc: If specified, the specified actions will only be executed if the block at the position of the block the player tried to place fulfills this block condition.
+                            link: block_condition
+                        place_on_condition:
+                            desc: If specified, the specified actions will only be executed if the block the player tried to place a block on fulfills this block condition.
+                            link: block_condition
+                        directions:
+                            desc: Determines whether the specified actions should be executed if the player tried to place a block at the specified side(s) of a block.
+                            link: block_facing
+                        hands:
+                            desc: Determines whether the specified actions should be executed if the player used the specified hand(s) when trying to place a block.
+                            type: list
+                            vals:
+                                link: hand
+                        held_item_action:
+                            desc: If specified, this item action will be executed on the item the player has used to try to place a block.
+                            link: item_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the player upon trying to place a block.
+                            link: item_stack
+                        result_item_action:
+                            desc: If specified, this item action will be executed on the item that will be given to the player upon trying to place a block.
+                            link: item_action
+                        entity_action:
+                            desc: If specified, this entity action will be executed on the player upon being prevented from placing a block.
+                            link: entity_action
+                        place_to_action:
+                            desc: If specified, this block action will be executed at the position of the block the player tried to place.
+                            link: block_action
+                        place_on_action:
+                            desc: If specified, this block action will be executed on the block the player tried to place a block on.
+                            link: block_action
+                    string-origins:prevent_block_selection:
+                        block_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_block_selection/
+                            desc: If specified, only blocks that fulfill this condition are affected.
+                            link: block_condition
                     string-origins:prevent_block_use:
                         block_condition:
-                            desc: When set, only blocks which meet this condition will be unable to be used.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_block_use/
+                            desc: If specified, only blocks that fulfill this condition are affected.
                             link: block_condition
                     string-origins:prevent_death:
                         damage_condition:
-                            desc: If set, death will only prevented when damage which matches this condition is dealt. Other damage will still kill the player.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_death/
+                            desc: If specified, death will only be prevented if the damage dealt to the entity fulfills this condition.
                             link: damage_condition
                         entity_action:
-                            desc: The action to execute on the player when death is prevented.
+                            desc: If specified, this action will be executed on the entity when death is prevented.
                             link: entity_action
                     string-origins:prevent_elytra_flight:
                         entity_action:
-                            desc: If specified, execute this entity action type upon preventing the entity that has the power.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_elytra_flight/
+                            desc: If specified, this action will be executed upon the entity trying to fly an Elytra/power that uses the apoli:elytra_flight.
                             link: entity_action
                     string-origins:prevent_entity_collision:
                         bientity_condition:
-                            desc: If specified, collision is only affected as long as both the 'actor' (the entity with the power), and the 'target' fulfill the specified conditions.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_entity_collision/
+                            desc: If specified, the collision will only be prevented if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
                             link: bientity_condition
                     string-origins:prevent_entity_render:
                         entity_condition:
-                            desc: If set, only entities which fulfill this condition will be invisible.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_entity_render/
+                            desc: If specified, only entities which fulfills this condition will be affected.
                             link: entity_condition
                         bientity_condition:
-                            desc: If set, only entities which fulfill this bi-entity condition in relation to the power holder will be invisible for the player with this power.
+                            desc: 	If specified, the power will only be active if this condition is fulfilled by either or both the ‘actor’ (the player that has the power) and ‘target’ (the entity that will not render) entities.
                             link: bientity_condition
                     string-origins:prevent_entity_use:
-                        bientity_action:
-                            desc: The action to execute upon being prevented from right-clicking an entity.
-                            link: bientity_action
                         bientity_condition:
-                            desc: If specified, only execute the specified actions if the bi-entity condition is fulfilled.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_entity_use/
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
                             link: bientity_condition
                         item_condition:
-                            desc: If specified, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_condition
                         hands:
-                            desc: Determines if the power should be activated if the player used the specified hand slot(s). Accepts "off_hand", "main_hand" or both.
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both.
                             type: list
                             vals:
-                                type: string
+                                link: hand
                         result_stack:
-                            desc: If specified, gives an item stack to the player.
+                            desc: If specified, this item stack will be given to the ’actor’ entity.
                             link: item_stack
+                        bientity_action:
+                            desc: The action to execute upon preventing other players from right-clicking the entity that has the power if specified.
+                            link: bientity_action
                         held_item_action:
-                            desc: If specified, executes an item action on the item stack used for right-clicking the entity in the specified hand slot.
+                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_action
                         result_item_action:
-                            desc: If specified, executes an item action on the given item stack.
+                            desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
                             link: item_action
                     string-origins:prevent_feature_render:
                         feature:
-                            desc: |
-                                If specified, this feature renderer (e.g: armor layer, sheep wool layer, or the sub-classes that extends the FeatureRender super-class) will not be rendered to the entity that has the power.
-                            href: https://origins.readthedocs.io/en/latest/types/power_types/prevent_feature_render/
-                            link: identifier
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_feature_render/
+                            desc: A single feature name to hide. Merged into features.
+                            link: features
                         features:
-                            desc: If specified, these feature renderers will not be rendered.
-                            link: identifier_array
+                            desc: Feature names to hide. Omit both fields to hide every feature layer.
+                            type: list
+                            vals:
+                                link: features
                     string-origins:prevent_game_event:
                         event:
-                            desc: If specified, the game event with this namespace and ID will be prevent from being emitted by the entity.
-                            href: https://origins.readthedocs.io/en/latest/types/power_types/prevent_game_event/
-                            link: identifier
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_game_event/
+                            desc: |
+                                If specified, the game event with this namespace and ID will be prevented from being emitted by the entity. Prefix with # to name a game event tag instead.
+                            link: game_event
                         events:
-                            desc: If specified, the game events with these namespace and IDs will be prevent from being emitted by the entity.
-                            link: identifier_array
+                            desc: |
+                                If specified, the game events with these namespace and IDs will be prevented from being emitted by the entity. Each entry may be prefixed with # to name a game event tag.
+                            type: list
+                            vals:
+                                link: game_event
                         tag:
-                            desc: If specified, the game events inside game event tag will be prevented from being emitted by the entity.
-                            link: identifier
+                            desc: |
+                                If specified, the game events inside this game event tag will be prevented from being emitted by the entity. The leading # is optional.
+                            link: game_event_tag
                         entity_action:
                             desc: If specified, this action will be executed on the entity upon preventing game events.
                             link: entity_action
                     string-origins:prevent_item_use:
                         item_condition:
-                            desc: If set, only items which satisfy this condition will be blocked from being used.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_item_use/
+                            desc: If specified, only items that fulfills this condition will be prevented from being used.
                             link: item_condition
+                    string-origins:prevent_powers:
+                        update_rate:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_powers/
+                            desc: How often, in ticks, to re-check this power’s own condition. Raise it if the condition is expensive and does not need to be exact.
+                            type: integer
+                            min: 1
+                            default: 5
+                        powers:
+                            desc: The power ids to suppress.
+                            link: identifier_array
+                            required: true
                     string-origins:prevent_sleep:
                         block_condition:
-                            desc: If set, sleep will only be prevented if this condition holds for the bed.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_sleep/
+                            desc: If specified, sleep will only be prevented if this condition is fulfilled by the bed block.
                             link: block_condition
                         message:
-                            desc: The message that will be shown when sleep is prevented this way. Can be a literal text or a translation key which will be localized using a language file. Defaults to "origins.cant_sleep".
-                            type: string
-                            ext: true
+                            desc: The message that will be shown when sleep is prevented this way.
+                            link: text_component
                         set_spawn_point:
-                            desc: If false, right-clicking the bed while sleeping is prevented with this power will prevent the player from setting their the spawn point.
+                            desc: Determines whether the spawnpoint of the player is set upon right-clicking a bed while being prevented. (similar to what happens when you right-click a bed while it’s daytime)
                             type: boolean
-                            default: true
+                        priority:
+                            desc: Determines the priority of which power will prevent the player to sleep, set their spawn and display a message. The power with set_spawn_point set to true and the highest priority value will be prioritized.
+                            type: integer
+                            default: 0
                     string-origins:prevent_sprinting: {}
-
-                    string-extraorigins:modify_size:
-                        scale:
-                            desc: A multiplier modifying the scale of the player's specified attributes. You don't have to use extraorigins for this power; click here to see an example of a power that works in regular origins!
-                            href: https://www.mathgeniuszach.com/apps/origin-creator/help/#pehkui-power
-                            type: number
-                        scale_types:
-                            desc: An array of scale type identifiers to modify. A full list of pehkui modifiers can be found by clicking here (scroll down on the page). For size only, you can use "extraorigins:modify_size", which modifies width, height, drop size, and visibility.
-                            href: https://legacy.curseforge.com/minecraft/mc-mods/pehkui
-                            type: list
-                            vals:
-                                link: identifier
-                                default: extraorigins:modify_size
-                    string-apugli:custom_death_sound:
-                        muted:
-                            desc: Determines whether the death sound should be muted.
-                            href: https://apugli.readthedocs.io/en/latest/types/power_types/custom_death_sound
-                            type: boolean
-                        sound:
-                            desc: If specified, this sound event will play instead of the original death sound of the entity that has the power.
-                            link: apugli_weighted_sound_event
-                        sounds:
-                            desc: If specified, these sound events will play instead of the original death sound of the entity that has the power in a random fashion.
-                            type: list
-                            vals:
-                                link: apugli_weighted_sound_event
-                        volume:
-                            desc: Determines the volume of the sound event(s) being played.
-                            type: number
-                        pitch:
-                            desc: Determines the pitch of the sound event(s) being played.
-                            type: number
-                    string-apugli:custom_hurt_sound:
-                        muted:
-                            desc: Determines whether the hurt sound should be muted.
-                            href: https://apugli.readthedocs.io/en/latest/types/power_types/custom_hurt_sound
-                            type: boolean
-                        sound:
-                            desc: If specified, this sound event will play instead of the original hurt sound of the entity that has the power.
-                            link: apugli_weighted_sound_event
-                        sounds:
-                            desc: If specified, these sound events will play instead of the original hurt sound of the entity that has the power in a random fashion.
-                            type: list
-                            vals:
-                                link: apugli_weighted_sound_event
-                        volume:
-                            desc: Determines the volume of the sound event(s) being played.
-                            type: number
-                        pitch:
-                            desc: Determines the pitch of the sound event(s) being played.
-                            type: number
-                    string-apugli:edible_item:
+                    string-origins:prevent_use:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_use/
+                            desc: Only block for this pairing.
+                            link: bientity_condition
                         item_condition:
-                            desc: The item condition that items must satisfy to be affected by this power.
-                            href: https://apugli.readthedocs.io/en/latest/types/power_types/edible_item
+                            desc: Only block when the held item matches.
                             link: item_condition
-                        food_component:
-                            desc: The food component that the item grants upon eating it.
-                            link: food_component
-                        use_action:
-                            desc: The action to associate with the player. One of eat or drink. Defaults to eat when null.
-                            enum: ['eat','drink']
-                        return_stack:
-                            desc: The item stack to replace the item with upon consumption.
+                        target_used:
+                            desc: false blocks the holder using others; true blocks others using the holder. Filled in by the aliases.
+                            type: boolean
+                        hands:
+                            desc: Which hands are blocked — main_hand, off_hand, or both.
+                            type: list
+                            vals:
+                                link: hand
+                        result_stack:
+                            desc: Replace the used stack with this when the use is blocked.
                             link: item_stack
-                        sound:
-                            desc: ID of the sound to play while eating an item affected by this power. If not set this will be the default eating/drinking sound.
-                            link: identifier
-                        entity_action:
-                            desc: If set, these action(s) will be executed on the entity eating this item.
-                            link: entity_action
-                        item_action:
-                            desc: If set, these action(s) will be executed on the item that the entity ate.
-                            link: item_action
-                    string-apugli:energy_swirl:
-                        texture_location:
-                            desc: If specified, the texture used for the energy swirl overlay.
-                            href: https://apugli.readthedocs.io/en/latest/types/power_types/energy_swirl/
-                            type: string
-                        texture_url:
-                            desc: If specified, the url to a .png file imported into the game as a texture for this power's use. This will be used as a fallback if texture_location is not specified or if a texture is not present.
-                            type: string
-                        size:
-                            desc: The scale relative to the entity at which the energy swirl will render at.
-                            type: number
-                            default: 1.0
-                        speed:
-                            desc: The speed at which the overlay swirls around the player. You can set this to 0 if you want a static overlay.
-                            type: number
-                            default: 0.01
-                    string-apugli:mobs_ignore:
-                        mob_condition:
-                            desc: If set, mobs will ignore (and not attack) the entity with this power if they meet this condition.
-                            href: https://apugli.readthedocs.io/en/latest/types/power_types/mobs_ignore
-                            link: entity_condition
-                        bientity_condition:
-                            desc: If set, mobs will ignore the entity with this power if they and the entity meet this condition.
-                            link: bientity_condition
-                    string-apugli:prevent_sound:
-                        category:
-                            desc: If specified, all sound events from this category will be prevented from being heard by the entity that has the power.
-                            enum: ['','ambient', 'blocks', 'hostile', 'master', 'music', 'neutral', 'players', 'records', 'voice', 'weather']
-                            unspec: ''
-                        categories:
-                            desc: If specified, all sound events from these categories will be prevented from being heard by the entity that has the power. Can accept "ambient", "blocks", "hostile", "master", "music", "neutral", "players", "records", "voice" and "weather".
-                            link: identifier_array
-                            default: unspec
-                        sound:
-                            desc: If specified, this sound event will be prevented from being heard by the entity that has the power.
-                            link: identifier
-                            default: unspec
-                        sounds:
-                            desc: If specified, these sound events will be prevented from being heard by the entity that has the power.
-                            type: list
-                            vals:
-                                link: identifier
-                            default: unspec
-                        whitelist:
-                            desc: If specified, these sound events will be exempt from being prevented.
-                            link: identifier_array
-                            default: unspec
-                    string-eggolib:crawling: {}
-                    string-origins-math:attribute_like_resource:
-                        min:
-                            desc: The minimum value of the resource.
-                            type: number
-                        max:
-                            desc: The maximum value of the resource.
-                            type: number
-                        start_value:
-                            desc: The value of the resource when the entity first receives the power. If not set, this will be set to the value of the min float field.
-                            type: number
-                    string-origins-math:math_resource:
-                        expression:
-                            desc: The mathematical expression that gives the value of this resource.
-                            link: expression
-                        variables:
-                            desc: A variable declaration declaring variables used in the expression.
-                            link: variables
-                    string-origins-math:modifiable_resource:
-                        min:
-                            desc: The minimum value of the resource.
-                            type: integer
-                        max:
-                            desc: The maximum value of the resource.
-                            type: integer
-                        hud_render:
-                            desc: Determines how the resource is visualized on the HUD.
-                            link: hud_render
-                        start_value:
-                            desc: The value of the resource when the entity first receives the power. If not set, this will be set to the value of the min float field.
-                            type: integer
-                        enforce_limits:
-                            desc: Whether or not the value of the resource should be bounded by the value of min and max.
-                            type: boolean
-                            default: true
-                        retain_value:
-                            desc: Whether or not the previous value of the resource is retained.
-                            type: boolean
-                        min_action:
-                            desc: (EXPERIMENTAL) If specified, this action will be executed on the entity whenever the minimum value is reached.
-                            link: entity_action
-                        max_action:
-                            desc: (EXPERIMENTAL) If specified, this action will be executed on the entity whenever the maximum value is reached.
-                            link: entity_action
-                    string-origins-math:attribute_linked_resource:
-                        attribute:
-                            desc: The ID of the attribute that this power will base it's value from.
-                            link: identifier
-                        value:
-                            desc: The specific value of "attribute" this power will take.
-                            link: a_val
-                    string-origins-math:current_biome_linked_resource:
-                        property:
-                            desc: The specific property of the current biome that this power will take as it's value.
-                            link: biome_property
-                    string-origins-math:damage_dealt_linked_resource:
-                        duration:
-                            desc: The amount of ticks the damage amount is stored for.
-                            type: integer
-                        damage_condition:
-                            desc: If specified, the amount of damage dealt is only set if the damage being dealt fulfills the condition.
-                            link: damage_condition
-                        bientity_action:
-                            desc: If specified, the specified actions will be executed once the amount of damage dealt has been set, with the 'actor' being the entity dealing the damage and the 'target' being the entity that receives the damage.
-                            link: bientity_action
-                        modifier:
-                            desc: If specified, this modifier will be applied to the damage dealt.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the damage dealt.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                    string-origins-math:damage_taken_linked_resource:
-                        duration:
-                            desc: The amount of ticks the damage amount is stored for.
-                            type: integer
-                        damage_condition:
-                            desc: If specified, the amount of damage taken is only set if the damage being taken fulfills the condition.
-                            link: damage_condition
-                        bientity_action:
-                            desc: If specified, the specified actions will be executed once the amount of damage taken has been set, with the 'actor' being the entity taking the damage and the 'target' being the entity that deals the damage.
-                            link: bientity_action
-                        modifier:
-                            desc: If specified, this modifier will be applied to the damage taken.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the damage taken.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                    string-origins-math:living_entity_linked_resource:
-                        property:
-                            desc: The specific property of the entity that this power will take as it's value.
-                            link: entity_property
-                    string-origins-math:healing_linked_resource:
-                        duration:
-                            desc: The amount of ticks the healing amount is stored.
-                            type: integer
-                        entity_action:
-                            desc: If specified, the specified actions will be executed once the amount of healing received has been set.
-                            link: entity_action
-                    string-origins-math:nbt_linked_resource:
-                        path:
-                            desc: The specific NBT path that this power will take as it's value.
-                            type: string
-                            ext: true
-                    string-origins-math:player_linked_resource:
-                        property:
-                            desc: The specific property of the player that this power will take as it's value.
-                            link: player_property
-                    string-origins-math:scoreboard_linked_resource:
-                        objective:
-                            desc: The name of the scoreobard objective to retrieve the score of this entity from.
-                            link: identifier
-                    string-origins-math:status_effect_linked_resource:
-                        effect:
-                            desc: The ID of the Status Effect that this power will base it's value from.
-                            link: identifier
-                        property:
-                            desc: The specific property of the Status Effect that this power will take as it's value.
-                            link: effect_property
-                    string-origins-math:modify_attribute_like_resource:
-                        resource:
-                            desc: The namespace and ID of the power that uses the Attribute-like Resource (Power Type)
-                            link: identifier
-                        modifier:
-                            desc: If specified, this modifier will be applied to the resource' added values.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the resource's added values.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                    string-origins-math:modify_knockback:
-                        x:
-                            desc: The modifiers to apply to the knockback on the x-axis.
-                            link: attribute_modifier
-                        y:
-                            desc: The modifiers to apply to the knockback on the y-axis.
-                            link: attribute_modifier
-                        z:
-                            desc: The modifiers to apply to the knockback on the z-axis.
-                            link: attribute_modifier
-                    string-origins-math:modify_resource_maximum:
-                        resource:
-                            desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
-                            link: identifier
-                        modifier:
-                            desc: If specified, this modifier will be applied to the resource's maximum value.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the resource's maximum value.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                    string-origins-math:modify_resource_minimum:
-                        resource:
-                            desc: The namespace and ID of the power that uses the Modifiable Resource (Power Type)
-                            link: identifier
-                        modifier:
-                            desc: If specified, this modifier will be applied to the resource's minimum value.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the resource's minimum value.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                    string-origins-math:modify_simple:
-                        modifier:
-                            desc: If specified, this modifier will be applied to the resource's minimum value.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the resource's minimum value.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                    string-sync:action_on_death:
-                        bientity_action:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_death.md
-                            desc: The action to execute when the entity dies. Receives a pair of (killer, victim).
-                            link: bientity_action
-                        bientity_condition:
-                            desc: Condition that must be met between killer and victim.
-                            link: bientity_condition
-                        damage_condition:
-                            desc: Condition that must be met by the damage source and amount.
-                            link: damage_condition
-                    string-sync:action_on_key_sequence:
-                        success_action:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_key_sequence.md
-                            desc: Action to execute when the player completes the sequence correctly.
-                            link: entity_action
-                        fail_action:
-                            desc: Action to execute when the player presses an incorrect key (i.e. a key that is not the next expected one).
-                            link: entity_action
-                        cooldown:
-                            desc: Interval in ticks the power must wait after a successful completion before it can be used again.
-                            type: integer
-                            default: 0
-                            min: 0
-                        hud_render:
-                            desc: Determines how the cooldown is visualized on the HUD.
-                            link: hud_render
-                        keys:
-                            desc: The set of keys that are tracked by this power. Each entry defines a key, whether it is continuous, and an optional action that runs whenever that key is pressed (or held). These keys are the only ones that can advance the sequence.
-                            type: list
-                            vals:
-                                link: functional_key
-                        key_sequence:
-                            desc: The exact order of keys (by their translation key) that the player must press to trigger success_action.
-                            link: identifier_array
-                    string-sync:action_on_sending_message:
-                        message_type:
-                            horse: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Faction_on_sending_message.md
-                            desc: If specified, only messages of this type (e.g. minecraft:chat, minecraft:say_command) are processed. If omitted, all message types are processed.
-                            link: identifier
-                        filter:
-                            desc: A single filter to apply. Cannot be used together with filters.
-                            type: string
-                            ext: true
-                        filters:
-                            desc: A list of filters to apply. Filters are evaluated in order; the first matching filter cancels the message and runs its before_action. If none match, all after_actions are executed.
-                            type: list
-                            vals:
-                                type: string
-                        priority:
-                            desc: Determines the order in which powers of this type are evaluated when multiple are active. Higher priority runs first.
-                            type: integer
-                            default: 0
-                    string-sync:body_part_damage_modifier:
-                        modifiers:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fbody_part_damage_modifier.md
-                            desc: A list of body zone / modifier pairs. Each entry defines a region of the body and the modifier(s) to apply when that region is hit. Multiple entries can match the same hit.
-                            type: list
-                            vals:
-                                link: body_part_modifier
-                        damage_condition:
-                            desc: If present, the entire power only fires when this condition is satisfied by the incoming damage source and amount.
-                            link: damage_condition
-                        require_hit_data:
-                            desc: If true, the power only fires when real positional hit data is available (projectiles and player melee). Mob attacks and environmental damage are ignored entirely.
-                            type: boolean
-                        show_hit_location:
-                            desc: DEBUG ONLY! If true, logs and displays the hit location (Head/Torso/Limbs/Feet) and normalized coordinates to both the target and attacker. Useful for testing.
-                            type: boolean
-                    string-sync:custom_projectile:
-                            cooldown:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fcustom_projectile.md
-                                desc: Interval of ticks this power needs to recharge before the power can be triggered again.
-                                type: integer
-                                default: 1
-                            hud_render:
-                                desc: Determines how the cooldown of this power is visualized on the HUD.
-                                link: hud_render
-                            texture_location:
-                                desc: If specified, the texture used for the custom projectile.
-                                link: identifier
-                            count:
-                                desc: The amount of projectiles to fire each use.
-                                type: integer
-                                default: 1
-                                min: 1
-                            interval:
-                                desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
-                                type: integer
-                                default: 0
-                                min: 0
-                            speed:
-                                desc: The speed applied to the fired projectile.
-                                type: number
-                                default: 1.5
-                            divergence:
-                                desc: How much each projectile fired is affected by random spread.
-                                type: number
-                                default: 1.0
-                                min: 0
-                            sound:
-                                desc: If set, the sound with this ID will be played when the power is used.
-                                link: identifier
-                            tag:
-                                desc: NBT data of the entity.
-                                type: string
-                                ext: true
-                            allow_conditional_cancelling:
-                                desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power's condition.
-                                type: boolean
-                            entity_action_before_firing:
-                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-                                link: entity_action
-                            bientity_action_after_firing:
-                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                                link: bientity_action
-                            block_condition:
-                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                                link: block_condition
-                            block_action_on_hit:
-                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-                                link: block_action
-                            block_action_cancels_miss_action:
-                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                                type: boolean
-                            bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            owner_bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            bientity_action_on_miss:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                                link: bientity_action
-                            bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bientity_action
-                            owner_target_bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bientity_action
-                            tick_bientity_action:
-                                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile's lifespan.
-                                link: bientity_action
-                            key:
-                                desc: Which active key this power should respond to.
-                                link: keybind
-                    string-sync:emissive:
-                        light:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Femissive.md
-                            desc: The static light level emitted by the entity (0-15). This is the base brightness.
-                            type: integer
-                        dynamic_light:
-                            desc: Optional dynamic light level for special effects (0-15). This is used with the LambDynamicLights mod for moving light sources.
-                            type: integer
-                    string-sync:energy_swirl:
-                        texture_location:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fenergy_swirl.md
-                            desc: The texture used for the energy swirl overlay. If omitted, the Wither armour texture is used.
-                            link: identifier
-                        size:
-                            desc: The scale of the swirl relative to the entity’s normal size.
-                            type: number
-                            default: 1.0
-                        speed:
-                            desc: The speed at which the overlay animates. Set to 0 for a completely static overlay.
-                            type: number
-                            default: 0.01
-                    string-sync:entity_set:
-                        action_on_add:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_set.md
-                            desc: Action executed when an entity is added to the set.
-                            link: bientity_action
-                        action_on_remove:
-                            desc: Action executed when an entity is removed from the set.
-                            link: bientity_action
-                        tick_rate:
-                            desc: How often (in ticks) the set checks for temporary entity expiration.
-                            type: integer
-                            default: 1
-                            min: 1
-                    string-sync:flip_model:
-                        flip_view:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fflip_model.md
-                            desc: Flip the player's view as well
-                            type: boolean
-                    string-sync:mobs_ignore:
-                        mob_condition:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmobs_ignore.md
-                            desc: Condition that mobs must meet to ignore the entity.
-                            link: entity_condition
-                        bientity_condition:
-                            desc: Condition that must be met between mob and entity.
-                            link: bientity_condition
-                        provokable:
-                            desc: Whether mobs can be provoked to attack if damaged.
-                            type: boolean
-                            default: true
-                    string-sync:modify_enchantment_damage_dealt:
-                        enchantment:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_damage_dealt.md
-                            desc: The enchantment whose level on the attacker's equipment determines the bonus.
-                            link: identifier
-                        base_value:
-                            desc: Starting value before any level-based scaling.
-                            type: number
-                            required: true
-                        damage_condition:
-                            desc: If present, the modification only applies when the damage condition is met.
-                            link: damage_condition
-                        target_condition:
-                            desc: If present, the modification only applies when the target condition is met.
-                            link: entity_condition
-                        bientity_condition:
-                            desc: If present, the modification only applies when the bi‑entity condition between attacker and target is met.
-                            link: bientity_condition
-                        modifier:
-                            desc: Modifier applied repeatedly to scale the bonus per enchantment level.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: Multiple modifiers applied repeatedly.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                        bientity_action:
-                            desc: Action to execute on the attacker and target when damage is dealt.
-                            link: bientity_action
-                    string-sync:modify_enchantment_level:
-                        enchantment:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_level.md
-                            desc: ID of the enchantment to apply/modify the level of to the entity.
-                            link: identifier
-                        item_condition:
-                            desc: If specified, only applies/modifies the level of the specified enchantment to/from the entity if the item condition is fulfilled by the item.
-                            link: item_condition
-                        modifier:
-                            desc: If specified, this modifier will be applied to the current level of the specified enchantment from the entity.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: If specified, these modifiers will be applied to the current level of the specified enchantment from the entity.
-                            type: list
-                            vals:
-                                link: attribute_modifier
-                    string-sync:modify_jade_tooltip:
-                        hide_tooltip:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=mod_compat%2Fmodify_jade_tooltip.md
-                            desc: If true, hides the Jade tooltip entirely when this entity is looked at
-                            type: boolean
-                        display_name:
-                            desc: Replaces the entity's name line in the tooltip
-                            type: string
-                        hide_health:
-                            desc: If true, hides the health hearts row
-                            type: boolean
-                        hide_armor:
-                            desc: If true, hides the armor row
-                            type: boolean
-                        hide_potion_effects:
-                            desc: If true, hides the potion effects row
-                            type: boolean
-                        priority:
-                            desc: When multiple powers of this type are active, only the one with the highest priority takes effect
-                            type: integer
-                            default: 0
-                        entity_condition:
-                            desc: Tested on the viewer. The power only applies when this condition passes
-                            link: entity_condition
-                        bientity_condition:
-                            desc: Tested with the viewer as actor and the power holder as target. The power only applies when this condition passes
-                            link: bientity_condition
-                    string-sync:modify_label_render:
-                        entity_condition:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_enchantment_damage_dealt.md
-                            desc: If specified, the label modification will only apply to viewers that fulfill this condition.
-                            link: entity_condition
-                        bientity_condition:
-                            desc: If specified, the label modification will only apply to viewers that fulfill this condition in relation to the power holder. The condition pair is (viewer, holder).
-                            link: bientity_condition
-                        before_parse_action:
-                            desc: If specified, this action is executed on the entity before the text template is parsed each tick cycle.
-                            link: entity_action
-                        after_parse_action:
-                            desc: If specified, this action is executed on the entity after the text template is parsed, but only if the parsed text has changed from the previous parse.
-                            link: entity_action
-                        render_mode:
-                            desc: Determines how the label is rendered. Accepts "default" (normal rendering), "hide_partially" (semi-transparent like when sneaking), or "hide_completely" (label is not rendered at all).
-                            enum: [default, hide_partially, hide_completely]
-                        text:
-                            desc: If specified, replaces the entity's name tag with this custom text. Supports JSON text components including selectors like @s, colors, formatting, and other text features. The text is parsed server-side to resolve selectors.
-                            type: string
-                            ext: true
-                        tick_rate:
-                            desc: How often (in ticks) the text template is re-parsed and actions are executed. Default is 20 ticks (1 second).
-                            type: integer
-                            default: 20
-                            min: 1
-                        priority:
-                            desc: If multiple modify_label_render powers are active on the same entity, only the one with the highest priority value will be applied. In case of a tie, the last registered power takes precedence.
-                            type: integer
-                            default: 0
-                    string-sync:modify_model_parts:
-                        transformations:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_model_parts.md
-                            desc: An array of model part transformation objects.
-                            type: list
-                            vals:
-                                link: model_part_transformations
-                    string-sync:modify_player_model:
-                        model:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fmodify_player_model.md
-                            desc: The model variant to use.
-                            enum: [FOUR_ARMS, STINKFLY]
-                    string-sync:prevent_creative_flight:
-                        entity_action:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fprevent_creative_flight.md
-                            desc: If specified, this action is executed once on the player at the moment their flight is cancelled because they were actively flying (midair).
-                            link: entity_action
-                    string-sync:prevent_sprinting_particles: {}
-                    string-sync:prevent_teleport:
-                        entity_action:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fprevent_teleport.md
-                            desc: Executed on the entity each time a teleport attempt is blocked
-                            link: entity_action
-                    string-sync:sprinting:
-                        requires_input:
-                            href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fsprinting.md
-                            desc: If true, only sprints when the entity is providing movement input (forward key or sprint key). If false, always sprints when moving.
-                            type: boolean
             fabric:load_conditions:
                 desc: Checks for the following namespaces or mods to be loaded and loads the power if true.
                 gap: before
@@ -7224,6 +6685,12 @@ type: number
           - title: expression
             type: string
             ext: true
+    features:
+        or:
+          - title: built-in
+            enum: ['armor','cape','cat_collar','creeper_power','deadmau5','dolphin_held_item','drowned_overlay','elytra','enderman_block','energy_swirl_overlay','eyes','fox_held_item','head','held_item','horse_armor','horse_marking','iron_golem_crack','iron_golem_flower','llama_decor','mooshroom_mushroom','panda_held_item','saddle','sheep_wool','shoulder_parrot','shulker_head','skeleton_clothing','slime_overlay','snowman_pumpkin','stuck_arrows','stuck_objects','stuck_stingers','trident_riptide','tropical_fish_color','villager_clothing','villager_held_item','witch_item','wither_armor','wolf_armor','wolf_collar','breeze_wind']
+          - title: custom
+            link: identifier
     fluid_handling:
         desc: |
             Determines how the raycast will handle fluids
@@ -7262,6 +6729,18 @@ type: number
     function_arguments:
         type: string
         ext: true
+    game_event:
+        or:
+          - title: built-in
+            enum: [$Detected,'flap','step','swim','bounce','hit_ground','projectile_land','splash','instrument_play','item_interact_finish','projectile_shoot','elytra_glide','entity_action','unequip','entity_dismount','equip','entity_interact','entity_mount','shear','entity_damage','drink','eat','block_close','block_deactivate','block_detach','container_close','block_activate','block_attach','block_open','container_open','note_block_play','prime_fuse','block_change','block_destroy','fluid_pickup','block_place','fluid_place','entity_place','lightning_strike','teleport','entity_die','explode',$Undetected,'item_interact_start','jukebox_play','jukebox_stop_play','resonate_1','resonate_2','resonate_3','resonate_4','resonate_5','resonate_6','resonate_7','resonate_8','resonate_9','resonate_10','resonate_11','resonate_12','resonate_13','resonate_14','resonate_15','sculk_sensor_tendrils_clicking','shriek']
+          - title: custom
+            link: identifier
+    game_event_tag:
+        or:
+          - title: built-in
+            enum: ['allay_can_listen','ignore_vibrations_sneaking','shrieker_can_listen','vibrations','warden_can_listen']
+          - title: custom
+            link: identifier
     hand:
         desc: Indicates which hand of the entity.
         enum: ['main_hand','off_hand']
