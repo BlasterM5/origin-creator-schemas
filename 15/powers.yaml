@@ -3768,6 +3768,7 @@ type: number
                   - origins:entity_glow
                   - origins:entity_set
                   - origins:fire_projectile
+                  - origins:fluid_vision
                   - origins:freeze
                   - origins:function
                   - origins:game_event_listener
@@ -3822,6 +3823,7 @@ type: number
                   - origins:action_on_kill
                   - origins:action_on_land
                   - origins:action_on_sending_message
+                  - origins:action_on_swap
                   - origins:action_on_use
                   - origins:action_on_wake_up
                   - origins:action_over_time
@@ -3852,6 +3854,8 @@ type: number
                   - origins:modify_player_spawn
                   - origins:modify_projectile_damage
                   - origins:modify_slipperiness
+                  - origins:modify_status_effect_amplifier
+                  - origins:modify_status_effect_duration
                   - origins:modify_swim_speed
                   - origins:modify_type_tag
                   - origins:modify_velocity
@@ -3896,8 +3900,6 @@ type: number
                   - origins:modify_fluid_render
                   - origins:modify_insomnia_ticks
                   - origins:modify_lava_speed
-                  - origins:modify_status_effect_amplifier
-                  - origins:modify_status_effect_duration
                   - origins:self_action_on_hit
                   - origins:self_action_on_kill
                   - origins:self_action_when_hit
@@ -4331,6 +4333,34 @@ type: number
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
                             link: keybind
+                    string-origins:fluid_vision:
+                        fluid:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fluid_vision/
+                            desc: Which submersion this applies to.
+                            link: fluid
+                        start:
+                            desc: Where the fog starts, in blocks from the camera. 0 means it starts right at your eyes.
+                            type: number
+                            default: 0
+                        end:
+                            desc: Where the fog becomes fully opaque, in blocks. This is effectively how far you can see.
+                            type: number
+                            default: 15
+                        fog_color:
+                            desc: |
+                                Overrides the fog tint. { "red": 0.0, "green": 0.0, "blue": 0.0 }, each 0.0–1.0.
+                            type: object
+                            props:
+                                red:
+                                    link: number_percent
+                                green:
+                                    link: number_percent
+                                blue:
+                                    link: number_percent
+                        render_overlay:
+                            desc: false removes the full-screen fluid texture drawn over the camera. Only water has one in vanilla.
+                            type: boolean
+                            default: true
                     string-origins:freeze: {}
                     string-origins:function:
                         entity_action:
@@ -5400,6 +5430,20 @@ type: number
                             desc: Ordering when the holder has several of these powers. Higher runs first.
                             type: integer
                             default: 0
+                    string-origins:action_on_swap:
+                        layer:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/origins/action_on_swap/
+                            desc: Only fire for swaps on this target layer.
+                            link: identifier
+                        from_origin:
+                            desc: Only fire when swapping away from this origin.
+                            link: identifier
+                        to_origin:
+                            desc: Only fire when swapping to this origin.
+                            link: identifier
+                        entity_action:
+                            desc: Executed on the player when the swap happens.
+                            link: entity_action
                     string-origins:action_on_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
@@ -6691,6 +6735,12 @@ type: number
             enum: ['armor','cape','cat_collar','creeper_power','deadmau5','dolphin_held_item','drowned_overlay','elytra','enderman_block','energy_swirl_overlay','eyes','fox_held_item','head','held_item','horse_armor','horse_marking','iron_golem_crack','iron_golem_flower','llama_decor','mooshroom_mushroom','panda_held_item','saddle','sheep_wool','shoulder_parrot','shulker_head','skeleton_clothing','slime_overlay','snowman_pumpkin','stuck_arrows','stuck_objects','stuck_stingers','trident_riptide','tropical_fish_color','villager_clothing','villager_held_item','witch_item','wither_armor','wolf_armor','wolf_collar','breeze_wind']
           - title: custom
             link: identifier
+    fluid:
+        or:
+          - type: built-in
+            enum: ['water','lava','powder_snow','none']
+          - type: custom
+            link: meta_key
     fluid_handling:
         desc: |
             Determines how the raycast will handle fluids
