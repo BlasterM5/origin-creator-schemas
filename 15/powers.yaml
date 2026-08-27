@@ -165,12 +165,8 @@ links:
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/script/
-                                desc: The script to run. Either an id registered from KubeJS with ApoliEvents, or the path of a .js file shipped in a data pack at data/<namespace>/apoli/scripts/<path>.js — in which case the .js is part of the id.
-                                link: identifier
-                                required: true
-                            params:
-                                desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
-                                link: nbt
+                                link: identifier_script
+                            link: script_params
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/send_condition/
@@ -933,13 +929,9 @@ links:
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/script/
-                                desc: |
-                                    The script to run. Either an id registered from KubeJS with ApoliEvents, or the path of a .js file shipped in a data pack at data/<namespace>/apoli/scripts/<path>.js — in which case the .js is part of the id.
-                                link: identifier
+                                link: identifier_script
                                 required: true
-                            params:
-                                desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
-                                link: nbt
+                            link: script_params
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/send_condition/
@@ -1089,12 +1081,18 @@ links:
                       - origins:fuel
                       - origins:harvest_level
                       - origins:has_power
+                      - origins:holder_condition
                       - origins:ingredient
+                      - origins:is_block
                       - origins:is_damageable
                       - origins:is_equippable
+                      - origins:meat
                       - origins:nbt
                       - origins:power_count
                       - origins:relative_durability
+                      - origins:relative_item_cooldown
+                      - origins:script
+                      - origins:send_condition
                       - origins:smeltable
                       - $DEPRECATED
                       - origins:and
@@ -1103,25 +1101,25 @@ links:
                     more:
                         string-origins:all_of:
                             conditions:
-                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_all_of
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:and:
                             conditions:
-                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_and
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:any_of:
                             conditions:
-                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_any_of
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:or:
                             conditions:
-                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_or
                                 type: list
                                 vals:
                                     link: item_condition
@@ -1162,6 +1160,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/enchantment
                                 desc: If specified, the level of the enchantment that corresponds to this identifier will be compared. Otherwise, the amount of enchantments in the item stack will be compared instead.
                                 link: identifier
+                                default: unspec
                             use_modifications:
                                 desc: |
                                     Determines whether to account for enchantments that were added/modified by unnatural means (e.g: via the apoli:modify_enchantment_level)
@@ -1192,7 +1191,7 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value at which the harvest level of the material from the item stack will be compared to.
-                                type: number
+                                type: integer
                         string-origins:has_power:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/has_power
@@ -1201,18 +1200,24 @@ links:
                             slot:
                                 desc: If specified, this will check if the power embedded to the item is assigned to this equipment slot.
                                 link: equipment_slot
+                        string-origins:holder_condition:
+                            entity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/holder_condition/
+                                desc: The condition to test against the holder.
+                                link: entity_condition
                         string-origins:ingredient:
                             ingredient:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/ingredient
                                 desc: The ingredient this item must match to pass the check.
                                 link: ingredient
+                        string-origins:is_block: {}
                         string-origins:is_damageable: {}
                         string-origins:is_equippable:
                             equipment_slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/is_equippable
                                 desc: If specified, checks if the item is equippable in the specified equipment slot.
                                 link: equipment_slot
-                                default: unspec
+                        string-origins:meat: {}
                         string-origins:nbt:
                             nbt:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/nbt
@@ -1223,7 +1228,6 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/power_count
                                 desc: If specified, this will check how many powers are assigned to this equipment slot.
                                 link: equipment_slot
-                                default: unspec
                             comparison:
                                 desc: Determines how the amount of powers embedded in the item stack should be compared to the specified value.
                                 link: comparison
@@ -1238,6 +1242,26 @@ links:
                             compare_to:
                                 desc: The value at which the relative durability value of the item from the item stack will be compared to.
                                 type: number
+                        string-origins:relative_item_cooldown:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/relative_item_cooldown/
+                                desc: How to compare.
+                                link: comparison
+                            compare_to:
+                                desc: The fraction to compare against.
+                                link: number_percent
+                                required: true
+                        string-origins:script:
+                            script:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/script/
+                                link: identifier_script
+                            link: script_params
+                        string-origins:send_condition:
+                            receiver:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/send_condition/
+                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
+                                link: identifier
+                                required: true
                         string-origins:smeltable: {}
           - title: custom
             link: custom_condition
@@ -6864,7 +6888,8 @@ type: number
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
     equipment_slot:
-        enum: ['mainhand','offhand','head','chest','legs','feet']
+        enum: ['none','mainhand','offhand','head','chest','legs','feet']
+        unspec: 'none'
     expression_float:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
         desc: A floating-point value or a math expression. See the doc for more information.
@@ -8336,6 +8361,11 @@ type: number
             link: identifier
           - title: multiple
             link: identifier_array
+    identifier_script:
+        desc: |
+            The script to run. Either an id registered from KubeJS with ApoliEvents, or the path of a .js file shipped in a data pack at data/<namespace>/apoli/scripts/<path>.js — in which case the .js is part of the id.
+        link: identifier
+        required: true
     ingredient_key:
         - nopanel: true
         link: ingredient
@@ -8964,6 +8994,10 @@ type: number
             spring	a soft elastic pull past length, so the rope visibly stretches and eases back (a rubber band).
             rigid	holds a fixed distance both ways — pulled in when too far and pushed out when too close (a rod/pole).
         enum: ['leash','spring','rigid']
+    script_params:
+        params:
+            desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
+            link: nbt
     selection:
         desc: Selection is not yet defined.
         type: string
