@@ -214,7 +214,9 @@ links:
                       - origins:collided_horizontally
                       - origins:command
                       - origins:creative_flying
+                      - origins:damage_would_kill
                       - origins:daytime
+                      - origins:difficulty
                       - origins:dimension
                       - origins:disguised
                       - origins:distance_from_coordinates
@@ -234,6 +236,7 @@ links:
                       - origins:food_level
                       - origins:gamemode
                       - origins:glowing
+                      - origins:has_command_tag
                       - origins:health
                       - origins:hunger
                       - origins:in_block
@@ -251,7 +254,7 @@ links:
                       - origins:nbt
                       - origins:on_block
                       - origins:on_fire
-                      - origins:origin
+                      - origins:owner
                       - origins:passenger
                       - origins:passenger_recursive
                       - origins:player_model_type
@@ -267,6 +270,8 @@ links:
                       - origins:riding_root
                       - origins:saturation_level
                       - origins:scoreboard
+                      - origins:script
+                      - origins:send_condition
                       - origins:sneaking
                       - origins:sprinting
                       - origins:stat
@@ -278,6 +283,11 @@ links:
                       - origins:using_effective_tool
                       - origins:using_item
                       - origins:xp
+                      - $Origins Conditions
+                      - origins:origin
+                      - origins:stored_origin
+                      - origins:stored_value
+                      - origins:swapped
                       - $DEPRECATED
                       - origins:and
                       - origins:or
@@ -288,25 +298,25 @@ links:
                     more:
                         string-origins:all_of:
                             conditions:
-                                desc: All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_all_of
                                 type: list
                                 vals:
                                     link: entity_condition
                         string-origins:and:
                             conditions:
-                                desc: (DEPRECATED) All of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_and
                                 type: list
                                 vals:
                                     link: entity_condition
                         string-origins:any_of:
                             conditions:
-                                desc: At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_any_of
                                 type: list
                                 vals:
                                     link: entity_condition
                         string-origins:or:
                             conditions:
-                                desc: (DEPRECATED) At least one of these conditions have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_or
                                 type: list
                                 vals:
                                     link: entity_condition
@@ -318,22 +328,25 @@ links:
                             link: meta_condition_constant
                         string-origins:ability:
                             ability:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/ability/
                                 desc: The namespace and ID of the ability to check for.
                                 link: player_abilities
                         string-origins:advancement:
                             advancement:
-                                desc: 	The namespace and ID of the advancement the player needs to have completed in order for this condition to evaluate to true.
-                                link: identifier
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/advancement/
+                                desc: The namespace and ID of the advancement the player needs to have completed in order for this condition to evaluate to true.
+                                link: advancement
                         string-origins:air:
                             comparison:
-                                desc: How the breath / air / bubble bar (in ticks) should be compared to the specified value.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/air/
+                                desc: Determines how the breath / air / bubble (in ticks) the entity has should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: The value to compare to.
+                                desc: The value at which the breath / air / bubble (in ticks) the entity has will be compared to.
                                 type: integer
                         string-origins:attached_to_rope:
                             slot:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/air
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/attached_to_rope/
                                 desc: Only count ropes with this label. If omitted, all ropes the entity is an end of are counted.
                                 type: string
                             comparison:
@@ -354,9 +367,9 @@ links:
                         string-origins:attribute:
                             attribute:
                                 desc: |
-                                    ID of the attribute of which the value should be checked. See Minecraft Wiki: Attribute (Attributes) for a list of vanilla attributes that can be checked for.
+                                    ID of the attribute of which the value should be checked. See Minecraft Wiki: Attribute (Attributes) for a list of vanilla attributes that can be checked for. Beware that newer Minecraft uses a different ormat than what is supported in this version.
                                 href: https://minecraft.wiki/w/Attribute
-                                link: identifier
+                                link: attribute
                             comparison:
                                 desc: Determines how the attribute’s total value should be compared to the specified value.
                                 link: comparison
@@ -364,6 +377,10 @@ links:
                                 desc: The value at which the attribute’s total value will be compared to.
                                 type: number
                         string-origins:biome:
+                            condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/biome/
+                                desc: If specified, only evaluate the condition to true if the biome the entity is in fulfills the specified biome condition type.
+                                link: biome_condition
                             biome:
                                 desc: If specified, only evaluate the condition to true if the biome the entity is in matches the specified namespace and ID.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
@@ -372,9 +389,6 @@ links:
                                 desc: If specified, only evaluate the condition to true if the biome the entity is in matches one of the specified namespace and IDs.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
                                 link: identifier_array
-                            condition:
-                                desc: If specified, only evaluate the condition to true if the biome the entity is in fulfills the specified biome condition type.
-                                link: biome_condition
                         string-origins:block_collision:
                             block_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/block_collision
@@ -410,8 +424,7 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value at which the amount of blocks which fulfill block_condition will be compared to.
-                                type: integer
-                                default: 1
+                                link: expression_integer
                         string-origins:brightness:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/brightness
@@ -424,6 +437,7 @@ links:
                         string-origins:collided_horizontally: {}
                         string-origins:command:
                             command:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/command/
                                 desc: The command to execute.
                                 type: string
                                 ext: true
@@ -435,12 +449,38 @@ links:
                                 type: integer
                                 default: 1
                         string-origins:creative_flying: {}
+                        string-origins:damage_would_kill:
+                            amount:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/damage_would_kill/
+                                desc: The raw damage to simulate, before any reduction.
+                                link: expression_float
+                            damage_type:
+                                desc: The damage type to simulate.
+                                link: damage_type
+                            modifier:
+                                desc: Applied to amount before the simulation.
+                                link: attribute_modifier
+                            modifiers:
+                                desc: Same, for several modifiers.
+                                link: attribute_modifier_array
                         string-origins:daytime: {}
+                        string-origins:difficulty:
+                            difficulty:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/difficulty/
+                                desc: One of peaceful, easy, normal, hard, or an array of them. An array passes if the current difficulty is any one of them.
+                                or:
+                                  - title: single
+                                    link: difficulty
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: difficulty
                         string-origins:dimension:
                             dimension:
-                                desc: The namespace and ID of the dimension the player needs to be in for this condition to evaluate to true.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/dimension/
+                                desc: The namespace and ID of the dimension the player needs to be in for this condition to evaluate to true. Namespace and IDs of custom/modded dimensions should also work.
                                 or:
-                                  - title: vanilla
+                                  - title: built-in
                                     enum: ['overworld','nether','the_end']
                                   - title: custom
                                     link: identifier
@@ -449,7 +489,7 @@ links:
                             reference:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/distance_from_coordinates
                                 desc: The point to compare the distance to.
-                                enum: [world_origin, world_spawn]
+                                enum: ['world_origin','world_spawn']
                             offset:
                                 desc: If specified, determines how much the reference point should be offset.
                                 link: vector
@@ -470,11 +510,12 @@ links:
                                 default: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
-                                type: boolean
+                                type: boolean_optional
                             round_to_digit:
                                 desc: |
                                     If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work (e.g: -2 rounds to multiples of 100).
                                 type: integer
+                                default: unspec
                             comparison:
                                 desc: Determines how the calculated distance is compared to the specified value.
                                 link: comparison
@@ -6480,8 +6521,30 @@ type: number
             fail	Indicates that the action is not performed and prevents other actions from performing.
             pass	Indicates that the action is not performed but allows other actions to perform.
             success	Indicates that the action is performed and the actor’s hand is swung.
+    advancement:
+        or:
+          - title: built-in
+            or:
+              - title: story
+                enum: ['story/root','story/mine_stone','story/upgrade_tools','story/smelt_iron','story/obtain_armor','story/lava_bucket','story/iron_tools','story/deflect_arrow','story/form_obsidian','story/mine_diamond','story/enter_the_nether','story/shiny_gear','story/cure_zombie_villager','story/follow_ender_eye','story/enter_the_end']
+              - title: nether
+                enum: ['nether/root','nether/return_to_sender','nether/find_bastion','nether/obtain_ancient_debris','nether/fast_travel','nether/find_fortress','nether/obtain_crying_obsidian','nether/distract_piglin','nether/ride_strider','nether/uneasy_alliance','nether/loot_bastion','nether/netherite_armor','nether/get_wither_skull','nether/obtain_blaze_rod','nether/charge_respawn_anchor','nether/ride_strider_in_overworld_lava','nether/explore_nether','nether/summon_wither','nether/brew_potion','nether/all_potions','nether/create_full_beacon','nether/all_effects']
+              - title: end
+                enum: ['end/root','end/kill_dragon','end/dragon_egg','end/enter_end_gateway','end/respawn_dragon','end/dragon_breath','end/find_end_city','end/elytra','end/levitate']
+              - title: adventure
+                enum: ['adventure/root','adventure/heart_transplanter','adventure/voluntary_exile','adventure/use_lodestone','adventure/spyglass_at_parrot','adventure/kill_a_mob','adventure/read_power_of_chiseled_bookshelf','adventure/trade','adventure/trim_with_any_armor_pattern','adventure/honey_block_slide','adventure/ol_betsy','adventure/lightning_rod_with_villager_no_fire','adventure/fall_from_world_height','adventure/salvage_sherd','adventure/avoid_vibration','adventure/sleep_in_bed','adventure/hero_of_the_village','adventure/spyglass_at_ghast','adventure/throw_trident','adventure/kill_mob_near_sculk_catalyst','adventure/shoot_arrow','adventure/kill_all_mobs','adventure/totem_of_undying','adventure/spear_many_mobs','adventure/summon_iron_golem','adventure/trade_at_world_height','adventure/trim_with_all_exclusive_armor_patterns','adventure/two_birds_one_arrow','adventure/whos_the_pillager_now','adventure/arbalistic','adventure/craft_decorated_pot_using_only_sherds','adventure/adventuring_time','adventure/play_jukebox_in_meadows','adventure/walk_on_powder_snow_with_leather_boots','adventure/spyglass_at_dragon','adventure/very_very_frightening','adventure/sniper_duel','adventure/bullseye','adventure/brush_armadillo','adventure/minecraft_trials_edition','adventure/crafters_crafting_crafters','adventure/lighten_up','adventure/who_needs_rockets','adventure/under_lock_and_key','adventure/revaulting','adventure/blowback','adventure/overoverkill']
+              - title: husbandry
+                enum: ['husbandry/root','husbandry/place_dried_ghast_in_water','husbandry/safely_harvest_honey','husbandry/breed_an_animal','husbandry/allay_deliver_item_to_player','husbandry/ride_a_boat_with_a_goat','husbandry/tame_an_animal','husbandry/make_a_sign_glow','husbandry/fishy_business','husbandry/silk_touch_nest','husbandry/tadpole_in_a_bucket','husbandry/uh_oh','husbandry/obtain_sniffer_egg','husbandry/plant_seed','husbandry/wax_on','husbandry/bred_all_animals','husbandry/allay_deliver_cake_to_note_block','husbandry/complete_catalogue','husbandry/tactical_fishing','husbandry/leash_all_frog_variants','husbandry/feed_snifflet','husbandry/balanced_diet','husbandry/obtain_netherite_hoe','husbandry/wax_off','husbandry/axolotl_in_a_bucket','husbandry/froglights','husbandry/plant_any_sniffer_seed','husbandry/kill_axolotl_target','husbandry/repair_wolf_armor','husbandry/whole_pack','husbandry/remove_wolf_armor']
+          - title: custom
+            link: identifier
     arm_pose:
         enum: ['empty','item','block','bow_and_arrow','throw_spear','crossbow_charge','crossbow_hold','spyglass','toot_horn','brush']
+    attribute:
+        or:
+          - title: built-in
+            enum: ['generic.armor_toughness','generic.attack_damage','generic.attack_knockback','generic.attack_speed','generic.block_break_speed','player.block_interaction_range','generic.burning_time','player.entity_interaction_range','generic.explosion_knockback_resistance','generic.fall_damage_multiplier','generic.flying_speed','generic.gravity','generic.jump_strength','generic.knockback_resistance','generic.max_absorption','generic.max_health','player.mining_efficiency','generic.follow_range','generic.movement_efficiency','generic.oxygen_bonus','generic.safe_fall_distance','generic.scale','player.sneaking_speed','generic.movement_speed','generic.step_height','player.submerged_mining_speed','player.sweeping_damage_ratio','generic.water_movement_efficiency','zombie.spawn_reinforcements']
+          - title: custom
+            link: identifier
     attribute_modifier:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
         type: object
@@ -6601,8 +6664,8 @@ type: number
     block_state:
         enum: ['age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','copper_golem_base','cracked','crafting','creaking_heart_state','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
     boolean_optional:
-        enum: ['','false','true']
-        unspec: ''
+        enum: ['unset','false','true']
+        unspec: 'unset'
     comparison:
         desc: |
             Specify how the two values should be compared:
@@ -6707,6 +6770,8 @@ type: number
             			The chance to drop blocks decreases with higher explosion power.
             			It also defers to the 'minecraft:survives_explosion' loot condition in the loot tables.
         enum: ['break','none','destroy']
+    difficulty:
+        enum: ['peaceful','easy','normal','hard']
     easing:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/easing
         enum: ['linear','none','step','hold','constant','catmullrom','smooth','smoothstep','smootherstep','ease_in_sine','ease_out_sine','ease_in_out_sine','ease_in_quad','ease_in','ease_out_quad','ease_out','ease_in_out_quad','ease_in_out','ease_in_cubic','ease_out_cubic','ease_in_out_cubic','ease_in_quart','ease_out_quart','ease_in_out_quart','ease_in_quint','ease_out_quint','ease_in_out_quint','ease_in_expo','ease_out_expo','ease_in_out_expo','ease_in_circ','ease_out_circ','ease_in_out_circ','ease_in_back','ease_out_back','ease_in_out_back','ease_in_elastic','ease_out_elastic','ease_in_out_elastic','ease_in_bounce','ease_out_bounce','ease_in_out_bounce']
@@ -8660,7 +8725,7 @@ type: number
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.
-        enum: ['minecraft:flying','minecraft:instabuild','minecraft:invulnerable','minecraft:mayBuild','minecraft:mayfly']
+        enum: ['flying','instabuild','invulnerable','mayBuild','mayfly']
     player_model_type:
         desc: A String used to pick one of the two vanilla player skin models.
         enum: ['wide','slim']
