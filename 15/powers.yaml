@@ -1529,7 +1529,6 @@ links:
                       - origins:constant
                       - origins:random_chance
                       - origins:empty
-                      - origins:fluid
                       - origins:in_tag
                       - origins:still
                       - $DEPRECATED
@@ -1603,25 +1602,25 @@ links:
                     more:
                         string-origins:all_of:
                             conditions:
-                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_all_of
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:and:
                             conditions:
-                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_and
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:any_of:
                             conditions:
-                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_any_of
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:or:
                             conditions:
-                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_or
                                 type: list
                                 vals:
                                     link: biome_condition
@@ -1641,7 +1640,7 @@ links:
                             precipitation:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/biome-conditions/precipitation
                                 desc: Which precipitation the biome has to have in order to succeed the check. Due to limitations with the system, this will check precipitation at a world height of 64.
-                                enum: [none, rain, snow]
+                                enum: ['none','rain','snow']
                         string-origins:temperature:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/biome-conditions/temperature
@@ -1649,6 +1648,7 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value at which the temperature value of the biome will be compared to.
+                                href: https://minecraft.wiki/w/Biome#List_of_Overworld_climates
                                 type: number
           - title: custom
             link: custom_condition
@@ -1671,36 +1671,44 @@ links:
                       - origins:amount
                       - origins:attack_charge
                       - origins:attacker
+                      - origins:critical
                       - origins:in_tag
-                      - origins:name
                       - origins:projectile
                       - origins:type
                       - $DEPRECATED
                       - origins:and
                       - origins:or
                       - origins:chance
+                      - origins:name
+                      - $Damage Tag Aliases
+                      - origins:bypasses_armor
+                      - origins:explosive
+                      - origins:fire
+                      - origins:from_falling
+                      - origins:out_of_world
+                      - origins:unblockable
                     more:
                         string-origins:all_of:
                             conditions:
-                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_all_of
                                 type: list
                                 vals:
                                     link: damage_condition
                         string-origins:and:
                             conditions:
-                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_and
                                 type: list
                                 vals:
                                     link: damage_condition
                         string-origins:any_of:
                             conditions:
-                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_any_of
                                 type: list
                                 vals:
                                     link: damage_condition
                         string-origins:or:
                             conditions:
-                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_or
                                 type: list
                                 vals:
                                     link: damage_condition
@@ -1731,21 +1739,28 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attacker
                                 desc: If set, the attacker entity must fulfill the provided entity condition type in order for this condition to evaluate to true.
                                 link: entity_condition
+                        string-origins:bypasses_armor: {}
+                        string-origins:critical: {}
+                        string-origins:explosive: {}
+                        string-origins:fire: {}
+                        string-origins:from_falling: {}
                         string-origins:in_tag:
                             tag:
                                 href: https://minecraft.wiki/w/Tag#Damage_types
                                 desc: The namespace and ID of the tag which the damage type should be in to pass the check.
-                                link: identifier
+                                link: damage_type_tag
                         string-origins:name:
                             name:
-                                desc: Name the damage source should have to pass the check. See List of Damage Source Names for possible values.
-                                href: https://origins.readthedocs.io/en/latest/misc/extras/damage_source_names/#list_of_vanilla_damage_source_names
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/name/
+                                desc: (DEPRECATED, use Tags or Types) Name the damage source should have to pass the check.
                                 link: damage_source_name
+                        string-origins:out_of_world: {}
                         string-origins:projectile:
                             projectile:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/projectile
                                 desc: If set, the check will only pass if the projectile was of an entity type with the specified namespace and ID.
                                 link: identifier
+                                default: unspec
                             projectile_condition:
                                 desc: If set, the check will only pass if the projectile entity fulfills this condition.
                                 link: entity_condition
@@ -1753,7 +1768,8 @@ links:
                             damage_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/type
                                 desc: The damage type to compare the damage source to. Prefix with \# to match a damage type tag instead.
-                                link: identifier
+                                link: damage_type
+                        string-origins:unblockable: {}
           - title: custom
             link: custom_condition
     bientity_action:
@@ -6842,7 +6858,14 @@ type: number
     damage_type:
         or:
           - title: built-in
-            enum: ['arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','ender_pearl','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','mace_smash','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spear','spit','stalagmite','starve','sting','sulfur_cube_hot','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+            enum: ['arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+          - title: custom
+            link: identifier
+    damage_type_tag:
+        or:
+          - title: built-in
+            enum:
+            ['always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
           - title: custom
             link: identifier
     description_all_of:
