@@ -65,6 +65,12 @@ links:
                                 type: list
                                 vals:
                                     link: bientity_condition
+                        string-origins:random_chance:
+                            link: meta_condition_chance
+                        string-origins:chance:
+                            link: meta_condition_chance
+                        string-origins:constant:
+                            link: meta_condition_constant
                         string-origins:invert:
                             condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/invert/
@@ -539,7 +545,7 @@ links:
                                 link: identifier
                             calculation:
                                 desc: Which number to compare - either the sum of levels of this enchantment on all of the player’s equipment, or the max level of this enchantment on any of the player’s equipment.
-                                enum: [sum, max]
+                                enum: ['sum','max']
                             comparison:
                                 desc: Determines how the level of the specified enchantment should be compared to the specified value.
                                 link: comparison
@@ -550,7 +556,7 @@ links:
                             group:
                                 desc: Entity group required for the entity to pass the check.
                                 href: https://minecraft.wiki/w/Mob#Classification
-                                enum: [default, undead, arthropod, illager, aquatic]
+                                enum: ['default','undead','arthropod','illager','aquatic']
                         string-origins:entity_in_radius:
                             bientity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_in_radius
@@ -568,18 +574,17 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value to compare the count against.
-                                type: integer
-                                default: 1
+                                link: expression_integer
                         string-origins:entity_set_size:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
-                                desc: The Entity Set power to check
+                                desc: The ID of the power.
                                 link: identifier
                             comparison:
-                                desc: How to compare the size
+                                desc: Determines how the amount of referenced entities in the specified power should be compared to the specified value.
                                 link: comparison
                             compare_to:
-                                desc: Value to compare against
+                                desc: The value at which the amount of referenced entities in the specified power will be compared to.
                                 type: integer
                         string-origins:entity_type:
                             entity_type:
@@ -629,7 +634,7 @@ links:
                         string-origins:gamemode:
                             gamemode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/gamemode
-                                desc: Name of the gamemode the player should have in order for this condition to evaluate to true.
+                                desc: Name of the gamemode the player should have in order for this condition to evaluate to true. Only works on the local player.
                                 enum: ['survival', 'creative', 'adventure', 'spectator']
                         string-origins:glowing: {}
                         string-origins:health:
@@ -643,14 +648,14 @@ links:
                         string-origins:hunger:
                             kind:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/hunger
-                                desc: Unknown
-                                type: identifier
+                                desc: food for the hunger bar, saturation for the hidden saturation value beneath it.
+                                link: identifier
                             comparison:
-                                desc: Unknown
                                 link: comparison
                             compare_to:
-                                desc: Unknown
+                                desc: The value to compare against. Hunger runs 0–20, where each shank is 2.
                                 type: number
+                                required: true
                         string-origins:in_block:
                             block_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_block
@@ -658,6 +663,7 @@ links:
                                 link: block_condition
                         string-origins:in_block_anywhere:
                             block_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_block_anywhere/
                                 desc: The block condition type which blocks need to fulfill in order to count for this condition.
                                 link: block_condition
                             comparison:
@@ -673,7 +679,7 @@ links:
                             tag:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_tag
                                 desc: The namespace and ID of the entity type tag the entity type needs to be in to pass the check.
-                                link: identifier
+                                link: entity_type_tag
                         string-origins:in_team:
                             team:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_team
@@ -706,6 +712,7 @@ links:
                             power:
                                 desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
                                 link: identifier
+                                default: unspec
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
                                 link: comparison
@@ -718,6 +725,7 @@ links:
                         string-origins:key_pressed:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/key_pressed
+                                desc: The keybinding to watch.
                                 link: keybind
                         string-origins:living: {}
                         string-origins:moving:
@@ -734,8 +742,7 @@ links:
                             nbt:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/nbt
                                 desc: The NBT data to check for
-                                type: string
-                                ext: true
+                                link: nbt
                         string-origins:on_block:
                             block_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/on_block
@@ -744,14 +751,25 @@ links:
                         string-origins:on_fire: {}
                         string-origins:origin:
                             origin:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/origin/
                                 desc: The origin(s) to look for. Passes if any of them matches. Wildcard matching is supported.
-                                link: identifier
+                                link: identifier_single_or_array
                             layer:
                                 desc: Only check this layer. Omit to pass if a match is held on any layer.
                                 link: identifier
+                            selection:
+                                desc: |
+                                    Where to look: main (the chosen origin), active (the swapped-in origin, falling back to the chosen one), pool (origins sitting in a swap pool) or all (any of the three).
+                                enum: ['main','active','pool','all']
+                        string-origins:owner:
+                            bientity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/owner/
+                                desc: Tested with this entity as the actor and its owner as the target. Left out, the condition passes as long as an owner exists.
+                                link: bientity_condition
                         string-origins:passenger:
                             bientity_condition:
-                                desc: 	If specified, only increase the amount of passengers if either or both the ’actor’ entity/entities and the ’target’ entity fulfills this bi-entity condition.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/passenger/
+                                desc: If specified, only increase the amount of passengers if either or both the ’actor’ entity/entities and the ’target’ entity fulfills this bi-entity condition.
                                 link: bientity_condition
                             comparison:
                                 desc: How the amount of passengers of the entity should be compared to the specified value.
@@ -762,6 +780,7 @@ links:
                                 default: 1
                         string-origins:passenger_recursive:
                             bientity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/passenger_recursive/
                                 desc: If specified, only increase the amount of passengers if either or both the ’actor’ entity/entities and the ’target’ entity fulfills this bi-entity condition.
                                 link: bientity_condition
                             comparison:
@@ -779,11 +798,12 @@ links:
                         string-origins:power:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power
-                                desc: The namespace and ID of the power the entity needs to have to pass the check.
+                                desc: The namespace and ID of the power the entity needs to have to pass the check. Must be a 'living' entity or the game will crash!
                                 link: identifier
                             source:
                                 desc: If specified, the condition will check if the power is from the specified power source.
                                 type: identifier
+                                default: unspec
                         string-origins:power_active:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_active
@@ -804,6 +824,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/raycast
                                 desc: Determines the maximum distance the raycast will travel.
                                 type: number
+                                default: unspec
                             block:
                                 desc: Determines whether the raycast should include blocks.
                                 type: boolean
@@ -817,6 +838,13 @@ links:
                                 default: 'visual'
                             fluid_handling:
                                 link: fluid_handling
+                                default: 'any'
+                            space:
+                                desc: Determines how the direction will be calculated. Only used if 'direction' is specified.
+                                link: space
+                            direction:
+                                desc: If specified, determines the direction of the raycast. Otherwise, defaults to the direction at the entity is facing (as if space is "local".)
+                                link: vector
                                 gap: true
                             match_bientity_condition:
                                 desc: If specified, the entity condition type will check if this bi-entity condition type is fulfilled by either or both the ‘actor’ (the entity being checked by the entity condition type) and ‘target’ (entity that the raycast has gone through). If not, the entity will be ignored.
@@ -827,12 +855,14 @@ links:
                             entity_distance:
                                 desc: Determines the distance of the raycast for entities if entity is set to true. If absent, it will use the higher value between the entity’s attack range (with Reach Entity Attributes compatibility) or the distance field.
                                 type: number
+                                default: unspec
                             block_condition:
                                 desc: If specified, the entity condition type will check if the block that was hit by the raycast fulfills this block condition type.
                                 link: block_condition
                             block_distance:
                                 desc: Determines the distance of the raycast for blocks if block is set to true. If absent, it will use the higher value between the entity’s block reach (with Reach Entity Attributes compatibility) or the distance field.
                                 type: number
+                                default: unspec
                         string-origins:relative_health:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/relative_health
@@ -846,6 +876,9 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/resource
                                 desc: The namespace and ID of a power that will be evaluated.
                                 link: identifier
+                            position:
+                                desc: Which slot of a table resource to read. Omit it and the condition passes if any slot satisfies the comparison.
+                                link: expression_integer
                             comparison:
                                 desc: Determines how the value of the specified power should be compared to the specified value.
                                 link: comparison
@@ -886,7 +919,7 @@ links:
                             name:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/scoreboard
                                 desc: If specified, the condition will check for the score of this score holder.
-                                type: string
+                                link: meta_key
                             objective:
                                 desc: The name of the scoreboard objective to retrieve the value from and compare.
                                 link: objective
@@ -897,6 +930,21 @@ links:
                                 desc: The value at which the score of the specified score holder will be compared to.
                                 type: number
                                 required: true
+                        string-origins:script:
+                            script:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/script/
+                                desc: |
+                                    The script to run. Either an id registered from KubeJS with ApoliEvents, or the path of a .js file shipped in a data pack at data/<namespace>/apoli/scripts/<path>.js — in which case the .js is part of the id.
+                                link: identifier
+                                required: true
+                            params:
+                                desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
+                                link: nbt
+                        string-origins:send_condition:
+                            receiver:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/send_condition/
+                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
+                                link: identifier
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:stat:
@@ -921,15 +969,19 @@ links:
                             min_amplifier:
                                 desc: The minimum amplifier the status effect should have in order to pass the check. Defaults to 0.
                                 link: integer_amp
+                                unspec: 0
                             max_amplifier:
                                 desc: The maximum amplifier the status effect should have in order to pass the check. Defaults to 2147483647.
                                 link: integer_amp
+                                unspec: 2147483647
                             min_duration:
                                 desc: The minimum duration the status effect should have in order to pass the check. Defaults to -1.
                                 link: integer_dur
+                                unspec: -1
                             max_duration:
                                 desc: The maximum duration the status effect should have in order to pass the check. Defaults to 2147483647.
                                 link: integer_dur
+                                unspec: 2147483647
                         string-origins:submerged_in:
                             fluid:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/submerged_in
@@ -959,9 +1011,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/swapped
                                 desc: Which layer to check. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
                                 link: identifier
+                                default: unspec
                             origin:
                                 desc: Also require that this is the origin they are swapped into.
                                 link: identifier
+                                default: unspec
                         string-origins:swimming: {}
                         string-origins:tamed: {}
                         string-origins:time_of_day:
@@ -981,17 +1035,18 @@ links:
                         string-origins:xp:
                             unit:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp
-                                desc: Unknown
-                                type: string
+                                desc: levels or points. Filled in by the aliases.
+                                enum: ['levels','points']
                             comparison:
                                 link: comparison
                             compare_to:
+                                desc: The value to compare against.
                                 type: integer
                                 required: true
                         string-origins:xp_levels:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp_levels
-                                desc: Determines how the experience level of the player should be compared to the specified value.
+                                desc: (DEPRECATED) Determines how the experience level of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value at which the experience level of the player will be compared to.
@@ -999,7 +1054,7 @@ links:
                         string-origins:xp_points:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp_points
-                                desc: Determines how the experience points of the player should be compared to the specified value.
+                                desc: (DEPRECATED) Determines how the experience points of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value at which the experience points of the player will be compared to.
@@ -6799,6 +6854,12 @@ type: number
         enum: ['self','attacker','target']
     entity_pose:
         enum: ['standing','crouching','swimming','fall_flying','sleeping','spin_attack','sitting','sliding','shooting','inhaling']
+    entity_type_tag:
+        or:
+          - title: built-in
+            enum: ['aquatic','arrows','arthropod','axolotl_always_hostiles','axolotl_hunt_targets','beehive_inhabitors','can_breathe_under_water','can_turn_in_boats','deflects_projectiles','dismounts_underwater','fall_damage_immune','freeze_hurts_extra_types','freeze_immune_entity_types','frog_food','ignores_poison_and_regen','illager','illager_friends','immune_to_infested','immune_to_oozing','impact_projectiles','inverted_healing_and_harm','no_anger_from_wind_charge','non_controlling_rider','not_scary_for_pufferfish','powder_snow_walkable_mobs','raiders','redirectable_projectile','sensitive_to_bane_of_arthropods','sensitive_to_impaling','sensitive_to_smite','skeletons','undead','wither_friends','zombies','deflects_arrows','deflects_tridents']
+          - title: custom
+            link: identifier
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
