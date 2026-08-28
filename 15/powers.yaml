@@ -105,6 +105,7 @@ links:
                             damage_type:
                                 desc: The damage type to simulate, e.g. minecraft:player_attack.
                                 link: damage_type
+                                required: true
                             modifier:
                                 desc: Applied to amount before the simulation.
                                 link: attribute_modifier
@@ -142,7 +143,6 @@ links:
                             actor_rotation:
                                 desc: Determines the initial point of the rotation for the actor. Accepts "head" or "body".
                                 enum: ['head','body']
-                                default: 'head'
                             target_rotation:
                                 desc: Determines the initial point of the rotation for the target. Accepts "head" or "body".
                                 enum: ['head','body']
@@ -181,7 +181,7 @@ links:
                         string-origins:undirected:
                             condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/undirected/
-                                desc: The bi-entity condition type to check for. Checks if the specified bi-entity condition is true before or after swapping the actor and target context.
+                                desc: The bi-entity condition type to check for. Checks if the specified bi-entity condition is true either before or after swapping the actor and target context.
                                 link: bientity_condition
           - title: custom
             link: custom_condition
@@ -235,7 +235,6 @@ links:
                       - origins:fall_distance
                       - origins:fall_flying
                       - origins:fluid_height
-                      - origins:food_level
                       - origins:gamemode
                       - origins:glowing
                       - origins:has_command_tag
@@ -294,6 +293,14 @@ links:
                       - origins:and
                       - origins:or
                       - origins:chance
+                      - origins:food_level
+                      - origins:held_key
+                      - origins:key_held
+                      - origins:set_size
+                      - origins:stats
+                      - origins:status
+                      - origins:statistic
+                      - origins:team
                       - origins:xp_levels
                       - origins:xp_points
                       
@@ -336,7 +343,7 @@ links:
                         string-origins:advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/advancement/
-                                desc: The namespace and ID of the advancement the player needs to have completed in order for this condition to evaluate to true.
+                                desc: The namespace and ID of the advancement the player needs to have completed in order for this condition to evaluate to true. Only works on players!
                                 link: advancement
                         string-origins:air:
                             comparison:
@@ -350,7 +357,7 @@ links:
                             slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/attached_to_rope/
                                 desc: Only count ropes with this label. If omitted, all ropes the entity is an end of are counted.
-                                type: string
+                                link: meta_key
                             comparison:
                                 desc: How the rope count is compared against compare_to.
                                 link: comparison
@@ -363,13 +370,15 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/attack_charge
                                 desc: How the charge is compared to compare_to.
                                 link: comparison
+                                default: '<='
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
                                 link: expression_float
+                                default: 0.9
                         string-origins:attribute:
                             attribute:
                                 desc: |
-                                    ID of the attribute of which the value should be checked. See Minecraft Wiki: Attribute (Attributes) for a list of vanilla attributes that can be checked for. Beware that newer Minecraft uses a different ormat than what is supported in this version.
+                                    ID of the attribute of which the value should be checked. See Minecraft Wiki: Attribute (Attributes) for a list of vanilla attributes that can be checked for. Beware that newer Minecraft uses a different format than what is supported in this version.
                                 href: https://minecraft.wiki/w/Attribute
                                 link: attribute
                             comparison:
@@ -427,6 +436,7 @@ links:
                             compare_to:
                                 desc: The value at which the amount of blocks which fulfill block_condition will be compared to.
                                 link: expression_integer
+                                default: 1
                         string-origins:brightness:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/brightness
@@ -449,7 +459,6 @@ links:
                             compare_to:
                                 desc: The value at which the result value (an integer) of the executed command will be compared to.
                                 type: integer
-                                default: 1
                         string-origins:creative_flying: {}
                         string-origins:damage_would_kill:
                             amount:
@@ -481,11 +490,7 @@ links:
                             dimension:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/dimension/
                                 desc: The namespace and ID of the dimension the player needs to be in for this condition to evaluate to true. Namespace and IDs of custom/modded dimensions should also work.
-                                or:
-                                  - title: built-in
-                                    enum: ['overworld','nether','the_end']
-                                  - title: custom
-                                    link: identifier
+                                link: dimension
                         string-origins:disguised: {}
                         string-origins:distance_from_coordinates:
                             reference:
@@ -538,7 +543,7 @@ links:
                             enchantment:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/enchantment
                                 desc: The namespace and ID of the enchantment of interest.
-                                link: identifier
+                                link: enchantment
                             calculation:
                                 desc: Which number to compare - either the sum of levels of this enchantment on all of the player’s equipment, or the max level of this enchantment on any of the player’s equipment.
                                 enum: ['sum','max']
@@ -571,6 +576,7 @@ links:
                             compare_to:
                                 desc: The value to compare the count against.
                                 link: expression_integer
+                                default: 1
                         string-origins:entity_set_size:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
@@ -582,11 +588,22 @@ links:
                             compare_to:
                                 desc: The value at which the amount of referenced entities in the specified power will be compared to.
                                 type: integer
+                        string-origins:set_size:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
+                                desc: (DEPRECATED) The ID of the power.
+                                link: identifier
+                            comparison:
+                                desc: Determines how the amount of referenced entities in the specified power should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value at which the amount of referenced entities in the specified power will be compared to.
+                                type: integer
                         string-origins:entity_type:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_type
                                 desc: The entity type the entity needs to have. Prefix with \# to match an entity type tag instead.
-                                link: identifier
+                                link: entity_type
                         string-origins:equipped_item:
                             equipment_slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/equipped_item
@@ -619,20 +636,22 @@ links:
                             compare_to:
                                 desc: The value at which the height of the fluid will be compared to.
                                 type: number
-                        string-origins:food_level:
-                            comparison:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/food_level
-                                desc: Determines how the food level of the player should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value at which the food level of the player will be compared to.
-                                type: number
                         string-origins:gamemode:
                             gamemode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/gamemode
                                 desc: Name of the gamemode the player should have in order for this condition to evaluate to true. Only works on the local player.
                                 enum: ['survival', 'creative', 'adventure', 'spectator']
                         string-origins:glowing: {}
+                        string-origins:has_command_tag:
+                            command_tag:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/has_command_tag/
+                                desc: A single tag to look for.
+                                link: meta_key
+                            command_tags:
+                                desc: Several tags. Passes if the entity has any of them. Combines with command_tag.
+                                type: list
+                                vals:
+                                    link: meta_key
                         string-origins:health:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/health
@@ -645,13 +664,29 @@ links:
                             kind:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/hunger
                                 desc: food for the hunger bar, saturation for the hidden saturation value beneath it.
-                                link: identifier
+                                enum: ['food','saturation']
                             comparison:
                                 link: comparison
                             compare_to:
                                 desc: The value to compare against. Hunger runs 0–20, where each shank is 2.
                                 type: number
                                 required: true
+                        string-origins:food_level:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/food_level
+                                desc: (DEPRECATED) Determines how the food level of the player should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value at which the food level of the player will be compared to.
+                                type: number
+                        string-origins:saturation_level:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/saturation_level
+                                desc: (DEPRECATED) Determines how the saturation level of the player should be compared to the specified value.
+                                link: comparison
+                            compare_to:
+                                desc: The value at which the saturation level of the player will be compared to.
+                                type: number
                         string-origins:in_block:
                             block_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_block
@@ -680,6 +715,16 @@ links:
                             team:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_team
                                 desc: A team to match against.
+                                link: team
+                            teams:
+                                desc: Several teams; the condition passes if any of them match.
+                                type: list
+                                vals:
+                                    link: team
+                        string-origins:team:
+                            team:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/in_team
+                                desc: (DEPRECATED) A team to match against.
                                 link: team
                             teams:
                                 desc: Several teams; the condition passes if any of them match.
@@ -723,6 +768,16 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/key_pressed
                                 desc: The keybinding to watch.
                                 link: keybind
+                        string-origins:key_held:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/key_pressed
+                                desc: (DEPRECATED) The keybinding to watch.
+                                link: keybind
+                        string-origins:held_key:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/key_pressed
+                                desc: (DEPRECATED) The keybinding to watch.
+                                link: keybind
                         string-origins:living: {}
                         string-origins:moving:
                             horizontally:
@@ -756,7 +811,7 @@ links:
                             selection:
                                 desc: |
                                     Where to look: main (the chosen origin), active (the swapped-in origin, falling back to the chosen one), pool (origins sitting in a swap pool) or all (any of the three).
-                                enum: ['main','active','pool','all']
+                                link: selection
                         string-origins:owner:
                             bientity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/owner/
@@ -875,6 +930,7 @@ links:
                             position:
                                 desc: Which slot of a table resource to read. Omit it and the condition passes if any slot satisfies the comparison.
                                 link: expression_integer
+                                default: unspec
                             comparison:
                                 desc: Determines how the value of the specified power should be compared to the specified value.
                                 link: comparison
@@ -903,14 +959,6 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/riding_root
                                 desc: If specified, this condition type will only evaluate to true if this condition is fulfilled by either or both the ’actor’ and ’target’ entities.
                                 link: bientity_condition
-                        string-origins:saturation_level:
-                            comparison:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/saturation_level
-                                desc: Determines how the saturation level of the player should be compared to the specified value.
-                                link: comparison
-                            compare_to:
-                                desc: The value at which the saturation level of the player will be compared to.
-                                type: number
                         string-origins:scoreboard:
                             name:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/scoreboard
@@ -925,7 +973,6 @@ links:
                             compare_to:
                                 desc: The value at which the score of the specified score holder will be compared to.
                                 type: number
-                                required: true
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/script/
@@ -937,27 +984,22 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/send_condition/
                                 desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
                                 link: identifier
+                                required: true
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:stat:
-                            stat:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
-                                desc: |
-                                    Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
-                                link: stat
-                                required: true
-                            comparison:
-                                desc: How to compare the stat value.
-                                link: comparison
-                            compare_to:
-                                desc: The number to compare against.
-                                type: integer
-                                required: true
+                            link: entity_condition_stat
+                        string-origins:stats:
+                            link: entity_condition_stat_legacy
+                        string-origins:status:
+                            link: entity_condition_stat_legacy
+                        string-origins:statistic:
+                            link: entity_condition_stat_legacy
                         string-origins:status_effect:
                             effect:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/status_effect
                                 desc: The namespace and ID of the status effect to check for.
-                                link: identifier
+                                link: status_effect
                             min_amplifier:
                                 desc: The minimum amplifier the status effect should have in order to pass the check. Defaults to 0.
                                 link: integer_amp
@@ -983,21 +1025,23 @@ links:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_origin
                                 desc: Only check this key. Omit to match any stored origin.
-                                type: string
+                                type: meta_key
                             origin:
                                 desc: The stored entry must be this origin.
                                 link: identifier
+                                default: unspec
                             layer:
                                 desc: The stored entry must have been taken from this layer.
                                 link: identifier
+                                default: unspec
                         string-origins:stored_value:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_value
                                 desc: Which entry to check.
-                                type: string
+                                type: meta_key
                             value:
                                 desc: The stored text must equal this exactly. Omit to check only that the key exists.
-                                type: string
+                                type: meta_key
                         string-origins:swapped:
                             layer:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/swapped
@@ -1098,6 +1142,8 @@ links:
                       - origins:and
                       - origins:or
                       - origins:chance
+                      - origins:block
+                      - origins:holder
                     more:
                         string-origins:all_of:
                             conditions:
@@ -1159,7 +1205,7 @@ links:
                             enchantment:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/enchantment
                                 desc: If specified, the level of the enchantment that corresponds to this identifier will be compared. Otherwise, the amount of enchantments in the item stack will be compared instead.
-                                link: identifier
+                                link: enchantment
                                 default: unspec
                             use_modifications:
                                 desc: |
@@ -1205,12 +1251,18 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/holder_condition/
                                 desc: The condition to test against the holder.
                                 link: entity_condition
+                        string-origins:holder:
+                            entity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/holder_condition/
+                                desc: (DEPRECATED) The condition to test against the holder.
+                                link: entity_condition
                         string-origins:ingredient:
                             ingredient:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/ingredient
                                 desc: The ingredient this item must match to pass the check.
                                 link: ingredient
                         string-origins:is_block: {}
+                        string-origins:block: {}
                         string-origins:is_damageable: {}
                         string-origins:is_equippable:
                             equipment_slot:
@@ -1382,7 +1434,7 @@ links:
                                 link: boolean_optional
                             enum:
                                 desc: If specified, the string at which the string value of the specified property will be compared to. Only used if the specified property has a string value.
-                                type: string
+                                type: meta_key
                         string-origins:command:
                             command:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/command
@@ -1445,7 +1497,7 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value at which the hardness value of the block will be compared to.
-                                type: float
+                                type: number
                         string-origins:height:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/height
@@ -1456,7 +1508,7 @@ links:
                                 type: number
                         string-origins:in_tag:
                             tag:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/in_tag
+                                href: https://minecraft.wiki/w/Block_tag_%28Java_Edition%29
                                 desc: The namespace and ID of the tag which the block should be in to pass the check.
                                 link: identifier
                         string-origins:light_blocking: {}
@@ -1731,9 +1783,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attack_charge
                                 desc: How the charge is compared to compare_to.
                                 link: comparison
+                                default: '<='
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
                                 link: expression_float
+                                default: 0.9
                         string-origins:attacker:
                             entity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attacker
@@ -1759,7 +1813,7 @@ links:
                             projectile:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/projectile
                                 desc: If set, the check will only pass if the projectile was of an entity type with the specified namespace and ID.
-                                link: identifier
+                                link: projectile_type
                                 default: unspec
                             projectile_condition:
                                 desc: If set, the check will only pass if the projectile entity fulfills this condition.
@@ -1786,6 +1840,7 @@ links:
                       - origins:and
                       - origins:choice
                       - origins:delay
+                      - origins:if_case
                       - origins:if_else
                       - origins:if_else_list
                       - origins:loop
@@ -1798,6 +1853,7 @@ links:
                       - origins:attach_rope
                       - origins:damage
                       - origins:disguise
+                      - origins:execute_command
                       - origins:explode
                       - origins:grab
                       - origins:mount
@@ -1867,6 +1923,16 @@ links:
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
+                        string-origins:if_case:
+                            or:
+                              - cases:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_condition_if_list_bientity
+                              - actions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_condition_if_list_bientity
                         string-origins:if_else:
                             condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
@@ -1881,17 +1947,8 @@ links:
                         string-origins:if_else_list:
                             actions:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
-                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
-                                type: list
-                                vals:
-                                    type: object
-                                    props:
-                                        condition:
-                                            desc: A condition to check for.
-                                            link: bientity_condition
-                                        action:
-                                            desc: An action which might be executed.
-                                            link: bientity_action
+                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
+                                link: meta_condition_if_list_bientity
                         string-origins:loop:
                             value:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
@@ -2000,6 +2057,10 @@ links:
                                 desc: Cap on the sprint swing boost.
                                 type: number
                                 default: 0.7
+                            control_accel:
+                                desc: How hard the WASD swing keys push a controllable rope.
+                                type: number
+                                default: 0.08
                             reel_step:
                                 desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
                                 type: number
@@ -2029,9 +2090,7 @@ links:
                                 link: attribute_modifier
                             modifiers:
                                 desc: If specified, these modifiers will be applied to the damage taken by the ’target’ entity.
-                                type: list
-                                vals:
-                                    link: attribute_modifier
+                                link: attribute_modifier_array
                         string-origins:disguise:
                             overwrite:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/disguise
@@ -2042,6 +2101,21 @@ links:
                                 desc: Whether the disguise also changes the actor’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
                                 type: boolean
                                 default: true
+                        string-origins:execute_command:
+                            command:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/execute_command/
+                                desc: The command to run, without a leading /.
+                                type: string
+                                ext: true
+                                required: true
+                            actor_selector:
+                                desc: The text replaced with the actor’s UUID.
+                                type: string
+                                default: "%a"
+                            target_selector:
+                                desc: The text replaced with the target’s UUID.
+                                type: string
+                                default: "%t"
                         string-origins:explode:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/explode
@@ -2062,26 +2136,6 @@ links:
                             destructible:
                                 desc: Block condition for blocks that are explicitly allowed to be destroyed, taking priority over indestructible
                                 link: block_condition
-                        string-origins:loop:
-                            value:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
-                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
-                                type: integer
-                                default: 1
-                            ticks:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
-                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
-                                type: integer
-                                default: 1
-                            before_action:
-                                desc: Fired once, immediately, before the first iteration.
-                                link: bientity_action
-                            action:
-                                desc: Fired once per iteration.
-                                link: bientity_action
-                            after_action:
-                                desc: Fired once, in the same tick as the final iteration, right after it.
-                                link: bientity_action
                         string-origins:grab:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/grab
@@ -2129,6 +2183,11 @@ links:
                                 type: boolean
                                 default: true
                             link: raycast_action
+                        string-origins:script:
+                            script:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/script/
+                                link: identifier_script
+                            link: script_params
                         string-origins:set_in_love: {}
                         string-origins:tame: {}
                         string-origins:target_action:
@@ -2154,7 +2213,7 @@ links:
                             mode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/transfer
                                 desc: steal moves powers target → actor; give moves them actor → target.
-                                enum: [steal, give]
+                                enum: ['steal','give']
                             copy:
                                 desc: If false, powers are moved (removed from the donor). If true, they are copied (the donor keeps them).
                                 type: boolean
@@ -2179,9 +2238,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/copy_origin
                                 desc: The layer whose origin is read from the target.
                                 link: identifier
-                                default: "origins:origin"
+                                default: 'origins:origin'
                             to_layer:
                                 desc: The layer set on the actor to the copied origin. Its powers are granted from this layer’s source, so clearing the actor’s to_layer (e.g. /origin set @s origins:copy <blank>) removes them again — the basis for a temporary copy.
+                                link: identifier
+                                default: 'origins:copy'
                         string-origins:store_origin:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin_bientity
@@ -2191,7 +2252,7 @@ links:
                             layer:
                                 desc: Which of the target’s layers to read, and the layer recorded with the entry.
                                 link: identifier
-                                default: "origins:origin"
+                                default: 'origins:origin'
                             origin:
                                 desc: Store this origin id literally instead of reading the target’s.
                                 link: identifier
@@ -2199,22 +2260,57 @@ links:
                             clear:
                                 desc: Remove the entry at key from the actor instead of writing one.
                                 type: boolean
+                        string-origins:transfer:
+                            mode:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/transfer/
+                                desc: steal moves powers target → actor; give moves them actor → target.
+                                enum: ['steal','give']
+                            copy:
+                                desc: If false, powers are moved (removed from the donor). If true, they are copied (the donor keeps them).
+                                type: boolean
+                            sources:
+                                desc: Only transfer powers granted by these sources. If omitted, every source on the donor is transferred (except new_source). This is how you copy one specific origin/layer — filter to the source it was granted under.
+                                link: identifier_array
+                            new_source:
+                                desc: The source the powers are granted under on the recipient. Grouping under one source lets you later remove them all in one call (see Losing / restoring below).
+                                link: identifier
+                                default: 'apoli:transferred'
+                            preserve_source:
+                                desc: If true, powers keep their original source id on the recipient instead of new_source.
+                                type: boolean
+                            actor_action:
+                                desc: Action run on the actor after the transfer (e.g. a sound or particle).
+                                link: entity_action
+                            target_action:
+                                desc: Action run on the target after the transfer.
+                                link: entity_action
                         string-origins:transfer_origin:
                             mode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/transfer_origin
                                 desc: steal takes the target’s origin onto the actor; give hands the actor’s origin to the target. (Determines which side is the donor and which is the recipient.)
-                                enum: [steal, give]
+                                enum: ['steal','give']
                             copy:
                                 desc: If false, the origin is moved — the donor loses it on from_layer entirely. If true, it is copied (the donor keeps it); this is exactly what origins:copy_origin does.
                                 type: boolean
                             from_layer:
                                 desc: The layer the origin is read from on the donor.
                                 link: identifier
-                                default: "origins:origin"
+                                default: 'origins:origin'
                             to_layer:
                                 desc: The layer the origin is written to on the recipient. Use a dedicated layer (e.g. origins:copy) to add the origin alongside the recipient’s own, or the same layer to replace it.
                                 link: identifier
-                                default: "origins:origin"
+                                default: 'origins:origin'
+                            origin:
+                                desc: Transfer exactly this origin instead of searching the donor’s layer. Overrides selection.
+                                link: identifier
+                                default: unspec
+                            selection:
+                                desc: |
+                                    Which of the donor’s origins on from_layer to take: main, active, pool or all.
+                                link: selection
+                            random:
+                                desc: When the selection yields more than one candidate, pick one at random rather than the first.
+                                type: boolean
                             actor_action:
                                 desc: Action run on the actor after the transfer (e.g. a sound or particle).
                                 link: entity_action
@@ -2238,9 +2334,15 @@ links:
                       - origins:random_chance
                       - origins:choice
                       - origins:delay
+                      - origins:if_case
                       - origins:if_else
                       - origins:if_else_list
                       - origins:loop
+                      - origins:run_function
+                      - origins:script
+                      - origins:selector_action
+                      - origins:self_bientity_action
+                      - origins:send_action
                       - $General Actions
                       - origins:action_on_entity_set
                       - origins:add_velocity
@@ -2275,8 +2377,10 @@ links:
                       - origins:inventory_action
                       - origins:modify_death_ticks
                       - origins:modify_inventory
+                      - origins:open_swap_menu
                       - origins:passenger_action
                       - origins:play_sound
+                      - origins:radial_menu
                       - origins:random_teleport
                       - origins:raycast
                       - origins:relative_action
@@ -2285,8 +2389,6 @@ links:
                       - origins:replace_inventory
                       - origins:riding_action
                       - origins:rope_pull
-                      - origins:run_function
-                      - origins:selector_action
                       - origins:set_fall_distance
                       - origins:set_on_fire
                       - origins:swing_hand
@@ -2311,8 +2413,6 @@ links:
                       - origins:modify_entity_data
                       - origins:modify_resource
                       - origins:modify_stat
-                      - origins:open_swap_menu
-                      - origins:radial_menu
                       - origins:remove_power
                       - origins:revoke_all_powers
                       - origins:revoke_power
@@ -2387,6 +2487,16 @@ links:
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
+                        string-origins:if_case:
+                            or:
+                              - cases:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_condition_if_list_entity
+                              - actions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_condition_if_list_entity
                         string-origins:if_else:
                             condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
@@ -2401,17 +2511,8 @@ links:
                         string-origins:if_else_list:
                             actions:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
-                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
-                                type: list
-                                vals:
-                                    type: object
-                                    props:
-                                        condition:
-                                            desc: A condition to check for.
-                                            link: entity_condition
-                                        action:
-                                            desc: An action which might be executed.
-                                            link: entity_action
+                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
+                                link: meta_condition_if_list_entity
                         string-origins:loop:
                             value:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
@@ -2430,20 +2531,50 @@ links:
                             after_action:
                                 desc: Fired once, in the same tick as the final iteration, right after it.
                                 link: entity_action
+                        string-origins:run_function:
+                            function:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/run_function
+                                desc: The apoli:function power to run.
+                                link: identifier
+                                required: true
+                            arguments:
+                                desc: One entry per parameter the function declares. Values may be any JSON the target field accepts.
+                                type: object
+                                props:
+                                    extra: function_arguments
+                        string-origins:script:
+                            script:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/script/
+                                link: identifier_script
+                            link: script_params
+                        string-origins:selector_action:
+                            selector:
+                                href: https://minecraft.wiki/w/Target_selectors
+                                desc: The selector to use for selecting entities. It can be the username of a player, the UUID of the entity or a target selector.
+                                type: string
+                                ext: true
+                            bientity_action:
+                                desc: If specified, this action will be executed on either or both the actor and target entities.
+                                link: bientity_action
+                            bientity_condition:
+                                desc: If specified, the specified action will only be executed if this condition is fulfilled by either or both the actor and target entities.
+                                link: bientity_condition
+                        string-origins:self_bientity_action:
+                            bientity_action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/self_bientity_action/
+                                desc: The action to run with the entity as both actor and target.
+                                link: bientity_action
                         string-origins:add_velocity:
                             x:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_velocity
                                 desc: The amount of velocity to add on the x-axis.
-                                type: number
-                                default: 0
+                                type: expression_float
                             y:
                                 desc: The amount of velocity to add on the y-axis.
-                                type: number
-                                default: 0
+                                type: expression_float
                             z:
                                 desc: The amount of velocity to add on the z-axis.
-                                type: number
-                                default: 0
+                                type: expression_float
                             space:
                                 desc: Determines how the direction of the velocity to add/set will be calculated.
                                 link: space
@@ -2461,55 +2592,27 @@ links:
                         string-origins:advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
-                                desc: Grants or revokes an advancement.
+                                desc: |
+                                    The advancement to act on. Omit it with selection: everything to act on all of them.
                                 link: identifier
-                            criteria:
-                                type: list
-                                vals:
-                                    type: string
-                                    ext: true
-                            criterion:
-                                type: string
-                                ext: true
-                            selection:
-                                link: selection
+                            link: meta_advancement_action
                             revoke:
-                                link: boolean_optional
+                                desc: Revoke rather than grant. Filled in by the aliases.
+                                link: boolean
                         string-origins:grant_advancement:
                             advancement:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
-                                desc: (DEPRECATED) Grants or revokes an advancement.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_advancement
+                                desc: |
+                                    (DEPRECATED) The advancement to grant. Omit it with selection: everything to act on all of them.
                                 link: identifier
-                            criteria:
-                                type: list
-                                vals:
-                                    type: string
-                                    ext: true
-                            criterion:
-                                type: string
-                                ext: true
-                            selection:
-                                link: selection
-                            revoke:
-                                type: boolean
+                            link: meta_advancement_action
                         string-origins:revoke_advancement:
                             advancement:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
-                                desc: (DEPRECATED) Grants or revokes an advancement.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_advancement
+                                desc: |
+                                    (DEPRECATED) The advancement to revoke. Omit it with selection: everything to act on all of them.
                                 link: identifier
-                            criteria:
-                                type: list
-                                vals:
-                                    type: string
-                                    ext: true
-                            criterion:
-                                type: string
-                                ext: true
-                            selection:
-                                link: selection
-                            revoke:
-                                type: boolean
-                                default: true
+                            link: meta_advancement_action
                         string-origins:apply_effect:
                             effect:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/apply_effect
@@ -2534,9 +2637,15 @@ links:
                             bientity_condition:
                                 desc: If specified, the specified bi-entity action will only be executed on either or both the ’actor’ or ’target(s)’ that fulfill this bi-entity condition.
                                 link: bientity_condition
+                            include_actor:
+                                desc: Determines whether the ’actor’ should be included as a target.
+                                type: boolean
                             bientity_action:
                                 desc: The bi-entity action to execute on either or both the ’actor’ or the ’target(s)‘.
                                 link: bientity_action
+                            after_action:
+                                desc: Run once on the ’actor’ after the sweep, with count bound to how many entities matched.
+                                link: entity_action
                         string-origins:attach_rope:
                             from:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/attach_rope
@@ -2548,11 +2657,12 @@ links:
                                 link: rope_endpoint
                             slot:
                                 desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
-                                type: string
+                                link: meta_key
+                                default: unspec
                             texture:
                                 desc: The texture the rope is drawn with.
                                 link: identifier
-                                default: "apoli:textures/rope/rope.png"
+                                default: 'apoli:textures/rope/rope.png'
                             toggle:
                                 desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
                                 type: boolean
@@ -2580,15 +2690,15 @@ links:
                                 type: number
                             stiffness:
                                 desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
-                                type: number
+                                link: number_percent
                                 default: 0.1
                             radial_damping:
                                 desc: How much outward speed is bled off at the length limit.
-                                type: number
+                                link: number_percent
                                 default: 0.85
                             spring_scaling:
                                 desc: Extra softening while swinging inward.
-                                type: number
+                                link: number_percent
                                 default: 0.65
                             swing_boost:
                                 desc: Speed multiplier applied to a sprinting player’s swing.
@@ -2622,7 +2732,7 @@ links:
                         string-origins:change_resource:
                             resource:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_resource
-                                desc: (DEPRECATED) The target Resource/Cooldown power.
+                                desc: (DEPRECATED) The target Resource/Cooldown power to change.
                                 link: identifier
                             change:
                                 desc: The amount; never exceeds the resource’s min/max when enforce_limits is true. As an Expression it is evaluated each time the action runs, with value bound to the resource’s current value.
@@ -2630,24 +2740,37 @@ links:
                             operation:
                                 desc: |
                                     "add" translates to add_base_early; "set" translates to set_base.
-                                enum: [add, set]
+                                enum: ['add','set']
                         string-origins:change_selected_slot:
-                            slot:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
-                                desc: |
-                                    The hotbar slot to select — 0 is the far left, 8 the far right. Out-of-range values are clamped. With relative: true this is an offset instead.
-                                type: integer
-                                required: true
-                            relative:
-                                type: boolean
+                            or:
+                              - title: absolute
+                                slot:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
+                                    desc: |
+                                        The hotbar slot to select — 0 is the far left, 8 the far right. Out-of-range values are clamped.
+                                    type: integer
+                                    min: 0
+                                    max: 8
+                                    required: true
+                              - title: relative
+                                slot:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
+                                    desc: |
+                                        Add slot to the current hotbar selection and wrap around, so 1 cycles right and -1 cycles left.
+                                    type: integer
+                                    required: true
+                                relative:
+                                    const: true
                         string-origins:change_slot:
                             slot_a:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_slot
                                 desc: The first slot.
                                 link: item_slot
+                                required: true
                             slot_b:
                                 desc: The second slot.
                                 link: item_slot
+                                required: true
                             operation:
                                 desc: |
                                     "swap" exchanges the two stacks; "move" puts slot_a’s stack into slot_b and empties slot_a.
@@ -2663,8 +2786,7 @@ links:
                             effect:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/clear_effect
                                 desc: If specified, the status effect with this namespace and ID will be cleared. If not specified, all status effects will be cleared.
-                                link: identifier
-                                default: unspec
+                                link: status_effect
                         string-origins:conjure_equipment:
                             slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/conjure_equipment
@@ -2700,14 +2822,12 @@ links:
                                 link: attribute_modifier
                             modifiers:
                                 desc: If specified, these modifiers will be applied to the damage taken by the entity.
-                                type: list
-                                vals:
-                                    link: attribute_modifier
+                                link: attribute_modifier_array
                         string-origins:detach_rope:
                             slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/detach_rope
                                 desc: The labelled rope to cut. If omitted, all ropes owned by the entity are cut.
-                                type: string
+                                link: meta_key
                                 default: unspec
                         string-origins:disguise_as:
                             entity_type:
@@ -3111,29 +3231,6 @@ links:
                                 desc: Also shorten the rope by this amount each time the action runs (a scripted reel-in).
                                 type: number
                                 default: 0
-                        string-origins:run_function:
-                            function:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/run_function
-                                desc: The apoli:function power to run.
-                                link: identifier
-                                required: true
-                            arguments:
-                                desc: One entry per parameter the function declares. Values may be any JSON the target field accepts.
-                                type: object
-                                props:
-                                    extend: function_arguments
-                        string-origins:selector_action:
-                            selector:
-                                href: https://minecraft.wiki/w/Target_selectors
-                                desc: The selector to use for selecting entities. It can be the username of a player, the UUID of the entity or a target selector.
-                                type: string
-                                ext: true
-                            bientity_action:
-                                desc: If specified, this action will be executed on either or both the actor and target entities.
-                                link: bientity_action
-                            bientity_condition:
-                                desc: If specified, the specified action will only be executed if this condition is fulfilled by either or both the actor and target entities.
-                                link: bientity_condition
                         string-origins:set_fall_distance:
                             fall_distance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_fall_distance
@@ -4349,10 +4446,10 @@ type: number
                             type: boolean
                         effect:
                             desc: If specified, only the status effect with this namespace and ID can not be applied to the entity that has the power.
-                            link: identifier
+                            link: status_effect
                         effects:
                             desc: If specified, only the status effects with the specified namespace and IDs can not be applied to the entity that has the power.
-                            link: identifier_array
+                            link: status_effect_array
                     string-origins:elytra_flight:
                         render_elytra:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/elytra_flight/
@@ -6185,11 +6282,7 @@ type: number
                         dimension:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_spawn/
                             desc: The namespace and ID of the dimension the player should spawn in.
-                            or:
-                              - title: built-in
-                                enum: ['overworld','nether','the_end']
-                              - title: custom
-                                link: identifier
+                            link: dimension
                         biome:
                             desc: If specified, the player will only spawn in the biome that matches the specified namespace and ID.
                             href: https://minecraft.wiki/w/Biome#Biome_IDs
@@ -6251,10 +6344,10 @@ type: number
                         status_effect:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_status_effect_amplifier/
                             desc: Restrict to one effect.
-                            link: identifier
+                            link: status_effect
                         status_effects:
                             desc: Restrict to several. Empty means every effect.
-                            link: identifier_array
+                            link: status_effect_array
                         modifier:
                             desc: A single modifier applied to the amplifier.
                             link: attribute_modifier
@@ -6266,10 +6359,10 @@ type: number
                         status_effect:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_status_effect_duration/
                             desc: Restrict to one effect.
-                            link: identifier
+                            link: status_effect
                         status_effects:
                             desc: Restrict to several. Empty means every effect.
-                            link: identifier_array
+                            link: status_effect_array
                         modifier:
                             desc: A single modifier applied to the duration, in ticks.
                             link: attribute_modifier
@@ -6598,7 +6691,7 @@ type: number
         extra:
             link: nany
 
-# New unified data type definitions (removes the need to specify the same ones over and over)
+# Data Type Definitions and repeat schema links
 
     accessory_slot:
         or:
@@ -6644,7 +6737,8 @@ type: number
     attribute:
         or:
           - title: built-in
-            enum: ['generic.armor_toughness','generic.attack_damage','generic.attack_knockback','generic.attack_speed','generic.block_break_speed','player.block_interaction_range','generic.burning_time','player.entity_interaction_range','generic.explosion_knockback_resistance','generic.fall_damage_multiplier','generic.flying_speed','generic.gravity','generic.jump_strength','generic.knockback_resistance','generic.max_absorption','generic.max_health','player.mining_efficiency','generic.follow_range','generic.movement_efficiency','generic.oxygen_bonus','generic.safe_fall_distance','generic.scale','player.sneaking_speed','generic.movement_speed','generic.step_height','player.submerged_mining_speed','player.sweeping_damage_ratio','generic.water_movement_efficiency','zombie.spawn_reinforcements']
+            enum: ['any','generic.armor_toughness','generic.attack_damage','generic.attack_knockback','generic.attack_speed','generic.block_break_speed','player.block_interaction_range','generic.burning_time','player.entity_interaction_range','generic.explosion_knockback_resistance','generic.fall_damage_multiplier','generic.flying_speed','generic.gravity','generic.jump_strength','generic.knockback_resistance','generic.max_absorption','generic.max_health','player.mining_efficiency','generic.follow_range','generic.movement_efficiency','generic.oxygen_bonus','generic.safe_fall_distance','generic.scale','player.sneaking_speed','generic.movement_speed','generic.step_height','player.submerged_mining_speed','player.sweeping_damage_ratio','generic.water_movement_efficiency','zombie.spawn_reinforcements']
+            unspec: 'any'
           - title: custom
             link: identifier
     attribute_modifier:
@@ -6760,14 +6854,17 @@ type: number
             max_total:						NewTotal = min(Total, Modifier)
             set_total:						NewTotal = Modifier (last, overrides everything)
     biome:
-        enum: ['the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','pale_garden','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark','nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas','the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
+        enum: ['any',$Overworld,'the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark',$Nether,'nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas',$The End,'the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
+        unspec: 'any'
     block_facing:
-        enum: ['up','down','north','south','east','west']
+        enum: ['default','up','down','north','south','east','west']
+        unspec: 'default'
     block_state:
-        enum: ['age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','copper_golem_base','cracked','crafting','creaking_heart_state','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
+        enum: ['none','age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','cracked','crafting','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
+        unspec: 'none'
     boolean_optional:
-        enum: ['unset','false','true']
-        unspec: 'unset'
+        enum: ['default','false','true']
+        unspec: 'default'
     comparison:
         desc: |
             Specify how the two values should be compared:
@@ -6788,8 +6885,8 @@ type: number
             >=	A greater than or equal to B
             ==	A equals B
             !=	A does not equal B
-        enum: ['none','<','<=','>','>=','==','!=']
-        unspec: 'none'
+        enum: ['unset','<','<=','>','>=','==','!=']
+        unspec: 'unset'
     container_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/container-type
         desc: |
@@ -6858,14 +6955,16 @@ type: number
     damage_type:
         or:
           - title: built-in
-            enum: ['arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+            enum: ['no_type','arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+            unspec: 'no_type'
           - title: custom
             link: identifier
     damage_type_tag:
         or:
           - title: built-in
             enum:
-            ['always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
+            ['no_tag','always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
+            unspec: 'no_tag'
           - title: custom
             link: identifier
     description_all_of:
@@ -6892,6 +6991,12 @@ type: number
         enum: ['break','none','destroy']
     difficulty:
         enum: ['peaceful','easy','normal','hard']
+    dimension:
+        or:
+          - title: built-in
+            enum: ['overworld','the_nether','the_end']
+          - title: custom
+            link: identifier
     easing:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/easing
         enum: ['linear','none','step','hold','constant','catmullrom','smooth','smoothstep','smootherstep','ease_in_sine','ease_out_sine','ease_in_out_sine','ease_in_quad','ease_in','ease_out_quad','ease_out','ease_in_out_quad','ease_in_out','ease_in_cubic','ease_out_cubic','ease_in_out_cubic','ease_in_quart','ease_out_quart','ease_in_out_quart','ease_in_quint','ease_out_quint','ease_in_out_quint','ease_in_expo','ease_out_expo','ease_in_out_expo','ease_in_circ','ease_out_circ','ease_in_out_circ','ease_in_back','ease_out_back','ease_in_out_back','ease_in_elastic','ease_out_elastic','ease_in_out_elastic','ease_in_bounce','ease_out_bounce','ease_in_out_bounce']
@@ -6914,23 +7019,72 @@ type: number
             Back			ease_in_back, ease_out_back, ease_in_out_back	Overshoots past the target and settles back. Anticipation.
             Elastic			ease_in_elastic, ease_out_elastic, ease_in_out_elastic	Springs past the target and oscillates.
             Bounce			ease_in_bounce, ease_out_bounce, ease_in_out_bounce	Hits the target and bounces off it.
+    enchantment:
+        or:
+          - title: built-in
+            enum: ['none','aqua_affinity','bane_of_arthropods','blast_protection','breach','channeling','binding_curse','vanishing_curse','density','depth_strider','efficiency','feather_falling','fire_aspect','fire_protection','flame','fortune','frost_walker','impaling','infinity','knockback','looting','loyalty','luck_of_the_sea','lure','mending','multishot','piercing','power','projectile_protection','protection','punch','quick_charge','respiration','riptide','sharpness','silk_touch','smite','soul_speed','sweeping_edge','swift_sneak','thorns','unbreaking','wind_burst','cleaving']
+            unspec: 'none'
+          - title: custom
+            link: identifier
     entity_action_target:
         desc: Which entity entity_action runs on. Set automatically by the legacy IDs.
         enum: ['self','attacker','target']
+    entity_condition_stat:
+        stat:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
+            desc: |
+                Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+            link: stat
+            required: true
+        comparison:
+            desc: How to compare the stat value.
+            link: comparison
+        compare_to:
+            desc: The number to compare against.
+            type: integer
+            required: true
+    entity_condition_stat_legacy:
+        stat:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
+            desc: |
+                (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+            link: stat
+            required: true
+        comparison:
+            desc: How to compare the stat value.
+            link: comparison
+        compare_to:
+            desc: The number to compare against.
+            type: integer
+            required: true
     entity_pose:
         enum: ['standing','crouching','swimming','fall_flying','sleeping','spin_attack','sitting','sliding','shooting','inhaling']
+    entity_type:
+        or:
+          - title: built-in
+            or:
+              - title: mobs
+                link: mob_type_enum
+              - title: object_entities
+                enum: ['no_type','area_effect_cloud','block_display','chest_minecart','command_block_minecart','end_crystal','evoker_fangs','experience_orb','falling_block','furnace_minecraft','glow_item_frame','hopper_minecart','interaction','item','item_display','item_frame','leash_knot','lightning_bolt','marker','minecart','ominous_item_spawner','painting','spawner_minecart','text_display','tnt','tnt_minecart']
+                unspec: 'no_type'
+              - title: projectiles
+                link: projectile_type_enum
+          - title: custom
+            link: identifier
     entity_type_tag:
         or:
           - title: built-in
-            enum: ['aquatic','arrows','arthropod','axolotl_always_hostiles','axolotl_hunt_targets','beehive_inhabitors','can_breathe_under_water','can_turn_in_boats','deflects_projectiles','dismounts_underwater','fall_damage_immune','freeze_hurts_extra_types','freeze_immune_entity_types','frog_food','ignores_poison_and_regen','illager','illager_friends','immune_to_infested','immune_to_oozing','impact_projectiles','inverted_healing_and_harm','no_anger_from_wind_charge','non_controlling_rider','not_scary_for_pufferfish','powder_snow_walkable_mobs','raiders','redirectable_projectile','sensitive_to_bane_of_arthropods','sensitive_to_impaling','sensitive_to_smite','skeletons','undead','wither_friends','zombies','deflects_arrows','deflects_tridents']
+            enum: ['no_tag','aquatic','arrows','arthropod','axolotl_always_hostiles','axolotl_hunt_targets','beehive_inhabitors','can_breathe_under_water','can_turn_in_boats','deflects_projectiles','dismounts_underwater','fall_damage_immune','freeze_hurts_extra_types','freeze_immune_entity_types','frog_food','ignores_poison_and_regen','illager','illager_friends','immune_to_infested','immune_to_oozing','impact_projectiles','inverted_healing_and_harm','no_anger_from_wind_charge','non_controlling_rider','not_scary_for_pufferfish','powder_snow_walkable_mobs','raiders','redirectable_projectile','sensitive_to_bane_of_arthropods','sensitive_to_impaling','sensitive_to_smite','skeletons','undead','wither_friends','zombies','deflects_arrows','deflects_tridents']
+            unspec: 'no_tag'
           - title: custom
             link: identifier
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
     equipment_slot:
-        enum: ['none','mainhand','offhand','head','chest','legs','feet']
-        unspec: 'none'
+        enum: ['default','mainhand','offhand','head','chest','legs','feet']
+        unspec: 'default'
     expression_float:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
         desc: A floating-point value or a math expression. See the doc for more information.
@@ -6952,13 +7106,14 @@ type: number
     features:
         or:
           - title: built-in
-            enum: ['armor','cape','cat_collar','creeper_power','deadmau5','dolphin_held_item','drowned_overlay','elytra','enderman_block','energy_swirl_overlay','eyes','fox_held_item','head','held_item','horse_armor','horse_marking','iron_golem_crack','iron_golem_flower','llama_decor','mooshroom_mushroom','panda_held_item','saddle','sheep_wool','shoulder_parrot','shulker_head','skeleton_clothing','slime_overlay','snowman_pumpkin','stuck_arrows','stuck_objects','stuck_stingers','trident_riptide','tropical_fish_color','villager_clothing','villager_held_item','witch_item','wither_armor','wolf_armor','wolf_collar','breeze_wind']
+            enum: ['none','armor','cape','cat_collar','creeper_power','deadmau5','dolphin_held_item','drowned_overlay','elytra','enderman_block','energy_swirl_overlay','eyes','fox_held_item','head','held_item','horse_armor','horse_marking','iron_golem_crack','iron_golem_flower','llama_decor','mooshroom_mushroom','panda_held_item','saddle','sheep_wool','shoulder_parrot','shulker_head','skeleton_clothing','slime_overlay','snowman_pumpkin','stuck_arrows','stuck_objects','stuck_stingers','trident_riptide','tropical_fish_color','villager_clothing','villager_held_item','witch_item','wither_armor','wolf_armor','wolf_collar','breeze_wind']
+            unspec: 'none'
           - title: custom
             link: identifier
     fluid:
         or:
           - type: built-in
-            enum: ['water','lava','powder_snow','none']
+            enum: ['none','water','lava','powder_snow']
           - type: custom
             link: meta_key
     fluid_handling:
@@ -7002,13 +7157,15 @@ type: number
     game_event:
         or:
           - title: built-in
-            enum: [$Detected,'flap','step','swim','bounce','hit_ground','projectile_land','splash','instrument_play','item_interact_finish','projectile_shoot','elytra_glide','entity_action','unequip','entity_dismount','equip','entity_interact','entity_mount','shear','entity_damage','drink','eat','block_close','block_deactivate','block_detach','container_close','block_activate','block_attach','block_open','container_open','note_block_play','prime_fuse','block_change','block_destroy','fluid_pickup','block_place','fluid_place','entity_place','lightning_strike','teleport','entity_die','explode',$Undetected,'item_interact_start','jukebox_play','jukebox_stop_play','resonate_1','resonate_2','resonate_3','resonate_4','resonate_5','resonate_6','resonate_7','resonate_8','resonate_9','resonate_10','resonate_11','resonate_12','resonate_13','resonate_14','resonate_15','sculk_sensor_tendrils_clicking','shriek']
+            enum: ['no_event',$Detected,'flap','step','swim','bounce','hit_ground','projectile_land','splash','instrument_play','item_interact_finish','projectile_shoot','elytra_glide','entity_action','unequip','entity_dismount','equip','entity_interact','entity_mount','shear','entity_damage','drink','eat','block_close','block_deactivate','block_detach','container_close','block_activate','block_attach','block_open','container_open','note_block_play','prime_fuse','block_change','block_destroy','fluid_pickup','block_place','fluid_place','entity_place','lightning_strike','teleport','entity_die','explode',$Undetected,'item_interact_start','jukebox_play','jukebox_stop_play','resonate_1','resonate_2','resonate_3','resonate_4','resonate_5','resonate_6','resonate_7','resonate_8','resonate_9','resonate_10','resonate_11','resonate_12','resonate_13','resonate_14','resonate_15','sculk_sensor_tendrils_clicking','shriek']
+            unspec: 'no_event'
           - title: custom
             link: identifier
     game_event_tag:
         or:
           - title: built-in
-            enum: ['allay_can_listen','ignore_vibrations_sneaking','shrieker_can_listen','vibrations','warden_can_listen']
+            enum: ['no_tag','allay_can_listen','ignore_vibrations_sneaking','shrieker_can_listen','vibrations','warden_can_listen']
+            unspec: 'no_tag'
           - title: custom
             link: identifier
     hand:
@@ -8631,10 +8788,47 @@ type: number
                 prevent:
                     desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
                     type: boolean
+    meta_advancement_action:
+        criterion:
+            desc: A single criterion name, rather than the whole advancement.
+            type: string
+            ext: true
+        criteria:
+            desc: Several criterion names.
+            type: list
+            vals:
+                type: string
+                ext: true
+        selection:
+            desc: |
+                Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
+            enum: ['only','through','from','until','everything']
+    meta_condition_if_list_bientity:
+        type: list
+        vals:
+            type: object
+            props:
+                condition:
+                    desc: A condition to check for.
+                    link: bientity_condition
+                action:
+                    desc: An action which might be executed.
+                    link: bientity_action
+    meta_condition_if_list_entity:
+        type: list
+        vals:
+            type: object
+            props:
+                condition:
+                    desc: A condition to check for.
+                    link: entity_condition
+                action:
+                    desc: An action which might be executed.
+                    link: entity_action
     meta_condition_chance:
         chance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
-            desc: Generates a random number between 0.0 and 1.0 and checks if it’s less than a specified value.
+            desc: Probability of passing, 0.0 to 1.0.
             link: number_percent
             required: true
     meta_condition_constant:
@@ -8652,6 +8846,15 @@ type: number
         type: string
         allowkey: '*a-z0-9_#\/:.\[\]\(\)\{\}$^?+\|-'
         allow: '*a-z0-9_#\/:.-'
+    mob_type:
+        or:
+          - title: built-in
+            link: mob_type_enum
+          - title: custom
+            link: identifier
+    mob_type_enum:
+        enum: ['no_type',$Passive,'allay','armadillo','axolotl','bat','camel','cat','chicken','cod','cow','donkey','frog','glow_squid','horse','mooshroom','mule','ocelot','parrot','pig','rabbit','salmon','sheep','skeleton_horse','sniffer','snow_golem','squid','strider','tadpole','tropical_fish','turtle','villager','wandering_trader','zombie_horse',$Neutral,'bee','cave_spider','dolphin','drowned','enderman','fox','goat','iron_golem','llama','panda','piglin','polar_bear','pufferfish','spider','trader_llama','wolf','zombified_piglin',$Hostile,'blaze','breeze','creeper','elder_guardian','endermite','evoker','ghast','guardian','hoglin','husk','magma_cube','phantom','piglin_brute','pillager','ravager','shulker','silverfish','skeleton','slime','stray','vex','vindicator','warden','witch','wither_skeleton','zoglin','zombie','zombie_villager',$Boss,'ender_dragon','wither',$Unused,'giant','illusioner',$Stands,'armor_stand']
+        unspec: 'no_type'
     model_animation:
         animation:
             href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-animation/
@@ -8843,17 +9046,24 @@ type: number
             desc: The namespace and ID of the particle type.
             or:
               - title: simple
-                link: identifier
+                link: particle
               - title: custom
                 type: object
                 props:
                     type:
                         desc: The namespace and ID of the particle type.
-                        link: identifier
+                        link: particle
                     params:
                         desc: The additional parameters for the particle type.
                         type: string
                         ext: true
+    particle_type:
+        or:
+          - title: built-in
+            enum: ['default',$Unique Particles,'bubble','bubble_column_up','current_down','dolphin','bubble_pop','fishing','rain','splash','cherry_leaves','flame','small_flame','soul_fire_flame','lava','damage_indicator','angry_villager','composter','egg_crack','happy_villager','heart','elder_guardian','firefly','infested','raid_omen','small_gust','trial_omen','gust','gust_emitter','campfire_cosy_smoke','campfire_signal_smoke','soul','sculk_soul','sculk_charge','sculk_charge_pop','shriek','sonic_boom','vibration','trial_spawner_detection','trial_spawner_detection_ominous','vault_connection',$Block/item,'block','dust_pillar','block_marker','item','item_snowball','item_slime','item_cobweb',$Colored Particles,'mycelium','underwater','ash','crimson_spore','warped_spore','white_ash','witch','instant_effect','crit','enchanted_hit','sweep_attack','firework','flash','glow','electric_spark','scrape','wax_on','wax_off','note','enchant','end_rod','totem_of_undying','effect','entity_effect','dripping_water','falling_water','dripping_dripstone_water','falling_dripstone_water','dripping_lava','falling_lava','dripping_dripstone_lava','falling_dripstone_lava','dripping_honey','falling_honey','falling_nectar','falling_spore_blossom','spore_blossom_air','dripping_obsidian_tear','falling_obsidian_tear','landing_honey','landing_lava','landing_obsidian_tear','explosion_emitter','explosion','dragon_breath','spit','cloud','poof','smoke','large_smoke','glow_squid_ink','squid_ink','sneeze','snowflake','white_smoke','portal','reverse_portal','dust','dust_color_transition','dust_plume','falling_dust','ominous_spawning']
+            unspec: 'default'
+          - title: custom
+            link: identifier
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.
@@ -8882,6 +9092,15 @@ type: number
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/process-mode
         desc: A String that determines how an item stack is processed; be it either being modified or evaluated. See the doc for more information.
         enum: ['items','stacks']
+    projectile_type:
+        or:
+          - title: built-in
+            link: projectile_type_enum
+          - title: custom
+            link: identifier
+    projectile_type_enum:
+        enum: ['no_type','fireball','small_fireball','dragon_fireball','firework_rocket','llama_spit','arrow','spectral_arrow','shulker_bullet','experience_bottle','egg','ender_pearl','eye_of_ender','snowball','splash_potion','lingering_potion','trident','wind_charge','breeze_wind_charge','wither_skull']
+        unspec: 'no_type'
     raycast_action:
         distance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/raycast
@@ -8988,9 +9207,10 @@ type: number
             props:
                 link: raycast_action
         chain_direction:
-            desc: For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
-            enum: ['','forward','reflect','custom']
-            unspec: ''
+            desc: |
+                For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
+            enum: ['default','forward','reflect','custom']
+            unspec: 'default'
     render_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/render-type
         desc: |
@@ -9010,7 +9230,8 @@ type: number
         type: object
         props:
             source:
-                desc: "Where the endpoint comes from. One of: self (the acting entity), target (the bi-entity target — only resolves when the action runs in a bi-entity context), raycast (cast a ray from the actor’s eyes), position (a fixed point)."
+                desc: |
+                    Where the endpoint comes from. One of: self (the acting entity), target (the bi-entity target — only resolves when the action runs in a bi-entity context), raycast (cast a ray from the actor’s eyes), position (a fixed point).
                 enum: ['self','target','raycast','position']
             distance:
                 desc: For raycast - how far the ray reaches.
@@ -9040,10 +9261,7 @@ type: number
             desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
             link: nbt
     selection:
-        desc: Selection is not yet defined.
-        type: string
-        ext: true
-        default: unspec
+        enum: ['main','active','pool','all']
     set_iteration:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/set-iteration
         desc: |
@@ -9071,8 +9289,8 @@ type: number
         enum: ['collider','outline','visual']
     sound_category:
         desc: If specified, this specifies the category and options the sound event falls under. Otherwise, uses the category specified in the entity that invoked this action.
-        enum: ['','master','music','record','weather','block','hostile','neutral','players','ambient','voice']
-        unspec: ''
+        enum: ['default','master','music','record','weather','block','hostile','neutral','players','ambient','voice']
+        unspec: 'default'
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
         desc: A String that defines which coordinate system is used for directions. See the doc for more information
@@ -9087,6 +9305,18 @@ type: number
             id:
                 desc: The name of the statistic; may depend on the specified type of the statistic.
                 link: identifier
+    status_effect:
+        or:
+          - title: built-in
+            enum: ['all','absorption','unluck','bad_omen','blindness','conduit_power','darkness','dolphins_grace','fire_resistance','glowing','haste','health_boost','hero_of_the_village','hunger','infested','instant_damage','instant_health','invisibility','jump_boost','levitation','luck','mining_fatigue','nausea','night_vision','oozing','poison','raid_omen','regeneration','resistance','saturation','slowness','slow_falling','speed','strength','trial_omen','water_breathing','weakness','weaving','wind_charged','wither']
+            unspec: 'all'
+          - title: custom
+            link: identifier
+            default: unspec
+    status_effect_array:
+        type: list
+        vals:
+            link: status_effect
     status_effect_instance:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/status-effect-instance
         desc: An Object which defines a status effect with duration, amplifier, etc.
@@ -9095,10 +9325,10 @@ type: number
             or:
               - id:
                 desc: The identifier of the status effect.
-                link: identifier
+                link: status_effect
               - effect:
                 desc: (DEPRECATED) The identifier of the status effect.
-                link: identifier
+                link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
                 link: expression_integer
@@ -9130,10 +9360,10 @@ type: number
             or:
               - id:
                 desc: The identifier of the status effect.
-                link: identifier
+                link: status_effect
               - effect:
                 desc: (DEPRECATED) The identifier of the status effect.
-                link: identifier
+                link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
                 link: expression_integer
@@ -9161,7 +9391,8 @@ type: number
                 desc: Chance of the status effect taking effect.
                 link: number_percent
     structure:
-        enum: ['ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
+        enum: ['any','ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
+        unspec: 'any'
     team:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
         desc: A scoreboard team, given either by name or as a set of properties to match.
