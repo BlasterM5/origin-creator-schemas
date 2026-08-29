@@ -1858,6 +1858,8 @@ links:
                       - origins:grab
                       - origins:mount
                       - origins:raycast
+                      - origins:script
+                      - origins:send_action
                       - origins:set_in_love
                       - origins:tame
                       - origins:transfer
@@ -1868,8 +1870,10 @@ links:
                       - origins:store_origin
                       - origins:transfer_origin
                       - $DEPRECATED
+                      - origins:add_to_set
                       - origins:chance
                       - origins:raycast_between
+                      - origins:remove_from_set
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
@@ -1984,12 +1988,15 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_velocity
                                 desc: The amount of velocity to add on the x-axis.
                                 link: expression_float
+                                default: 0
                             y:
                                 desc: The amount of velocity to add on the y-axis.
                                 link: expression_float
+                                default: 0
                             z:
                                 desc: The amount of velocity to add on the z-axis.
                                 link: expression_float
+                                default: 0
                             reference:
                                 desc: Determines whether to use the target entity’s "position" or "rotation" when calculating the velocity that will be applied to the target entity.
                                 enum: ['position','rotation']
@@ -2005,86 +2012,20 @@ links:
                                 desc: |
                                     The other end. Use { "source": "target" } for the entity this action was run against.
                                 link: rope_endpoint
-                            slot:
-                                desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it.
-                                type: string
-                            texture:
-                                desc: The texture the rope is drawn with.
-                                link: identifier
-                                default: "apoli:textures/rope/rope.png"
-                            toggle:
-                                desc: When true and no slot is given, re-firing while the actor already holds a controllable rope releases it instead of adding another.
-                                type: boolean
-                                default: true
-                            controllable:
-                                desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
-                                type: boolean
-                                default: true
-                            mode:
-                                link: rope_mode
-                            break_beyond:
-                                desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
-                                type: number
-                                default: 0
-                            min_length:
-                                desc: Shortest the rope can reel to.
-                                type: number
-                                default: 1
-                            max_length:
-                                desc: Longest the rope can be.
-                                type: number
-                                default: 30
-                            start_length:
-                                desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
-                                type: number
-                            stiffness:
-                                desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
-                                type: number
-                                default: 0.1
-                            radial_damping:
-                                desc: How much outward speed is bled off at the length limit.
-                                type: number
-                                default: 0.85
-                            spring_scaling:
-                                desc: Extra softening while swinging inward.
-                                type: number
-                                default: 0.65
-                            swing_boost:
-                                desc: Speed multiplier applied to a sprinting player’s swing.
-                                type: number
-                                default: 1.08
-                            max_swing_speed:
-                                desc: Cap on the sprint swing boost.
-                                type: number
-                                default: 0.7
-                            control_accel:
-                                desc: How hard the WASD swing keys push a controllable rope.
-                                type: number
-                                default: 0.08
-                            reel_step:
-                                desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
-                                type: number
-                                default: 0.2
-                            slack_pull_rate:
-                                desc: Multiplier applied to reeling in while there is slack.
-                                type: number
-                                default: 5.0
-                            constrain_from:
-                                desc: Whether the physics may pull the from end (only matters when it is an entity).
-                                type: boolean
-                                default: true
-                            constrain_to:
-                                desc: Whether the physics may pull the to end.
-                                type: boolean
-                                default: true
+                            link: action_attach_rope
                         string-origins:damage:
-                            amount:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
-                                desc: The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
-                                link: expression_float
+                            or:
+                              - amount:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
+                                    desc: The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
+                                    link: expression_float
+                              - damage:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
+                                    desc: (DEPRECATED, use amount) The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
+                                    link: expression_float
                             damage_type:
                                 desc: Defines the properties of the damage source that will be dealt, such as part of its death message, and whether it can bypass armor, shield, etc. (via damage type tags.)
-                                link: identifier
+                                link: damage_type
                             modifier:
                                 desc: If specified, this modifier will be applied to the damage taken by the ’target’ entity.
                                 link: attribute_modifier
@@ -2188,6 +2129,12 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/script/
                                 link: identifier_script
                             link: script_params
+                        string-origins:send_action:
+                            receiver:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/send_action/
+                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
+                                link: identifier
+                                required: true
                         string-origins:set_in_love: {}
                         string-origins:tame: {}
                         string-origins:target_action:
@@ -2204,65 +2151,28 @@ links:
                                 desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
                                 type: integer
                                 default: unspec
+                        string-origins:add_to_set:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_to_entity_set
+                                desc: (DEPRECATED) The ID of the power to add the target entity into.
+                                link: identifier
+                            time_limit:
+                                desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
+                                type: integer
+                                default: unspec
                         string-origins:remove_from_entity_set:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/remove_from_entity_set
                                 desc: The ID of the power to remove the target entity from.
                                 link: identifier
+                        string-origins:remove_from_set:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/remove_from_entity_set
+                                desc: (DEPRECATED) The ID of the power to remove the target entity from.
+                                link: identifier
                         string-origins:transfer:
                             mode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/transfer
-                                desc: steal moves powers target → actor; give moves them actor → target.
-                                enum: ['steal','give']
-                            copy:
-                                desc: If false, powers are moved (removed from the donor). If true, they are copied (the donor keeps them).
-                                type: boolean
-                            sources:
-                                desc: Only transfer powers granted by these sources. If omitted, every source on the donor is transferred (except new_source). This is how you copy one specific origin/layer — filter to the source it was granted under.
-                                link: identifier_array
-                            new_source:
-                                desc: The source the powers are granted under on the recipient. Grouping under one source lets you later remove them all in one call (see Losing / restoring below).
-                                link: identifier
-                                default: "apoli:transferred"
-                            preserve_source:
-                                desc: If true, powers keep their original source id on the recipient instead of new_source.
-                                type: boolean
-                            actor_action:
-                                desc: Action run on the actor after the transfer (e.g. a sound or particle).
-                                link: entity_action
-                            target_action:
-                                desc: Action run on the target after the transfer.
-                                link: entity_action
-                        string-origins:copy_origin:
-                            from_layer:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/copy_origin
-                                desc: The layer whose origin is read from the target.
-                                link: identifier
-                                default: 'origins:origin'
-                            to_layer:
-                                desc: The layer set on the actor to the copied origin. Its powers are granted from this layer’s source, so clearing the actor’s to_layer (e.g. /origin set @s origins:copy <blank>) removes them again — the basis for a temporary copy.
-                                link: identifier
-                                default: 'origins:copy'
-                        string-origins:store_origin:
-                            key:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin_bientity
-                                desc: The name to store the entry under on the actor.
-                                link: meta_key
-                                required: true
-                            layer:
-                                desc: Which of the target’s layers to read, and the layer recorded with the entry.
-                                link: identifier
-                                default: 'origins:origin'
-                            origin:
-                                desc: Store this origin id literally instead of reading the target’s.
-                                link: identifier
-                                default: unspec
-                            clear:
-                                desc: Remove the entry at key from the actor instead of writing one.
-                                type: boolean
-                        string-origins:transfer:
-                            mode:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/transfer/
                                 desc: steal moves powers target → actor; give moves them actor → target.
                                 enum: ['steal','give']
                             copy:
@@ -2284,6 +2194,23 @@ links:
                             target_action:
                                 desc: Action run on the target after the transfer.
                                 link: entity_action
+                        string-origins:store_origin:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin_bientity
+                                desc: The name to store the entry under on the actor.
+                                link: meta_key
+                                required: true
+                            layer:
+                                desc: Which of the target’s layers to read, and the layer recorded with the entry.
+                                link: identifier
+                                default: 'origins:origin'
+                            origin:
+                                desc: Store this origin id literally instead of reading the target’s.
+                                link: identifier
+                                default: unspec
+                            clear:
+                                desc: Remove the entry at key from the actor instead of writing one.
+                                type: boolean
                         string-origins:transfer_origin:
                             mode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/transfer_origin
@@ -2317,6 +2244,16 @@ links:
                             target_action:
                                 desc: Action run on the target after the transfer.
                                 link: entity_action
+                        string-origins:copy_origin:
+                            from_layer:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/copy_origin
+                                desc: The layer whose origin is read from the target.
+                                link: identifier
+                                default: 'origins:origin'
+                            to_layer:
+                                desc: The layer set on the actor to the copied origin. Its powers are granted from this layer’s source, so clearing the actor’s to_layer (e.g. /origin set @s origins:copy <blank>) removes them again — the basis for a temporary copy.
+                                link: identifier
+                                default: 'origins:copy'
           - title: custom
             link: custom_action
     entity_action:
@@ -2422,7 +2359,9 @@ links:
                       - origins:unsuppress_power
                       - $DEPRECATED
                       - origins:chance
+                      - origins:action_on_set
                       - origins:change_resource
+                      - origins:disguise_as_player
                       - origins:change_entity_data
                       - origins:set_entity_data
                       - origins:drop_inventory
@@ -2564,17 +2503,42 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/self_bientity_action/
                                 desc: The action to run with the entity as both actor and target.
                                 link: bientity_action
+                        string-origins:action_on_entity_set:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/action_on_entity_set/
+                                desc: The ID of the power.
+                                link: identifier
+                            bientity_condition:
+                                desc: If specified, only execute the bi-entity action if this bi-entity condition is fulfilled by both or either the actor and target.
+                                link: bientity_condition
+                            bientity_action:
+                                desc: The bi-entity action to execute on both or either the actor and target.
+                                link: bientity_action
+                            limit:
+                                desc: Determines the max amount of times the entity action type should iterate and execute the bi-entity action on the entities stored within the power. If the value is less than or equal to 0, then there will be no limit.
+                                type: integer
+                                min: 0
+                                default: 0
+                            reverse:
+                                desc: Determines whether to reverse the order of the entities within the power when processing.
+                                type: boolean
+                            iterate:
+                                desc: Which side of the set to walk — members for the set you own, owners for every set that has you in it.
+                                link: set_iteration
                         string-origins:add_velocity:
                             x:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_velocity
                                 desc: The amount of velocity to add on the x-axis.
                                 type: expression_float
+                                default: 0
                             y:
                                 desc: The amount of velocity to add on the y-axis.
                                 type: expression_float
+                                default: 0
                             z:
                                 desc: The amount of velocity to add on the z-axis.
                                 type: expression_float
+                                default: 0
                             space:
                                 desc: Determines how the direction of the velocity to add/set will be calculated.
                                 link: space
@@ -2594,7 +2558,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
                                 desc: |
                                     The advancement to act on. Omit it with selection: everything to act on all of them.
-                                link: identifier
+                                link: advancement
                             link: meta_advancement_action
                             revoke:
                                 desc: Revoke rather than grant. Filled in by the aliases.
@@ -2604,14 +2568,14 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_advancement
                                 desc: |
                                     (DEPRECATED) The advancement to grant. Omit it with selection: everything to act on all of them.
-                                link: identifier
+                                link: advancement
                             link: meta_advancement_action
                         string-origins:revoke_advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_advancement
                                 desc: |
                                     (DEPRECATED) The advancement to revoke. Omit it with selection: everything to act on all of them.
-                                link: identifier
+                                link: advancement
                             link: meta_advancement_action
                         string-origins:apply_effect:
                             effect:
@@ -2627,10 +2591,7 @@ links:
                             radius:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/area_of_effect
                                 desc: The size of the area — a single number (uniform on all axes) or {"x":.., "y":.., "z":..} for independent per-axis extents.
-                                or:
-                                  - type: number
-                                    default: 16
-                                  - link: vector
+                                link: vector_or_number
                             shape:
                                 desc: The outline of the area.
                                 link: shape
@@ -2655,75 +2616,7 @@ links:
                                 desc: |
                                     The other end. The default reproduces the classic grapple (a block you look at).
                                 link: rope_endpoint
-                            slot:
-                                desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
-                                link: meta_key
-                                default: unspec
-                            texture:
-                                desc: The texture the rope is drawn with.
-                                link: identifier
-                                default: 'apoli:textures/rope/rope.png'
-                            toggle:
-                                desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
-                                type: boolean
-                                default: true
-                            controllable:
-                                desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
-                                type: boolean
-                                default: true
-                            mode:
-                                link: rope_mode
-                            break_beyond:
-                                desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
-                                type: number
-                                default: 0
-                            min_length:
-                                desc: Shortest the rope can reel to.
-                                type: number
-                                default: 1
-                            max_length:
-                                desc: Longest the rope can be.
-                                type: number
-                                default: 30
-                            start_length:
-                                desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
-                                type: number
-                            stiffness:
-                                desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
-                                link: number_percent
-                                default: 0.1
-                            radial_damping:
-                                desc: How much outward speed is bled off at the length limit.
-                                link: number_percent
-                                default: 0.85
-                            spring_scaling:
-                                desc: Extra softening while swinging inward.
-                                link: number_percent
-                                default: 0.65
-                            swing_boost:
-                                desc: Speed multiplier applied to a sprinting player’s swing.
-                                type: number
-                                default: 1.08
-                            max_swing_speed:
-                                desc: Cap on the sprint swing boost.
-                                type: number
-                                default: 0.7
-                            reel_step:
-                                desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
-                                type: number
-                                default: 0.2
-                            slack_pull_rate:
-                                desc: Multiplier applied to reeling in while there is slack.
-                                type: number
-                                default: 5.0
-                            constrain_from:
-                                desc: Whether the physics may pull the from end (only matters when it is an entity).
-                                type: boolean
-                                default: true
-                            constrain_to:
-                                desc: Whether the physics may pull the to end.
-                                type: boolean
-                                default: true
+                            link: action_attach_rope
                         string-origins:block_action_at:
                             block_action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/block_action_at
@@ -2816,7 +2709,7 @@ links:
                             damage_type:
                                 href: https://minecraft.wiki/w/Damage_type
                                 desc: Defines the properties of the damage source that will be dealt, such as part of its death message, and whether it can bypass armor, shield, etc. (via damage type tags.)
-                                link: identifier
+                                link: damage_type
                             modifier:
                                 desc: If specified, this modifier will be applied to the damage taken by the entity.
                                 link: attribute_modifier
@@ -2830,18 +2723,45 @@ links:
                                 link: meta_key
                                 default: unspec
                         string-origins:disguise_as:
-                            entity_type:
+                            player_uuid:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/disguise_as
-                                desc: The mob type to appear as (e.g. minecraft:zombie). Ignored if a player field is set.
-                                link: identifier
+                                desc: UUID of the player to appear as. Takes priority over player_name.
+                                link: meta_key
                                 default: unspec
                             player_name:
                                 desc: Name of the player to appear as. Resolved from the server’s profile cache.
                                 type: string
                                 default: unspec
+                            entity_type:
+                                desc: The mob type to appear as (e.g. minecraft:zombie). Ignored if a player field is set.
+                                link: mob_type
+                            nbt:
+                                desc: Extra NBT applied to the mob disguise (e.g. to set a variant or custom name).
+                                link: nbt
+                            overwrite:
+                                desc: If false, does nothing when the entity is already disguised.
+                                type: boolean
+                                default: true
+                            change_name:
+                                desc: Whether the disguise also changes the entity’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
+                                type: boolean
+                                default: true
+                            before_action:
+                                desc: Runs on the entity before the disguise is applied.
+                                link: entity_action
+                            after_action:
+                                desc: Runs on the entity after the disguise is applied.
+                                link: entity_action
+                        string-origins:disguise_as_player:
                             player_uuid:
-                                desc: UUID of the player to appear as. Takes priority over player_name.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/disguise_as
+                                desc: (DEPRECATED) UUID of the player to appear as. Takes priority over player_name.
                                 link: meta_key
+                                default: unspec
+                            player_name:
+                                desc: Name of the player to appear as. Resolved from the server’s profile cache.
+                                type: string
+                                default: unspec
                             nbt:
                                 desc: Extra NBT applied to the mob disguise (e.g. to set a variant or custom name).
                                 link: nbt
@@ -2872,13 +2792,13 @@ links:
                             event:
                                 desc: The namespace and ID of a game event. See the Minecraft Wiki for a chart of game events and their vibration amplitudes.
                                 href: https://minecraft.wiki/w/Sculk_Sensor#Vibration_amplitudes
-                                link: identifier
+                                link: game_event
                         string-origins:ender_chest: {}
                         string-origins:equipped_item_action:
                             equipment_slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/equipped_item_action
                                 desc: Which equipped item to execute the action on.
-                                enum: [mainhand, offhand, head, chest, legs, feet]
+                                link: equipment_slot
                             action:
                                 desc: The item action type to execute on the item stack in the specified equipment slot.
                                 link: item_action
@@ -2926,69 +2846,15 @@ links:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
                                 desc: The identifier of the projectile or entity that will be launched.
-                                link: identifier
+                                or:
+                                  - title: projectile
+                                    link: projectile_type
+                                  - title: mob
+                                    link: mob_type
                             entity_id:
                                 desc: Identifier for tracking the projectile
                                 link: identifier
-                            texture_location:
-                                desc: If specified, the texture used for the custom projectile and entity_type is ignored.
-                                link: identifier
-                            count:
-                                desc: The amount of projectiles to fire each use.
-                                default: 1
-                                min: 1
-                            speed:
-                                desc: The speed applied to the fired projectile.
-                                type: number
-                                min: 0
-                                default: 1.5
-                            divergence:
-                                desc: How much each projectile fired is affected by random spread.
-                                type: number
-                                min: 0
-                                default: 1
-                            sound:
-                                desc: If set, the sound with this ID will be played when the power is used.
-                                link: identifier
-                            tag:
-                                desc: NBT data to apply to projectiles.
-                                link: nbt
-                            entity_action_before_firing:
-                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-                                link: entity_action
-                            projectile_action:
-                                desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
-                                link: entity_action
-                            tick_bientity_action:
-                                desc: 	If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
-                                link: bientity_action
-                            bientity_action_after_firing:
-                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                                link: bientity_action
-                            block_condition:
-                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                                link: block_condition
-                            block_action_on_hit:
-                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-                                link: block_action
-                            block_action_cancels_miss_action:
-                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                                type: boolean
-                            bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            bientity_action_on_miss:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                                link: bientity_action
-                            bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bientity_action
-                            owner_bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            owner_target_bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bientity_action
+                            link: action_fire_projectile_common
                         string-origins:force_key_pressed:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/force_key_pressed
@@ -3828,12 +3694,7 @@ type: number
                             radius:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/area_of_effect
                                 desc: The size of the area — a single number (uniform on all axes) or {"x":.., "y":.., "z":..} for independent per-axis extents (e.g. a flat layer).
-                                or:
-                                    - title: simple
-                                      type: integer
-                                      default: 16
-                                    - title: custom
-                                      link: vector
+                                link: vector_or_number
                             shape:
                                 link: shape
                             block_condition:
@@ -4511,21 +4372,6 @@ type: number
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
                             desc: The ID of the entity type that will be fired.
                             link: identifier
-                        texture_location:
-                            desc: If specified, the texture used for the projectile and the entity_type will be ignored.
-                            link: identifier
-                        cooldown:
-                            desc: Interval of ticks this power needs to recharge before the power can be triggered again.
-                            type: integer
-                            min: 0
-                            default: 1
-                        hud_render:
-                            desc: 	Determines how the cooldown of this power is visualized on the HUD.
-                            link: hud_render
-                        count:
-                            desc: The amount of projectiles to fire each use.
-                            default: 1
-                            min: 1
                         interval:
                             desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
                             type: integer
@@ -4535,70 +4381,22 @@ type: number
                             desc: Determines how long the start of the firing process is delayed (in ticks).
                             type: integer
                             default: 0
-                        speed:
-                            desc: The speed applied to the fired projectile.
-                            type: number
-                            min: 0
-                            default: 1.5
-                        divergence:
-                            desc: How much each projectile fired is affected by random spread.
-                            type: number
-                            min: 0
-                            default: 1
-                        sound:
-                            desc: If set, the sound with this ID will be played when the power is used.
-                            link: identifier
-                        tag:
-                            desc: NBT data to apply to projectiles.
-                            link: nbt
                         allow_conditional_cancelling:
                             desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
                             type: boolean
-                        block_action_cancels_miss_action:
-                            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                            type: boolean
-                        entity_action_before_firing:
-                            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-                            link: entity_action
-                        projectile_action:
-                            desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
-                            link: entity_action
+                        link: action_fire_projectile_common
                         shooter_action:
                             desc: If specified, this entity action will be executed on the entity that has the power.
                             link: entity_action
-                        tick_bientity_action:
-                            desc: 	If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
-                            link: bientity_action
-                        bientity_action_after_firing:
-                            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                            link: bientity_action
-                        block_condition:
-                            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                            link: block_condition
-                        block_action_on_hit:
-                            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-                            link: block_action
-                        block_action_cancels_miss_action:
-                            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                            type: boolean
-                        bientity_condition:
-                            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                            link: bientity_condition
-                        bientity_action_on_miss:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                            link: bientity_action
-                        bientity_action_on_hit:
-                            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                            link: bientity_action
-                        owner_bientity_condition:
-                            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                            link: bientity_condition
-                        owner_target_bientity_action_on_hit:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
-                            link: bientity_action
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
                             link: keybind
+                        cooldown:
+                            link: cooldown
+                            default: 1
+                        hud_render:
+                            desc: 	Determines how the cooldown of this power is visualized on the HUD.
+                            link: hud_render
                     string-origins:fluid_vision:
                         fluid:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fluid_vision/
@@ -6707,6 +6505,136 @@ type: number
                     type: integer
                 provider:
                     enum: ['accessories','curios','trinkets']
+    action_attach_rope:
+        slot:
+            desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
+            link: meta_key
+            default: unspec
+        texture:
+            desc: The texture the rope is drawn with.
+            link: identifier
+            default: 'apoli:textures/rope/rope.png'
+        toggle:
+            desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
+            type: boolean
+            default: true
+        controllable:
+            desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
+            type: boolean
+            default: true
+        mode:
+            link: rope_mode
+        break_beyond:
+            desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
+            type: number
+            default: 0
+        min_length:
+            desc: Shortest the rope can reel to.
+            type: number
+            default: 1
+        max_length:
+            desc: Longest the rope can be.
+            type: number
+            default: 30
+        start_length:
+            desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
+            type: number
+        stiffness:
+            desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
+            link: number_percent
+            default: 0.1
+        radial_damping:
+            desc: How much outward speed is bled off at the length limit.
+            link: number_percent
+            default: 0.85
+        spring_scaling:
+            desc: Extra softening while swinging inward.
+            link: number_percent
+            default: 0.65
+        swing_boost:
+            desc: Speed multiplier applied to a sprinting player’s swing.
+            type: number
+            default: 1.08
+        max_swing_speed:
+            desc: Cap on the sprint swing boost.
+            type: number
+            default: 0.7
+        reel_step:
+            desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
+            type: number
+            default: 0.2
+        slack_pull_rate:
+            desc: Multiplier applied to reeling in while there is slack.
+            type: number
+            default: 5.0
+        constrain_from:
+            desc: Whether the physics may pull the from end (only matters when it is an entity).
+            type: boolean
+            default: true
+        constrain_to:
+            desc: Whether the physics may pull the to end.
+            type: boolean
+            default: true
+    action_fire_projectile_common:
+        texture_location:
+            desc: If specified, the texture used for the custom projectile and entity_type is ignored.
+            link: identifier
+        count:
+            desc: The amount of projectiles to fire each use.
+            default: 1
+            min: 1
+        speed:
+            desc: The speed applied to the fired projectile.
+            type: number
+            min: 0
+            default: 1.5
+        divergence:
+            desc: How much each projectile fired is affected by random spread.
+            type: number
+            min: 0
+            default: 1
+        sound:
+            desc: If set, the sound with this ID will be played when the power is used.
+            link: identifier
+        tag:
+            desc: NBT data to apply to projectiles.
+            link: nbt
+        entity_action_before_firing:
+            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+            link: entity_action
+        projectile_action:
+            desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
+            link: entity_action
+        tick_bientity_action:
+            desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+            link: bientity_action
+        bientity_action_after_firing:
+            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+            link: bientity_action
+        block_condition:
+            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+            link: block_condition
+        block_action_on_hit:
+            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+            link: block_action
+        block_action_cancels_miss_action:
+            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+            type: boolean
+        bientity_condition:
+            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+            link: bientity_condition
+        bientity_action_on_miss:
+            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+            link: bientity_action
+        bientity_action_on_hit:
+            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+            link: bientity_action
+        owner_bientity_condition:
+            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+            link: bientity_condition
+        owner_target_bientity_action_on_hit:
+            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+            link: bientity_action
     action_result:
         enum: ['consume_partial','consume','fail','pass','success']
         desc: |
@@ -6897,6 +6825,10 @@ type: number
             dispenser		3x3 Dispenser inventory.
             double_chest	9x8 Double Chest inventory.
         enum: ['chest','hopper','dropper','dispenser','double_chest']
+    cooldown:
+        desc: Interval of ticks this power needs to recharge before the power can be triggered again.
+        link: expression_integer
+        min: 0
     crafting_recipe:
         desc: The type of recipe.
         or:
@@ -9153,7 +9085,7 @@ type: number
         radius:
             desc: |
                 Thickens the ray into a beam for entity detection — a single number (uniform) or a vector { "x": .., "y": .., "z": .. } (width / height / depth). Entities within this half-extent of the ray line are hit. Block detection still uses the centre line.
-            link: vector
+            link: vector_or_number
         cone_angle:
             desc: Turns entity detection into a directional cone attack — hits every entity within this many degrees of the ray direction, out to the entity range. Takes the place of radius for entities; block detection still follows the centre line.
             type: number
@@ -9427,6 +9359,12 @@ type: number
             during		The action will be called every tick while the entity is using an item which has a use duration.
             instant		The action will not fire for items with a use duration, but will instead fire when an item is used which triggers its effect instantly, such as an ender pearl or splash potion.
         enum: ['finish', 'start', 'stop', 'during', 'instant']
+    vector_or_number:
+        or:
+          - title: number
+            type: number
+          - title: vector
+            link: vector
     vector:
         type: object
         props:
