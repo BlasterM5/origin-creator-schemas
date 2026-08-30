@@ -66,7 +66,7 @@ links:
                                 vals:
                                     link: bientity_condition
                         string-origins:random_chance:
-                            link: meta_condition_chance
+                            link: meta_condition_random_chance
                         string-origins:chance:
                             link: meta_condition_chance
                         string-origins:constant:
@@ -330,7 +330,7 @@ links:
                                 vals:
                                     link: entity_condition
                         string-origins:random_chance:
-                            link: meta_condition_chance
+                            link: meta_condition_random_chance
                         string-origins:chance:
                             link: meta_condition_chance
                         string-origins:constant:
@@ -514,7 +514,7 @@ links:
                             scale_reference_to_dimension:
                                 desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
                                 type: boolean
-                                default: true
+                                unspec: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
                                 type: boolean_optional
@@ -538,7 +538,7 @@ links:
                                 desc: |
                                     If set to true, the entity condition type will check whether the player has the ability to activate elytra flight. (e.g: wearing an elytra or have a power that uses the apoli:elytra_flight)
                                 type: boolean
-                                default: true
+                                unspec: true
                         string-origins:enchantment:
                             enchantment:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/enchantment
@@ -674,7 +674,7 @@ links:
                         string-origins:food_level:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/food_level
-                                desc: (DEPRECATED) Determines how the food level of the player should be compared to the specified value.
+                                desc: (ALIAS) Determines how the food level of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value at which the food level of the player will be compared to.
@@ -682,7 +682,7 @@ links:
                         string-origins:saturation_level:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/saturation_level
-                                desc: (DEPRECATED) Determines how the saturation level of the player should be compared to the specified value.
+                                desc: (ALIAS) Determines how the saturation level of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value at which the saturation level of the player will be compared to.
@@ -784,11 +784,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/moving
                                 desc: Determines whether to check if the entity is moving horizontally.
                                 type: boolean
-                                default: true
+                                unspec: true
                             vertically:
                                 desc: Determines whether to check if the entity is moving vertically.
                                 type: boolean
-                                default: true
+                                unspec: true
                         string-origins:nbt:
                             nbt:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/nbt
@@ -879,11 +879,11 @@ links:
                             block:
                                 desc: Determines whether the raycast should include blocks.
                                 type: boolean
-                                default: true
+                                unspec: true
                             entity:
                                 desc: Determines whether the raycast should include entities.
                                 type: boolean
-                                default: true
+                                unspec: true
                             shape_type:
                                 link: shape_type
                                 default: 'visual'
@@ -1082,7 +1082,7 @@ links:
                         string-origins:xp_levels:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp_levels
-                                desc: (DEPRECATED) Determines how the experience level of the player should be compared to the specified value.
+                                desc: (ALIAS) Determines how the experience level of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value at which the experience level of the player will be compared to.
@@ -1090,7 +1090,7 @@ links:
                         string-origins:xp_points:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/xp_points
-                                desc: (DEPRECATED) Determines how the experience points of the player should be compared to the specified value.
+                                desc: (ALIAS) Determines how the experience points of the player should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value at which the experience points of the player will be compared to.
@@ -1172,7 +1172,7 @@ links:
                         string-origins:constant:
                             link: meta_condition_constant
                         string-origins:random_chance:
-                            link: meta_condition_chance
+                            link: meta_condition_random_chance
                         string-origins:chance:
                             link: meta_condition_chance
                         string-origins:empty: {}
@@ -1211,7 +1211,7 @@ links:
                                 desc: |
                                     Determines whether to account for enchantments that were added/modified by unnatural means (e.g: via the apoli:modify_enchantment_level)
                                 type: boolean
-                                default: true
+                                unspec: true
                             comparison:
                                 desc: Determines how the level of the specified enchantment, or the amount of enchantments in the item stack, should be compared to the specified value.
                                 link: comparison
@@ -1387,7 +1387,7 @@ links:
                         string-origins:constant:
                             link: meta_condition_constant
                         string-origins:random_chance:
-                            link: meta_condition_chance
+                            link: meta_condition_random_chance
                         string-origins:chance:
                             link: meta_condition_chance
                         string-origins:adjacent:
@@ -1470,7 +1470,7 @@ links:
                             scale_reference_to_dimension:
                                 desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
                                 type: boolean
-                                default: true
+                                unspec: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
                                 type: boolean_optional
@@ -1590,32 +1590,32 @@ links:
                     more:
                         string-origins:all_of:
                             conditions:
-                                desc: All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_all_of
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:and:
                             conditions:
-                                desc: (DEPRECATED) All of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_and
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:any_of:
                             conditions:
-                                desc: Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_any_of
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:or:
                             conditions:
-                                desc: (DEPRECATED) Any of these condition types have to be fulfilled in order for this condition to be fulfilled.
+                                link: description_or
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:constant:
                             link: meta_condition_constant
                         string-origins:random_chance:
-                            link: meta_condition_chance
+                            link: meta_condition_random_chance
                         string-origins:chance:
                             link: meta_condition_chance
                         string-origins:empty: {}
@@ -1679,7 +1679,7 @@ links:
                         string-origins:constant:
                             link: meta_condition_constant
                         string-origins:random_chance:
-                            link: meta_condition_chance
+                            link: meta_condition_random_chance
                         string-origins:chance:
                             link: meta_condition_chance
                         string-origins:high_humidity: {}
@@ -1767,7 +1767,7 @@ links:
                         string-origins:constant:
                             link: meta_condition_constant
                         string-origins:random_chance:
-                            link: meta_condition_chance
+                            link: meta_condition_random_chance
                         string-origins:chance:
                             link: meta_condition_chance
                         string-origins:amount:
@@ -1884,9 +1884,7 @@ links:
                                     link: bientity_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: number_percent
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -1895,9 +1893,7 @@ links:
                                 link: bientity_action
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: number_percent
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -2037,11 +2033,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/disguise
                                 desc: If false, does nothing when the actor is already disguised.
                                 type: boolean
-                                default: true
+                                unspec: true
                             change_name:
                                 desc: Whether the disguise also changes the actor’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
                                 type: boolean
-                                default: true
+                                unspec: true
                         string-origins:execute_command:
                             command:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/execute_command/
@@ -2107,22 +2103,22 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/raycast
                                 desc: Aim at the target instead of the actor’s look direction.
                                 type: boolean
-                                default: true
+                                unspec: true
                             stop_at_target:
                                 desc: Clamp the ray’s length to the actor→target distance.
                                 type: boolean
-                                default: true
+                                unspec: true
                             link: raycast_action
                         string-origins:raycast_between:
                             aim_at_target:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/raycast
                                 desc: (DEPRECATED) Aim at the target instead of the actor’s look direction.
                                 type: boolean
-                                default: true
+                                unspec: true
                             stop_at_target:
                                 desc: Clamp the ray’s length to the actor→target distance.
                                 type: boolean
-                                default: true
+                                unspec: true
                             link: raycast_action
                         string-origins:script:
                             script:
@@ -2345,12 +2341,14 @@ links:
                       - origins:advancement
                       - origins:apply_stored_origin
                       - origins:force_swap
+                      - origins:grant_origin
                       - origins:grant_all_powers
                       - origins:grant_power
                       - origins:modify_entity_data
                       - origins:modify_resource
                       - origins:modify_stat
                       - origins:remove_power
+                      - origins:revoke_origin
                       - origins:revoke_all_powers
                       - origins:revoke_power
                       - origins:store_origin
@@ -2361,9 +2359,14 @@ links:
                       - origins:chance
                       - origins:action_on_set
                       - origins:change_resource
+                      - origins:change_stat
                       - origins:disguise_as_player
                       - origins:change_entity_data
+                      - origins:join_team
+                      - origins:leave_team
+                      - origins:modify_team
                       - origins:set_entity_data
+                      - origins:set_stat
                       - origins:drop_inventory
                       - origins:modify_inventory
                       - origins:replace_inventory
@@ -2380,10 +2383,7 @@ links:
                                     link: entity_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                type: number_percent
-                                required: true
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
@@ -2394,9 +2394,7 @@ links:
                                 default: unspec
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance)
-                                link: number_percent
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
@@ -2492,17 +2490,24 @@ links:
                                 desc: The selector to use for selecting entities. It can be the username of a player, the UUID of the entity or a target selector.
                                 type: string
                                 ext: true
-                            bientity_action:
-                                desc: If specified, this action will be executed on either or both the actor and target entities.
-                                link: bientity_action
                             bientity_condition:
                                 desc: If specified, the specified action will only be executed if this condition is fulfilled by either or both the actor and target entities.
                                 link: bientity_condition
+                            bientity_action:
+                                desc: If specified, this action will be executed on either or both the actor and target entities.
+                                link: bientity_action
                         string-origins:self_bientity_action:
                             bientity_action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/self_bientity_action/
                                 desc: The action to run with the entity as both actor and target.
                                 link: bientity_action
+                                required: true
+                        string-origins:send_action:
+                            receiver:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/send_action/
+                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
+                                link: identifier
+                                required: true
                         string-origins:action_on_entity_set:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/action_on_entity_set/
@@ -2567,14 +2572,14 @@ links:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_advancement
                                 desc: |
-                                    (DEPRECATED) The advancement to grant. Omit it with selection: everything to act on all of them.
+                                    (ALIAS) The advancement to grant. Omit it with selection: everything to act on all of them.
                                 link: advancement
                             link: meta_advancement_action
                         string-origins:revoke_advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_advancement
                                 desc: |
-                                    (DEPRECATED) The advancement to revoke. Omit it with selection: everything to act on all of them.
+                                    (ALIAS) The advancement to revoke. Omit it with selection: everything to act on all of them.
                                 link: advancement
                             link: meta_advancement_action
                         string-origins:apply_effect:
@@ -2741,11 +2746,11 @@ links:
                             overwrite:
                                 desc: If false, does nothing when the entity is already disguised.
                                 type: boolean
-                                default: true
+                                unspec: true
                             change_name:
                                 desc: Whether the disguise also changes the entity’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
                                 type: boolean
-                                default: true
+                                unspec: true
                             before_action:
                                 desc: Runs on the entity before the disguise is applied.
                                 link: entity_action
@@ -2768,11 +2773,11 @@ links:
                             overwrite:
                                 desc: If false, does nothing when the entity is already disguised.
                                 type: boolean
-                                default: true
+                                unspec: true
                             change_name:
                                 desc: Whether the disguise also changes the entity’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
                                 type: boolean
-                                default: true
+                                unspec: true
                             before_action:
                                 desc: Runs on the entity before the disguise is applied.
                                 link: entity_action
@@ -2823,7 +2828,7 @@ links:
                             damage_self:
                                 desc: Determines if the entity that invoked the action should take damage from the summoned explosion.
                                 type: boolean
-                                default: true
+                                unspec: true
                             indestructible:
                                 desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
                                 link: block_condition
@@ -2898,7 +2903,7 @@ links:
                             include_hidden:
                                 desc: Whether to include powers marked hidden.
                                 type: boolean
-                                default: true
+                                unspec: true
                         string-origins:grant_power:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_power
@@ -2931,6 +2936,33 @@ links:
                             modifier:
                                 desc: The modifier to apply to the current value of the target power.
                                 link: attribute_modifier
+                            or:
+                              - position:
+                                    desc: Which slot of a table resource to modify. Omit it on a table and every slot is modified. Also aliased as index and slot.
+                                    link: expression_integer
+                              - index:
+                                    desc: (ALIAS) Which slot of a table resource to modify. Omit it on a table and every slot is modified.
+                                    link: expression_integer
+                              - slot:
+                                    desc: (ALIAS) Which slot of a table resource to modify. Omit it on a table and every slot is modified.
+                                    link: expression_integer
+                            or:
+                              - from:
+                                    desc: Copy from this resource instead of computing a value from the modifier. Also aliased as from_resource.
+                                    link: identifier
+                              - from_resource:
+                                    desc: (ALIAS) Copy from this resource instead of computing a value from the modifier.
+                                    link: identifier
+                            or:
+                              - from_position:
+                                    desc: Which slot of from to read. Also aliased as from_index and from_slot.
+                                    link: expression_integer
+                              - from_index:
+                                    desc: (ALIAS) Which slot of from to read.
+                                    link: expression_integer
+                              - from_slot:
+                                    desc: (ALIAS) Which slot of from to read..
+                                    link: expression_integer
                         string-origins:modify_stat:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_stat
@@ -2939,20 +2971,22 @@ links:
                             modifier:
                                 desc: This modifier will be applied to the current value of the statistic specified.
                                 link: attribute_modifier
-                        string-origins:passenger_action:
-                            action:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/passenger_action
-                                desc: If specified, this action will be executed on the passenger entity.
-                                link: entity_action
-                            bientity_condition:
-                                desc: If specified, the specified actions will only be executed if this condition is fulfilled by either the ‘actor’ (the entity being ridden) or the ‘target’ (the passenger entity) or both.
-                                link: bientity_condition
-                            bientity_action:
-                                desc: If specified, this action will be executed on either the ‘actor’ (the entity being ridden) or the ‘target’ (the passenger entity) or both.
-                                link: bientity_action
-                            recursive:
-                                desc: If set to true, the specified action(s) will be executed on all the passenger entities.
-                                type: boolean
+                        string-origins:change_stat:
+                            stat:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_stat
+                                desc: (DEPRECATED) The type and name of the statistic to be modified.
+                                link: stat
+                            modifier:
+                                desc: This modifier will be applied to the current value of the statistic specified.
+                                link: attribute_modifier
+                        string-origins:set_stat:
+                            stat:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_stat
+                                desc: (DEPRECATED) The type and name of the statistic to be modified.
+                                link: stat
+                            modifier:
+                                desc: This modifier will be applied to the current value of the statistic specified.
+                                link: attribute_modifier
                         string-origins:play_sound:
                             sound:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/play_sound
@@ -2983,16 +3017,16 @@ links:
                         string-origins:radial_menu:
                             entries:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/radial_menu
-                                desc: An array of radial menu entry objects.
+                                desc: An array of radial menu entry objects. Listed in clockwise order.
                                 type: list
                                 vals:
                                     link: radial_menu_entry
                                 required: true
                             sprite_location:
-                                desc: Custom texture for the radial menu background (256x256 pixels)
+                                desc: A texture used for the menu’s own background sprites. (256x256 pixels)
                                 link: identifier
                                 default: unspec
-                        string-origin:random_teleport:
+                        string-origins:random_teleport:
                             area_width:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/random_teleport
                                 desc: Determines the width of the area.
@@ -3022,7 +3056,7 @@ links:
                             loaded_chunks_only:
                                 desc: Determines whether the entity should only be teleported in loaded chunks. It is recommended to keep this set to true for performance reasons.
                                 type: boolean
-                                default: true
+                                unspec: true
                             sucess_action:
                                 desc: If specified, this entity action will be executed on the entity after it’s been successfully teleported to a random location.
                                 link: entity_action
@@ -3034,14 +3068,47 @@ links:
                         string-origins:relative_action:
                             target:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/relative_action
-                                enum: [passenger_action,riding_action]
+                                desc: passenger to act on entities riding this one, vehicle to act on what this one is riding. Filled in by the aliases.
+                                enum: ['passenger_action','riding_action']
                             action:
+                                desc: Run on the relative entity, with that entity as the actor.
                                 link: entity_action
                             bientity_condition:
+                                desc: Checked against the same actor/target pair; a relative entity that fails it is skipped.
                                 link: bientity_condition
                             bientity_action:
+                                desc: Run with this entity as the actor and the relative entity as the target, so the two are still told apart.
                                 link: bientity_action
                             recursive:
+                                desc: Follow the chain all the way — every passenger’s passengers, or every vehicle’s vehicle.
+                                type: boolean
+                        string-origins:passenger_action:
+                            action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/passenger_action
+                                desc: (ALIAS) If specified, this action will be executed on the passenger entity.
+                                link: entity_action
+                            bientity_condition:
+                                desc: If specified, the specified actions will only be executed if this condition is fulfilled by either the ‘actor’ (the entity being ridden) or the ‘target’ (the passenger entity) or both.
+                                link: bientity_condition
+                            bientity_action:
+                                desc: If specified, this action will be executed on either the ‘actor’ (the entity being ridden) or the ‘target’ (the passenger entity) or both.
+                                link: bientity_action
+                            recursive:
+                                desc: If set to true, the specified action(s) will be executed on all the passenger entities.
+                                type: boolean
+                        string-origins:riding_action:
+                            action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/riding_action
+                                desc: (ALIAS) If specified, this action will be executed on the entity being ridden.
+                                link: entity_action
+                            bientity_condition:
+                                desc: If specified, only execute the specified actions if this condition is fulfilled by either the ‘actor’ (the passenger entity) or the ‘target’ (entity being ridden) or both.
+                                link: bientity_condition
+                            bientity_action:
+                                desc: If specified, this action will be executed on either the ‘actor’ (the passenger entity) or the ‘target’ (the entity being ridden) or both.
+                                link: bientity_action
+                            recursive:
+                                desc: If set to true, the specified action(s) will be executed on all entities that are being ridden.
                                 type: boolean
                         string-origins:release_grab: {}
                         string-origins:remove_disguise: {}
@@ -3062,20 +3129,6 @@ links:
                             source:
                                 desc: The namespace and ID of the source of the power.
                                 link: identifier
-                        string-origins:riding_action:
-                            action:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/riding_action
-                                desc: 	If specified, this action will be executed on the entity being ridden.
-                                link: entity_action
-                            bientity_condition:
-                                desc: If specified, only execute the specified actions if this condition is fulfilled by either the ‘actor’ (the passenger entity) or the ‘target’ (entity being ridden) or both.
-                                link: bientity_condition
-                            bientity_action:
-                                desc: If specified, this action will be executed on either the ‘actor’ (the passenger entity) or the ‘target’ (the entity being ridden) or both.
-                                link: bientity_action
-                            recursive:
-                                desc: If set to true, the specified action(s) will be executed on all entities that are being ridden.
-                                type: boolean
                         string-origins:rope_pull:
                             slot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/rope_pull
@@ -3117,6 +3170,7 @@ links:
                             summon_id:
                                 desc: If set, only summons whose summon_id matches are affected. If unset, any summon is affected.
                                 link: identifier
+                                default: unspec
                         string-origins:spawn_effect_cloud:
                             radius:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_effect_cloud
@@ -3131,6 +3185,7 @@ links:
                                 desc: How many ticks to wait until the cloud takes effect.
                                 type: integer
                                 default: 10
+                                min: 0
                             effect:
                                 desc: If specified, this status effect will be applied by the cloud to entities inside of it.
                                 link: status_effect_instance
@@ -3164,8 +3219,6 @@ links:
                             count:
                                 desc: How much of the specified particle type will be spawned.
                                 type: integer
-                                min: 1
-                                default: 1
                             speed:
                                 desc: Determines the speed of the specified particle type.
                                 type: number
@@ -3193,23 +3246,23 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_clone
                                 desc: Whether the clone attacks the owner’s enemies.
                                 type: boolean
-                                default: true
+                                unspec: true
                             can_sit:
                                 desc: Whether the owner can toggle the clone sitting by right-clicking it.
                                 type: boolean
-                                default: true
+                                unspec: true
                             follow_owner:
                                 desc: Whether the clone follows the owner when far away.
                                 type: boolean
-                                default: true
+                                unspec: true
                             inherit_equipment:
                                 desc: Whether the clone copies the owner’s worn/held equipment.
                                 type: boolean
-                                default: true
+                                unspec: true
                             inherit_enchantments:
                                 desc: Whether inherited equipment keeps its enchantments (and other components).
                                 type: boolean
-                                default: true
+                                unspec: true
                             slim:
                                 desc: Forces the slim arm model. Only used when custom textures are set; otherwise the owner’s model is mirrored.
                                 type: boolean
@@ -3225,6 +3278,7 @@ links:
                                 desc: Ticks before the clone vanishes. 0 or less = permanent until killed.
                                 type: integer
                                 default: 1200
+                                min: 0
                             summon_id:
                                 desc: A tag used by apoli:set_summon_max_life to target this clone.
                                 type: identifier
@@ -3240,7 +3294,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_minion
                                 desc: The minion’s texture.
                                 link: identifier
-                                default: "apoli:textures/entity/minion_template.png"
+                                default: 'apoli:textures/entity/minion_template.png'
                             follow_owner:
                                 desc: If true, the minion follows the owner (and floats, ignoring gravity).
                                 type: boolean
@@ -3258,6 +3312,7 @@ links:
                                 desc: Ticks before the minion vanishes. 0 or less = permanent until killed.
                                 type: integer
                                 default: 1200
+                                min: 0
                             summon_id:
                                 desc: A tag used by apoli:set_summon_max_life to target this minion.
                                 link: identifier
@@ -3273,6 +3328,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/suppress_power
                                 desc: The power(s) to suppress.
                                 link: identifier_single_or_array
+                                required: true
                             source:
                                 desc: The tag(s) the suppression is filed under. Unsuppressing must name the same source.
                                 link: identifier_single_or_array
@@ -3280,7 +3336,7 @@ links:
                             hand:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/swing_hand
                                 desc: Determines which hand is swung.
-                                enum: ['MAIN_HAND', 'OFF_HAND']
+                                link: hand
                         string-origins:team:
                             operation:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
@@ -3299,7 +3355,34 @@ links:
                             create_if_missing:
                                 desc: For join and create, make the team if it does not exist yet.
                                 type: boolean
-                                default: true
+                                unspec: true
+                        string-origins:join_team:
+                            team:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
+                                desc: (DEPRECATED) Which team, and which properties to set. If omitted, the entity’s current team is used.
+                                link: team
+                            create_if_missing:
+                                desc: For join and create, make the team if it does not exist yet.
+                                type: boolean
+                                unspec: true
+                        string-origins:leave_team:
+                            team:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
+                                desc: (DEPRECATED) Which team, and which properties to set. If omitted, the entity’s current team is used.
+                                link: team
+                            create_if_missing:
+                                desc: For join and create, make the team if it does not exist yet.
+                                type: boolean
+                                unspec: true
+                        string-origins:modify_team:
+                            team:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
+                                desc: (DEPRECATED) Which team, and which properties to set. If omitted, the entity’s current team is used.
+                                link: team
+                            create_if_missing:
+                                desc: For join and create, make the team if it does not exist yet.
+                                type: boolean
+                                unspec: true
                         string-origins:text:
                             text:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/text
@@ -3315,9 +3398,11 @@ links:
                                     type: list
                                     vals:
                                         link: text_component
+                                required: true
                             bar:
                                 desc: Where to display the text.
                                 enum: ['actionbar','title','subtitle','top_left','top_center','top_right','left','right','bottom_left','bottom_right']
+                                unspec: 'actionbar'
                             bold:
                                 desc: Base bold styling.
                                 type: boolean
@@ -3329,6 +3414,9 @@ links:
                                 type: boolean
                             strikethrough:
                                 desc: Base strikethrough styling.
+                                type: boolean
+                            obfuscated:
+                                desc: Base obfuscated styling.
                                 type: boolean
                             fadein:
                                 desc: Fade-in time in ticks.
@@ -3349,18 +3437,116 @@ links:
                         string-origins:toggle:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/toggle
-                                desc: The namespace and ID of the power that uses the Toggle (Power Type).
+                                desc: Toggles the state of a power that uses the Toggle (Power Type).
                                 link: identifier
                         string-origins:trigger_cooldown:
-                            power:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
-                                desc: The apoli:cooldown power to trigger. (The legacy field resource is still accepted as an alias.)
+                            or:
+                              - power:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
+                                    desc: The apoli:cooldown power to trigger. (The legacy field resource is still accepted as an alias.)
+                                    link: identifier
+                              - resource:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
+                                    desc: (ALIAS) The apoli:cooldown power to trigger.
+                                    link: identifier
+                        string-origins:apply_stored_origin:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/apply_stored_origin/
+                                desc: Which stored entry to apply.
+                                link: meta_key
+                                required: true
+                            layer:
+                                desc: Apply to this layer instead of the one recorded with the entry.
                                 link: identifier
+                            clear:
+                                desc: Remove the entry once it has been applied.
+                                type: boolean
+                        string-origins:force_swap:
+                            mode:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/apply_stored_origin/
+                                desc: linear advances to the next option in order; random picks a different one at random; main returns to the main origin.
+                                enum: ['linear','random','main']
+                            layer:
+                                desc: Which layer to swap on. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
+                                link: identifier
+                                default: unspec
+                            origin:
+                                desc: Swap directly to this origin, ignoring mode. Does nothing if it is not in the player’s pool.
+                                link: identifier
+                                default: unspec
+                            include_main:
+                                desc: In random mode, whether the main origin is one of the possible results.
+                                type: boolean
+                                unspec: true
+                        string-origins:grant_origin:
+                            origin:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/grant_origin/
+                                desc: The origin to grant. Unknown ids and origins:empty do nothing.
+                                link: identifier
+                                required: true
+                            layer:
+                                desc: The layer to grant it on.
+                                link: identifier
+                                unspec: 'origins:origin'
+                            or:
+                              - to_pool:
+                                    desc: On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant. Also accepts the alias swappable.
+                                    type: boolean
+                              - swappable:
+                                    desc: (ALIAS) On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant.
+                                    type: boolean
+                        string-origins:open_swap_menu:
+                            layer:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/open_swap_menu/
+                                desc: Which layer to show the pool for. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
+                                link: identifier
+                                default: unspec
+                        string-origins:revoke_origin:
+                            origin:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/revoke_origin/
+                                desc: The origin to take. Omit it to clear the layer and everything the player was granted in its swap pool.
+                                link: identifier
+                                default: unspec
+                            layer:
+                                desc: The layer to take it from.
+                                link: identifier
+                                unspec: 'origins:origin'
+                        string-origins:store_origin:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin/
+                                desc: The name to store the entry under. Storing under an existing key overwrites it.
+                                link: meta_key
+                                required: true
+                            layer:
+                                desc: Which layer’s origin to read, and the layer recorded with the entry.
+                                link: identifier
+                                unspec: 'origins:origin'
+                            origin:
+                                desc: Store this origin id literally instead of reading the entity’s current one.
+                                link: identifier
+                                default: unspec
+                            clear:
+                                desc: Remove the entry at key instead of writing one.
+                                type: boolean
+                        string-origins:store_value:
+                            key:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_value/
+                                desc: The name to store the text under.
+                                link: meta_key
+                                required: true
+                            value:
+                                desc: The text to store. [other_key] placeholders are expanded against the same player’s store before it is written.
+                                type: string
+                                ext: true
+                            clear:
+                                desc: Remove the entry at key instead of writing one.
+                                type: boolean
                         string-origins:unsuppress_power:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/unsuppress_power
                                 desc: The power(s) to unsuppress.
                                 link: identifier_single_or_array
+                                required: true
                             source:
                                 desc: The source(s) to lift. Must match what suppressed the power.
                                 link: identifier_single_or_array
@@ -3403,9 +3589,7 @@ links:
                                     link: item_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -3414,9 +3598,7 @@ links:
                                 link: item_action
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -3592,9 +3774,7 @@ type: number
                                     link: block_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: block_action
@@ -3603,9 +3783,7 @@ type: number
                                 link: block_action
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: (DEPRECATED) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: block_action
@@ -3716,7 +3894,7 @@ type: number
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/bonemeal
                                 desc: Determines if the particle and other visual effects of the bonemeal-ing action should appear.
                                 type: boolean
-                                default: true
+                                unspec: true
                         string-origins:execute_command:
                             command:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/execute_command
@@ -4051,7 +4229,7 @@ type: number
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:conditioned_attribute:
                         attribute:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
@@ -4068,7 +4246,7 @@ type: number
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:modify_attribute:
                         attribute:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
@@ -4085,7 +4263,7 @@ type: number
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:burn:
                         burn_duration:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/burn/
@@ -4109,13 +4287,13 @@ type: number
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:climbing:
                         allow_holding:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/climbing/
                             desc: If true, the entity that has the power is able to hold onto blocks.
                             type: boolean
-                            default: true
+                            unspec: true
                         hold_condition:
                             desc: If specified and allow_holding is true, the entity that has the power will be able to ‘hold onto the block’ (not affected by gravity) if this condition is fulfilled, otherwise, defaults to if the entity is sneaking.
                             link: entity_condition
@@ -4130,7 +4308,7 @@ type: number
                         persistent:
                             desc: When true, the cooldown’s remaining ticks survive server restart (so a player who used their ult and logged off doesn’t get to reuse it on login). When false, the cooldown resets to ready (value 0) whenever the entity rejoins the world.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:creative_flight: {}
                     string-origins:custom_model_render:
                         or:
@@ -4330,7 +4508,7 @@ type: number
                         use_teams:
                             desc: Determines whether glowing entities should use their team’s color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
-                            default: true
+                            unspec: true
                         red:
                             desc: |
                                 Value by which the red component of the glow will be multiplied. Range: 0.0 - 1.0.
@@ -4424,7 +4602,7 @@ type: number
                         render_overlay:
                             desc: false removes the full-screen fluid texture drawn over the camera. Only water has one in vanilla.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:freeze: {}
                     string-origins:function:
                         entity_action:
@@ -4464,7 +4642,7 @@ type: number
                         recoverable:
                             desc: Determines if the content of the inventory should be dropped upon losing the power.
                             type: boolean
-                            default: true
+                            unspec: true
                         key:
                             desc: Which active key this power should respond to.
                             link: keybind
@@ -4479,7 +4657,7 @@ type: number
                         render_outline:
                             desc: Determines whether the glowing outline should be shown or not.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:invulnerability:
                         damage_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/invulnerability/
@@ -4607,7 +4785,7 @@ type: number
                         hide_with_hud:
                             desc: Determines if the overlay should be hidden if the HUD elements are hidden (with F1).
                             type: boolean
-                            default: true
+                            unspec: true
                         visible_in_third_person:
                             desc: Determines if the overlay is visible in third person.
                             type: boolean
@@ -4769,7 +4947,7 @@ type: number
                         enforce_limits:
                             desc: Whether the resource value is clamped to [min, max].
                             type: boolean
-                            default: true
+                            unspec: true
                         retain_value:
                             desc: |
                                 When enforce_limits is true: if a modification would push the value outside the bounds, keep the old value instead of clamping.
@@ -4783,7 +4961,7 @@ type: number
                         persistent:
                             desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:restrict_armor:
                         head:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/restrict_armor/
@@ -4833,7 +5011,7 @@ type: number
                         use_teams:
                             desc: Determines whether glowing entities should use their team’s color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
-                            default: true
+                            unspec: true
                         red:
                             desc: |
                                 Value by which the red component of the glow will be multiplied. Range: 0 - 1.
@@ -4857,7 +5035,7 @@ type: number
                         toggleable:
                             desc: Determines if the applied shader can be toggled.
                             type: boolean
-                            default: true
+                            unspec: true
                         priority:
                             desc: Which shader wins when the entity holds more than one Shader power at once. Highest priority is applied; ties are broken arbitrarily.
                             type: integer
@@ -4868,7 +5046,7 @@ type: number
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/show_both_arms/
                             desc: Draw the off arm when the off hand is empty. This is the “see both hands” behaviour.
                             type: boolean
-                            default: true
+                            unspec: true
                         main_hand:
                             desc: Draw the main arm even while the main hand is holding an item, so you see the arm as well as the item. Filled maps are skipped — vanilla already draws both arms for those.
                             type: boolean
@@ -4936,14 +5114,14 @@ type: number
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/toggle/
                             desc: Determines whether the state of this power type should be ON by default.
                             type: boolean
-                            default: true
+                            unspec: true
                         key:
                             desc: Which active key this power should respond to.
                             link: keybind
                         retain_state:
                             desc: Determines whether the power remains active even if the specified condition (if any) is no longer met. If set to true, the power will stay in its current state regardless of the condition. If set to false, the power will deactivate when the condition is not fulfilled.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:tooltip:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/tooltip/
@@ -5047,7 +5225,7 @@ type: number
                         only_when_harvested:
                             desc: If this is true, the specified actions will only execute when the player succeeds in harvesting the block (e.g. they will not trigger when stone is broken by hand).
                             type: boolean
-                            default: true
+                            unspec: true
                         block_action:
                             desc: If specified, this action will be executed on the block that is broken.
                             link: block_action
@@ -5099,7 +5277,7 @@ type: number
                         execute_chosen_when_orb:
                             desc: When this is false, the entity_action_chosen will not be executed when the player changes their origin with an Orb of Origin item.
                             type: boolean
-                            default: true
+                            unspec: true
                         entity_action_gained:
                             desc: If specified, this action will be executed on the player when the power is added to the entity for the first time.
                             link: entity_action
@@ -5841,7 +6019,7 @@ type: number
                     string-origins:modify_damage_dealt:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
-                            desc: (DEPRECATED) Only apply for this attacker/target pairing.
+                            desc: (ALIAS) Only apply for this attacker/target pairing.
                             link: bientity_condition
                         damage_condition:
                             desc: Only apply to damage matching this.
@@ -5859,7 +6037,7 @@ type: number
                     string-origins:modify_damage_taken:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
-                            desc: (DEPRECATED) Only apply for this attacker/target pairing.
+                            desc: (ALIAS) Only apply for this attacker/target pairing.
                             link: bientity_condition
                         damage_condition:
                             desc: Only apply to damage matching this.
@@ -5903,7 +6081,7 @@ type: number
                         take_fall_damage:
                             desc: Determines whether the entity should take fall damage or not.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:modify_food:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_food/
@@ -6187,7 +6365,7 @@ type: number
                         included:
                             desc: true adds the entity to the tag; false removes it, even if its entity type is genuinely in the tag.
                             type: boolean
-                            default: true
+                            unspec: true
                     string-origins:modify_velocity:
                         axes:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_velocity/
@@ -6517,11 +6695,11 @@ type: number
         toggle:
             desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
             type: boolean
-            default: true
+            unspec: true
         controllable:
             desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
             type: boolean
-            default: true
+            unspec: true
         mode:
             link: rope_mode
         break_beyond:
@@ -6570,11 +6748,11 @@ type: number
         constrain_from:
             desc: Whether the physics may pull the from end (only matters when it is an entity).
             type: boolean
-            default: true
+            unspec: true
         constrain_to:
             desc: Whether the physics may pull the to end.
             type: boolean
-            default: true
+            unspec: true
     action_fire_projectile_common:
         texture_location:
             desc: If specified, the texture used for the custom projectile and entity_type is ignored.
@@ -6904,13 +7082,13 @@ type: number
         desc: All must pass. Same flavour as the containing condition.
     description_and:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
-        desc: (DEPRECATED) All must pass. Same flavour as the containing condition.
+        desc: (ALIAS) All must pass. Same flavour as the containing condition.
     description_any_of:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
         desc: Any one passing is enough. Same flavour as the containing condition.
     description_or:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
-        desc: (DEPRECATED) Any one passing is enough. Same flavour as the containing condition.
+        desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
     description_invert:
     destruction_type:
         desc: |
@@ -7126,7 +7304,7 @@ type: number
         should_render:
             desc: Whether the bar should be visible or not
             type: boolean
-            default: true
+            unspec: true
         link: hud_render_textures
         condition:
             desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
@@ -8613,7 +8791,7 @@ type: number
         retain_ownership:
             desc: drop only — keep the dropping entity as the item’s thrower.
             type: boolean
-            default: true
+            unspec: true
         amount:
             desc: drop only — split this many off each matching stack instead of dropping the whole stack.
             type: integer_optional
@@ -8640,7 +8818,7 @@ type: number
                     desc: ID of a registered item.
                     link: identifier
               - item:
-                    desc: (DEPRECATED) ID of a registered item.
+                    desc: (ALIAS) ID of a registered item.
                     link: identifier
             or:
               - count:
@@ -8648,7 +8826,7 @@ type: number
                     type: integer
                     default: 1
               - amount:
-                    desc: (DEPRECATED) Size of the stack.
+                    desc: (ALIAS) Size of the stack.
                     type: integer
                     default: 1
             tag:
@@ -8720,6 +8898,15 @@ type: number
                 prevent:
                     desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
                     type: boolean
+    meta_action_random_chance:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
+        desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+        link: expression_float
+        required: true
+    meta_action_chance:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+        desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+        link: expression_float
     meta_advancement_action:
         criterion:
             desc: A single criterion name, rather than the whole advancement.
@@ -8757,12 +8944,17 @@ type: number
                 action:
                     desc: An action which might be executed.
                     link: entity_action
-    meta_condition_chance:
+    meta_condition_random_chance:
         chance:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
             desc: Probability of passing, 0.0 to 1.0.
             link: number_percent
             required: true
+    meta_condition_chance:
+        chance:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+            desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+            link: number_percent
     meta_condition_constant:
         value:
             desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
@@ -8932,7 +9124,8 @@ type: number
         render_type:
             link: render_type
         body_parts:
-            desc: Restrict this layer to specific model parts (e.g. "head" or ["head", "body"]). When omitted, the layer covers the whole model. Part names follow Model Color: head, hat, body, right_arm, left_arm, right_leg, left_leg (plus jacket, the sleeves and the trousers). Matching ignores case and separators.
+            desc: |
+                Restrict this layer to specific model parts (e.g. "head" or ["head", "body"]). When omitted, the layer covers the whole model. Part names follow Model Color: head, hat, body, right_arm, left_arm, right_leg, left_leg (plus jacket, the sleeves and the trousers). Matching ignores case and separators.
             link: model_parts
         red:
             link: number_percent
@@ -8945,7 +9138,7 @@ type: number
         show_first_person:
             desc: If true, this layer is also drawn on the holder’s own first-person arm (only the arm/sleeve parts are affected in first person).
             type: boolean
-            default: true
+            unspec: true
         scale:
             desc: Scales this layer’s geometry outward from the model origin — the same idea as Sync’s Energy Swirl size. Above 1.0 puffs the texture out past the skin (an aura/shell), below 1.0 pulls it inside. 1.0 sits flush on the body.
             link: number_percent
@@ -9033,6 +9226,74 @@ type: number
     projectile_type_enum:
         enum: ['no_type','fireball','small_fireball','dragon_fireball','firework_rocket','llama_spit','arrow','spectral_arrow','shulker_bullet','experience_bottle','egg','ender_pearl','eye_of_ender','snowball','splash_potion','lingering_potion','trident','wind_charge','breeze_wind_charge','wither_skull']
         unspec: 'no_type'
+    radial_menu_entry:
+        type: object
+        props:
+            condition:
+                desc: Checked when the menu opens. A slice whose condition fails is left out of the menu entirely, so the remaining slices close up around it.
+                link: entity_condition
+            entity_action:
+                desc: What picking this slice does.
+                link: entity_action
+                required: true
+            item:
+                desc: An item drawn as the slice’s icon.
+                link: item_stack
+            icon:
+                desc: A texture drawn as the icon instead of an item.
+                link: identifier
+            highlight_icon_texture:
+                desc: Icon used while the slice is hovered.
+                link: identifier
+            button_texture:
+                desc: The slice’s background.
+                link: identifier
+            highlight_button_texture:
+                desc: Background while hovered.
+                link: identifier
+            tooltip:
+                desc: Text shown while hovered.
+                link: text_component
+            distance:
+                desc: How far from the centre the slice sits, in pixels. -1 uses the default.
+                type: integer
+                min: -1
+                default: -1
+            velocity:
+                desc: How quickly the slice animates outward. -1 uses the default.
+                type: integer
+                min: -1
+                default: -1
+            button_width:
+                desc: Slice width in pixels.
+                type: integer
+                min: 1
+                default: 16
+            button_height:
+                desc: Slice height in pixels.
+                type: integer
+                min: 1
+                default: 20
+            icon_width:
+                desc: Icon width in pixels.
+                type: integer
+                min: 1
+                default: 16
+            icon_height:
+                desc: Icon height in pixels.
+                type: integer
+                min: 1
+                default: 16
+            item_width:
+                desc: Item icon width.
+                type: integer
+                min: 1
+                default: 16
+            item_height:
+                desc: Item icon height.
+                type: integer
+                min: 1
+                default: 16
     raycast_action:
         distance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/raycast
@@ -9042,11 +9303,11 @@ type: number
         block:
             desc: Whether the ray can hit blocks
             type: boolean
-            default: true
+            unspec: true
         entity:
             desc: Whether the ray can hit entities
             type: boolean
-            default: true
+            unspec: true
         shape_type:
             link: shape_type
         fluid_handling:
@@ -9111,7 +9372,7 @@ type: number
             desc: Action executed on the source entity when the ray hits anything
             link: entity_action
         miss_action:
-            desc: 	Action executed on the source entity when the ray hits nothing
+            desc: Action executed on the source entity when the ray hits nothing
             link: entity_action
             gap: true
         command_at_hit:
@@ -9175,7 +9436,7 @@ type: number
             blocks:
                 desc: For raycast - whether the ray can attach to a block it hits. When both entities and blocks are enabled the nearest hit wins.
                 type: boolean
-                default: true
+                unspec: true
             position:
                 desc: For position - The fixed [x,y,z] world coordinate.
                 type: list
@@ -9259,7 +9520,7 @@ type: number
                 desc: The identifier of the status effect.
                 link: status_effect
               - effect:
-                desc: (DEPRECATED) The identifier of the status effect.
+                desc: (ALIAS) The identifier of the status effect.
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
@@ -9274,16 +9535,16 @@ type: number
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
               - is_ambient:
-                desc: (DEPRECATED) Determines whether the particle effects of the status effect is less noticeable.
+                desc: (ALIAS) Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
                 type: boolean
-                default: true
+                unspec: true
             show_icon:
                 desc: Determines whether the status effect should display an icon on the HUD.
                 type: boolean
-                default: true
+                unspec: true
     status_effect_instance_chance:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/status-effect-instance
         desc: An Object which defines a status effect with duration, amplifier, etc.
@@ -9294,7 +9555,7 @@ type: number
                 desc: The identifier of the status effect.
                 link: status_effect
               - effect:
-                desc: (DEPRECATED) The identifier of the status effect.
+                desc: (ALIAS) The identifier of the status effect.
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
@@ -9309,16 +9570,16 @@ type: number
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
               - is_ambient:
-                desc: (DEPRECATED) Determines whether the particle effects of the status effect is less noticeable.
+                desc: (ALIAS) Determines whether the particle effects of the status effect is less noticeable.
                 type: boolean
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
                 type: boolean
-                default: true
+                unspec: true
             show_icon:
                 desc: Determines whether the status effect should display an icon on the HUD.
                 type: boolean
-                default: true
+                unspec: true
             chance:
                 desc: Chance of the status effect taking effect.
                 link: number_percent
