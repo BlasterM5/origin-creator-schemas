@@ -170,9 +170,7 @@ links:
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/send_condition/
-                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
-                                link: identifier
-                                required: true
+                                link:meta_send_condition_action
                         string-origins:target_condition:
                             condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/target_condition/
@@ -982,9 +980,7 @@ links:
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/send_condition/
-                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
-                                link: identifier
-                                required: true
+                                link: meta_send_condition_action
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:stat:
@@ -1311,9 +1307,7 @@ links:
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/send_condition/
-                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
-                                link: identifier
-                                required: true
+                                link: meta_send_condition_action
                         string-origins:smeltable: {}
           - title: custom
             link: custom_condition
@@ -1902,8 +1896,7 @@ links:
                                 link: bientity_action
                         string-origins:choice:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. Each object has to have an element for Action Type and a weight for Integer.
+                                link: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
@@ -1917,8 +1910,7 @@ links:
                                             link: bientity_action
                         string-origins:delay:
                             action:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
-                                desc: The action which will be executed after the delay.
+                                link: meta_action_delay
                                 link: bientity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
@@ -1926,17 +1918,14 @@ links:
                         string-origins:if_case:
                             or:
                               - cases:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
-                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_action_if_case
                                 link: meta_condition_if_list_bientity
                               - actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
-                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_action_if_case
                                 link: meta_condition_if_list_bientity
                         string-origins:if_else:
                             condition:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
-                                desc: A condition based on the type of action.
+                                link: meta_action_if_else
                                 link: bientity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
@@ -1946,20 +1935,10 @@ links:
                                 link: bientity_action
                         string-origins:if_else_list:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
-                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
+                                link: meta_action_if_else_list
                                 link: meta_condition_if_list_bientity
                         string-origins:loop:
-                            value:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
-                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
-                                type: integer
-                                default: 1
-                            ticks:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
-                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead. See the link for more information.
-                                type: integer
-                                default: 1
+                            link: meta_action_loop
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: bientity_action
@@ -2059,20 +2038,10 @@ links:
                                 desc: The blast radius/power of the explosion
                                 type: number
                                 required: true
-                            destruction_type:
-                                link: destruction_type
-                            create_fire:
-                                desc: Whether the explosion places fire in the blast area
-                                type: boolean
                             at_target:
                                 desc: If true, the explosion originates at the target's position; otherwise it originates at the actor's
                                 type: boolean
-                            indestructible:
-                                desc: Block condition for blocks that are protected from the explosion regardless of destruction_type
-                                link: block_condition
-                            destructible:
-                                desc: Block condition for blocks that are explicitly allowed to be destroyed, taking priority over indestructible
-                                link: block_condition
+                            link: meta_explode
                         string-origins:grab:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/grab
@@ -2128,9 +2097,7 @@ links:
                         string-origins:send_action:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/send_action/
-                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
-                                link: identifier
-                                required: true
+                                link: meta_send_condition_action
                         string-origins:set_in_love: {}
                         string-origins:tame: {}
                         string-origins:target_action:
@@ -2403,8 +2370,7 @@ links:
                                 link: entity_action
                         string-origins:choice:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-                                desc: Each object has to have an element for Action Type and a weight for Integer.
+                                link: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
@@ -2418,8 +2384,7 @@ links:
                                             link: entity_action
                         string-origins:delay:
                             action:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
-                                desc: The action which will be executed after the delay.
+                                link: meta_action_delay
                                 link: entity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
@@ -2427,17 +2392,14 @@ links:
                         string-origins:if_case:
                             or:
                               - cases:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
-                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_action_if_case
                                 link: meta_condition_if_list_entity
                               - actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
-                                desc: Each object has to have an action Action Type object and a condition Condition Type object. actions is accepted as a legacy spelling, so an apoli:if_else_list block can be switched over by changing only the type.
+                                link: meta_action_if_case
                                 link: meta_condition_if_list_entity
                         string-origins:if_else:
                             condition:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
-                                desc: A condition based on the type of action.
+                                link: meta_action_if_else
                                 link: entity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
@@ -2447,18 +2409,10 @@ links:
                                 link: entity_action
                         string-origins:if_else_list:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
-                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
+                                link: meta_action_if_else_list
                                 link: meta_condition_if_list_entity
                         string-origins:loop:
-                            value:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
-                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
-                                type: integer
-                                default: 1
-                            ticks:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
-                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                            link: meta_action_loop
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: entity_action
@@ -2505,9 +2459,7 @@ links:
                         string-origins:send_action:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/send_action/
-                                desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
-                                link: identifier
-                                required: true
+                                link: meta_send_condition_action
                         string-origins:action_on_entity_set:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/action_on_entity_set/
@@ -2823,21 +2775,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/explode
                                 desc: Determines the power of the explosion.
                                 type: number
-                            destruction_type:
-                                link: destruction_type
                             damage_self:
                                 desc: Determines if the entity that invoked the action should take damage from the summoned explosion.
                                 type: boolean
                                 unspec: true
-                            indestructible:
-                                desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
-                                link: block_condition
-                            destructible:
-                                desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
-                                link: block_condition
-                            create_fire:
-                                desc: Determines if the summoned explosion should create fire.
-                                type: boolean
+                            link: meta_explode
                         string-origins:extinguish: {}
                         string-origins:feed:
                             food:
@@ -3566,6 +3508,7 @@ links:
                       - origins:random_chance
                       - origins:choice
                       - origins:delay
+                      - origins:if_case
                       - origins:if_else
                       - origins:if_else_list
                       - origins:loop
@@ -3582,8 +3525,7 @@ links:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
-                                desc: These actions will be executed one after the other (but in the same tick).
+                                link: meta_action_and
                                 type: list
                                 vals:
                                     link: item_action
@@ -3607,8 +3549,7 @@ links:
                                 link: item_action
                         string-origins:choice:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
+                                link: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
@@ -3622,16 +3563,40 @@ links:
                                             link: item_action
                         string-origins:delay:
                             action:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
-                                desc: The action which will be executed after the delay.
+                                link: meta_action_delay
                                 link: item_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
+                        string-origins:if_case:
+                            or:
+                              - cases:
+                                    link: meta_action_if_case
+                                    type: list
+                                    vals:
+                                        type: object
+                                        props:
+                                            condition:
+                                                desc: A condition to check for.
+                                                link: item_condition
+                                            action:
+                                                desc: An action which might be executed.
+                                                link: item_action
+                              - actions:
+                                    link: meta_action_if_case
+                                    type: list
+                                    vals:
+                                        type: object
+                                        props:
+                                            condition:
+                                                desc: A condition to check for.
+                                                link: item_condition
+                                            action:
+                                                desc: An action which might be executed.
+                                                link: item_action
                         string-origins:if_else:
                             condition:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
-                                desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
+                                link: meta_action_if_else
                                 link: item_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
@@ -3641,8 +3606,7 @@ links:
                                 link: item_action
                         string-origins:if_else_list:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
-                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
+                                link: meta_action_if_else_list
                                 type: list
                                 vals:
                                     type: object
@@ -3654,14 +3618,7 @@ links:
                                             desc: An action which might be executed.
                                             link: item_action
                         string-origins:loop:
-                            value:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
-                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
-                                type: integer
-                                default: 1
-                            ticks:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
-                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                            link: meta_action_loop
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: item_action
@@ -3687,10 +3644,15 @@ links:
                                 desc: Determines if this action should ignore the Unbreaking enchantment.
                                 type: boolean
                         string-origins:holder_action:
-                            action:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
-                                desc: The entity action to execute on the holder of the item stack.
-                                link: entity_action
+                            or:
+                              - action:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
+                                    desc: The entity action to execute on the holder of the item stack.
+                                    link: entity_action
+                              - entity_action:
+                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
+                                    desc: (ALIAS) The entity action to execute on the holder of the item stack.
+                                    link: entity_action
                         string-origins:holder:
                             or:
                               - action:
@@ -3716,15 +3678,26 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/remove_enchantment
                                 desc: If specified, this enchantment will be removed from the item.
                                 link: identifier
+                                default: unspec
                             enchantments:
                                 desc: If specified, these enchantments will be removed from the item.
                                 link: identifier_array
                             levels:
                                 desc: If specified, only the enchantments that has the specified level will be removed from the item.
                                 type: integer
+                                default: unspec
                             reset_repair_cost:
                                 desc: Determines whether the ‘repair cost’ of the item should be reset.
                                 type: boolean
+                        string-origins:script:
+                            script:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/script/
+                                link: identifier_script
+                            link: script_params
+                        string-origins:send_action:
+                            receiver:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/send_action/
+                                link: meta_send_condition_action
           - title: custom
             link: custom_action
     block_action:
@@ -3741,34 +3714,27 @@ links:
                       - origins:chance
                       - origins:choice
                       - origins:delay
+                      - origins:if_case
                       - origins:if_else
                       - origins:if_else_list
                       - origins:loop
                       - origins:offset
                       - origins:side
-                      - origins:area_of_effect
                       - origins:add_block
+                      - origins:area_of_effect
                       - origins:bonemeal
                       - origins:execute_command
                       - origins:explode
+                      - origins:ghost_block
                       - origins:modify_block_state
+                      - origins:script
                       - origins:set_block
-type: number
-                      - $Apugli
-
-                      - apugli:destroy
-
-                      - $SYNC
-
-                      - sync:loop
-                      - sync:ghost_block
-                      - sync:spawn_entity
+                      - origins:spawn_entity
                     more:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
-                                desc: These actions will be executed one after the other (but in the same tick).
+                                link: meta_action_and
                                 type: list
                                 vals:
                                     link: block_action
@@ -3792,8 +3758,7 @@ type: number
                                 link: block_action
                         string-origins:choice:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
+                                link: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
@@ -3812,6 +3777,32 @@ type: number
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
+                        string-origins:if_case:
+                            or:
+                              - cases:
+                                    link: meta_action_if_case
+                                    type: list
+                                    vals:
+                                        type: object
+                                        props:
+                                            condition:
+                                                desc: A condition to check for.
+                                                link: block_condition
+                                            action:
+                                                desc: An action which might be executed.
+                                                link: block_action
+                              - actions:
+                                    link: meta_action_if_case
+                                    type: list
+                                    vals:
+                                        type: object
+                                        props:
+                                            condition:
+                                                desc: A condition to check for.
+                                                link: block_condition
+                                            action:
+                                                desc: An action which might be executed.
+                                                link: block_action
                         string-origins:if_else:
                             condition:
                                 desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
@@ -3824,8 +3815,7 @@ type: number
                                 link: block_action
                         string-origins:if_else_list:
                             actions:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
-                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds — not just the first. Basically a less indentation-heavy way to represent a deeply nested apoli:if_else, except that more than one branch may fire in a single run.
+                                link: meta_action_if_else_list
                                 type: list
                                 vals:
                                     type: object
@@ -3837,14 +3827,7 @@ type: number
                                             desc: An action which might be executed.
                                             link: block_action
                         string-origins:loop:
-                            value:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
-                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
-                                type: integer
-                                default: 1
-                            ticks:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
-                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                            link: meta_action_loop
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: block_action
@@ -3906,18 +3889,7 @@ type: number
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/explode
                                 desc: Determines the power of the explosion.
                                 type: number
-                            destruction_type:
-                                desc: Determines the effect of the explosion to the terrain.
-                                enum: ['break','destroy','none']
-                            indestructible:
-                                desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
-                                link: block_condition
-                            destructible:
-                                desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
-                                link: block_condition
-                            create_fire:
-                                desc: Determines if the summoned explosion should create fire.
-                                type: boolean
+                            link: meta_explode
                         string-origins:ghost_block:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/ghost_block
@@ -3927,11 +3899,17 @@ type: number
                             nbt:
                                 desc: Block entity data applied to the placed block.
                                 link: nbt
-                            duration:
-                                desc: How many ticks the ghost block lasts. Also accepted as tick.
-                                type: integer
-                                default: 20
-                                min: 0
+                            or:
+                              - duration:
+                                    desc: How many ticks the ghost block lasts. Also accepted as tick.
+                                    type: integer
+                                    default: 20
+                                    min: 0
+                              - tick:
+                                    desc: (ALIAS) How many ticks the ghost block lasts.
+                                    type: integer
+                                    default: 20
+                                    min: 0
                             block_action:
                                 desc: Run at the ghost block’s position right after it is placed.
                                 link: block_action
@@ -3965,6 +3943,11 @@ type: number
                                 enum:
                                     desc: If specified, the string to use as the new value for the specified property if the specified property is a string.
                                     link: meta_key
+                        string-origins:script:
+                            script:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/script/
+                                link: identifier_script
+                            link: script_params
                         string-origins:set_block:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/set_block
@@ -4003,23 +3986,19 @@ type: number
                             link: power_recipe
                         prefix:
                             desc: A line shown above the grid.
-                            id: item_modifiers
-                            link: jsontxt
+                            link: text_component
                         suffix:
                             desc: A line shown below the grid.
-                            id: item_modifiers
-                            link: jsontxt
+                            link: text_component
                     string-origins:keybind:
                         text:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/origins/badge_keybind
                             desc: A translation key, not a literal. Its first argument (%s) is filled with the bound key name.
-                            id: item_modifiers
-                            link: jsontxt
+                            link: text_component
                     string-origins:tooltip:
                         text:
                             desc: The text to use in the tooltip when hovering over the badge.
-                            id: item_modifiers
-                            link: jsontxt
+                            link: text_component
             sprite:
                 desc: The namespace, path and ID of the texture to use as the icon of the badge.
                 link: identifier
@@ -4058,7 +4037,7 @@ type: number
                 gap: true
             type:
                 desc: ID of the desired Power Type.
-                href: https://origins.readthedocs.io/en/latest/types/power_types/
+                href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/powers/
                 hooks: [fix_cond]
                 enum:
                   - $Regular Types
@@ -4258,7 +4237,6 @@ type: number
                             link: attribute_modifier_legacy
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
-
                             link: attribute_modifier_array_legacy
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
@@ -4477,7 +4455,7 @@ type: number
                         consuming_time_modifiers:
                             desc: If specified, these modifiers will be applied on the maximum time the item is being consumed (in ticks).
 
-                            link: attribute_modifier_arrays
+                            link: attribute_modifier_array
                     string-origins:effect_immunity:
                         inverted:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/effect_immunity/
@@ -7090,15 +7068,6 @@ type: number
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
         desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
     description_invert:
-    destruction_type:
-        desc: |
-            Determines the effect of the explosion to the terrain:
-            break:		The explosion will destroy blocks and drop the loot of all of them
-            none:		The explosion will *not* destroy blocks at all
-            destroy:	The explosion will destroy blocks and drop the loot of *some* of them.
-            			The chance to drop blocks decreases with higher explosion power.
-            			It also defers to the 'minecraft:survives_explosion' loot condition in the loot tables.
-        enum: ['break','none','destroy']
     difficulty:
         enum: ['peaceful','easy','normal','hard']
     dimension:
@@ -8898,6 +8867,9 @@ type: number
                 prevent:
                     desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
                     type: boolean
+    meta_action_and:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
+        desc: These actions will be executed one after the other (but in the same tick).
     meta_action_random_chance:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
         desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
@@ -8907,6 +8879,30 @@ type: number
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
         desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
         link: expression_float
+    meta_action_choice:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
+        desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
+    meta_action_delay:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
+        desc: The action which will be executed after the delay.
+    meta_action_if_case:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+        desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
+    meta_action_if_else:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
+        desc: A condition based on the type of action.
+    meta_action_if_else_list:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+        desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
+    meta_action_loop:
+        value:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+            desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+            type: integer
+            default: 1
+        ticks:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+            desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
     meta_advancement_action:
         criterion:
             desc: A single criterion name, rather than the whole advancement.
@@ -8959,6 +8955,25 @@ type: number
         value:
             desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
             type: boolean
+    meta_explode:
+        destruction_type:
+            desc: |
+                Determines the effect of the explosion to the terrain:
+                break:		The explosion will destroy blocks and drop the loot of all of them
+                none:		The explosion will *not* destroy blocks at all
+                destroy:	The explosion will destroy blocks and drop the loot of *some* of them.
+                            The chance to drop blocks decreases with higher explosion power.
+                            It also defers to the 'minecraft:survives_explosion' loot condition in the loot tables.
+            enum: ['break','none','destroy']
+        create_fire:
+            desc: Determines if the summoned explosion should create fire.
+            type: boolean
+        indestructible:
+            desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
+            link: block_condition
+        destructible:
+            desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
+            link: block_condition
     meta_key:
         type: string
         allow: 'a-z0-9._-'
@@ -8970,6 +8985,10 @@ type: number
         type: string
         allowkey: '*a-z0-9_#\/:.\[\]\(\)\{\}$^?+\|-'
         allow: '*a-z0-9_#\/:.-'
+    meta_send_condition_action:
+        desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
+        link: identifier
+        required: true
     mob_type:
         or:
           - title: built-in
