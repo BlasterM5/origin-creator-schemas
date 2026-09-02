@@ -4799,10 +4799,48 @@ links:
                             desc: Determines the amount of particles to spawn.
                             type: integer
                             default: 1
-                        speed:
-                            desc: Determines the speed of the specified particle type.
+                        space:
+                            desc: |
+                                How offset_* and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking.
+                            link: space
+                            unspec: 'world'
+                        offset_x:
+                            desc: The offset of where the particle will be centered in the X axis.
                             type: number
                             default: 0
+                        offset_y:
+                            desc: The offset of where the particle will be centered in the Y axis.
+                            type: number
+                            default: 0.5
+                        offset_z:
+                            desc: The offset of where the particle will be centered in the Z axis.
+                            type: number
+                            default: 0
+                        or:
+                          - title: speed
+                            speed:
+                                desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
+                                or:
+                                  - title: simple
+                                    type: number
+                                    default: 0
+                                  - title: expression
+                                    link: expression_number
+                                  - title: vector
+                                    link: vector
+                          - title: velocity
+                            velocity_x:
+                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                                type: number
+                                default: 0
+                            velocity_y:
+                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                                type: number
+                                default: 0
+                            velocity_z:
+                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                                type: number
+                                default: 0
                         force:
                             desc: Determines whether to display the emitted particles within 512 blocks (true) or 32 blocks (false).
                             type: boolean
@@ -4821,6 +4859,10 @@ links:
                             desc: The offset of where the particle will be centered in the Z axis.
                             type: number
                             default: 0
+                        model_part:
+                            desc: |
+                                Anchor the particles to a body part instead of the entity’s feet: head, body, right_arm, left_arm, right_leg, left_leg. The same names apoli:model_color and apoli:modify_model_parts use. offset_* is then measured from that part.
+                            link: model_parts
                         visible_in_first_person:
                             desc: Determines whether the particle type should be visible in first person.
                             type: boolean
@@ -4838,7 +4880,8 @@ links:
                         render_type:
                             desc: Determines how the environment is rendered when “phasing” through (moving) blocks.
                             enum: ['none','blindness','remove_blocks']
-                            deault: 'blindness'
+                            default: 'blindness'
+                            unspec: 'blindness'
                         view_distance:
                             desc: Determines how far the player can look through walls when “phasing” (moving) through blocks when render_type is set to "blindness".
                             type: number
@@ -4901,8 +4944,17 @@ links:
                         recipe:
                             link: crafting_recipe
                     string-origins:replace_loot_table:
-                        replace:
+                        bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/replace_loot_table/
+                            desc: If specified, the loot tables will only be replaced if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        item_condition:
+                            desc: If specified, the loot tables will only be replaced if the item in the context of the loot tables fulfill this condition.
+                            link: item_condition
+                        block_condition:
+                            desc: If specified, the loot tables will only be replaced if the block at the context of the loot tables fulfill this condition.
+                            link: block_condition
+                        replace:
                             desc: |
                                 An object with "key": "value" pairs that determine which loot table ("key") will be replaced with a new loot table ("value").
                             type: object
@@ -4912,15 +4964,44 @@ links:
                             desc: Determines the application priority of the power.
                             type: integer
                             default: 0
-                        bientity_condition:
-                            desc: If specified, the loot tables will only be replaced if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
-                            link: bientity_condition
-                        item_condition:
-                            desc: If specified, the loot tables will only be replaced if the item in the context of the loot tables fulfill this condition.
-                            link: item_condition
-                        block_condition:
-                            desc: If specified, the loot tables will only be replaced if the block at the context of the loot tables fulfill this condition.
-                            link: block_condition
+                    string-origins:replace_sound_emission:
+                        sounds:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/replace_sound_emission/
+                            desc: Map of sound to replace → what to replace it with.
+                            type: object
+                            extra:
+                                link: meta_key_value
+                            required: true
+                        replace:
+                            desc: Whether a match stops the original sound (and every lower-priority power). false plays the replacement on top of the original.
+                            type: boolean
+                            unspec: true
+                        entity_action:
+                            desc: Action run on the holder whenever one of its rules matches.
+                            link: entity_action
+                        priority:
+                            desc: Ordering when the holder has several replace-sound powers. Higher runs first.
+                            type: integer
+                            default: 0
+                    string-origins:replace_sound_reception:
+                        sounds:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/replace_sound_emission/
+                            desc: Map of sound to replace → what to replace it with.
+                            type: object
+                            extra:
+                                link: meta_key_value
+                            required: true
+                        replace:
+                            desc: Whether a match stops the original sound (and every lower-priority power). false plays the replacement on top of the original.
+                            type: boolean
+                            unspec: true
+                        entity_action:
+                            desc: Action run on the holder whenever one of its rules matches.
+                            link: entity_action
+                        priority:
+                            desc: Ordering when the holder has several replace-sound powers. Higher runs first.
+                            type: integer
+                            default: 0
                     string-origins:resource:
                         min:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/resource/
@@ -4998,7 +5079,7 @@ links:
                     string-origins:self_glow:
                         entity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/self_glow/
-                            desc: If specified, only entities that fulfill this condition will see the entity that has the power glow.
+                            desc: (ALIAS) If specified, only entities that fulfill this condition will see the entity that has the power glow.
                             link: entity_condition
                         bientity_condition:
                             desc: If specified, only entities that fulfill this bi-entity condition in relation to the entity that has the power will see the entity that has the power glow.
@@ -5063,10 +5144,10 @@ links:
                     string-origins:stacking_status_effect:
                         min_stacks:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/stacking_status_effect/
-                            desc: The minimum number of stacks. Negative numbers are allowed.
+                            desc: The stack count the power jumps to the moment it becomes active. Set it above 1 for an effect that starts part-way up instead of ticking there one stack at a time. Negative numbers are allowed.
                             type: integer
                         max_stacks:
-                            desc: The maximum number of stacks.
+                            desc: 	The stack count it climbs to and stops at while active.
                             type: integer
                         duration_per_stack:
                             desc: Determines the duration of the specified status effect(s) for each stack.
@@ -7041,7 +7122,8 @@ links:
                     link: identifier
                 key:
                     type: object
-                    extra: ingredient_key
+                    extra:
+                        link: ingredient_key
                 result:
                     desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
                     type: object
@@ -9110,8 +9192,8 @@ links:
                 desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
                 link: easing
     model_parts:
-        enum: ['whole_body','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
-        unspec: 'whole_body'
+        enum: ['default','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
+        unspec: 'default'
     modify_entity_data:
         data:
             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
@@ -9162,7 +9244,8 @@ links:
             vals:
                 link: nbt_object
           - title: object
-            extra: nbt_object
+            extra:
+                link: nbt_object
     number_percent:
         type: number
         min: 0
