@@ -2431,8 +2431,8 @@ links:
                             arguments:
                                 desc: One entry per parameter the function declares. Values may be any JSON the target field accepts.
                                 type: object
-                                props:
-                                    extra: function_arguments
+                                extra:
+                                    link: function_arguments
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/script/
@@ -4111,6 +4111,7 @@ links:
                   - origins:action_on_key_sequence
                   - origins:action_on_kill
                   - origins:action_on_land
+                  - origins:action_on_scroll_wheel
                   - origins:action_on_sending_message
                   - origins:action_on_swap
                   - origins:action_on_use
@@ -4152,6 +4153,7 @@ links:
 
                   - $Prevent Types
 
+                  - origins:prevent_bee_anger
                   - origins:prevent_being_used
                   - origins:prevent_block_place
                   - origins:prevent_block_selection
@@ -4203,7 +4205,6 @@ links:
                             link: attribute_modifier_attribute
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
-
                             link: attribute_modifier_array_attribute
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
@@ -4220,7 +4221,6 @@ links:
                             link: attribute_modifier_legacy
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
-
                             link: attribute_modifier_array_legacy
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
@@ -4253,19 +4253,6 @@ links:
                             type: integer
                             min: 1
                             required: true
-                    string-origins:conditioned_attribute:
-                        modifier:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
-                            desc: (DEPRECATED) A single modifier applied to its attribute.
-                            link: attribute_modifier
-                        modifiers:
-                            desc: Multiple modifiers applied to their respective attribute fields.
-
-                            link: attribute_modifier_array
-                        update_health:
-                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
-                            type: boolean
-                            unspec: true
                     string-origins:climbing:
                         allow_holding:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/climbing/
@@ -4322,6 +4309,7 @@ links:
                                 href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
                                 desc: Texture for the wide (Steve) model.
                                 link: identifier
+                                required: true
                             slim_texture_location:
                                 desc: Texture for the slim (Alex) model.
                                 link: identifier
@@ -4344,8 +4332,8 @@ links:
                                 vals:
                                     link: body_part
                               - title: 'Minion - All/Single Part'
-                                enum: ['','main','flat2','flat3']
-                                unspec: ''
+                                enum: ['whole_body','main','flat2','flat3']
+                                unspec: 'whole_body'
                               - title: 'Minion - Multiple Parts'
                                 type: list
                                 vals:
@@ -4397,17 +4385,20 @@ links:
                             desc: Ticks to wait after the condition becomes true before the first hit.
                             type: integer
                             min: 0
+                            default: unspec
                         damage:
                             desc: How much damage to deal each interval.
                             type: number
                             min: 0
+                            required: true
                         damage_easy:
                             desc: Damage dealt on Easy difficulty.
                             type: number
                             min: 0
+                            default: unspec
                         damage_type:
                             desc: The damage type to use.
-                            link: identifier
+                            link: damage_type
                     string-origins:disable_regen: {}
                     string-origins:disable_slot:
                         item_condition:
@@ -4445,10 +4436,12 @@ links:
                         consume_animation:
                             desc: Determines whether the animation effect for consuming the item should be “eating” ("eat", displays particle effects based on the item) or “drinking” ("drink", no particle effects.)
                             enum: ['eat','drink']
+                            unspec: 'eat'
                         consume_sound:
                             desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
                             link: identifier
                             default: 'entity.generic.eat'
+                            unspec: 'entity.generic.eat'
                         consuming_time_modifier:
                             desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
                             link: attribute_modifier
@@ -4475,6 +4468,7 @@ links:
                         texture_location:
                             desc: If specified, this will be the texture used by the Elytra granted by this power.
                             link: identifier
+                            default: unspec
                     string-origins:entity_glow:
                         entity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/entity_glow/
@@ -4591,7 +4585,54 @@ links:
                             desc: The argument names the body uses. Leave it out and it is read from the [name] placeholders in the body.
                             type: list
                             vals:
-                                type: string
+                                link: meta_key
+                    string-origins:game_event_listener:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/game_event_listener/
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        block_condition:
+                            desc: If specified, only executes the actions if the game event or vibration is emitted by a block that fulfills the block condition.
+                            link: block_condition
+                        trigger_order:
+                            desc: Determines whether the power type should prioritize game events by distance ("by_distance") or arbitrarily ("unspecified").
+                            enum: ['unspecified','by_distance']
+                            unspec: 'unspecified'
+                        entity:
+                            desc: Determines whether the power type should listen to game events emitted by entities.
+                            type: boolean
+                            unspec: true
+                        block:
+                            desc: Determines whether the power type should listen to game events emitted by blocks.
+                            type: boolean
+                            unspec: true
+                        bientity_action:
+                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
+                        block_action:
+                            desc: If specified, this block action type will be executed at the position where the game event or vibration was emitted.
+                        event:
+                            desc: If specified, will make the power only listen for the game events with this namespace and IDs.
+                            link: game_event
+                        events:
+                            desc: If specified, will make the power only listen for the game events with these namespace and IDs.
+                            type: list
+                            vals:
+                                link: game_event
+                        event_tag:
+                            desc: |
+                                If specified, will make the power only listen for the game events inside game event tag. The leading # is optional.
+                            link: game_event_tag
+                        show_particle:
+                            desc: Determines whether the vibration should emit a particle effect.
+                            type: boolean
+                            unspec: true
+                        cooldown:
+                            link: cooldown
+                            default: 1
+                        hud_render:
+                            desc: Determines how the cooldown of this power is visualized on the HUD.
+                            link: hud_render
                     string-origins:grounded: {}
                     string-origins:ignore_fluid:
                         fluid_condition:
@@ -4609,6 +4650,7 @@ links:
                             desc: The translation key or literal text to use as the display name for the inventory.
                             link: text_component
                             default: 'container.inventory'
+                            unspec: 'container.inventory'
                         container_type:
                             link: container_type
                         drop_on_death:
@@ -4634,6 +4676,9 @@ links:
                             type: boolean
                         render_outline:
                             desc: Determines whether the glowing outline should be shown or not.
+                            type: boolean
+                        render_held_items:
+                            desc: Determines whether items held in either hand should be shown or not. Set it to false to hide them along with the entity.
                             type: boolean
                             unspec: true
                     string-origins:invulnerability:
@@ -4673,6 +4718,7 @@ links:
                                 Which click runs the actions: "primary" (or 0) is a left-click, "secondary" (or 1) is a right-click.
                             enum: ['primary','secondary']
                             default: 'secondary'
+                            unspec: 'secondary'
                     string-origins:keep_inventory:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/keep_inventory/
@@ -4728,45 +4774,16 @@ links:
                             link: number_percent
                             default: 1
                     string-origins:overlay:
-                        texture:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
-                            desc: The namespace and ID of the texture to use as an overlay.
-                            link: identifier
-                        strength:
-                            desc: |
-                                If the "texture" draw mode is used, it determines the alpha (transparency) value of the texture. If the "nausea" draw mode is used, it determines the value of how the texture is stretched (1.0 = screen size). Range: 0.0 to 1.0.
-                            link: number_percent
-                            default: 1
-                        red:
-                            desc: |
-                                Value by which the red component of the texture will be multiplied. Range: 0.0 to 1.0.
-                            link: number_percent
-                            default: 1
-                        green:
-                            desc: |
-                                Value by which the green component of the texture will be multiplied. Range: 0.0 to 1.0.
-                            link: number_percent
-                            default: 1
-                        blue:
-                            desc: |
-                                Value by which the blue component of the texture will be multiplied. Range: 0.0 to 1.0.
-                            link: number_percent
-                            default: 1
-                        draw_mode:
-                            desc: Determines whether to treat black as transparent or draw the texture as is ("nausea" or "texture" respectively).
-                            enum: ['nausea','texture']
-                            default: 1
-                        draw_phase:
-                            desc: Determines if the overlay should render below or above the HUD ("below_hud" or "above_hud" respectively).
-                            enum: ['above_hud','below_hud']
-                            default: 1
-                        hide_with_hud:
-                            desc: Determines if the overlay should be hidden if the HUD elements are hidden (with F1).
-                            type: boolean
-                            unspec: true
-                        visible_in_third_person:
-                            desc: Determines if the overlay is visible in third person.
-                            type: boolean
+                        or:
+                          - title: single
+                            link: overlay_power
+                          - title: multiple
+                            overlays:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
+                                desc: Several overlays in one power. All of them whose condition passes are drawn, in order, so this is a stack of layers rather than a pick-one.
+                                type: object
+                                extra:
+                                    link: overlay_power_multiple
                     string-origins:particle:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/particle/
@@ -5296,9 +5313,7 @@ links:
                             desc: Action run on the entity being collided with.
                             link: entity_action
                         cooldown:
-                            desc: Ticks the power needs to recharge between fires. 0 fires every tick, for every colliding entity.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 0
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -5372,9 +5387,7 @@ links:
                         entity_action:
                             desc: Legacy field. Runs on whichever side entity_action_target names.
                         cooldown:
-                            desc: Ticks the power needs to recharge between fires.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -5407,9 +5420,7 @@ links:
                         entity_action:
                             desc: Legacy field. Runs on the actor (power holder).
                         cooldown:
-                            desc: Ticks the power needs to recharge between fires.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -5442,9 +5453,7 @@ links:
                         entity_action:
                             desc: Legacy field. Runs on the target.
                         cooldown:
-                            desc: Ticks the power needs to recharge between fires.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -5486,9 +5495,7 @@ links:
                             desc: The action to execute on the player.
                             link: entity_action
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the power can be triggered again.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -5502,9 +5509,7 @@ links:
                             desc: (DEPRECATED) The action to execute on the player.
                             link: entity_action
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the power can be triggered again.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -5521,9 +5526,7 @@ links:
                             desc: Run when a key press breaks a partial match.
                             link: entity_action
                         cooldown:
-                            desc: Ticks to ignore input for after a success.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 0
                         timeout:
                             desc: Ticks of no tracked key press before a partial combo is forgotten. 0 never expires.
@@ -5575,9 +5578,7 @@ links:
                             desc: Legacy field. Runs on whichever side entity_action_target names.
                             link: entity_action
                         cooldown:
-                            desc: Ticks the power needs to recharge between fires.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -5612,9 +5613,7 @@ links:
                             desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
-                            desc: Ticks the power needs to recharge between fires.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -5624,6 +5623,39 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_land/
                             desc: The action to execute on the player.
                             link: entity_action
+                    string-origins:action_on_scroll_wheel:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_scroll_wheel/
+                            desc: The action to run on the holder.
+                            link: entity_action
+                        or:
+                          - title: Any Direction
+                            reset_on_direction_change:
+                                desc: Scrolling the other way restarts the count instead of adding to it.
+                                type: boolean
+                                unspec: true
+                          - title: Specific Direction
+                            direction:
+                                desc: Which way the wheel has to turn.
+                                enum: ['up','down']
+                        scroll_amount:
+                            desc: How many notches are needed before the action runs.
+                            type: integer
+                            default: 1
+                            min: 1
+                        within_ticks:
+                            desc: How long a partial count survives without another notch. 0 never expires.
+                            type: integer
+                            default: 10
+                            min: 0
+                        prevent_hotbar_change:
+                            desc: Swallow the scroll so the held hotbar slot does not move.
+                            type: boolean
+                        cooldown:
+                            link: cooldown
+                        hud_render:
+                            desc: Draws the cooldown as a resource bar.
+                            link: hud_render
                     string-origins:action_on_sending_message:
                         message_type:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_sending_message/
@@ -5758,9 +5790,7 @@ links:
                             desc: Legacy field. Runs on whichever side entity_action_target names.
                             link: entity_action
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -5795,9 +5825,7 @@ links:
                             desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -5832,9 +5860,7 @@ links:
                             desc: Legacy field. Runs on the attacker.
                             link: entity_action
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -5869,9 +5895,7 @@ links:
                             desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
-                            desc: Interval of ticks this power needs to recharge before the action can be executed again.
-                            type: integer
-                            min: 0
+                            link: cooldown
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -6367,6 +6391,17 @@ links:
                             desc: If specified, these modifiers will apply to the experience gained.
 
                             link: attribute_modifier_array
+                    string-origins:prevent_bee_anger:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_bee_anger/
+                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ (the player) and ’target’ (the bees) entities.
+                            link: bientity_condition
+                        block_condition:
+                            desc: If specified, the block condition checked on the Beehive
+                            link: block_condition
+                        bientity_action:
+                            desc: The bientity action to execute if the above conditions are true. Actor = Player, Target = Bees (ran once per bee)
+                            link: bientity_action
                     string-origins:prevent_being_used:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_being_used/
@@ -6463,8 +6498,16 @@ links:
                             desc: If specified, only entities which fulfills this condition will be affected.
                             link: entity_condition
                         bientity_condition:
-                            desc: 	If specified, the power will only be active if this condition is fulfilled by either or both the ‘actor’ (the player that has the power) and ‘target’ (the entity that will not render) entities.
+                            desc: If specified, the power will only be active if this condition is fulfilled by either or both the ‘actor’ (the player that has the power) and ‘target’ (the entity that will not render) entities.
                             link: bientity_condition
+                    string-origins:prevent_entity_selection:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_entity_selection
+                            desc: If specified, only entities which fulfills this bi-entity condition type in relation to the entity that has the power will not be able to be selected by players with this power.
+                            link: bientity_condition
+                        entity_condition:
+                            desc: If specified, only entities that fulfills this entity condition type will not be able to be selected by players with this power.
+                            link: entity_condition
                     string-origins:prevent_entity_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_entity_use/
@@ -6491,8 +6534,11 @@ links:
                             desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
                             link: item_action
                     string-origins:prevent_feature_render:
-                        feature:
+                        bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_feature_render/
+                            desc: If specified, the layers are only hidden from viewers that fulfil the condition. The actor is the viewer, the target is the entity that has the power.
+                            link: bientity_condition
+                        feature:
                             desc: A single feature name to hide. Merged into features.
                             link: features
                         features:
@@ -6629,8 +6675,7 @@ links:
         show: true
         props:
             type:
-                type: string
-                allow: '*a-z0-9_#\/:.-'
+                link: identifier
         extra:
             link: nany
     custom_condition:
@@ -6982,9 +7027,7 @@ links:
             double_chest	9x8 Double Chest inventory.
         enum: ['chest','hopper','dropper','dispenser','double_chest']
     cooldown:
-        desc: Interval of ticks this power needs to recharge before the power can be triggered again.
-        link: expression_integer
-        min: 0
+        link: cooldown
     crafting_recipe:
         desc: The type of recipe.
         or:
@@ -6998,8 +7041,7 @@ links:
                     link: identifier
                 key:
                     type: object
-                    props:
-                        extend: ingredient_key
+                    extra: ingredient_key
                 result:
                     desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
                     type: object
@@ -9106,8 +9148,9 @@ links:
             type: string
             ext: true
           - title: advanced
-            link: nbt_object
-            extend: nbt_object
+            type: object
+            extra:
+                link: nbt_object
     nbt_object:
         nopanel: true
         or:
@@ -9119,8 +9162,7 @@ links:
             vals:
                 link: nbt_object
           - title: object
-            link: nbt_object
-            extend: nbt_object
+            extra: nbt_object
     number_percent:
         type: number
         min: 0
@@ -9161,6 +9203,84 @@ links:
         scale:
             desc: Scales this layer’s geometry outward from the model origin — the same idea as Sync’s Energy Swirl size. Above 1.0 puffs the texture out past the skin (an aura/shell), below 1.0 pulls it inside. 1.0 sits flush on the body.
             link: number_percent
+    overlay_power_multiple:
+        condition:
+            desc: Per-overlay condition, inside overlays only. Checked every frame; an overlay whose condition fails is skipped while the rest keep drawing. On the single-overlay spelling the power’s own condition already does this job.
+            link: entity_condition
+        link: overlay_power
+    overlay_power:
+        texture:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
+            desc: The namespace and ID of the texture to use as an overlay.
+            link: identifier
+        strength:
+            desc: |
+                In texture mode, the alpha the texture is drawn at. In nausea mode, how far it is stretched (1.0 = screen size). Range 0.0–1.0.
+            link: number_percent
+            default: 1
+        red:
+            desc: |
+                Multiplied into the matching colour channel. Range 0.0–1.0.
+            link: number_percent
+            default: 1
+        green:
+            desc: |
+                Multiplied into the matching colour channel. Range 0.0–1.0.
+            link: number_percent
+            default: 1
+        blue:
+            desc: |
+                Multiplied into the matching colour channel. Range 0.0–1.0.
+            link: number_percent
+            default: 1
+        draw_mode:
+            desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
+            enum: ['nausea','texture']
+            default: 'texture'
+            unspec: 'texture'
+        draw_phase:
+            desc: Determines if the overlay should render below or above the HUD ("below_hud" or "above_hud" respectively).
+            enum: ['above_hud','below_hud']
+            unspec: 'above hud'
+        hide_with_hud:
+            desc: Hide it when the HUD is hidden with F1.
+            type: boolean
+            unspec: true
+        visible_in_third_person:
+            desc: Determines if the overlay is visible in third person.
+            type: boolean
+        x:
+            desc: Offset in GUI pixels from the anchor.
+            link: expression_integer
+        y:
+            desc: Offset in GUI pixels from the anchor. y grows downward.
+            link: expression_integer
+        width:
+            desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
+            link: expression_integer
+            default: unspec
+        height:
+            desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
+            link: expression_integer
+            default: unspec
+        anchor:
+            desc: Which point of the screen x/y are measured from.
+            enum: ['top_left','top_center','top_right','left','center','right','bottom_left','bottom_center','bottom_right']
+            unspec: 'top_left'
+        u:
+            desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
+            link: expression_integer
+        v:
+            desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
+            link: expression_integer
+        texture_width:
+            desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
+            type: integer
+            default: unspec
+        texture_height:
+            desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
+            type: integer
+            default: unspec
     part_color:
         type: object
         props:
