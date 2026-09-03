@@ -236,6 +236,7 @@ links:
                       - origins:gamemode
                       - origins:glowing
                       - origins:has_command_tag
+                      - origins:has_location
                       - origins:health
                       - origins:hunger
                       - origins:in_block
@@ -652,6 +653,12 @@ links:
                                 type: list
                                 vals:
                                     link: meta_key
+                        string-origins:has_location:
+                            id:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/has_location/
+                                desc: The name to look for. With no id, the condition passes when the entity has any saved position.
+                                link: meta_key
+                                default: unspec
                         string-origins:health:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/health
@@ -1853,11 +1860,14 @@ links:
                       - origins:explode
                       - origins:grab
                       - origins:mount
+                      - origins:punch
                       - origins:raycast
                       - origins:script
                       - origins:send_action
                       - origins:set_in_love
+                      - origins:swap
                       - origins:tame
+                      - origins:teleport_to
                       - origins:transfer
                       - $Data Actions
                       - origins:add_to_entity_set
@@ -2069,6 +2079,18 @@ links:
                                     The target only moves up/down with the actor’s camera: the horizontal direction is frozen to where the actor faced when the grab started, and only pitch moves it.
                                 type: boolean
                         string-origins:mount: {}
+                        string-origins:punch:
+                            stack:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/punch/
+                                desc: Punch with this item instead of whatever is in the actor’s main hand. The item is held for the duration of the attack only — its attribute modifiers and enchantments count, the actor’s real inventory is untouched, and the item takes no durability damage from the swap itself.
+                                link: item_stack
+                            damage_type:
+                                desc: Deal the punch’s damage under this damage type instead of minecraft:player_attack / minecraft:mob_attack. Doing so takes the direct route — the amount is still the attack damage the item would have dealt, but the knockback, sweep and on-hit enchantment effects of a real attack are skipped.
+                                link: damage_type
+                            swing_hand:
+                                desc: Whether the actor visibly swings its main arm.
+                                type: boolean
+                                unspec: true
                         string-origins:raycast:
                             aim_at_target:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/raycast
@@ -2101,12 +2123,93 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/send_action/
                                 link: meta_send_condition_action
                         string-origins:set_in_love: {}
+                        string-origins:swap:
+                            landing_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/swap/
+                                desc: (ALIAS) If specified, the teleport only happens when the actor would fulfill this condition at the destination. Skipped when the two are in different dimensions.
+                                link: entity_condition
+                            landing_block_condition:
+                                desc: If specified, the teleport only happens when the block below the destination fulfills this condition.
+                                link: block_condition
+                            x:
+                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
+                                link: expression_float
+                                default: 0
+                                gap: true
+                            y:
+                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
+                                link: expression_float
+                                default: 0
+                            z:
+                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
+                                link: expression_float
+                                default: 0
+                            space:
+                                desc: |
+                                    Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind them.
+                                link: space
+                            loaded_chunks_only:
+                                desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
+                                type: boolean
+                                unspec: true
+                            success_action:
+                                desc: Runs with the same pair once they have arrived.
+                                link: bientity_action
+                                gap: true
+                            fail_action:
+                                desc: Runs when the teleport is refused — by a condition, by an unloaded chunk, or by apoli:prevent_teleport.
+                                link: bientity_action
                         string-origins:tame: {}
                         string-origins:target_action:
                             action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/target_action
                                 desc: The entity action type to execute on the target entity.
                                 link: entity_action
+                        string-origins:teleport_to:
+                            landing_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/teleport_to/
+                                desc: If specified, the teleport only happens when the actor would fulfill this condition at the destination. Skipped when the two are in different dimensions.
+                                link: entity_condition
+                            landing_block_condition:
+                                desc: If specified, the teleport only happens when the block below the destination fulfills this condition.
+                                link: block_condition
+                            or:
+                              - swap:
+                                    desc: |
+                                        Whether the target is moved to where the actor was, so the two trade places. Alias: swap_position.
+                                    type: boolean
+                              - swap_position:
+                                    desc: |
+                                        (ALIAS) Whether the target is moved to where the actor was, so the two trade places. Alias: swap_position.
+                                    type: boolean
+                            x:
+                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
+                                link: expression_float
+                                default: 0
+                                gap: true
+                            y:
+                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
+                                link: expression_float
+                                default: 0
+                            z:
+                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
+                                link: expression_float
+                                default: 0
+                            space:
+                                desc: |
+                                    Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind them.
+                                link: space
+                            loaded_chunks_only:
+                                desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
+                                type: boolean
+                                unspec: true
+                            success_action:
+                                desc: Runs with the same pair once they have arrived.
+                                link: bientity_action
+                                gap: true
+                            fail_action:
+                                desc: Runs when the teleport is refused — by a condition, by an unloaded chunk, or by apoli:prevent_teleport.
+                                link: bientity_action
                         string-origins:add_to_entity_set:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_to_entity_set
@@ -2295,6 +2398,9 @@ links:
                       - origins:set_on_fire
                       - origins:swing_hand
                       - origins:team
+                      - origins:teleport
+                      - origins:teleport_to_location
+                      - origins:teleport_to_spawn
                       - origins:text
                       - origins:toggle
                       - origins:trigger_cooldown
@@ -2320,6 +2426,7 @@ links:
                       - origins:revoke_origin
                       - origins:revoke_all_powers
                       - origins:revoke_power
+                      - origins:save_location
                       - origins:store_origin
                       - origins:store_value
                       - origins:suppress_power
@@ -3378,6 +3485,95 @@ links:
                                 type: integer
                                 default: 20
                                 min: 0
+                        string-origins:teleport:
+                            landing_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/teleport/
+                                desc: If specified, the teleport only happens when the entity would fulfill this condition at the destination — it is tested as though the entity were already standing there. Skipped when the destination is in another dimension.
+                                link: entity_condition
+                            landing_block_condition:
+                                desc: If specified, the teleport only happens when the block below the destination fulfills this condition.
+                                link: block_condition
+                            x:
+                                desc: The destination. Read as an offset from the entity’s current position unless relative is false.
+                                link: expression_float
+                                default: 0
+                                gap: true
+                            y:
+                                desc: The destination. Read as an offset from the entity’s current position unless relative is false.
+                                link: expression_float
+                                default: 0
+                            z:
+                                desc: The destination. Read as an offset from the entity’s current position unless relative is false.
+                                link: expression_float
+                                default: 0
+                            or:
+                              - relative:
+                                    desc: |
+                                        Whether x/y/z are an offset from the entity (true) or world coordinates (false). Alias: relative_to_position.
+                                    type: boolean
+                                    unspec: true
+                              - relative_to_position:
+                                    desc: |
+                                        (ALIAS) Whether x/y/z are an offset from the entity (true) or world coordinates (false).
+                                    type: boolean
+                                    unspec: true
+                            space:
+                                desc: |
+                                    Which axes a relative offset is measured along. local turns with the entity, so z: 5 is five blocks in front of them. Ignored when relative is false.
+                                link: space
+                            dimension:
+                                desc: The dimension to teleport into. Defaults to the one the entity is already in.
+                                link: dimension
+                                default: unspec
+                            yaw:
+                                desc: The horizontal rotation to arrive with. Left alone if not given.
+                                link: expression_float
+                                default: unspec
+                            pitch:
+                                desc: The vertical rotation to arrive with. Left alone if not given.
+                                link: expression_float
+                                default: unspec
+                            loaded_chunks_only:
+                                desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
+                                type: boolean
+                                unspec: true
+                            success_action:
+                                desc: Runs on the entity once it has arrived.
+                                link: entity_action
+                                gap: true
+                            fail_action:
+                                desc: Runs on the entity when the teleport is refused — by a condition, by an unloaded chunk, by a missing dimension, or by apoli:prevent_teleport.
+                                link: entity_action
+                        string-origins:teleport_to_location:
+                            id:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/teleport_to_location/
+                                desc: The name the position was saved under.
+                                link: meta_key
+                                required: true
+                            keep_rotation:
+                                desc: Whether the entity keeps the way it is currently facing instead of the rotation it saved.
+                                type: boolean
+                            clear:
+                                desc: Whether the saved position is forgotten once it has been used, making it a one-shot recall.
+                                type: boolean
+                            success_action:
+                                desc: Runs on the entity once it has arrived.
+                                link: entity_action
+                            fail_action:
+                                desc: Runs on the entity when nothing is saved under that name, when the saved dimension no longer exists, or when apoli:prevent_teleport refuses the move.
+                                link: entity_action
+                        string-origins:teleport_to_spawn:
+                            player_spawn:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/teleport_to_location/
+                                desc: The name the position was saved under.
+                                type: boolean
+                                unspec: true
+                            success_action:
+                                desc: Runs on the entity once it has arrived.
+                                link: entity_action
+                            fail_action:
+                                desc: Runs on the entity when the teleport is refused, which for this action means apoli:prevent_teleport.
+                                link: entity_action
                         string-origins:toggle:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/toggle
@@ -3455,6 +3651,16 @@ links:
                                 desc: The layer to take it from.
                                 link: identifier
                                 unspec: 'origins:origin'
+                        string-origins:save_location:
+                            id:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/save_location/
+                                desc: The name to file the position under. Any string; use one per feature so two powers do not overwrite each other.
+                                link: meta_key
+                                required: true
+                            overwrite:
+                                desc: Whether to replace a position already saved under that name. false makes the first save win, which is how you record a home the player cannot move.
+                                type: boolean
+                                unspec: true
                         string-origins:store_origin:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin/
@@ -3725,6 +3931,7 @@ links:
                       - origins:add_block
                       - origins:area_of_effect
                       - origins:bonemeal
+                      - origins:break_block
                       - origins:execute_command
                       - origins:explode
                       - origins:ghost_block
@@ -3880,6 +4087,22 @@ links:
                                 desc: Determines if the particle and other visual effects of the bonemeal-ing action should appear.
                                 type: boolean
                                 unspec: true
+                        string-origins:break_block:
+                            drop_loot:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/break_block/
+                                desc: Whether to roll the block’s loot table and drop the result, experience included. false removes the block and drops nothing.
+                                type: boolean
+                                unspec: true
+                            stack:
+                                desc: The tool the loot table is given, exactly like the tool argument of /loot … mine <pos> <tool>. Silk Touch and Fortune on it apply, and blocks that need a specific tool to drop anything will drop for it. With no stack the loot is rolled with an empty hand.
+                                link: item_stack
+                            break_particles:
+                                desc: Whether to play the block-breaking particles and sound.
+                                type: boolean
+                                unspec: true
+                            as_player:
+                                desc: Drops the loot through the block’s player-mining hook instead of its plain loot table, crediting the player the action came from. A beehive or bee nest releases the bees inside it, the block-mined statistic is awarded, the mining advancements fire, and a little hunger is spent. Needs drop_loot to be true, and has no effect when the entity behind the action is not a player.
+                                type: boolean
                         string-origins:execute_command:
                             command:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/execute_command
@@ -4827,7 +5050,7 @@ links:
                                     type: number
                                     default: 0
                                   - title: expression
-                                    link: expression_number
+                                    link: expression_float
                                   - title: vector
                                     link: vector
                           - title: velocity
@@ -6160,7 +6383,7 @@ links:
                         velocity:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_falling/
                             desc: Determines the speed of the falling velocity.
-                            type: expression_number
+                            type: expression_float
                         modifier:
                             desc: A single modifier applied to the gravity that survives the velocity step. Unlike velocity this can speed a fall up.
                             link: attribute_modifier
