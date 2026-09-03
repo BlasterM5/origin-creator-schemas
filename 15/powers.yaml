@@ -393,11 +393,13 @@ links:
                             biome:
                                 desc: If specified, only evaluate the condition to true if the biome the entity is in matches the specified namespace and ID.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
-                                link: identifier
+                                link: biome
                             biomes:
                                 desc: If specified, only evaluate the condition to true if the biome the entity is in matches one of the specified namespace and IDs.
                                 href: https://minecraft.wiki/w/Biome#Biome_IDs
-                                link: identifier_array
+                                type: list
+                                vals:
+                                    link: biome
                         string-origins:block_collision:
                             block_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/block_collision
@@ -1681,7 +1683,7 @@ links:
                             tag:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/biome-conditions/in_tag
                                 desc: The namespace and ID of the tag which the biome should be in to pass the check.
-                                link: identifier
+                                link: biome_tag
                         string-origins:precipitation:
                             precipitation:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/biome-conditions/precipitation
@@ -3677,14 +3679,14 @@ links:
                             enchantment:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/remove_enchantment
                                 desc: If specified, this enchantment will be removed from the item.
-                                link: identifier
+                                link: enchantment
                                 default: unspec
                             enchantments:
                                 desc: If specified, these enchantments will be removed from the item.
                                 link: identifier_array
                             levels:
                                 desc: If specified, only the enchantments that has the specified level will be removed from the item.
-                                type: integer
+                                link: enchantment
                                 default: unspec
                             reset_repair_cost:
                                 desc: Determines whether the ‘repair cost’ of the item should be reset.
@@ -5226,34 +5228,6 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/water_breathing/
                             desc: If true, the entity loses air and eventually takes drowning damage whenever its eyes are not in water — the aquatic-creature trade-off.
                             type: boolean
-                    string-origins:action_on_being_used:
-                        bientity_condition:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_being_used/
-                            desc: (DEPRECATED) If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
-                        item_condition:
-                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by the item used by the ’actor’ entity for right-clicking the ’target’ entity.
-                            link: item_condition
-                        bientity_action:
-                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
-                            link: bientity_action
-                        hands:
-                            desc: Determines if the power should be activated if the player used the specified hand(s).
-                            type: list
-                            vals:
-                                link: hand
-                        result_stack:
-                            desc: If specified, this item stack will be given to the ’actor’ entity.
-                            link: item_stack
-                        held_item_action:
-                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
-                            link: item_action
-                        result_item_action:
-                            desc: The action to be executed on the result item stack if specified.
-                            link: item_action
-                        action_result:
-                            desc: Determines the result of the ‘use’ action.
-                            link: action_result
-                            default: 'success'
                     string-origins:action_on_block_place:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_block_place/
@@ -5410,35 +5384,6 @@ links:
                         bientity_action:
                             desc: The action to be executed on either or both the ’actor’ and ’target’ entities.
                             link: bientity_action
-                    string-origins:action_on_entity_use:
-                        bientity_condition:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_entity_use/
-                            desc: (DEPRECATED) If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
-                            link: bientity_condition
-                        item_condition:
-                            desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
-                            link: item_condition
-                        hands:
-                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
-                            type: list
-                            vals:
-                                link: hand
-                        bientity_action:
-                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
-                            link: bientity_action
-                        held_item_action:
-                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
-                            link: item_action
-                        result_item_action:
-                            desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
-                            link: item_action
-                        result_stack:
-                            desc: If specified, this item stack will be given to the ’actor’ entity.
-                            link: item_stack
-                        action_result:
-                            desc: Determines the result of the ‘use’ action.
-                            link: action_result
-                            default: 'success'
                     string-origins:action_on_hit:
                         attacker_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
@@ -5452,21 +5397,25 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the target.
-                        self_action:
-                            desc: Action run on the actor (the entity that has the power).
-                            link: entity_action
-                        attacker_action:
-                            desc: Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
-                            link: entity_action
+                        or:
+                          - self_action:
+                                desc: Action run on the actor (the entity that has the power).
+                                link: entity_action
+                          - attacker_action:
+                                desc: (ALIAS) Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
+                                link: entity_action
+                          - title: legacy_action
+                            entity_action_target:
+                                link: entity_action_target
+                                unspec: 'self'
+                            entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
                         bientity_action:
                             desc: The action to execute upon hit.
                             link: bientity_action
                         target_action:
                             desc: Action run on the target (the entity that was hit).
                             link: entity_action
-                        entity_action_target: ['self','attacker','target']
-                        entity_action:
-                            desc: Legacy field. Runs on whichever side entity_action_target names.
                         cooldown:
                             link: cooldown
                             default: 1
@@ -5486,20 +5435,21 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the target.
-                        self_action:
-                            desc: Action run on the actor (the entity that has the power).
-                            link: entity_action
-                        attacker_action:
-                            desc: Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
-                            link: entity_action
                         bientity_action:
                             desc: The action to execute upon hit.
                             link: bientity_action
                         target_action:
                             desc: Action run on the target (the entity that was hit).
                             link: entity_action
-                        entity_action:
-                            desc: Legacy field. Runs on the actor (power holder).
+                        or:
+                          - self_action:
+                                desc: Action run on the actor (the entity that has the power).
+                                link: entity_action
+                          - attacker_action:
+                                desc: (ALIAS) Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
+                                link: entity_action
+                          - entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
                         cooldown:
                             link: cooldown
                             default: 1
@@ -5519,20 +5469,23 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the target.
-                        self_action:
-                            desc: Action run on the actor (the entity that has the power).
-                            link: entity_action
-                        attacker_action:
-                            desc: Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
-                            link: entity_action
+                        or:
+                          - self_action:
+                                desc: Action run on the actor (the entity that has the power).
+                                link: entity_action
+                          - attacker_action:
+                                desc: (ALIAS) Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
+                                link: entity_action
                         bientity_action:
                             desc: The action to execute upon hit.
                             link: bientity_action
-                        target_action:
-                            desc: Action run on the target (the entity that was hit).
-                            link: entity_action
-                        entity_action:
-                            desc: Legacy field. Runs on the target.
+                        or:
+                          - target_action:
+                                desc: Action run on the target (the entity that was hit).
+                                link: entity_action
+                          - entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on the target.
+                                link: entity_action
                         cooldown:
                             link: cooldown
                             default: 1
@@ -5644,19 +5597,22 @@ links:
                         bientity_action:
                             desc: Action run with the (killer, victim) pair.
                             link: bientity_action
-                        self_action:
+                        or:
+                          - self_action:
                             desc: Action run on the killer (the entity that has the power).
                             link: entity_action
-                        attacker_action:
-                            desc: Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
+                          - attacker_action:
+                            desc: (ALIAS) Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
                             link: entity_action
+                          - title: legacy_action
+                            entity_action_target:
+                                link: entity_action_target
+                                unspec: 'self'
+                            entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
+                                link: entity_action
                         target_action:
                             desc: Action run on the entity that died.
-                            link: entity_action
-                        entity_action_target:
-                            link: entity_action_target
-                        entity_action:
-                            desc: Legacy field. Runs on whichever side entity_action_target names.
                             link: entity_action
                         cooldown:
                             link: cooldown
@@ -5681,17 +5637,19 @@ links:
                         bientity_action:
                             desc: Action run with the (killer, victim) pair.
                             link: bientity_action
-                        self_action:
+                        or:
+                          - self_action:
                             desc: Action run on the killer (the entity that has the power).
                             link: entity_action
-                        attacker_action:
-                            desc: Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
+                          - attacker_action:
+                            desc: (ALIAS) Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
                             link: entity_action
+                          - title: legacy_action
+                            entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on the killer (power holder).
+                                link: entity_action
                         target_action:
                             desc: Action run on the entity that died.
-                            link: entity_action
-                        entity_action:
-                            desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
                             link: cooldown
@@ -5809,6 +5767,64 @@ links:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
                             default: 'success'
+                    string-origins:action_on_entity_use:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
+                            desc: (DEPRECATED) If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        item_condition:
+                            desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
+                            link: item_condition
+                        hands:
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
+                            type: list
+                            vals:
+                                link: hand
+                        bientity_action:
+                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
+                        held_item_action:
+                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
+                            link: item_action
+                        result_item_action:
+                            desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
+                            link: item_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the ’actor’ entity.
+                            link: item_stack
+                        action_result:
+                            desc: Determines the result of the ‘use’ action.
+                            link: action_result
+                            default: 'success'
+                    string-origins:action_on_being_used:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
+                            desc: (DEPRECATED) If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ and ’target’ entities.
+                            link: bientity_condition
+                        item_condition:
+                            desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
+                            link: item_condition
+                        hands:
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
+                            type: list
+                            vals:
+                                link: hand
+                        bientity_action:
+                            desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
+                            link: bientity_action
+                        held_item_action:
+                            desc: If specified, this action will be executed on the item used by the ’actor’ entity for right-clicking the ’target’ entity.
+                            link: item_action
+                        result_item_action:
+                            desc: If specified, this action will be executed on the item that is given to the ’actor’ entity.
+                            link: item_action
+                        result_stack:
+                            desc: If specified, this item stack will be given to the ’actor’ entity.
+                            link: item_stack
+                        action_result:
+                            desc: Determines the result of the ‘use’ action.
+                            link: action_result
+                            default: 'success'
                     string-origins:action_on_wake_up:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_wake_up/
@@ -5830,6 +5846,7 @@ links:
                         onset_delay:
                             desc: Ticks to wait after the condition first becomes true before entity_action starts running. rising_action still fires immediately.
                             link: expression_integer
+                            default: 0
                         rising_action:
                             desc: The action to execute on the first interval tick in which the condition became true.
                             link: entity_action
@@ -5856,19 +5873,21 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        self_action:
-                            desc: Action run on the target (the entity that has the power).
-                            link: entity_action
-                        target_action:
-                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
-                            link: entity_action
+                        or:
+                          - self_action:
+                                desc: Action run on the target (the entity that has the power).
+                                link: entity_action
+                          - target_action:
+                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                                link: entity_action
+                          - title: legacy_action
+                            entity_action_target:
+                                link: entity_action_target
+                            entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
+                                link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
-                            link: entity_action
-                        entity_action_target:
-                            link: entity_action_target
-                        entity_action:
-                            desc: Legacy field. Runs on whichever side entity_action_target names.
                             link: entity_action
                         cooldown:
                             link: cooldown
@@ -5893,17 +5912,19 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        self_action:
-                            desc: Action run on the target (the entity that has the power).
-                            link: entity_action
-                        target_action:
-                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
-                            link: entity_action
+                        or:
+                          - self_action:
+                                desc: Action run on the target (the entity that has the power).
+                                link: entity_action
+                          - target_action:
+                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                                link: entity_action
+                          - title: legacy_action
+                            entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on the target (holder).
+                                link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
-                            link: entity_action
-                        entity_action:
-                            desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
                             link: cooldown
@@ -5928,18 +5949,21 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        self_action:
-                            desc: Action run on the target (the entity that has the power).
-                            link: entity_action
-                        target_action:
-                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
-                            link: entity_action
-                        attacker_action:
-                            desc: Action run on the actor (the entity that dealt the damage).
-                            link: entity_action
-                        entity_action:
-                            desc: Legacy field. Runs on the attacker.
-                            link: entity_action
+                        or:
+                          - self_action:
+                                desc: Action run on the target (the entity that has the power).
+                                link: entity_action
+                          - target_action:
+                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                                link: entity_action
+                        or:
+                          - attacker_action:
+                                desc: Action run on the actor (the entity that dealt the damage).
+                                link: entity_action
+                          - title: legacy_action
+                            entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on the attacker.
+                                link: entity_action
                         cooldown:
                             link: cooldown
                             default: 1
@@ -5963,17 +5987,19 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        self_action:
-                            desc: Action run on the target (the entity that has the power).
-                            link: entity_action
-                        target_action:
-                            desc: Action run on the target. Here the target is the holder, so this is a synonym for self_action.
-                            link: entity_action
+                        or:
+                          - self_action:
+                                desc: Action run on the target (the entity that has the power).
+                                link: entity_action
+                          - target_action:
+                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                                link: entity_action
+                          - title: legacy_action
+                            entity_action:
+                                desc: (DEPRECATED) Legacy field. Runs on the target (holder).
+                                link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
-                            link: entity_action
-                        entity_action:
-                            desc: Legacy field. Runs on the actor.
                             link: entity_action
                         cooldown:
                             link: cooldown
@@ -6006,7 +6032,8 @@ links:
                         multiplier:
                             desc: |
                                 The per-axis movement multiplier used instead of the block’s own. 1.0 means no slowdown at all; vanilla cobweb uses {"x": 0.25, "y": 0.05, "z": 0.25}.
-                            link: vector
+                            link: vector_or_number
+                            default: 1.0
                     string-origins:modify_break_speed:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_break_speed/
@@ -6017,47 +6044,29 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the break speed.
-
                             link: attribute_modifier_array
                         hardness_modifier:
                             desc: If specified, this modifier will be applied to the effective hardness value of the block while calculating the block’s break speed.
                             link: attribute_modifier
                         hardness_modifiers:
                             desc: If specified, these modifiers will be applied to the effective hardness value of the block while calculating the block’s break speed.
-
                             link: attribute_modifier_array
                     string-origins:modify_camera_submersion:
                         from:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera_submersion/
                             desc: The submersion to replace.
-                            or:
-                              - title: built-in
-                                enum: ['none','water','lava','powder_snow']
-                              - title: custom
-                                link: identifier
+                            link: fluid_vanilla
                         to:
                             desc: What to report instead.
-                            or:
-                              - title: built-in
-                                enum: ['none','water','lava','powder_snow']
-                              - title: custom
-                                link: identifier
+                            link: fluid_vanilla
                     string-origins:modify_camera_submersion_type:
                         from:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera_submersion/
                             desc: (DEPRECATED) The submersion to replace.
-                            or:
-                              - title: built-in
-                                enum: ['none','water','lava','powder_snow']
-                              - title: custom
-                                link: identifier
+                            link: fluid_vanilla
                         to:
                             desc: What to report instead.
-                            or:
-                              - title: built-in
-                                enum: ['none','water','lava','powder_snow']
-                              - title: custom
-                                link: identifier
+                            link: fluid_vanilla
                     string-origins:modify_crafting:
                         recipe:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_crafting/
@@ -6107,9 +6116,6 @@ links:
                         damage_condition:
                             desc: Only apply to damage matching this.
                             link: damage_condition
-                        target_used:
-                            desc: false modifies damage the holder deals; true modifies damage the holder takes. Filled in for you by the two aliases.
-                            type: boolean
                         modifier:
                             desc: A single modifier applied to the damage amount.
                             link: attribute_modifier
@@ -6130,7 +6136,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-
                             link: attribute_modifier_array
                     string-origins:modify_enchantment_level:
                         item_condition:
@@ -6139,13 +6144,12 @@ links:
                             link: item_condition
                         enchantment:
                             desc: ID of the enchantment to apply/modify the level of to the entity., e.g. minecraft:protection.
-                            link: identifier
+                            link: enchantment
                         modifier:
                             desc: If specified, this modifier will be applied to the current level of the specified enchantment from the entity.
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the current level of the specified enchantment from the entity.
-
                             link: attribute_modifier_array
                     string-origins:modify_exhaustion:
                         modifier:
@@ -6154,13 +6158,18 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the received exhaustion amount.
-
                             link: attribute_modifier_array
                     string-origins:modify_falling:
                         velocity:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_falling/
                             desc: Determines the speed of the falling velocity.
-                            type: number
+                            type: expression_number
+                        modifier:
+                            desc: A single modifier applied to the gravity that survives the velocity step. Unlike velocity this can speed a fall up.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers, applied in operation order.
+                            link: attribute_modifier_array
                         take_fall_damage:
                             desc: Determines whether the entity should take fall damage or not.
                             type: boolean
@@ -6175,21 +6184,18 @@ links:
                             link: attribute_modifier
                         food_modifiers:
                             desc: Several modifiers applied to the item’s nutrition.
-
                             link: attribute_modifier_array
                         saturation_modifier:
                             desc: Applied to the item’s saturation modifier.
                             link: attribute_modifier
                         saturation_modifiers:
                             desc: Several modifiers applied to the item’s saturation modifier.
-
                             link: attribute_modifier_array
                         eat_ticks_modifier:
                             desc: Applied to how long the item takes to eat, in ticks.
                             link: attribute_modifier
                         eat_ticks_modifiers:
                             desc: Several modifiers applied to the eating time.
-
                             link: attribute_modifier_array
                         always_edible:
                             desc: If true, the matching items can be eaten on a full hunger bar.
@@ -6223,12 +6229,26 @@ links:
                         item_action_after_grinding:
                             desc: If specified, this action will be executed on the result item stack after the grinding process.
                             link: item_action
-                        result_type:
-                            desc: Determines whether to not change the initial item stack ("unchanged"), replace it with the item stack specified in the result_stack field ("specified"), replace it with the item stack from the top input slot of a Grindstone block ("from_top") or replace it with the item stack from the bottom input slot of a Grindstone block ("from_bottom").
-                            enum: [unchanged, specified, from_top, from_bottom]
-                        result_stack:
-                            desc: If specified, this item stack will be used as a replacement only if the result_type field has a value of "specified".
-                            link: item_stack
+                        or:
+                          - title: result_type:specified
+                            result_type:
+                                desc: Replace the initial item stack with the item stack specified below.
+                                const: 'specified'
+                            result_stack:
+                                desc: If specified, this item stack will be used as a replacement.
+                                link: item_stack
+                          - title: result_type:unchanged
+                            result_type:
+                                desc: Do not change the initial item stack.
+                                const: 'unchanged'
+                          - title: result_type:from_top
+                            result_type:
+                                desc: Replace the initial item stack with the item stack from the top input slot of the Grindstone block.
+                                const: 'from_top'
+                          - title: result_type:from_bottom
+                            result_type:
+                                desc: Replace the initial item stack with the item stack from the bottom input slot of a Grindstone block.
+                                const: 'from_bottom'
                         block_action:
                             desc: If specified, this action will be executed on the Grindstone block upon taking the item stack from the result slot of the said Grindstone block.
                             link: block_action
@@ -6246,6 +6266,9 @@ links:
                         allow:
                             desc: Determines whether the player is be able to harvest the block.
                             type: boolean
+                        stack:
+                            desc: Roll the block’s loot table as if the player had been holding this item, exactly like the tool argument of /loot … mine <pos> <tool>. The player’s real tool still takes the durability damage and still decides how fast the block breaks; only the drops are computed from stack.
+                            link: item_stack
                     string-origins:modify_healing:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_healing/
@@ -6253,7 +6276,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to your healing bonus.
-
                             link: attribute_modifier_array
                     string-origins:modify_hearing_range:
                         sounds:
@@ -6270,7 +6292,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers applied to the base hearing distance.
-
                             link: attribute_modifier_array
                     string-origins:modify_jump:
                         entity_action:
@@ -6281,7 +6302,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the upwards velocity.
-
                             link: attribute_modifier_array
                     string-origins:modify_label_render:
                         tick_rate:
@@ -6332,6 +6352,14 @@ links:
                             type: list
                             vals:
                                 link: entity_pose
+                        perspectives:
+                            desc: Which views the transformations are drawn in.
+                            or:
+                              - title: single
+                                enum: ['third_person','first_person']
+                                unspec: 'third_person'
+                              - title: both
+                                const: '["first_person","third_person"]'
                     string-origins:modify_player_model:
                         model:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_model/
@@ -6345,19 +6373,11 @@ links:
                         biome:
                             desc: If specified, the player will only spawn in the biome that matches the specified namespace and ID.
                             href: https://minecraft.wiki/w/Biome#Biome_IDs
-                            or:
-                              - title: built-in
-                                link: biome
-                              - title: custom
-                                link: identifier
+                            link: biome
                         structure:
                             desc: If specified, the player will only spawn in the specified namespace and ID of the structure. The structure needs to generate in the specified dimension.
                             href: https://minecraft.wiki/w/Commands/locate#Arguments
-                            or:
-                              - title: built-in
-                                link: structure
-                              - title: custom
-                                link: identifier
+                            link: structure
                         spawn_strategy:
                             desc: Determines whether the player should spawn near the world spawnpoint (0, 0) of the dimension ("center") or near the coordinates of the Overworld spawnpoint (whilst considering the value of the dimension_distance_multiplier field) ("default").
                             enum: ['default', 'center']
@@ -7064,8 +7084,19 @@ links:
             max_total:						NewTotal = min(Total, Modifier)
             set_total:						NewTotal = Modifier (last, overrides everything)
     biome:
-        enum: ['any',$Overworld,'the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark',$Nether,'nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas',$The End,'the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
-        unspec: 'any'
+        or:
+          - title: built-in
+            enum: ['any',$Overworld,'the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark',$Nether,'nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas',$The End,'the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
+            unspec: 'any'
+          - title: custom
+            link: identifier
+    biome_tag:
+        or:
+          - title: built-in
+            enum: ['no_tag',$General,'allows_surface_slime_spawns','allows_tropical_fish_spawns_at_any_height','has_closest_water_fog','increased_fire_burnout','is_badlands','is_beach','is_deep_ocean','is_end','is_forest','is_hill','is_jungle','is_mountain','is_nether','is_ocean','is_overworld','is_river','is_savanna','is_taiga','mineshaft_blocking','more_frequent_drowned_spawns','polar_bears_spawn_on_alternate_blocks','plays_underwater_music','produces_corals_from_bonemeal','reduce_water_ambient_spawns','required_ocean_monument_surrounding','snow_golem_melts','spawns_cold_variant_frogs','spawns_gold_rabbits','spawns_snow_foxes','spawns_warm_variant_frogs','spawns_white_rabbits','strongold_biased_to','water_on_map_outlines','without_patrol_spawns','without_wandering_trader_spawns','without_zombie_sieges',Structure Check,'has_structure/ancient_city','has_structure/bastion_remnant','has_structure/buried_treasure','has_structure/desert_pyramid','has_structure/end_city','has_structure/igloo','has_structure/jungle_temple','has_structure/mineshaft','has_structure/mineshaft_mesa','has_structure/nether_fortress','has_structure/nether_fossil','has_structure/ocean_monument','has_structure/ocean_ruin_cold','has_structure/ocean_ruin_warm,','has_structure/pillager_outpost','has_structure/ruined_portal_desert,','has_structure/ruined_portal_jungle','has_structure/ruined_portal_mountain','has_structure/ruined_portal_nether','has_structure/ruined_portal_ocean','has_structure/ruined_portal_standard','has_structure/ruined_portal_swamp','has_structure/shipwreck','has_structure/shipwreck_beached','has_structure/stronghold','has_structure/swamp_hut','has_structure/trail_ruins','has_structure/trial_chambers','has_structure/village_desert','has_structure/village_plains','has_structure/village_savanna','has_structure/village_snowy','has_structure/village_taiga','has_structure/woodland_mansion']
+            unspec: 'no_tag'
+          - title: custom
+            link: identifier
     block_facing:
         enum: ['default','up','down','north','south','east','west']
         unspec: 'default'
@@ -7316,9 +7347,11 @@ links:
     fluid:
         or:
           - type: built-in
-            enum: ['none','water','lava','powder_snow']
+            link: fluid_vanilla
           - type: custom
             link: meta_key
+    fluid_vanilla:
+        enum: ['none','water','lava','powder_snow']
     fluid_handling:
         desc: |
             Determines how the raycast will handle fluids
@@ -9806,8 +9839,12 @@ links:
                 desc: Chance of the status effect taking effect.
                 link: number_percent
     structure:
-        enum: ['any','ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
-        unspec: 'any'
+        or:
+          - title: built-in
+            enum: ['any','ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
+            unspec: 'any'
+          - title: custom
+            link: identifier
     team:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
         desc: A scoreboard team, given either by name or as a set of properties to match.
