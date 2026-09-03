@@ -4169,6 +4169,7 @@ links:
                   - origins:prevent_game_event
                   - origins:prevent_item_pickup
                   - origins:prevent_item_use
+                  - origins:prevent_key_press
                   - origins:prevent_powers
                   - origins:prevent_sleep
                   - origins:prevent_sprinting
@@ -4449,7 +4450,6 @@ links:
                             link: attribute_modifier
                         consuming_time_modifiers:
                             desc: If specified, these modifiers will be applied on the maximum time the item is being consumed (in ticks).
-
                             link: attribute_modifier_array
                     string-origins:effect_immunity:
                         inverted:
@@ -6014,7 +6014,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-
                             link: attribute_modifier_array
                     string-origins:modify_block_render:
                         block_condition:
@@ -6106,7 +6105,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-
                             link: attribute_modifier_array
                     string-origins:modify_damage_dealt:
                         bientity_condition:
@@ -6121,7 +6119,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
-
                             link: attribute_modifier_array
                     string-origins:modify_damage_taken:
                         bientity_condition:
@@ -6354,12 +6351,10 @@ links:
                                 link: entity_pose
                         perspectives:
                             desc: Which views the transformations are drawn in.
-                            or:
-                              - title: single
+                            type: list
+                            vals:
                                 enum: ['third_person','first_person']
-                                unspec: 'third_person'
-                              - title: both
-                                const: '["first_person","third_person"]'
+                            unspec: ['third_person']
                     string-origins:modify_player_model:
                         model:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_model/
@@ -6399,7 +6394,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the damage amount.
-
                             link: attribute_modifier_array
                         self_action:
                             desc: If specified, this action will be executed on the ‘actor’ entity (the entity that has the power) whenever the modifier(s) are applied.
@@ -6417,7 +6411,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the entity's slipperiness.
-
                             link: attribute_modifier_array
                     string-origins:modify_status_effect_amplifier:
                         status_effect:
@@ -6432,7 +6425,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers.
-
                             link: attribute_modifier_array
                     string-origins:modify_status_effect_duration:
                         status_effect:
@@ -6447,7 +6439,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers.
-
                             link: attribute_modifier_array
                     string-origins:modify_swim_speed:
                         modifier:
@@ -6456,14 +6447,19 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will be applied to the player's swim speed.
-
                             link: attribute_modifier_array
                     string-origins:modify_type_tag:
                         tag:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_type_tag/
                             desc: |
                                 The entity type tag(s) to change membership of. A leading # is optional.
-                            link: identifier_single_or_array
+                            or:
+                              - title: single
+                                link: entity_type_tag
+                              - title: multiple
+                                type: list
+                                vals:
+                                    link: entity_type_tag
                             required: true
                         included:
                             desc: true adds the entity to the tag; false removes it, even if its entity type is genuinely in the tag.
@@ -6481,7 +6477,6 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will apply to the specified axes.
-
                             link: attribute_modifier_array
                     string-origins:modify_xp_gain:
                         modifier:
@@ -6490,18 +6485,17 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: If specified, these modifiers will apply to the experience gained.
-
                             link: attribute_modifier_array
                     string-origins:prevent_bee_anger:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_bee_anger/
-                            desc: If specified, the specified actions will only be executed if this condition is fulfilled by either or both ’actor’ (the player) and ’target’ (the bees) entities.
+                            desc: If specified, the bees are only calmed when this condition holds. The actor is the entity that has the power and the target is the bee that would have been angered, so it is tested once per bee.
                             link: bientity_condition
                         block_condition:
-                            desc: If specified, the block condition checked on the Beehive
+                            desc: If specified, only hives that fulfill this condition are affected — everything else angers its bees as usual.
                             link: block_condition
                         bientity_action:
-                            desc: The bientity action to execute if the above conditions are true. Actor = Player, Target = Bees (ran once per bee)
+                            desc: Executed for each bee that was stopped from getting angry, with the same actor and target. Only runs when the hive is harvested, not when it is disturbed.
                             link: bientity_action
                     string-origins:prevent_being_used:
                         bientity_condition:
@@ -6671,6 +6665,23 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_item_use/
                             desc: If specified, only items that fulfills this condition will be prevented from being used.
                             link: item_condition
+                    string-origins:prevent_key_press:
+                        keys:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_key_press/
+                            desc: The keys to block. Left out, every key is blocked.
+                            type: list
+                            vals:
+                                link: keybind
+                            scroll:
+                                desc: Also block the mouse wheel — hotbar scrolling and apoli:action_on_scroll_wheel. The wheel is not a keybind, so it needs its own switch. The default is true when keys is absent, otherwise false.
+                                link: boolean_optional
+                            affect_forced:
+                                desc: Also block keys that apoli:force_key_pressed is holding down. Left false, a paralysed player can still be puppeted.
+                                type: boolean
+                            unpress:
+                                desc: Release everything currently held the moment the block starts, so a player who was already running does not keep sliding.
+                                type: boolean
+                                unspec: true
                     string-origins:prevent_powers:
                         update_rate:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_powers/
@@ -6698,6 +6709,15 @@ links:
                             type: integer
                             default: 0
                     string-origins:prevent_sprinting: {}
+                    string-origins:prevent_teleport:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_teleport/
+                            desc: Runs on the entity each time a teleport is blocked. Good for a sound or a message; it fires once per blocked attempt, not once per tick.
+                            link: entity_action
+                        prevent_dimension_change:
+                            desc: Whether portals and end gateways are blocked too. Set it to false to leave normal travel alone and only stop teleports within a dimension.
+                            type: boolean
+                            unspec: true
                     string-origins:prevent_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_use/
