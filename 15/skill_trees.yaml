@@ -1,0 +1,105 @@
+type: object
+props:
+    or:
+      - title: Tree
+        name:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-json-format/
+            desc: The display name of the tree’s tab.
+            id: powers
+            link: text_component
+        description:
+            desc: The description of the tree’s tab.
+            id: powers
+            link: text_component
+        icon:
+            desc: The item or texture shown as the tree’s tab icon.
+            id: powers
+            link: icon
+        frame:
+            desc: The border drawn around the tree’s tab icon, matching the advancement frames.
+            link: frame
+        background:
+            desc: The texture used as the background of the tree screen.
+            link: identifier
+        default_powers:
+            desc: Powers granted to every player who has the tree (e.g. a point-earning power). Removed when the tree is revoked.
+            type: list
+            vals:
+                link: identifier
+        order:
+            desc: Tab order among trees — lower values come first; ties keep load order.
+            type: integer
+            default: 0
+        auto_grant:
+            desc: If true, every player automatically has this tree (revoking has no lasting effect). If false, the tree is hidden until granted via the grant action.
+            type: boolean
+            unspec: true
+        condition:
+            desc: If set, the tree only counts for players who fulfil it — see Tying a tree to an origin.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-json-format/#tying-a-tree-to-an-origin
+            id: powers
+            link: entity_condition
+        refundable:
+            desc: If true, players can shift-click a purchased skill in the tree screen to un-buy it — the power is removed and its point cost returned (only allowed while no purchased skill depends on it). Set false to make purchases permanent (admins can still unbuy via the /apoli:skill_tree command).
+            type: boolean
+            unspec: true
+      - title: Skill
+        parent:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-json-format/#skill-file-fields
+            desc: The tree, or another skill, this one hangs off.
+            link: identifier
+            required: true
+        or:
+          - title: single
+            power:
+                desc: The power buying this skill grants.
+                link: identifier
+          - title: multiple
+            powers:
+                type: list
+                vals:
+                    desc: The powers buying this skill grants.
+                    link: identifier
+        name:
+            desc: Display name.
+            id: powers
+            link: text_component
+        description:
+            desc: Display description.
+            id: powers
+            link: text_component
+        icon:
+            desc: Node icon — an item id, an item stack, or a texture.
+            id: powers
+            link: icon
+        frame:
+            desc: Border drawn around the node, matching the advancement frames.
+            link: frame
+        cost:
+            desc: Points needed to buy it.
+            type: integer
+            default: 0
+        excludes:
+            desc: Skills that become unbuyable once this one is bought, and vice versa.
+            type: list
+            vals:
+                link: identifier
+        condition:
+            desc: Must pass before the skill can be bought.
+            id: powers
+            link: entity_condition
+        visibility_condition:
+            desc: Must pass for the node to appear at all.
+            id: powers
+            link: entity_condition
+        order:
+            desc: Sort order among siblings.
+            type: integer
+            default: 0
+links:
+    frame:
+        enum: ['task','goal','challenge']
+        unspec: 'task'
+    identifier:
+        type: string
+        allow: '*a-z0-9_#\/:.-'
