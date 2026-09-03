@@ -12,6 +12,7 @@ links:
                 type:
                     href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/bi-entity-condition-types
                     enum:
+                      - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:invert
@@ -41,6 +42,7 @@ links:
                       - origins:and
                       - origins:or
                     more:
+                        string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -196,6 +198,7 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/entity_condition_types/
                     enum:
+                      - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
@@ -304,6 +307,7 @@ links:
                       - origins:xp_points
                       
                     more:
+                        string-origins:nothing
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -1114,6 +1118,7 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/item_condition_types/
                     enum:
+                      - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
@@ -1150,6 +1155,7 @@ links:
                       - origins:block
                       - origins:holder
                     more:
+                        string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -1332,6 +1338,7 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/block_condition_types/
                     enum:
+                      - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
@@ -1363,6 +1370,7 @@ links:
                       - origins:or
                       - origins:chance
                     more:
+                        string-origins:noting: {}
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -1579,6 +1587,7 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/fluid_condition_types/
                     enum:
+                      - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
@@ -1591,6 +1600,7 @@ links:
                       - origins:or
                       - origins:chance
                     more:
+                        string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -1642,6 +1652,7 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/biome_condition_types/
                     enum:
+                      - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
@@ -1655,6 +1666,7 @@ links:
                       - origins:or
                       - origins:chance
                     more:
+                        string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -1719,6 +1731,7 @@ links:
                 type:
                     href: https://origins.readthedocs.io/en/latest/types/damage_condition_types/
                     enum:
+                      - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
@@ -1743,6 +1756,7 @@ links:
                       - origins:out_of_world
                       - origins:unblockable
                     more:
+                        string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -4267,6 +4281,7 @@ links:
                 enum:
                   - $Regular Types
 
+                  - origins:nothing
                   - origins:simple
                   - origins:attribute
                   - origins:climbing
@@ -4424,6 +4439,7 @@ links:
                   - origins:toggle_night_vision
 
                 more:
+                    string-origins:nothing: {}
                     string-origins:attribute:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
