@@ -1,55 +1,71 @@
 type: object
 props:
     name:
-        desc: The display name of the origin. Can be a translation key which is localized in a language file, or the literal display name.
+        href: https://0vergrown.github.io/Handbook/docs/datapack/origins/overview/
+        desc: The origin’s display name.
         type: string
+    name_scroll_speed:
+        desc: Speed a long name marquees at.
+        type: integer
     description:
-        desc: The description of the origin. Can be a translation key which is localized in a language file, or the literal description.
+        desc: The lore shown when selecting.
         type: string
         ext: true
     powers:
-        desc: IDs of the powers this origin should have.
+        desc: The powers this origin grants.
         type: list
         large: true
         vals:
-            type: string
-            allow: '*a-z0-9_#\/:.-'
-            hooks: [ns]
+            link: identifier
     icon:
-        desc: The item stack which is displayed as the icon for the origin in the top-left corner of the choose/view origin screen.
+        desc: Shown in the selection screen. An item or a texture.
         id: powers
         link: item_stack
         gap: true
     upgrades:
-        desc: A list of upgrades for this origin, specifying which advancements turn this origin into which other origin.
+        desc: Conditions that turn this origin into another one — see Upgrading into another origin.
+        href: https://0vergrown.github.io/Handbook/docs/datapack/origins/overview/#upgrading-into-another-origin
         type: list
         vals:
             type: object
             props:
                 condition:
                     desc: ID of an advancement which should trigger this upgrade.
-                    type: string
-                    allow: '*a-z0-9_#\/:.-'
+                    id: powers
+                    link: entity_condition
+                    required: true
                 origin:
                     desc: ID of an origin the origin with this upgrade should upgrade to.
-                    type: string
-                    allow: '*a-z0-9_#\/:.-'
-                    hooks: [ns]
+                    link: identifier
+                    required: true
                 announcement:
                     desc: A text which will show up in the local chat of the player in a pretty color. If none is specified, there won't be a message.
-                    type: string
+                    id: powers
+                    link: text_component
     unchoosable:
-        desc: If set to true, this origin will not show up in any origin layer to choose it, but it will still be able to be set for that layer with a command or via an origin upgrade.
+        desc: Exists but can’t be picked (e.g. an admin origin).
         type: boolean
     order:
-        desc: Specifies the position of this origin in the choose origin screen among the other origins with the same impact in the layer. If not specified, will be a really large number - basically adding it in the end.
+        desc: Sort position in the screen.
         type: integer
+        default: 0
     impact:
-        desc: Specifies the impact of this origin with a number from 0 (none) to 3 (high).
+        desc: The “impact” dots — how strong the origin is.
         type: integer
         default: 0
         min: 0
         max: 3
     loading_priority:
-        desc: Specifies when this origin is loaded. Higher numbers mean it's loaded later, which means it will override those with lower loading priorities which share the same ID.
+        desc: Higher wins when packs define the same id.
         type: integer
+        default: 0
+    max_players:
+        desc: How many players may hold this origin at once — see Capping an origin.
+        href: https://0vergrown.github.io/Handbook/docs/datapack/origins/overview/#capping-an-origin
+        type: integer
+        min: -1
+        default: -1
+links:
+    identifier:
+    type: string
+    allow: '*a-z0-9_#\/:.-'
