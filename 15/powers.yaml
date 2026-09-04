@@ -196,7 +196,7 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/entity_condition_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/bi-entity-condition-types
                     enum:
                       - origins:nothing
                       - origins:all_of
@@ -9196,7 +9196,6 @@ links:
             href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
             desc: Probability of passing, 0.0 to 1.0.
             extend: number_percent
-            required: true
     meta_condition_chance:
         chance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
