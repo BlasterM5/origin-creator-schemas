@@ -2215,7 +2215,17 @@ links:
                             at_target:
                                 desc: If true, the explosion originates at the target's position; otherwise it originates at the actor's
                                 type: boolean
-                            link: meta_explode
+                            destruction_type:
+                                link: destruction_type
+                            create_fire:
+                                desc: Determines if the summoned explosion should create fire.
+                                type: boolean
+                            indestructible:
+                                desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
+                                link: block_condition
+                            destructible:
+                                desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
+                                link: block_condition
                         string-origins:grab:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/grab
@@ -3156,7 +3166,17 @@ links:
                                 desc: Determines if the entity that invoked the action should take damage from the summoned explosion.
                                 type: boolean
                                 unspec: true
-                            link: meta_explode
+                            destruction_type:
+                                link: destruction_type
+                            create_fire:
+                                desc: Determines if the summoned explosion should create fire.
+                                type: boolean
+                            indestructible:
+                                desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
+                                link: block_condition
+                            destructible:
+                                desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
+                                link: block_condition
                         string-origins:extinguish: {}
                         string-origins:feed:
                             food:
@@ -4339,7 +4359,17 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/explode
                                 desc: Determines the power of the explosion.
                                 type: number
-                            link: meta_explode
+                            destruction_type:
+                                link: destruction_type
+                            create_fire:
+                                desc: Determines if the summoned explosion should create fire.
+                                type: boolean
+                            indestructible:
+                                desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
+                                link: block_condition
+                            destructible:
+                                desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
+                                link: block_condition
                         string-origins:ghost_block:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/ghost_block
@@ -7560,7 +7590,15 @@ links:
     description_or:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
         desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
-    description_invert:
+    destruction_type:
+        desc: |
+            Determines the effect of the explosion to the terrain:
+            break:		The explosion will destroy blocks and drop the loot of all of them
+            none:		The explosion will *not* destroy blocks at all
+            destroy:	The explosion will destroy blocks and drop the loot of *some* of them.
+                        The chance to drop blocks decreases with higher explosion power.
+                        It also defers to the 'minecraft:survives_explosion' loot condition in the loot tables.
+        enum: ['break','none','destroy']
     difficulty:
         enum: ['peaceful','easy','normal','hard']
     dimension:
@@ -9390,25 +9428,6 @@ links:
     meta_condition_constant:
         desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
         type: boolean
-    meta_explode:
-        destruction_type:
-            desc: |
-                Determines the effect of the explosion to the terrain:
-                break:		The explosion will destroy blocks and drop the loot of all of them
-                none:		The explosion will *not* destroy blocks at all
-                destroy:	The explosion will destroy blocks and drop the loot of *some* of them.
-                            The chance to drop blocks decreases with higher explosion power.
-                            It also defers to the 'minecraft:survives_explosion' loot condition in the loot tables.
-            enum: ['break','none','destroy']
-        create_fire:
-            desc: Determines if the summoned explosion should create fire.
-            type: boolean
-        indestructible:
-            desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
-            link: block_condition
-        destructible:
-            desc: If specified, only the blocks that fulfill this condition will be destroyed by the summoned explosion.
-            link: block_condition
     meta_key:
         type: string
         allow: 'a-z0-9._-'
