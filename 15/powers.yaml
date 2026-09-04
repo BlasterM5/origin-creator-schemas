@@ -9696,9 +9696,9 @@ links:
             air					|number		|Remaining air (in ticks).
             fire_ticks			|number		|Remaining fire (in ticks).
         or:
-            - title: built-in
+          - title: built-in
             enum: ['no_gravity','invulnerable','silent','glowing','invisible','custom_name_visible','no_ai','fall_distance','air','fire_ticks']
-            - title: custom
+          - title: custom
             link: meta_key
         value:
             desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
