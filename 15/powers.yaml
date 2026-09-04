@@ -7302,6 +7302,7 @@ links:
                         entity_action:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_jump/
                             desc: If specified, this action will be executed on the entity that has the power whenever the entity jumps.
+                            link: entity_action
                         modifier:
                             desc: If specified, this modifier will be applied to the upwards velocity.
                             link: attribute_modifier
