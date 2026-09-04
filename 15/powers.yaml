@@ -5436,9 +5436,6 @@ links:
                         slim_texture_location:
                             desc: Texture for the slim (Alex) model.
                             link: identifier
-                        render_as_overlay:
-                            desc: Minions only! false replaces the minion’s own model with yours; true draws yours on top of it. Ignored on players, where geometry is always drawn over the player model.
-                            type: boolean
                         animations:
                             desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
                             or:
