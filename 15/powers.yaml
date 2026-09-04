@@ -2038,7 +2038,17 @@ links:
                                 extend: meta_action_if_else_list
                                 link: meta_condition_if_list_bientity
                         string-origins:loop:
-                            extend: meta_action_loop
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                                type: integer
+                                min: 0
+                                default: 1
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: bientity_action
@@ -2599,7 +2609,17 @@ links:
                                 extend: meta_action_if_else_list
                                 link: meta_condition_if_list_entity
                         string-origins:loop:
-                            extend: meta_action_loop
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                                type: integer
+                                min: 0
+                                default: 1
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: entity_action
@@ -3866,7 +3886,17 @@ links:
                                             desc: An action which might be executed.
                                             link: item_action
                         string-origins:loop:
-                            extend: meta_action_loop
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                                type: integer
+                                min: 0
+                                default: 1
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: item_action
@@ -4052,7 +4082,17 @@ links:
                                             desc: An action which might be executed.
                                             link: block_action
                         string-origins:loop:
-                            extend: meta_action_loop
+                            value:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
+                                desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
+                                type: integer
+                                default: 1
+                            ticks:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
+                                desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
+                                type: integer
+                                min: 0
+                                default: 1
                             before_action:
                                 desc: Fired once, immediately, before the first iteration.
                                 link: block_action
@@ -9213,18 +9253,6 @@ links:
     meta_action_if_else_list:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
         desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
-    meta_action_loop:
-        value:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop
-            desc: Number of times action is executed. At 0 or less the whole action is skipped — not even before_action and after_action fire.
-            type: integer
-            default: 1
-        ticks:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/loop#running-it-all-in-one-tick
-            desc: Tick interval between iterations. At 0 or less every iteration runs in the firing tick instead (see Running it all in one tick).
-            type: integer
-            min: 0
-            default: 1
     meta_advancement_action:
         criterion:
             desc: A single criterion name, rather than the whole advancement.
