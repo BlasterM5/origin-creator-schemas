@@ -2724,10 +2724,21 @@ links:
                                 desc: |
                                     The advancement to act on. Omit it with selection: everything to act on all of them.
                                 link: advancement
-                            link: meta_advancement_action
+                            criterion:
+                                desc: A single criterion name, rather than the whole advancement.
+                                type: string
+                                ext: true
+                            criteria:
+                                desc: Several criterion names.
+                                type: list
+                                vals:
+                                    type: string
+                                    ext: true
+                            selection:
+                                link: meta_advancement_selection
                             revoke:
                                 desc: Revoke rather than grant. Filled in by the aliases.
-                                link: boolean
+                                type: boolean
                         string-origins:grant_advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_advancement
@@ -9253,21 +9264,10 @@ links:
     meta_action_if_else_list:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
         desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
-    meta_advancement_action:
-        criterion:
-            desc: A single criterion name, rather than the whole advancement.
-            type: string
-            ext: true
-        criteria:
-            desc: Several criterion names.
-            type: list
-            vals:
-                type: string
-                ext: true
-        selection:
-            desc: |
-                Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
-            enum: ['only','through','from','until','everything']
+    meta_advancement_selection:
+        desc: |
+            Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
+        enum: ['only','through','from','until','everything']
     meta_condition_if_list_bientity:
         type: list
         vals:
