@@ -8756,9 +8756,8 @@ links:
         type: string
         allow: 'a-zA-Z0-9_.+-'
     overlay_layer:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/overlay-layer
-        desc: One render layer of an Entity Texture Overlay power — a single texture drawn over the player model with its own draw style, tint and target body parts. A power's layers field is an array of these, each independent and drawn in order on top of the base overlay.
         texture_location:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/data-types
             desc: Texture used for both models. Used when a model-specific texture is not given. If omitted entirely, the layer inherits the power’s base wide/slim texture (handy for re-styling one part without repeating the texture).
             link: identifier
         wide_texture_location:
