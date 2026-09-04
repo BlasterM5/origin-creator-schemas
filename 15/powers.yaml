@@ -5442,9 +5442,9 @@ links:
                         animations:
                             desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
                             or:
-                                - title: 'single'
+                              - title: 'single'
                                 link: model_animation
-                                - title: 'multiple'
+                              - title: 'multiple'
                                 type: list
                                 vals:
                                     link: model_animation
