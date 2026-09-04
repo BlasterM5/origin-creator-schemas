@@ -1005,13 +1005,13 @@ links:
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:stat:
-                            link: entity_condition_stat
+                            extend: entity_condition_stat
                         string-origins:stats:
-                            link: entity_condition_stat_legacy
+                            extend: entity_condition_stat_legacy
                         string-origins:status:
-                            link: entity_condition_stat_legacy
+                            extend: entity_condition_stat_legacy
                         string-origins:statistic:
-                            link: entity_condition_stat_legacy
+                            extend: entity_condition_stat_legacy
                         string-origins:status_effect:
                             effect:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/status_effect
