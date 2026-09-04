@@ -6649,18 +6649,10 @@ links:
                         bientity_action:
                             desc: Action run with the (killer, victim) pair.
                             link: bientity_action
-                        or:
-                          - self_action:
-                                desc: Action run on the killer (the entity that has the power).
-                                talias: attacker_action
-                                link: entity_action
-                          - title: legacy_action
-                            entity_action_target:
-                                link: entity_action_target
-                                unspec: 'self'
-                            entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
-                                link: entity_action
+                        self_action:
+                            desc: Action run on the killer (the entity that has the power).
+                            talias: [attacker_action, entity_action]
+                            link: entity_action
                         target_action:
                             desc: Action run on the entity that died.
                             link: entity_action
@@ -6710,16 +6702,13 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_scroll_wheel/
                             desc: The action to run on the holder.
                             link: entity_action
-                        or:
-                          - title: Any Direction
-                            reset_on_direction_change:
-                                desc: Scrolling the other way restarts the count instead of adding to it.
-                                type: boolean
-                                unspec: true
-                          - title: Specific Direction
-                            direction:
-                                desc: Which way the wheel has to turn.
-                                enum: ['up','down']
+                        direction:
+                            desc: Which way the wheel has to turn.
+                            enum: ['any','up','down']
+                        reset_on_direction_change:
+                            desc: Scrolling the other way restarts the count instead of adding to it.
+                            type: boolean
+                            default: true
                         scroll_amount:
                             desc: How many notches are needed before the action runs.
                             type: integer
