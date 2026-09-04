@@ -8644,24 +8644,26 @@ links:
         enum: ['no_type',$Passive,'allay','armadillo','axolotl','bat','camel','cat','chicken','cod','cow','donkey','frog','glow_squid','horse','mooshroom','mule','ocelot','parrot','pig','rabbit','salmon','sheep','skeleton_horse','sniffer','snow_golem','squid','strider','tadpole','tropical_fish','turtle','villager','wandering_trader','zombie_horse',$Neutral,'bee','cave_spider','dolphin','drowned','enderman','fox','goat','iron_golem','llama','panda','piglin','polar_bear','pufferfish','spider','trader_llama','wolf','zombified_piglin',$Hostile,'blaze','breeze','creeper','elder_guardian','endermite','evoker','ghast','guardian','hoglin','husk','magma_cube','phantom','piglin_brute','pillager','ravager','shulker','silverfish','skeleton','slime','stray','vex','vindicator','warden','witch','wither_skeleton','zoglin','zombie','zombie_villager',$Boss,'ender_dragon','wither',$Unused,'giant','illusioner',$Stands,'armor_stand']
         unspec: 'no_type'
     model_animation:
-        animation:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-animation/
-            desc: The animation file. mymod:wings resolves to assets/mymod/animations/wings.animation.json (.json also works).
-            link: identifier
-            required: true
-        name:
-            desc: Which animation inside the file to play, e.g. animation.wings.flap. A Blockbench animation file usually holds several.
-            link: meta_key
-        condition:
-            desc: Only play this entry when the holder fulfils this condition.
-            link: entity_condition
-        speed:
-            desc: Playback rate. 2.0 is twice as fast, 0.5 half.
-            type: number
-            default: 1.0
-        loop:
-            desc: Overrides the animation’s own loop setting. true loops forever, false plays once and stops. Blockbench’s “Hold on last frame” is honoured when this field is absent.
-            link: boolean_optional
+        type: object
+        props:
+            animation:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-animation/
+                desc: The animation file. mymod:wings resolves to assets/mymod/animations/wings.animation.json (.json also works).
+                link: identifier
+                required: true
+            name:
+                desc: Which animation inside the file to play, e.g. animation.wings.flap. A Blockbench animation file usually holds several.
+                link: meta_key
+            condition:
+                desc: Only play this entry when the holder fulfils this condition.
+                link: entity_condition
+            speed:
+                desc: Playback rate. 2.0 is twice as fast, 0.5 half.
+                type: number
+                default: 1.0
+            loop:
+                desc: Overrides the animation’s own loop setting. true loops forever, false plays once and stops. Blockbench’s “Hold on last frame” is honoured when this field is absent.
+                link: boolean_optional
     model_part_keyframe:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-part-keyframe
         desc: One point on a Model Part Transformation's timeline. The value that part should have reached at a given time.
