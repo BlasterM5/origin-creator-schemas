@@ -45,10 +45,10 @@ links:
                         string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
-                                link: description_all_of
                                 type: list
                                 vals:
                                     link: bientity_condition
+                                link: description_all_of
                         string-origins:and:
                             conditions:
                                 link: description_and
