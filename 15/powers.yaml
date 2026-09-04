@@ -9195,13 +9195,13 @@ links:
         chance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
             desc: Probability of passing, 0.0 to 1.0.
-            link: number_percent
+            extend: number_percent
             required: true
     meta_condition_chance:
         chance:
             href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
             desc: (ALIAS) Probability of passing, 0.0 to 1.0.
-            link: number_percent
+            extend: number_percent
     meta_condition_constant:
         value:
             desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
