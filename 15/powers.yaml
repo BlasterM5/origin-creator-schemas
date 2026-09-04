@@ -5902,31 +5902,28 @@ links:
                             desc: The offset of where the particle will be centered in the Z axis.
                             type: number
                             default: 0
-                        or:
-                          - title: speed
-                            speed:
-                                desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
-                                or:
-                                  - title: simple
-                                    type: number
-                                    default: 0
-                                  - title: expression
-                                    link: expression_float
-                                  - title: vector
-                                    link: vector
-                          - title: velocity
-                            velocity_x:
-                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                        speed:
+                            desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
+                            or:
+                              - title: simple
                                 type: number
                                 default: 0
-                            velocity_y:
-                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                                type: number
-                                default: 0
-                            velocity_z:
-                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                                type: number
-                                default: 0
+                              - title: expression
+                                link: expression_float
+                              - title: vector
+                                link: vector
+                        velocity_x:
+                            desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                            type: number
+                            default: 0
+                        velocity_y:
+                            desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                            type: number
+                            default: 0
+                        velocity_z:
+                            desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                            type: number
+                            default: 0
                         force:
                             desc: Determines whether to display the emitted particles within 512 blocks (true) or 32 blocks (false).
                             type: boolean
