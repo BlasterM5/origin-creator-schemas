@@ -307,7 +307,7 @@ links:
                       - origins:xp_points
                       
                     more:
-                        string-origins:nothing
+                        string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
                                 link: description_all_of
@@ -1936,23 +1936,19 @@ links:
                                             link: bientity_action
                         string-origins:delay:
                             action:
-                                link: meta_action_delay
-                                link: bientity_action
+                                link: [meta_action_delay,bientity_action]
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
                             or:
                               - cases:
-                                link: meta_action_if_case
-                                link: meta_condition_if_list_bientity
+                                link: [meta_action_if_case,meta_condition_if_list_bientity]
                               - actions:
-                                link: meta_action_if_case
-                                link: meta_condition_if_list_bientity
+                                link: [meta_action_if_case,meta_condition_if_list_bientity]
                         string-origins:if_else:
                             condition:
-                                link: meta_action_if_else
-                                link: bientity_condition
+                                link: [meta_action_if_else,bientity_condition]
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: bientity_action
@@ -1961,8 +1957,7 @@ links:
                                 link: bientity_action
                         string-origins:if_else_list:
                             actions:
-                                link: meta_action_if_else_list
-                                link: meta_condition_if_list_bientity
+                                link: [meta_action_if_else_list,meta_condition_if_list_bientity]
                         string-origins:loop:
                             link: meta_action_loop
                             before_action:
@@ -2507,23 +2502,19 @@ links:
                                             link: entity_action
                         string-origins:delay:
                             action:
-                                link: meta_action_delay
-                                link: entity_action
+                                link: [meta_action_delay,entity_action]
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
                             or:
                               - cases:
-                                link: meta_action_if_case
-                                link: meta_condition_if_list_entity
+                                link: [meta_action_if_case,meta_condition_if_list_entity]
                               - actions:
-                                link: meta_action_if_case
-                                link: meta_condition_if_list_entity
+                                link: [meta_action_if_case,meta_condition_if_list_entity]
                         string-origins:if_else:
                             condition:
-                                link: meta_action_if_else
-                                link: entity_condition
+                                link: [meta_action_if_else,entity_condition]
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: entity_action
@@ -2532,8 +2523,7 @@ links:
                                 link: entity_action
                         string-origins:if_else_list:
                             actions:
-                                link: meta_action_if_else_list
-                                link: meta_condition_if_list_entity
+                                link: [meta_action_if_else_list,meta_condition_if_list_entity]
                         string-origins:loop:
                             link: meta_action_loop
                             before_action:
