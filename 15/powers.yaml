@@ -1941,10 +1941,8 @@ links:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
-                            or:
-                              - cases:
-                                link: [meta_action_if_case,meta_condition_if_list_bientity]
-                              - actions:
+                            cases:
+                                talias: actions
                                 link: [meta_action_if_case,meta_condition_if_list_bientity]
                         string-origins:if_else:
                             condition:
@@ -2010,15 +2008,11 @@ links:
                                 link: rope_endpoint
                             link: action_attach_rope
                         string-origins:damage:
-                            or:
-                              - amount:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
-                                    desc: The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
-                                    link: expression_float
-                              - damage:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
-                                    desc: (DEPRECATED, use amount) The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
-                                    link: expression_float
+                            amount:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
+                                desc: The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
+                                talias: damage
+                                link: expression_float
                             damage_type:
                                 desc: Defines the properties of the damage source that will be dealt, such as part of its death message, and whether it can bypass armor, shield, etc. (via damage type tags.)
                                 link: damage_type
@@ -2182,15 +2176,11 @@ links:
                             landing_block_condition:
                                 desc: If specified, the teleport only happens when the block below the destination fulfills this condition.
                                 link: block_condition
-                            or:
-                              - swap:
-                                    desc: |
+                            swap:
+                                desc: |
                                         Whether the target is moved to where the actor was, so the two trade places. Alias: swap_position.
-                                    type: boolean
-                              - swap_position:
-                                    desc: |
-                                        (ALIAS) Whether the target is moved to where the actor was, so the two trade places. Alias: swap_position.
-                                    type: boolean
+                                talias: swap_position
+                                type: boolean
                             x:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 link: expression_float
@@ -2507,10 +2497,8 @@ links:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
-                            or:
-                              - cases:
-                                link: [meta_action_if_case,meta_condition_if_list_entity]
-                              - actions:
+                            cases:
+                                talias: actions
                                 link: [meta_action_if_case,meta_condition_if_list_entity]
                         string-origins:if_else:
                             condition:
@@ -3495,17 +3483,12 @@ links:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
                                 link: expression_float
                                 default: 0
-                            or:
-                              - relative:
-                                    desc: |
-                                        Whether x/y/z are an offset from the entity (true) or world coordinates (false). Alias: relative_to_position.
-                                    type: boolean
-                                    unspec: true
-                              - relative_to_position:
-                                    desc: |
-                                        (ALIAS) Whether x/y/z are an offset from the entity (true) or world coordinates (false).
-                                    type: boolean
-                                    unspec: true
+                            relative:
+                                desc: |
+                                    Whether x/y/z are an offset from the entity (true) or world coordinates (false). Alias: relative_to_position.
+                                talias: relative_to_position
+                                type: boolean
+                                unspec: true
                             space:
                                 desc: |
                                     Which axes a relative offset is measured along. local turns with the entity, so z: 5 is five blocks in front of them. Ignored when relative is false.
@@ -3569,15 +3552,11 @@ links:
                                 desc: Toggles the state of a power that uses the Toggle (Power Type).
                                 link: identifier
                         string-origins:trigger_cooldown:
-                            or:
-                              - power:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
-                                    desc: The apoli:cooldown power to trigger. (The legacy field resource is still accepted as an alias.)
-                                    link: identifier
-                              - resource:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
-                                    desc: (ALIAS) The apoli:cooldown power to trigger.
-                                    link: identifier
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
+                                desc: The apoli:cooldown power to trigger.
+                                talias: resource
+                                link: identifier
                         string-origins:apply_stored_origin:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/apply_stored_origin/
@@ -3617,13 +3596,10 @@ links:
                                 desc: The layer to grant it on.
                                 link: identifier
                                 unspec: 'origins:origin'
-                            or:
-                              - to_pool:
-                                    desc: On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant. Also accepts the alias swappable.
-                                    type: boolean
-                              - swappable:
-                                    desc: (ALIAS) On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant.
-                                    type: boolean
+                            to_pool:
+                                desc: On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant. Also accepts the alias swappable.
+                                talias: swappable
+                                type: boolean
                         string-origins:open_swap_menu:
                             layer:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/open_swap_menu/
@@ -3766,31 +3742,19 @@ links:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
-                            or:
-                              - cases:
-                                    link: meta_action_if_case
-                                    type: list
-                                    vals:
-                                        type: object
-                                        props:
-                                            condition:
-                                                desc: A condition to check for.
-                                                link: item_condition
-                                            action:
-                                                desc: An action which might be executed.
-                                                link: item_action
-                              - actions:
-                                    link: meta_action_if_case
-                                    type: list
-                                    vals:
-                                        type: object
-                                        props:
-                                            condition:
-                                                desc: A condition to check for.
-                                                link: item_condition
-                                            action:
-                                                desc: An action which might be executed.
-                                                link: item_action
+                            cases:
+                                talias: actions
+                                link: meta_action_if_case
+                                type: list
+                                vals:
+                                    type: object
+                                    props:
+                                        condition:
+                                            desc: A condition to check for.
+                                            link: item_condition
+                                        action:
+                                            desc: An action which might be executed.
+                                            link: item_action
                         string-origins:if_else:
                             condition:
                                 link: meta_action_if_else
@@ -3841,25 +3805,12 @@ links:
                                 desc: Determines if this action should ignore the Unbreaking enchantment.
                                 type: boolean
                         string-origins:holder_action:
-                            or:
-                              - action:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
-                                    desc: The entity action to execute on the holder of the item stack.
-                                    link: entity_action
-                              - entity_action:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
-                                    desc: (ALIAS) The entity action to execute on the holder of the item stack.
-                                    link: entity_action
-                        string-origins:holder:
-                            or:
-                              - action:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
-                                    desc: (DEPRECATED) The entity action to execute on the holder of the item stack.
-                                    link: entity_action
-                              - entity_action:
-                                    href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
-                                    desc: (DEPRECATED) The entity action to execute on the holder of the item stack.
-                                    link: entity_action
+                            talias: origins:holder
+                            action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
+                                desc: The entity action to execute on the holder of the item stack.
+                                talias: entity_action
+                                link: entity_action
                         string-origins:merge_nbt:
                             nbt:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/merge_nbt
@@ -3976,31 +3927,19 @@ links:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
-                            or:
-                              - cases:
-                                    link: meta_action_if_case
-                                    type: list
-                                    vals:
-                                        type: object
-                                        props:
-                                            condition:
-                                                desc: A condition to check for.
-                                                link: block_condition
-                                            action:
-                                                desc: An action which might be executed.
-                                                link: block_action
-                              - actions:
-                                    link: meta_action_if_case
-                                    type: list
-                                    vals:
-                                        type: object
-                                        props:
-                                            condition:
-                                                desc: A condition to check for.
-                                                link: block_condition
-                                            action:
-                                                desc: An action which might be executed.
-                                                link: block_action
+                            cases:
+                                talias: actions
+                                link: meta_action_if_case
+                                type: list
+                                vals:
+                                    type: object
+                                    props:
+                                        condition:
+                                            desc: A condition to check for.
+                                            link: block_condition
+                                        action:
+                                            desc: An action which might be executed.
+                                            link: block_action
                         string-origins:if_else:
                             condition:
                                 desc: If this condition holds then if_action is executed, otherwise else_action or no action is executed.
@@ -4113,17 +4052,12 @@ links:
                             nbt:
                                 desc: Block entity data applied to the placed block.
                                 link: nbt
-                            or:
-                              - duration:
-                                    desc: How many ticks the ghost block lasts. Also accepted as tick.
-                                    type: integer
-                                    default: 20
-                                    min: 0
-                              - tick:
-                                    desc: (ALIAS) How many ticks the ghost block lasts.
-                                    type: integer
-                                    default: 20
-                                    min: 0
+                            duration:
+                                desc: How many ticks the ghost block lasts. Also accepted as tick.
+                                talias: tick
+                                type: integer
+                                default: 20
+                                min: 0
                             block_action:
                                 desc: Run at the ghost block’s position right after it is placed.
                                 link: block_action
@@ -4549,8 +4483,8 @@ links:
                                 vals:
                                     link: body_part
                               - title: 'Minion - All/Single Part'
-                                enum: ['whole_body','main','flat2','flat3']
-                                unspec: 'whole_body'
+                                enum: ['main','flat2','flat3']
+                                unspec: true
                               - title: 'Minion - Multiple Parts'
                                 type: list
                                 vals:
@@ -5614,9 +5548,7 @@ links:
                         or:
                           - self_action:
                                 desc: Action run on the actor (the entity that has the power).
-                                link: entity_action
-                          - attacker_action:
-                                desc: (ALIAS) Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
+                                talias: attacker_action
                                 link: entity_action
                           - title: legacy_action
                             entity_action_target:
@@ -5655,15 +5587,10 @@ links:
                         target_action:
                             desc: Action run on the target (the entity that was hit).
                             link: entity_action
-                        or:
-                          - self_action:
-                                desc: Action run on the actor (the entity that has the power).
-                                link: entity_action
-                          - attacker_action:
-                                desc: (ALIAS) Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
-                                link: entity_action
-                          - entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
+                        self_action:
+                            desc: Action run on the actor (the entity that has the power).
+                            talias: [attacker_action,entity_action]
+                            link: entity_action
                         cooldown:
                             link: cooldown
                             default: 1
@@ -5683,23 +5610,17 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the target.
-                        or:
-                          - self_action:
-                                desc: Action run on the actor (the entity that has the power).
-                                link: entity_action
-                          - attacker_action:
-                                desc: (ALIAS) Action run on the attacker. Here the attacker is the holder, so this is a synonym for self_action.
-                                link: entity_action
+                        self_action:
+                            desc: Action run on the actor (the entity that has the power).
+                            talias: attacker_action
+                            link: entity_action
                         bientity_action:
                             desc: The action to execute upon hit.
                             link: bientity_action
-                        or:
-                          - target_action:
-                                desc: Action run on the target (the entity that was hit).
-                                link: entity_action
-                          - entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on the target.
-                                link: entity_action
+                        target_action:
+                            desc: Action run on the target (the entity that was hit).
+                            talias: entity_action
+                            link: entity_action
                         cooldown:
                             link: cooldown
                             default: 1
@@ -5813,11 +5734,9 @@ links:
                             link: bientity_action
                         or:
                           - self_action:
-                            desc: Action run on the killer (the entity that has the power).
-                            link: entity_action
-                          - attacker_action:
-                            desc: (ALIAS) Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
-                            link: entity_action
+                                desc: Action run on the killer (the entity that has the power).
+                                talias: attacker_action
+                                link: entity_action
                           - title: legacy_action
                             entity_action_target:
                                 link: entity_action_target
@@ -5851,17 +5770,10 @@ links:
                         bientity_action:
                             desc: Action run with the (killer, victim) pair.
                             link: bientity_action
-                        or:
-                          - self_action:
+                        self_action:
                             desc: Action run on the killer (the entity that has the power).
+                            talias: [attacker_action,entity_action]
                             link: entity_action
-                          - attacker_action:
-                            desc: (ALIAS) Action run on the killer. Here the killer is the holder, so this is a synonym for self_action.
-                            link: entity_action
-                          - title: legacy_action
-                            entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on the killer (power holder).
-                                link: entity_action
                         target_action:
                             desc: Action run on the entity that died.
                             link: entity_action
@@ -6090,9 +6002,7 @@ links:
                         or:
                           - self_action:
                                 desc: Action run on the target (the entity that has the power).
-                                link: entity_action
-                          - target_action:
-                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
+                                talias: target_action
                                 link: entity_action
                           - title: legacy_action
                             entity_action_target:
@@ -6126,17 +6036,10 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        or:
-                          - self_action:
-                                desc: Action run on the target (the entity that has the power).
-                                link: entity_action
-                          - target_action:
-                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
-                                link: entity_action
-                          - title: legacy_action
-                            entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on the target (holder).
-                                link: entity_action
+                        self_action:
+                            desc: Action run on the target (the entity that has the power).
+                            talias: [target_action,entity_action]
+                            link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
@@ -6163,21 +6066,14 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        or:
-                          - self_action:
+                        self_action:
                                 desc: Action run on the target (the entity that has the power).
+                                talias: target_action
                                 link: entity_action
-                          - target_action:
-                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
-                                link: entity_action
-                        or:
-                          - attacker_action:
-                                desc: Action run on the actor (the entity that dealt the damage).
-                                link: entity_action
-                          - title: legacy_action
-                            entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on the attacker.
-                                link: entity_action
+                        attacker_action:
+                            desc: Action run on the actor (the entity that dealt the damage).
+                            talias: entity_action
+                            link: entity_action
                         cooldown:
                             link: cooldown
                             default: 1
@@ -6201,17 +6097,10 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        or:
-                          - self_action:
-                                desc: Action run on the target (the entity that has the power).
-                                link: entity_action
-                          - target_action:
-                                desc: (ALIAS) Action run on the target. Here the target is the holder, so this is a synonym for self_action.
-                                link: entity_action
-                          - title: legacy_action
-                            entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on the target (holder).
-                                link: entity_action
+                        self_action:
+                            desc: Action run on the target (the entity that has the power).
+                            talias: [target_action,entity_action]
+                            link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
@@ -7029,8 +6918,8 @@ links:
 
     accessory_slot:
         or:
-          - type: string
-            allow: 'a-z0-9_.-/'
+          - title: single
+            link: meta_key
           - type: object
             props:
                 group:
@@ -7202,7 +7091,7 @@ links:
         or:
           - title: built-in
             enum: ['any','generic.armor_toughness','generic.attack_damage','generic.attack_knockback','generic.attack_speed','generic.block_break_speed','player.block_interaction_range','generic.burning_time','player.entity_interaction_range','generic.explosion_knockback_resistance','generic.fall_damage_multiplier','generic.flying_speed','generic.gravity','generic.jump_strength','generic.knockback_resistance','generic.max_absorption','generic.max_health','player.mining_efficiency','generic.follow_range','generic.movement_efficiency','generic.oxygen_bonus','generic.safe_fall_distance','generic.scale','player.sneaking_speed','generic.movement_speed','generic.step_height','player.submerged_mining_speed','player.sweeping_damage_ratio','generic.water_movement_efficiency','zombie.spawn_reinforcements']
-            unspec: 'any'
+            unspec: true
           - title: custom
             link: identifier
     attribute_modifier:
@@ -7321,14 +7210,14 @@ links:
         or:
           - title: built-in
             enum: ['any',$Overworld,'the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark',$Nether,'nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas',$The End,'the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
-            unspec: 'any'
+            unspec: true
           - title: custom
             link: identifier
     biome_tag:
         or:
           - title: built-in
             enum: ['no_tag',$General,'allows_surface_slime_spawns','allows_tropical_fish_spawns_at_any_height','has_closest_water_fog','increased_fire_burnout','is_badlands','is_beach','is_deep_ocean','is_end','is_forest','is_hill','is_jungle','is_mountain','is_nether','is_ocean','is_overworld','is_river','is_savanna','is_taiga','mineshaft_blocking','more_frequent_drowned_spawns','polar_bears_spawn_on_alternate_blocks','plays_underwater_music','produces_corals_from_bonemeal','reduce_water_ambient_spawns','required_ocean_monument_surrounding','snow_golem_melts','spawns_cold_variant_frogs','spawns_gold_rabbits','spawns_snow_foxes','spawns_warm_variant_frogs','spawns_white_rabbits','strongold_biased_to','water_on_map_outlines','without_patrol_spawns','without_wandering_trader_spawns','without_zombie_sieges',Structure Check,'has_structure/ancient_city','has_structure/bastion_remnant','has_structure/buried_treasure','has_structure/desert_pyramid','has_structure/end_city','has_structure/igloo','has_structure/jungle_temple','has_structure/mineshaft','has_structure/mineshaft_mesa','has_structure/nether_fortress','has_structure/nether_fossil','has_structure/ocean_monument','has_structure/ocean_ruin_cold','has_structure/ocean_ruin_warm,','has_structure/pillager_outpost','has_structure/ruined_portal_desert,','has_structure/ruined_portal_jungle','has_structure/ruined_portal_mountain','has_structure/ruined_portal_nether','has_structure/ruined_portal_ocean','has_structure/ruined_portal_standard','has_structure/ruined_portal_swamp','has_structure/shipwreck','has_structure/shipwreck_beached','has_structure/stronghold','has_structure/swamp_hut','has_structure/trail_ruins','has_structure/trial_chambers','has_structure/village_desert','has_structure/village_plains','has_structure/village_savanna','has_structure/village_snowy','has_structure/village_taiga','has_structure/woodland_mansion']
-            unspec: 'no_tag'
+            unspec: true
           - title: custom
             link: identifier
     block_facing:
@@ -7422,7 +7311,7 @@ links:
                             min: 1
     damage_source_name:
         or:
-          - title: minecraft
+          - title: built-in
             enum: ['anvil','anvil.player','arrow','arrow.item','badRespawnPoint','cactus','cactus.player','cramming','cramming.player','dragonBreath','dragonBreath.player','drown','drown.player','dryout','dryout.player','even_more_magic','explosion','explosion.player','fall','fall.player','fallingBlock','fallingBlock.player','fallingStalactite','fallingStalactite.player','fireball','fireball.item','fireworks','fireworks.player','fireworks.item','flyIntoWall','flyIntoWall.player','freeze','freeze.player','generic','generic.player','hotFloor','hotFloor.player','indirectMagic','indirectMagic.item','inFire','inFire.player','inWall','inWall.player','lava','lava.player','lightningBolt','lightningBolt.player','magic','magic.player','mob','mob.item','onFire','onFire.player','outOfWorld','outOfWorld.player','player','player.item','sonic_boom','sonic_boom.player','sonic_boom.item','stalagmite','stalagmite.player','starve','starve.player','sting','sting.player','sting.item','sweetBerryBush','sweetBerryBush.player','thorns','thorns.item','thrown.item','trident','trident.item','wither','wither.player','witherSkull']
             default: 'generic'
           - title: origins
@@ -9077,13 +8966,11 @@ links:
           - title: replace
             operation:
                 const: 'replace'
-            link: inventory_action_common
-            link: inventory_action_replace
+            link: [inventory_action_common,inventory_action_replace]
           - title: drop
             operation:
                 const: 'drop'
-            link: inventory_action_common
-            link: inventory_action_drop
+            link: [inventory_action_common,inventory_action_drop]
     inventory_action_legacy_modify:
         operation:
             const: 'modify'
@@ -9173,22 +9060,15 @@ links:
     item_stack:
         type: object
         props:
-            or:
-              - id:
-                    desc: ID of a registered item.
-                    link: identifier
-              - item:
-                    desc: (ALIAS) ID of a registered item.
-                    link: identifier
-            or:
-              - count:
-                    desc: Size of the stack.
-                    type: integer
-                    default: 1
-              - amount:
-                    desc: (ALIAS) Size of the stack.
-                    type: integer
-                    default: 1
+            id:
+                desc: ID of a registered item.
+                talias: item
+                link: identifier
+            count:
+                desc: Size of the stack.
+                talias: amount
+                type: integer
+                default: 1
             tag:
                 link: nbt
     keybind:
@@ -9478,7 +9358,7 @@ links:
                 air					|number		|Remaining air (in ticks).
                 fire_ticks			|number		|Remaining fire (in ticks).
             or:
-              - title: vanilla
+              - title: built-in
                 enum: ['no_gravity','invulnerable','silent','glowing','invisible','custom_name_visible','no_ai','fall_distance','air','fire_ticks']
               - title: custom
                 link: meta_key
@@ -9616,7 +9496,7 @@ links:
         anchor:
             desc: Which point of the screen x/y are measured from.
             enum: ['top_left','top_center','top_right','left','center','right','bottom_left','bottom_center','bottom_right']
-            unspec: 'top_left'
+            unspec: 0
         u:
             desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
             link: expression_integer
@@ -9675,7 +9555,7 @@ links:
         or:
           - title: built-in
             enum: ['default',$Unique Particles,'bubble','bubble_column_up','current_down','dolphin','bubble_pop','fishing','rain','splash','cherry_leaves','flame','small_flame','soul_fire_flame','lava','damage_indicator','angry_villager','composter','egg_crack','happy_villager','heart','elder_guardian','firefly','infested','raid_omen','small_gust','trial_omen','gust','gust_emitter','campfire_cosy_smoke','campfire_signal_smoke','soul','sculk_soul','sculk_charge','sculk_charge_pop','shriek','sonic_boom','vibration','trial_spawner_detection','trial_spawner_detection_ominous','vault_connection',$Block/item,'block','dust_pillar','block_marker','item','item_snowball','item_slime','item_cobweb',$Colored Particles,'mycelium','underwater','ash','crimson_spore','warped_spore','white_ash','witch','instant_effect','crit','enchanted_hit','sweep_attack','firework','flash','glow','electric_spark','scrape','wax_on','wax_off','note','enchant','end_rod','totem_of_undying','effect','entity_effect','dripping_water','falling_water','dripping_dripstone_water','falling_dripstone_water','dripping_lava','falling_lava','dripping_dripstone_lava','falling_dripstone_lava','dripping_honey','falling_honey','falling_nectar','falling_spore_blossom','spore_blossom_air','dripping_obsidian_tear','falling_obsidian_tear','landing_honey','landing_lava','landing_obsidian_tear','explosion_emitter','explosion','dragon_breath','spit','cloud','poof','smoke','large_smoke','glow_squid_ink','squid_ink','sneeze','snowflake','white_smoke','portal','reverse_portal','dust','dust_color_transition','dust_plume','falling_dust','ominous_spawning']
-            unspec: 'default'
+            unspec: 0
           - title: custom
             link: identifier
     player_abilities:
@@ -10004,12 +9884,9 @@ links:
         desc: An Object which defines a status effect with duration, amplifier, etc.
         type: object
         props:
-            or:
-              - id:
+            id:
                 desc: The identifier of the status effect.
-                link: status_effect
-              - effect:
-                desc: (ALIAS) The identifier of the status effect.
+                talias: effect
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
@@ -10019,12 +9896,9 @@ links:
                 desc: Determines the strength of the status effect (0 being level 1).
                 link: expression_integer
                 default: 0
-            or:
-              - ambient:
+            ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
-                type: boolean
-              - is_ambient:
-                desc: (ALIAS) Determines whether the particle effects of the status effect is less noticeable.
+                talias: is_ambient
                 type: boolean
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
@@ -10039,12 +9913,9 @@ links:
         desc: An Object which defines a status effect with duration, amplifier, etc.
         type: object
         props:
-            or:
-              - id:
+            id:
                 desc: The identifier of the status effect.
-                link: status_effect
-              - effect:
-                desc: (ALIAS) The identifier of the status effect.
+                talias: effect
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
@@ -10054,12 +9925,9 @@ links:
                 desc: Determines the strength of the status effect (0 being level 1).
                 link: expression_integer
                 default: 0
-            or:
-              - ambient:
+            ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
-                type: boolean
-              - is_ambient:
-                desc: (ALIAS) Determines whether the particle effects of the status effect is less noticeable.
+                talias: is_ambient
                 type: boolean
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
