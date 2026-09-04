@@ -8336,20 +8336,22 @@ links:
             vals:
                 link: hud_render_element
     hud_render_element:
-        should_render:
-            desc: Whether the bar should be visible or not
-            type: boolean
-            unspec: true
-        extend: hud_render_textures
-        condition:
-            desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
-            link: entity_condition
-        inverted:
-            desc: If set to true, inverts the way the hud renders (full will look empty and vice versa)
-            type: boolean
-        order:
-            desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
-            type: integer
+        type: object
+        props:
+            should_render:
+                desc: Whether the bar should be visible or not
+                type: boolean
+                unspec: true
+            link: hud_render_textures
+            condition:
+                desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
+                link: entity_condition
+            inverted:
+                desc: If set to true, inverts the way the hud renders (full will look empty and vice versa)
+                type: boolean
+            order:
+                desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
+                type: integer
     hud_render_textures:
     or:
       - title: built-in
