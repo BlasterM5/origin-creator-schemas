@@ -2020,7 +2020,7 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                link: [meta_action_if_case,meta_condition_if_list_bientity]
+                                extend: [meta_action_if_case,meta_condition_if_list_bientity]
                         string-origins:if_else:
                             condition:
                                 extend: [meta_action_if_else,bientity_condition]
@@ -2577,7 +2577,7 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                link: [meta_action_if_case,meta_condition_if_list_entity]
+                                extend: [meta_action_if_case,meta_condition_if_list_entity]
                         string-origins:if_else:
                             condition:
                                 extend: [meta_action_if_else,entity_condition]
