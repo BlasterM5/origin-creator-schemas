@@ -5877,7 +5877,7 @@ links:
                             link: bientity_condition
                         particle:
                             desc: The particle type that will be spawned.
-                            link: particle_data
+                            link: particle_type
                         frequency:
                             desc: Determines how often the particles should spawn (interval in ticks).
                             type: integer
