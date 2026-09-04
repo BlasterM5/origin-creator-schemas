@@ -3736,8 +3736,7 @@ links:
                                             link: item_action
                         string-origins:delay:
                             action:
-                                link: meta_action_delay
-                                link: item_action
+                                link: [meta_action_delay,item_action]
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
@@ -3757,8 +3756,7 @@ links:
                                             link: item_action
                         string-origins:if_else:
                             condition:
-                                link: meta_action_if_else
-                                link: item_condition
+                                link: [meta_action_if_else,item_condition]
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: item_action
@@ -4997,18 +4995,6 @@ links:
                         spread:
                             desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in.
                             link: vector
-                        offset_x:
-                            desc: The offset of where the particle will be centered in the X axis.
-                            type: number
-                            default: 0
-                        offset_y:
-                            desc: The offset of where the particle will be centered in the Y axis.
-                            type: number
-                            default: 0.5
-                        offset_z:
-                            desc: The offset of where the particle will be centered in the Z axis.
-                            type: number
-                            default: 0
                         model_part:
                             desc: |
                                 Anchor the particles to a body part instead of the entity’s feet: head, body, right_arm, left_arm, right_leg, left_leg. The same names apoli:model_color and apoli:modify_model_parts use. offset_* is then measured from that part.
@@ -5206,7 +5192,7 @@ links:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/scare_mobs/
                             desc: Which mobs are scared. The actor is the entity with the power, the target is the mob deciding whether to flee. Without it, every mob flees.
-                            bientity_condition
+                            link: bientity_condition
                         radius:
                             desc: How close the mob has to be before it starts fleeing.
                             type: number
@@ -7321,16 +7307,15 @@ links:
     damage_type:
         or:
           - title: built-in
-            enum: ['no_type','arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
-            unspec: 'no_type'
+            enum: ['arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+            unspec: true
           - title: custom
             link: identifier
     damage_type_tag:
         or:
           - title: built-in
-            enum:
-            ['no_tag','always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
-            unspec: 'no_tag'
+            enum: ['always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
+            unspec: true
           - title: custom
             link: identifier
     description_all_of:
@@ -8924,7 +8909,7 @@ links:
         link: identifier
         required: true
     ingredient_key:
-        - nopanel: true
+      - nopanel: true
         link: ingredient
     ingredient:
         or:
@@ -8978,13 +8963,11 @@ links:
     inventory_action_legacy_replace:
         operation:
             const: 'replace'
-        link: inventory_action_common
-        link: inventory_action_replace
+        link: [inventory_action_common,inventory_action_replace]
     inventory_action_legacy_drop:
         operation:
             const: 'drop'
-        link: inventory_action_common
-        link: inventory_action_drop
+        link: [inventory_action_common,inventory_action_drop]
     inventory_action_common:
         inventory_type:
             desc: Whether to walk the entity’s own inventory or a power’s inventory.
@@ -9017,9 +9000,6 @@ links:
             desc: Max number of stacks (or items, in items mode) to affect. <= 0 means no limit.
             type: integer
             default: 0
-        item_action:
-            desc: Required-in-spirit for modify (without it modify is a no-op); optional post-step for replace/drop.
-            link: item_action
     inventory_action_description:
         href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
         desc: |
@@ -9365,9 +9345,9 @@ links:
         value:
             desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
             or:
-                - title: boolean
+              - title: boolean
                 link: boolean_optional
-                - title: number
+              - title: number
                 type: number
     nbt:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/nbt
@@ -9518,19 +9498,23 @@ links:
                 link: model_parts
                 required: true
             red:
-                desc: Red multiplier for this part. Range: 0.0 - 1.0.
+                desc: |
+                    Red multiplier for this part. Range: 0.0 - 1.0.
                 link: number_percent
                 default: 1
             green:
-                desc: Green multiplier for this part. Range: 0.0 - 1.0.
+                desc: |
+                    Green multiplier for this part. Range: 0.0 - 1.0.
                 link: number_percent
                 default: 1
             blue:
-                desc: Blue multiplier for this part. Range: 0.0 - 1.0.
+                desc: |
+                    Blue multiplier for this part. Range: 0.0 - 1.0.
                 link: number_percent
                 default: 1
             alpha:
-                desc: Alpha multiplier for this part. Range: 0.0 - 1.0.
+                desc: |
+                    Alpha multiplier for this part. Range: 0.0 - 1.0.
                 link: number_percent
                 default: 1
     particle_effect:
@@ -9690,7 +9674,8 @@ links:
             desc: Shorthand that sets both pierce_blocks and pierce_entities.
             type: boolean
         pierce_blocks:
-            desc: If true, the ray passes through blocks: block_action runs on every block the ray intersects (up to 128), blocks stop culling entities behind them, and the ray traces its full length.
+            desc: |
+                If true, the ray passes through blocks: block_action runs on every block the ray intersects (up to 128), blocks stop culling entities behind them, and the ray traces its full length.
             type: boolean
         pierce_entities:
             desc: |
