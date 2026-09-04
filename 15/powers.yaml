@@ -4020,7 +4020,7 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                link: meta_action_if_case
+                                extend: meta_action_if_case
                                 type: list
                                 vals:
                                     type: object
@@ -4216,7 +4216,7 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                link: meta_action_if_case
+                                extend: meta_action_if_case
                                 type: list
                                 vals:
                                     type: object
