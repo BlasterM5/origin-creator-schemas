@@ -2991,33 +2991,18 @@ links:
                             modifier:
                                 desc: The modifier to apply to the current value of the target power.
                                 link: attribute_modifier
-                            or:
-                              - position:
-                                    desc: Which slot of a table resource to modify. Omit it on a table and every slot is modified. Also aliased as index and slot.
-                                    link: expression_integer
-                              - index:
-                                    desc: (ALIAS) Which slot of a table resource to modify. Omit it on a table and every slot is modified.
-                                    link: expression_integer
-                              - slot:
-                                    desc: (ALIAS) Which slot of a table resource to modify. Omit it on a table and every slot is modified.
-                                    link: expression_integer
-                            or:
-                              - from:
-                                    desc: Copy from this resource instead of computing a value from the modifier. Also aliased as from_resource.
-                                    link: identifier
-                              - from_resource:
-                                    desc: (ALIAS) Copy from this resource instead of computing a value from the modifier.
-                                    link: identifier
-                            or:
-                              - from_position:
-                                    desc: Which slot of from to read. Also aliased as from_index and from_slot.
-                                    link: expression_integer
-                              - from_index:
-                                    desc: (ALIAS) Which slot of from to read.
-                                    link: expression_integer
-                              - from_slot:
-                                    desc: (ALIAS) Which slot of from to read..
-                                    link: expression_integer
+                            position:
+                                desc: Which slot of a table resource to modify. Omit it on a table and every slot is modified. Also aliased as index and slot.
+                                talias: [index,slot]
+                                link: expression_integer
+                            from:
+                                desc: Copy from this resource instead of computing a value from the modifier. Also aliased as from_resource.
+                                talias: from_resource
+                                link: identifier
+                            from_position:
+                                desc: Which slot of from to read. Also aliased as from_index and from_slot.
+                                talias: [from_index,from_slot]
+                                link: expression_integer
                         string-origins:modify_stat:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_stat
