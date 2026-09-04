@@ -1002,7 +1002,7 @@ links:
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:stat:
-                            talias: [origins:stats,origins:status,origins:statistic]
+                            aliases: [origins:stats,origins:status,origins:statistic]
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
