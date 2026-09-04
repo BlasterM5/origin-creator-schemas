@@ -79,10 +79,13 @@ links:
                                 required: true
                         string-origins:chance:
                             chance:
-                                link: meta_condition_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+                                desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+                                link: number_percent
                         string-origins:constant:
                             value:
-                                link: meta_condition_constant
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
                         string-origins:invert:
                             condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/invert/
@@ -355,10 +358,13 @@ links:
                                 required: true
                         string-origins:chance:
                             chance:
-                                link: meta_condition_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+                                desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+                                link: number_percent
                         string-origins:constant:
                             value:
-                                link: meta_condition_constant
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
                         string-origins:ability:
                             ability:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/ability/
@@ -1266,10 +1272,13 @@ links:
                                 required: true
                         string-origins:chance:
                             chance:
-                                link: meta_condition_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+                                desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+                                link: number_percent
                         string-origins:constant:
                             value:
-                                link: meta_condition_constant
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
                         string-origins:empty: {}
                         string-origins:amount:
                             comparison:
@@ -1492,10 +1501,13 @@ links:
                                 required: true
                         string-origins:chance:
                             chance:
-                                link: meta_condition_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+                                desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+                                link: number_percent
                         string-origins:constant:
                             value:
-                                link: meta_condition_constant
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
                         string-origins:adjacent:
                             adjacent_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/adjacent
@@ -1733,10 +1745,13 @@ links:
                                 required: true
                         string-origins:chance:
                             chance:
-                                link: meta_condition_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+                                desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+                                link: number_percent
                         string-origins:constant:
                             value:
-                                link: meta_condition_constant
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
                         string-origins:empty: {}
                         string-origins:in_tag:
                             tag:
@@ -1809,10 +1824,13 @@ links:
                                 required: true
                         string-origins:chance:
                             chance:
-                                link: meta_condition_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+                                desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+                                link: number_percent
                         string-origins:constant:
                             value:
-                                link: meta_condition_constant
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
                         string-origins:high_humidity: {}
                         string-origins:in_tag:
                             tag:
@@ -1909,10 +1927,13 @@ links:
                                 required: true
                         string-origins:chance:
                             chance:
-                                link: meta_condition_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
+                                desc: (ALIAS) Probability of passing, 0.0 to 1.0.
+                                link: number_percent
                         string-origins:constant:
                             value:
-                                link: meta_condition_constant
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
                         string-origins:amount:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/amount
@@ -8619,18 +8640,6 @@ links:
                 action:
                     desc: An action which might be executed.
                     link: entity_action
-    meta_condition_random_chance:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
-        desc: Probability of passing, 0.0 to 1.0.
-        link: number_percent
-        required: true
-    meta_condition_chance:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/chance
-        desc: (ALIAS) Probability of passing, 0.0 to 1.0.
-        link: number_percent
-    meta_condition_constant:
-        desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
-        type: boolean
     meta_key:
         type: string
         allow: 'a-z0-9._-'
