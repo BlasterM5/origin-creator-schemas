@@ -10206,21 +10206,19 @@ links:
     particle_effect:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/particle-effect
         desc: A data type that's either a String which defines only the particle type or an Object which defines the particle type and its additional parameters.
-        particle:
-            desc: The namespace and ID of the particle type.
-            or:
-              - title: simple
-                link: particle
-              - title: custom
-                type: object
-                props:
-                    type:
-                        desc: The namespace and ID of the particle type.
-                        link: particle
-                    params:
-                        desc: The additional parameters for the particle type.
-                        type: string
-                        ext: true
+        or:
+            - title: simple
+            link: particle
+            - title: custom
+            type: object
+            props:
+                type:
+                    desc: The namespace and ID of the particle type.
+                    link: particle
+                params:
+                    desc: The additional parameters for the particle type.
+                    type: string
+                    ext: true
     particle_type:
         or:
           - title: built-in
