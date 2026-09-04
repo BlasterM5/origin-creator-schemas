@@ -4405,19 +4405,15 @@ links:
                             cycle:
                                 desc: If set to true, changes the property to the next state in the cycle, ignoring all other optional fields. All property types can use this operation.
                                 type: boolean
-                            or:
-                              - title: integer
-                                change:
-                                    desc: If specified, the value to add, remove or set to/from the specified property if the specified property is an integer.
-                                    type: integer
-                              - title: boolean
-                                value:
-                                    desc: If specified, the boolean to use as the new value for the specified property if the specified property is a boolean.
-                                    type: boolean
-                              - title: string
-                                enum:
-                                    desc: If specified, the string to use as the new value for the specified property if the specified property is a string.
-                                    link: meta_key
+                            change:
+                                desc: If specified, the value to add, remove or set to/from the specified property if the specified property is an integer.
+                                type: integer
+                            value:
+                                desc: If specified, the boolean to use as the new value for the specified property if the specified property is a boolean.
+                                type: boolean
+                            enum:
+                                desc: If specified, the string to use as the new value for the specified property if the specified property is a string.
+                                link: meta_key
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/script/
