@@ -8436,7 +8436,7 @@ links:
           - title: multiple
             type: list
             vals:
-                extend: ingredient_select
+                link: ingredient_select
     ingredient_select:
         or:
           - title: simple
@@ -8755,10 +8755,6 @@ links:
             condition:
                 desc: Per-overlay condition, inside overlays only. Checked every frame; an overlay whose condition fails is skipped while the rest keep drawing. On the single-overlay spelling the power’s own condition already does this job.
                 link: entity_condition
-            extend: overlay_power
-    overlay_power:
-        type: object
-        props:
             texture:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
                 desc: The namespace and ID of the texture to use as an overlay.
