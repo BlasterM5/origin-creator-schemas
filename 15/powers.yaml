@@ -3372,6 +3372,7 @@ links:
                                 link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use.
+                                type: integer
                                 default: 1
                                 min: 1
                             speed:
@@ -5245,6 +5246,7 @@ links:
                             link: identifier
                         count:
                             desc: The amount of projectiles to fire each use.
+                            type: integer
                             default: 1
                             min: 1
                         speed:
