@@ -161,7 +161,7 @@ links:
                             target_rotation:
                                 desc: Determines the initial point of the rotation for the target. Accepts "head" or "body".
                                 enum: ['head','body']
-                                default: 'body'
+                                default: 1
                             comparison:
                                 desc: Determines how the calculated angle value should be compared to the specified value.
                                 link: comparison
@@ -374,7 +374,7 @@ links:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/advancement/
                                 desc: The namespace and ID of the advancement the player needs to have completed in order for this condition to evaluate to true. Only works on players!
-                                link: advancement
+                                link: identifier
                         string-origins:air:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/air/
@@ -546,7 +546,7 @@ links:
                             scale_reference_to_dimension:
                                 desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
                                 type: boolean
-                                unspec: true
+                                default: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
                                 type: boolean_optional
@@ -554,7 +554,7 @@ links:
                                 desc: |
                                     If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work (e.g: -2 rounds to multiples of 100).
                                 type: integer
-                                default: unspec
+                                unspec: true
                             comparison:
                                 desc: Determines how the calculated distance is compared to the specified value.
                                 link: comparison
@@ -570,7 +570,7 @@ links:
                                 desc: |
                                     If set to true, the entity condition type will check whether the player has the ability to activate elytra flight. (e.g: wearing an elytra or have a power that uses the apoli:elytra_flight)
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:enchantment:
                             enchantment:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/enchantment
@@ -689,7 +689,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/has_location/
                                 desc: The name to look for. With no id, the condition passes when the entity has any saved position.
                                 link: meta_key
-                                default: unspec
+                                unspec: true
                         string-origins:health:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/health
@@ -791,7 +791,7 @@ links:
                             power:
                                 desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
                                 link: comparison
@@ -822,11 +822,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/moving
                                 desc: Determines whether to check if the entity is moving horizontally.
                                 type: boolean
-                                unspec: true
+                                default: true
                             vertically:
                                 desc: Determines whether to check if the entity is moving vertically.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:nbt:
                             nbt:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/nbt
@@ -892,7 +892,7 @@ links:
                             source:
                                 desc: If specified, the condition will check if the power is from the specified power source.
                                 type: identifier
-                                default: unspec
+                                unspec: true
                         string-origins:power_active:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_active
@@ -913,15 +913,15 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/raycast
                                 desc: Determines the maximum distance the raycast will travel.
                                 type: number
-                                default: unspec
+                                unspec: true
                             block:
                                 desc: Determines whether the raycast should include blocks.
                                 type: boolean
-                                unspec: true
+                                default: true
                             entity:
                                 desc: Determines whether the raycast should include entities.
                                 type: boolean
-                                unspec: true
+                                default: true
                             shape_type:
                                 link: shape_type
                                 default: 'visual'
@@ -944,14 +944,14 @@ links:
                             entity_distance:
                                 desc: Determines the distance of the raycast for entities if entity is set to true. If absent, it will use the higher value between the entity’s attack range (with Reach Entity Attributes compatibility) or the distance field.
                                 type: number
-                                default: unspec
+                                unspec: true
                             block_condition:
                                 desc: If specified, the entity condition type will check if the block that was hit by the raycast fulfills this block condition type.
                                 link: block_condition
                             block_distance:
                                 desc: Determines the distance of the raycast for blocks if block is set to true. If absent, it will use the higher value between the entity’s block reach (with Reach Entity Attributes compatibility) or the distance field.
                                 type: number
-                                default: unspec
+                                unspec: true
                         string-origins:relative_health:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/relative_health
@@ -968,7 +968,7 @@ links:
                             position:
                                 desc: Which slot of a table resource to read. Omit it and the condition passes if any slot satisfies the comparison.
                                 link: expression_integer
-                                default: unspec
+                                unspec: true
                             comparison:
                                 desc: Determines how the value of the specified power should be compared to the specified value.
                                 link: comparison
@@ -1118,11 +1118,11 @@ links:
                             origin:
                                 desc: The stored entry must be this origin.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             layer:
                                 desc: The stored entry must have been taken from this layer.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                         string-origins:stored_value:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_value
@@ -1136,11 +1136,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/swapped
                                 desc: Which layer to check. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             origin:
                                 desc: Also require that this is the origin they are swapped into.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                         string-origins:swimming: {}
                         string-origins:tamed: {}
                         string-origins:time_of_day:
@@ -1310,12 +1310,12 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/enchantment
                                 desc: If specified, the level of the enchantment that corresponds to this identifier will be compared. Otherwise, the amount of enchantments in the item stack will be compared instead.
                                 link: enchantment
-                                default: unspec
+                                unspec: true
                             use_modifications:
                                 desc: |
                                     Determines whether to account for enchantments that were added/modified by unnatural means (e.g: via the apoli:modify_enchantment_level)
                                 type: boolean
-                                unspec: true
+                                default: true
                             comparison:
                                 desc: Determines how the level of the specified enchantment, or the amount of enchantments in the item stack, should be compared to the specified value.
                                 link: comparison
@@ -1546,7 +1546,7 @@ links:
                             compare_to:
                                 desc: If specified, the integer at which the integer value of the specified property will be compared to. Only used if the specified property has an integer value.
                                 type: integer
-                                default: unspec
+                                unspec: true
                             value:
                                 desc: If specified, the boolean to compare to the boolean value of the specified property. Only used if the specified property has a boolean value.
                                 link: boolean_optional
@@ -1588,14 +1588,14 @@ links:
                             scale_reference_to_dimension:
                                 desc: Determines whether to check for the reference point whilst considering the coordinate scale of the dimension.
                                 type: boolean
-                                unspec: true
+                                default: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
                                 type: boolean_optional
                             round_to_digit:
                                 desc: If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work.
                                 type: integer
-                                default: unspec
+                                unspec: true
                             comparison:
                                 desc: Determines how the calculated distance (in blocks) should be compared to the specified value.
                                 link: comparison
@@ -1634,8 +1634,8 @@ links:
                             light_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/light_level
                                 desc: If specified, determines the type of light level to compare.
-                                enum: ['highest','sky','block']
-                                unspec: 'highest'
+                                enum: ['','sky','block']
+                                unspec: true
                             comparison:
                                 desc: Determines how the light level should be compared to the specified value.
                                 link: comparison
@@ -1978,7 +1978,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/projectile
                                 desc: If set, the check will only pass if the projectile was of an entity type with the specified namespace and ID.
                                 link: projectile_type
-                                default: unspec
+                                unspec: true
                             projectile_condition:
                                 desc: If set, the check will only pass if the projectile entity fulfills this condition.
                                 link: entity_condition
@@ -2180,7 +2180,7 @@ links:
                             slot:
                                 desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
                                 link: meta_key
-                                default: unspec
+                                unspec: true
                             texture:
                                 desc: The texture the rope is drawn with.
                                 link: identifier
@@ -2188,11 +2188,11 @@ links:
                             toggle:
                                 desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
                                 type: boolean
-                                unspec: true
+                                default: true
                             controllable:
                                 desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
                                 type: boolean
-                                unspec: true
+                                default: true
                             mode:
                                 link: rope_mode
                             break_beyond:
@@ -2241,11 +2241,11 @@ links:
                             constrain_from:
                                 desc: Whether the physics may pull the from end (only matters when it is an entity).
                                 type: boolean
-                                unspec: true
+                                default: true
                             constrain_to:
                                 desc: Whether the physics may pull the to end.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:damage:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
@@ -2266,11 +2266,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/disguise
                                 desc: If false, does nothing when the actor is already disguised.
                                 type: boolean
-                                unspec: true
+                                default: true
                             change_name:
                                 desc: Whether the disguise also changes the actor’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:execute_command:
                             command:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/execute_command/
@@ -2342,30 +2342,30 @@ links:
                             swing_hand:
                                 desc: Whether the actor visibly swings its main arm.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:raycast:
                             aim_at_target:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/raycast
                                 desc: Aim at the target instead of the actor’s look direction.
                                 type: boolean
-                                unspec: true
+                                default: true
                             stop_at_target:
                                 desc: Clamp the ray’s length to the actor→target distance.
                                 type: boolean
-                                unspec: true
+                                default: true
                             distance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/raycast
                                 desc: Maximum range for both block and entity raycasting. Defaults to the entity’s effective reach.
                                 type: number
-                                default: unspec
+                                unspec: true
                             block:
                                 desc: Whether the ray can hit blocks
                                 type: boolean
-                                unspec: true
+                                default: true
                             entity:
                                 desc: Whether the ray can hit entities
                                 type: boolean
-                                unspec: true
+                                default: true
                             shape_type:
                                 link: shape_type
                             fluid_handling:
@@ -2397,11 +2397,11 @@ links:
                             entity_distance:
                                 desc: Maximum range for entity detection only. Overrides distance for entities
                                 type: number
-                                default: unspec
+                                unspec: true
                             block_distance:
                                 desc: Maximum range for block detection only. Overrides distance for blocks
                                 type: number
-                                default: unspec
+                                unspec: true
                             radius:
                                 desc: |
                                     Thickens the ray into a beam for entity detection — a single number (uniform) or a vector { "x": .., "y": .., "z": .. } (width / height / depth). Entities within this half-extent of the ray line are hit. Block detection still uses the centre line.
@@ -2409,7 +2409,7 @@ links:
                             cone_angle:
                                 desc: Turns entity detection into a directional cone attack — hits every entity within this many degrees of the ray direction, out to the entity range. Takes the place of radius for entities; block detection still follows the centre line.
                                 type: number
-                                default: unspec
+                                unspec: true
                                 gap: true
                             bientity_condition:
                                 desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
@@ -2459,31 +2459,31 @@ links:
                             chain_direction:
                                 desc: |
                                     For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
-                                enum: ['default','forward','reflect','custom']
-                                unspec: 'default'
+                                enum: ['','forward','reflect','custom']
+                                unspec: true
                         string-origins:raycast_between:
                             aim_at_target:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/raycast
                                 desc: (DEPRECATED) Aim at the target instead of the actor’s look direction.
                                 type: boolean
-                                unspec: true
+                                default: true
                             stop_at_target:
                                 desc: Clamp the ray’s length to the actor→target distance.
                                 type: boolean
-                                unspec: true
+                                default: true
                             distance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/raycast
                                 desc: Maximum range for both block and entity raycasting. Defaults to the entity’s effective reach.
                                 type: number
-                                default: unspec
+                                unspec: true
                             block:
                                 desc: Whether the ray can hit blocks
                                 type: boolean
-                                unspec: true
+                                default: true
                             entity:
                                 desc: Whether the ray can hit entities
                                 type: boolean
-                                unspec: true
+                                default: true
                             shape_type:
                                 link: shape_type
                             fluid_handling:
@@ -2515,11 +2515,11 @@ links:
                             entity_distance:
                                 desc: Maximum range for entity detection only. Overrides distance for entities
                                 type: number
-                                default: unspec
+                                unspec: true
                             block_distance:
                                 desc: Maximum range for block detection only. Overrides distance for blocks
                                 type: number
-                                default: unspec
+                                unspec: true
                             radius:
                                 desc: |
                                     Thickens the ray into a beam for entity detection — a single number (uniform) or a vector { "x": .., "y": .., "z": .. } (width / height / depth). Entities within this half-extent of the ray line are hit. Block detection still uses the centre line.
@@ -2527,7 +2527,7 @@ links:
                             cone_angle:
                                 desc: Turns entity detection into a directional cone attack — hits every entity within this many degrees of the ray direction, out to the entity range. Takes the place of radius for entities; block detection still follows the centre line.
                                 type: number
-                                default: unspec
+                                unspec: true
                                 gap: true
                             bientity_condition:
                                 desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
@@ -2577,8 +2577,8 @@ links:
                             chain_direction:
                                 desc: |
                                     For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
-                                enum: ['default','forward','reflect','custom']
-                                unspec: 'default'
+                                enum: ['','forward','reflect','custom']
+                                unspec: true
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/script/
@@ -2618,7 +2618,7 @@ links:
                             loaded_chunks_only:
                                 desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
                                 type: boolean
-                                unspec: true
+                                default: true
                             success_action:
                                 desc: Runs with the same pair once they have arrived.
                                 link: bientity_action
@@ -2665,7 +2665,7 @@ links:
                             loaded_chunks_only:
                                 desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
                                 type: boolean
-                                unspec: true
+                                default: true
                             success_action:
                                 desc: Runs with the same pair once they have arrived.
                                 link: bientity_action
@@ -2681,7 +2681,7 @@ links:
                             time_limit:
                                 desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
                                 type: integer
-                                default: unspec
+                                unspec: true
                         string-origins:add_to_set:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_to_entity_set
@@ -2690,7 +2690,7 @@ links:
                             time_limit:
                                 desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
                                 type: integer
-                                default: unspec
+                                unspec: true
                         string-origins:remove_from_entity_set:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/remove_from_entity_set
@@ -2738,7 +2738,7 @@ links:
                             origin:
                                 desc: Store this origin id literally instead of reading the target’s.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             clear:
                                 desc: Remove the entry at key from the actor instead of writing one.
                                 type: boolean
@@ -2761,7 +2761,7 @@ links:
                             origin:
                                 desc: Transfer exactly this origin instead of searching the donor’s layer. Overrides selection.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             selection:
                                 desc: |
                                     Which of the donor’s origins on from_layer to take: main, active, pool or all.
@@ -2932,7 +2932,6 @@ links:
                             fail_action:
                                 desc: The action to execute if the specified action in the action field is not executed.
                                 link: entity_action
-                                default: unspec
                         string-origins:chance:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
@@ -3105,7 +3104,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
                                 desc: |
                                     The advancement to act on. Omit it with selection: everything to act on all of them.
-                                link: advancement
+                                link: identifier
                             criterion:
                                 desc: A single criterion name, rather than the whole advancement.
                                 type: string
@@ -3126,7 +3125,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_advancement
                                 desc: |
                                     (ALIAS) The advancement to grant. Omit it with selection: everything to act on all of them.
-                                link: advancement
+                                link: identifier
                             criterion:
                                 desc: A single criterion name, rather than the whole advancement.
                                 type: string
@@ -3144,7 +3143,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_advancement
                                 desc: |
                                     (ALIAS) The advancement to revoke. Omit it with selection: everything to act on all of them.
-                                link: advancement
+                                link: identifier
                             criterion:
                                 desc: A single criterion name, rather than the whole advancement.
                                 type: string
@@ -3199,7 +3198,7 @@ links:
                             slot:
                                 desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
                                 link: meta_key
-                                default: unspec
+                                unspec: true
                             texture:
                                 desc: The texture the rope is drawn with.
                                 link: identifier
@@ -3207,11 +3206,11 @@ links:
                             toggle:
                                 desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
                                 type: boolean
-                                unspec: true
+                                default: true
                             controllable:
                                 desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
                                 type: boolean
-                                unspec: true
+                                default: true
                             mode:
                                 link: rope_mode
                             break_beyond:
@@ -3260,11 +3259,11 @@ links:
                             constrain_from:
                                 desc: Whether the physics may pull the from end (only matters when it is an entity).
                                 type: boolean
-                                unspec: true
+                                default: true
                             constrain_to:
                                 desc: Whether the physics may pull the to end.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:block_action_at:
                             block_action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/block_action_at
@@ -3322,7 +3321,7 @@ links:
                             power:
                                 desc: The apoli:inventory power to act on. Required when inventory_type is "power".
                                 link: identifier
-                                default: unspec
+                                unspec: true
                         string-origins:clear_effect:
                             effect:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/clear_effect
@@ -3369,17 +3368,17 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/detach_rope
                                 desc: The labelled rope to cut. If omitted, all ropes owned by the entity are cut.
                                 link: meta_key
-                                default: unspec
+                                unspec: true
                         string-origins:disguise_as:
                             player_uuid:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/disguise_as
                                 desc: UUID of the player to appear as. Takes priority over player_name.
                                 link: meta_key
-                                default: unspec
+                                unspec: true
                             player_name:
                                 desc: Name of the player to appear as. Resolved from the server’s profile cache.
                                 type: string
-                                default: unspec
+                                unspec: true
                             entity_type:
                                 desc: The mob type to appear as (e.g. minecraft:zombie). Ignored if a player field is set.
                                 link: mob_type
@@ -3389,11 +3388,11 @@ links:
                             overwrite:
                                 desc: If false, does nothing when the entity is already disguised.
                                 type: boolean
-                                unspec: true
+                                default: true
                             change_name:
                                 desc: Whether the disguise also changes the entity’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
                                 type: boolean
-                                unspec: true
+                                default: true
                             before_action:
                                 desc: Runs on the entity before the disguise is applied.
                                 link: entity_action
@@ -3405,22 +3404,22 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/disguise_as
                                 desc: (DEPRECATED) UUID of the player to appear as. Takes priority over player_name.
                                 link: meta_key
-                                default: unspec
+                                unspec: true
                             player_name:
                                 desc: Name of the player to appear as. Resolved from the server’s profile cache.
                                 type: string
-                                default: unspec
+                                unspec: true
                             nbt:
                                 desc: Extra NBT applied to the mob disguise (e.g. to set a variant or custom name).
                                 link: nbt
                             overwrite:
                                 desc: If false, does nothing when the entity is already disguised.
                                 type: boolean
-                                unspec: true
+                                default: true
                             change_name:
                                 desc: Whether the disguise also changes the entity’s shown name — nameplate, chat and multiplayer tab list. Set false to keep the original name.
                                 type: boolean
-                                unspec: true
+                                default: true
                             before_action:
                                 desc: Runs on the entity before the disguise is applied.
                                 link: entity_action
@@ -3454,7 +3453,7 @@ links:
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -3477,7 +3476,7 @@ links:
                             retain_ownership:
                                 desc: Drop only — keep the dropping entity as the item’s thrower.
                                 type: boolean
-                                unspec: true
+                                default: true
                             amount:
                                 desc: Drop only — split this many off each matching stack instead of dropping the whole stack.
                                 type: integer_optional
@@ -3507,7 +3506,7 @@ links:
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -3541,7 +3540,7 @@ links:
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -3583,7 +3582,7 @@ links:
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -3598,7 +3597,7 @@ links:
                             retain_ownership:
                                 desc: Drop only — keep the dropping entity as the item’s thrower.
                                 type: boolean
-                                unspec: true
+                                default: true
                             amount:
                                 desc: Drop only — split this many off each matching stack instead of dropping the whole stack.
                                 type: integer_optional
@@ -3635,7 +3634,7 @@ links:
                             damage_self:
                                 desc: Determines if the entity that invoked the action should take damage from the summoned explosion.
                                 type: boolean
-                                unspec: true
+                                default: true
                             destruction_type:
                                 link: destruction_type
                             create_fire:
@@ -3771,7 +3770,7 @@ links:
                             include_hidden:
                                 desc: Whether to include powers marked hidden.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:grant_power:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_power
@@ -3881,7 +3880,7 @@ links:
                             sprite_location:
                                 desc: A texture used for the menu’s own background sprites. (256x256 pixels)
                                 link: identifier
-                                default: unspec
+                                unspec: true
                         string-origins:random_teleport:
                             area_width:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/random_teleport
@@ -3898,7 +3897,7 @@ links:
                             attempts:
                                 desc: Determines how many attempts the entity should be teleported to a random location. Defaults to area_width 2 + area_height 2.
                                 type: integer
-                                default: unspec
+                                unspec: true
                             landing_block_condition:
                                 desc: If specified, the entity will only be teleported on top of a block that fulfills this block condition. Otherwise, the entity will only be teleported on blocks that blocks movement/have solid collision.
                                 link: block_condition
@@ -3912,7 +3911,7 @@ links:
                             loaded_chunks_only:
                                 desc: Determines whether the entity should only be teleported in loaded chunks. It is recommended to keep this set to true for performance reasons.
                                 type: boolean
-                                unspec: true
+                                default: true
                             sucess_action:
                                 desc: If specified, this entity action will be executed on the entity after it’s been successfully teleported to a random location.
                                 link: entity_action
@@ -3924,15 +3923,15 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/raycast
                                 desc: Maximum range for both block and entity raycasting. Defaults to the entity’s effective reach.
                                 type: number
-                                default: unspec
+                                unspec: true
                             block:
                                 desc: Whether the ray can hit blocks
                                 type: boolean
-                                unspec: true
+                                default: true
                             entity:
                                 desc: Whether the ray can hit entities
                                 type: boolean
-                                unspec: true
+                                default: true
                             shape_type:
                                 link: shape_type
                             fluid_handling:
@@ -3964,11 +3963,11 @@ links:
                             entity_distance:
                                 desc: Maximum range for entity detection only. Overrides distance for entities
                                 type: number
-                                default: unspec
+                                unspec: true
                             block_distance:
                                 desc: Maximum range for block detection only. Overrides distance for blocks
                                 type: number
-                                default: unspec
+                                unspec: true
                             radius:
                                 desc: |
                                     Thickens the ray into a beam for entity detection — a single number (uniform) or a vector { "x": .., "y": .., "z": .. } (width / height / depth). Entities within this half-extent of the ray line are hit. Block detection still uses the centre line.
@@ -3976,7 +3975,7 @@ links:
                             cone_angle:
                                 desc: Turns entity detection into a directional cone attack — hits every entity within this many degrees of the ray direction, out to the entity range. Takes the place of radius for entities; block detection still follows the centre line.
                                 type: number
-                                default: unspec
+                                unspec: true
                                 gap: true
                             bientity_condition:
                                 desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
@@ -4026,8 +4025,8 @@ links:
                             chain_direction:
                                 desc: |
                                     For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
-                                enum: ['default','forward','reflect','custom']
-                                unspec: 'default'
+                                enum: ['','forward','reflect','custom']
+                                unspec: true
                         string-origins:relative_action:
                             target:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/relative_action
@@ -4098,7 +4097,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/rope_pull
                                 desc: Only act on the rope in this slot. If omitted, every rope the entity owns is affected.
                                 link: meta_key
-                                default: unspec
+                                unspec: true
                             which:
                                 desc: |
                                     Which end to push: self (launch the actor toward the far end), other (drag the far entity toward the actor), or both.
@@ -4134,7 +4133,7 @@ links:
                             summon_id:
                                 desc: If set, only summons whose summon_id matches are affected. If unset, any summon is affected.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                         string-origins:spawn_effect_cloud:
                             radius:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_effect_cloud
@@ -4210,34 +4209,34 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_clone
                                 desc: Whether the clone attacks the owner’s enemies.
                                 type: boolean
-                                unspec: true
+                                default: true
                             can_sit:
                                 desc: Whether the owner can toggle the clone sitting by right-clicking it.
                                 type: boolean
-                                unspec: true
+                                default: true
                             follow_owner:
                                 desc: Whether the clone follows the owner when far away.
                                 type: boolean
-                                unspec: true
+                                default: true
                             inherit_equipment:
                                 desc: Whether the clone copies the owner’s worn/held equipment.
                                 type: boolean
-                                unspec: true
+                                default: true
                             inherit_enchantments:
                                 desc: Whether inherited equipment keeps its enchantments (and other components).
                                 type: boolean
-                                unspec: true
+                                default: true
                             slim:
                                 desc: Forces the slim arm model. Only used when custom textures are set; otherwise the owner’s model is mirrored.
                                 type: boolean
                             wide_texture:
                                 desc: Custom texture for the wide model. If unset, the owner’s skin is used.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             slim_texture:
                                 desc: Custom texture for the slim model. If unset, the owner’s skin is used.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             max_life_ticks:
                                 desc: Ticks before the clone vanishes. 0 or less = permanent until killed.
                                 type: integer
@@ -4246,7 +4245,7 @@ links:
                             summon_id:
                                 desc: A tag used by apoli:set_summon_max_life to target this clone.
                                 type: identifier
-                                default: unspec
+                                unspec: true
                             powers:
                                 desc: Powers to grant the clone on spawn.
                                 link: identifier_array
@@ -4280,7 +4279,7 @@ links:
                             summon_id:
                                 desc: A tag used by apoli:set_summon_max_life to target this minion.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             powers:
                                 desc: Powers to grant the minion on spawn. Granting it a geometry-mode apoli:custom_model_render replaces the minion’s model with a Blockbench one.
                                 link: identifier_array
@@ -4319,7 +4318,7 @@ links:
                             create_if_missing:
                                 desc: For join and create, make the team if it does not exist yet.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:join_team:
                             team:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
@@ -4328,7 +4327,7 @@ links:
                             create_if_missing:
                                 desc: For join and create, make the team if it does not exist yet.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:leave_team:
                             team:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
@@ -4337,7 +4336,7 @@ links:
                             create_if_missing:
                                 desc: For join and create, make the team if it does not exist yet.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:modify_team:
                             team:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/team
@@ -4346,7 +4345,7 @@ links:
                             create_if_missing:
                                 desc: For join and create, make the team if it does not exist yet.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:text:
                             text:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/text
@@ -4365,8 +4364,8 @@ links:
                                 required: true
                             bar:
                                 desc: Where to display the text.
-                                enum: ['actionbar','title','subtitle','top_left','top_center','top_right','left','right','bottom_left','bottom_right']
-                                unspec: 'actionbar'
+                                enum: ['','actionbar','title','subtitle','top_left','top_center','top_right','left','right','bottom_left','bottom_right']
+                                unspec: true
                             bold:
                                 desc: Base bold styling.
                                 type: boolean
@@ -4424,7 +4423,7 @@ links:
                                     Whether x/y/z are an offset from the entity (true) or world coordinates (false). Alias: relative_to_position.
                                 talias: relative_to_position
                                 type: boolean
-                                unspec: true
+                                default: true
                             space:
                                 desc: |
                                     Which axes a relative offset is measured along. local turns with the entity, so z: 5 is five blocks in front of them. Ignored when relative is false.
@@ -4432,19 +4431,19 @@ links:
                             dimension:
                                 desc: The dimension to teleport into. Defaults to the one the entity is already in.
                                 link: dimension
-                                default: unspec
+                                unspec: true
                             yaw:
                                 desc: The horizontal rotation to arrive with. Left alone if not given.
                                 link: expression_float
-                                default: unspec
+                                unspec: true
                             pitch:
                                 desc: The vertical rotation to arrive with. Left alone if not given.
                                 link: expression_float
-                                default: unspec
+                                unspec: true
                             loaded_chunks_only:
                                 desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
                                 type: boolean
-                                unspec: true
+                                default: true
                             success_action:
                                 desc: Runs on the entity once it has arrived.
                                 link: entity_action
@@ -4475,7 +4474,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/teleport_to_location/
                                 desc: The name the position was saved under.
                                 type: boolean
-                                unspec: true
+                                default: true
                             success_action:
                                 desc: Runs on the entity once it has arrived.
                                 link: entity_action
@@ -4513,15 +4512,15 @@ links:
                             layer:
                                 desc: Which layer to swap on. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             origin:
                                 desc: Swap directly to this origin, ignoring mode. Does nothing if it is not in the player’s pool.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             include_main:
                                 desc: In random mode, whether the main origin is one of the possible results.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:grant_origin:
                             origin:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/grant_origin/
@@ -4531,7 +4530,7 @@ links:
                             layer:
                                 desc: The layer to grant it on.
                                 link: identifier
-                                unspec: 'origins:origin'
+                                default: 'origins:origin'
                             to_pool:
                                 desc: On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant. Also accepts the alias swappable.
                                 talias: swappable
@@ -4541,17 +4540,17 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/open_swap_menu/
                                 desc: Which layer to show the pool for. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                         string-origins:revoke_origin:
                             origin:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/revoke_origin/
                                 desc: The origin to take. Omit it to clear the layer and everything the player was granted in its swap pool.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             layer:
                                 desc: The layer to take it from.
                                 link: identifier
-                                unspec: 'origins:origin'
+                                default: 'origins:origin'
                         string-origins:save_location:
                             id:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/save_location/
@@ -4561,7 +4560,7 @@ links:
                             overwrite:
                                 desc: Whether to replace a position already saved under that name. false makes the first save win, which is how you record a home the player cannot move.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:store_origin:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin/
@@ -4571,11 +4570,11 @@ links:
                             layer:
                                 desc: Which layer’s origin to read, and the layer recorded with the entry.
                                 link: identifier
-                                unspec: 'origins:origin'
+                                default: 'origins:origin'
                             origin:
                                 desc: Store this origin id literally instead of reading the entity’s current one.
                                 link: identifier
-                                default: unspec
+                                unspec: true
                             clear:
                                 desc: Remove the entry at key instead of writing one.
                                 type: boolean
@@ -4788,14 +4787,14 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/remove_enchantment
                                 desc: If specified, this enchantment will be removed from the item.
                                 link: enchantment
-                                default: unspec
+                                unspec: true
                             enchantments:
                                 desc: If specified, these enchantments will be removed from the item.
                                 link: identifier_array
                             levels:
                                 desc: If specified, only the enchantments that has the specified level will be removed from the item.
                                 link: enchantment
-                                default: unspec
+                                unspec: true
                             reset_repair_cost:
                                 desc: Determines whether the ‘repair cost’ of the item should be reset.
                                 type: boolean
@@ -4996,20 +4995,20 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/bonemeal
                                 desc: Determines if the particle and other visual effects of the bonemeal-ing action should appear.
                                 type: boolean
-                                unspec: true
+                                default: true
                         string-origins:break_block:
                             drop_loot:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/break_block/
                                 desc: Whether to roll the block’s loot table and drop the result, experience included. false removes the block and drops nothing.
                                 type: boolean
-                                unspec: true
+                                default: true
                             stack:
                                 desc: The tool the loot table is given, exactly like the tool argument of /loot … mine <pos> <tool>. Silk Touch and Fortune on it apply, and blocks that need a specific tool to drop anything will drop for it. With no stack the loot is rolled with an empty hand.
                                 link: item_stack
                             break_particles:
                                 desc: Whether to play the block-breaking particles and sound.
                                 type: boolean
-                                unspec: true
+                                default: true
                             as_player:
                                 desc: Drops the loot through the block’s player-mining hook instead of its plain loot table, crediting the player the action came from. A beehive or bee nest releases the bees inside it, the block-mined statistic is awarded, the mining advancements fire, and a little hunger is spent. Needs drop_loot to be true, and has no effect when the entity behind the action is not a player.
                                 type: boolean
@@ -5066,7 +5065,6 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/modify_block_state
                                 desc: Determines how the value specified in the change field is operated on the specified property. Accepts "add" or "set".
                                 enum: ['add','set']
-                                default: 'add'
                             cycle:
                                 desc: If set to true, changes the property to the next state in the cycle, ignoring all other optional fields. All property types can use this operation.
                                 type: boolean
@@ -5349,7 +5347,7 @@ links:
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:conditioned_attribute:
                         attribute:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
@@ -5365,7 +5363,7 @@ links:
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:modify_attribute:
                         attribute:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
@@ -5381,7 +5379,7 @@ links:
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:burn:
                         burn_duration:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/burn/
@@ -5398,7 +5396,7 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/climbing/
                             desc: If true, the entity that has the power is able to hold onto blocks.
                             type: boolean
-                            unspec: true
+                            default: true
                         hold_condition:
                             desc: If specified and allow_holding is true, the entity that has the power will be able to ‘hold onto the block’ (not affected by gravity) if this condition is fulfilled, otherwise, defaults to if the entity is sneaking.
                             link: entity_condition
@@ -5413,7 +5411,7 @@ links:
                         persistent:
                             desc: When true, the cooldown’s remaining ticks survive server restart (so a player who used their ult and logged off doesn’t get to reuse it on login). When false, the cooldown resets to ready (value 0) whenever the entity rejoins the world.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:creative_flight: {}
                     string-origins:custom_model_render:
                         mode:
@@ -5465,7 +5463,7 @@ links:
                                 vals:
                                     link: model_parts
                               - title: 'Minion - All/Single Part'
-                                enum: ['main','flat2','flat3']
+                                enum: ['','main','flat2','flat3']
                                 unspec: true
                               - title: 'Minion - Multiple Parts'
                                 type: list
@@ -5518,7 +5516,7 @@ links:
                             desc: Ticks to wait after the condition becomes true before the first hit.
                             type: integer
                             min: 0
-                            default: unspec
+                            unspec: true
                         damage:
                             desc: How much damage to deal each interval.
                             type: number
@@ -5528,7 +5526,7 @@ links:
                             desc: Damage dealt on Easy difficulty.
                             type: number
                             min: 0
-                            default: unspec
+                            unspec: true
                         damage_type:
                             desc: The damage type to use.
                             link: damage_type
@@ -5569,12 +5567,10 @@ links:
                         consume_animation:
                             desc: Determines whether the animation effect for consuming the item should be “eating” ("eat", displays particle effects based on the item) or “drinking” ("drink", no particle effects.)
                             enum: ['eat','drink']
-                            unspec: 'eat'
                         consume_sound:
                             desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
                             link: identifier
                             default: 'entity.generic.eat'
-                            unspec: 'entity.generic.eat'
                         consuming_time_modifier:
                             desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
                             link: attribute_modifier
@@ -5600,7 +5596,7 @@ links:
                         texture_location:
                             desc: If specified, this will be the texture used by the Elytra granted by this power.
                             link: identifier
-                            default: unspec
+                            unspec: true
                     string-origins:entity_glow:
                         entity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/entity_glow/
@@ -5612,7 +5608,7 @@ links:
                         use_teams:
                             desc: Determines whether glowing entities should use their team’s color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
-                            unspec: true
+                            default: true
                         red:
                             desc: |
                                 Value by which the red component of the glow will be multiplied. Range: 0.0 - 1.0.
@@ -5765,7 +5761,7 @@ links:
                         render_overlay:
                             desc: false removes the full-screen fluid texture drawn over the camera. Only water has one in vanilla.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:freeze: {}
                     string-origins:function:
                         entity_action:
@@ -5788,15 +5784,14 @@ links:
                         trigger_order:
                             desc: Determines whether the power type should prioritize game events by distance ("by_distance") or arbitrarily ("unspecified").
                             enum: ['unspecified','by_distance']
-                            unspec: true
                         entity:
                             desc: Determines whether the power type should listen to game events emitted by entities.
                             type: boolean
-                            unspec: true
+                            default: true
                         block:
                             desc: Determines whether the power type should listen to game events emitted by blocks.
                             type: boolean
-                            unspec: true
+                            default: true
                         bientity_action:
                             desc: If specified, this action will be executed on either or both the ’actor’ and ’target’ entities.
                             link: bientity_action
@@ -5818,7 +5813,7 @@ links:
                         show_particle:
                             desc: Determines whether the vibration should emit a particle effect.
                             type: boolean
-                            unspec: true
+                            default: true
                         cooldown:
                             link: cooldown
                             default: 1
@@ -5842,7 +5837,7 @@ links:
                             desc: The translation key or literal text to use as the display name for the inventory.
                             link: text_component
                             default: 'container.inventory'
-                            unspec: 'container.inventory'
+                            unspec: true
                         container_type:
                             link: container_type
                         drop_on_death:
@@ -5854,7 +5849,7 @@ links:
                         recoverable:
                             desc: Determines if the content of the inventory should be dropped upon losing the power.
                             type: boolean
-                            unspec: true
+                            default: true
                         key:
                             desc: Which active key this power should respond to.
                             link: keybind
@@ -5872,7 +5867,7 @@ links:
                         render_held_items:
                             desc: Determines whether items held in either hand should be shown or not. Set it to false to hide them along with the entity.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:invulnerability:
                         damage_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/invulnerability/
@@ -5909,8 +5904,7 @@ links:
                             desc: |
                                 Which click runs the actions: "primary" (or 0) is a left-click, "secondary" (or 1) is a right-click.
                             enum: ['primary','secondary']
-                            default: 'secondary'
-                            unspec: 'secondary'
+                            default: 1
                     string-origins:keep_inventory:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/keep_inventory/
@@ -5989,7 +5983,6 @@ links:
                             desc: |
                                 How offset_* and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking.
                             link: space
-                            unspec: 'world'
                         offset_x:
                             desc: The offset of where the particle will be centered in the X axis.
                             type: number
@@ -6051,8 +6044,7 @@ links:
                         render_type:
                             desc: Determines how the environment is rendered when “phasing” through (moving) blocks.
                             enum: ['none','blindness','remove_blocks']
-                            default: 'blindness'
-                            unspec: 'blindness'
+                            default: 1
                         view_distance:
                             desc: Determines how far the player can look through walls when “phasing” (moving) through blocks when render_type is set to "blindness".
                             type: number
@@ -6146,7 +6138,7 @@ links:
                         replace:
                             desc: Whether a match stops the original sound (and every lower-priority power). false plays the replacement on top of the original.
                             type: boolean
-                            unspec: true
+                            default: true
                         entity_action:
                             desc: Action run on the holder whenever one of its rules matches.
                             link: entity_action
@@ -6165,7 +6157,7 @@ links:
                         replace:
                             desc: Whether a match stops the original sound (and every lower-priority power). false plays the replacement on top of the original.
                             type: boolean
-                            unspec: true
+                            default: true
                         entity_action:
                             desc: Action run on the holder whenever one of its rules matches.
                             link: entity_action
@@ -6194,7 +6186,7 @@ links:
                         enforce_limits:
                             desc: Whether the resource value is clamped to [min, max].
                             type: boolean
-                            unspec: true
+                            default: true
                         retain_value:
                             desc: |
                                 When enforce_limits is true: if a modification would push the value outside the bounds, keep the old value instead of clamping.
@@ -6208,7 +6200,7 @@ links:
                         persistent:
                             desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:restrict_armor:
                         head:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/restrict_armor/
@@ -6258,7 +6250,7 @@ links:
                         use_teams:
                             desc: Determines whether glowing entities should use their team’s color with their glow. If set to false, the entity will instead use the red, green and blue fields within this power type.
                             type: boolean
-                            unspec: true
+                            default: true
                         red:
                             desc: |
                                 Value by which the red component of the glow will be multiplied. Range: 0 - 1.
@@ -6282,7 +6274,7 @@ links:
                         toggleable:
                             desc: Determines if the applied shader can be toggled.
                             type: boolean
-                            unspec: true
+                            default: true
                         priority:
                             desc: Which shader wins when the entity holds more than one Shader power at once. Highest priority is applied; ties are broken arbitrarily.
                             type: integer
@@ -6293,7 +6285,7 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/show_both_arms/
                             desc: Draw the off arm when the off hand is empty. This is the “see both hands” behaviour.
                             type: boolean
-                            unspec: true
+                            default: true
                         main_hand:
                             desc: Draw the main arm even while the main hand is holding an item, so you see the arm as well as the item. Filled maps are skipped — vanilla already draws both arms for those.
                             type: boolean
@@ -6361,14 +6353,14 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/toggle/
                             desc: Determines whether the state of this power type should be ON by default.
                             type: boolean
-                            unspec: true
+                            default: true
                         key:
                             desc: Which active key this power should respond to.
                             link: keybind
                         retain_state:
                             desc: Determines whether the power remains active even if the specified condition (if any) is no longer met. If set to true, the power will stay in its current state regardless of the condition. If set to false, the power will deactivate when the condition is not fulfilled.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:tooltip:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/tooltip/
@@ -6444,7 +6436,7 @@ links:
                         only_when_harvested:
                             desc: If this is true, the specified actions will only execute when the player succeeds in harvesting the block (e.g. they will not trigger when stone is broken by hand).
                             type: boolean
-                            unspec: true
+                            default: true
                         block_action:
                             desc: If specified, this action will be executed on the block that is broken.
                             link: block_action
@@ -6496,7 +6488,7 @@ links:
                         execute_chosen_when_orb:
                             desc: When this is false, the entity_action_chosen will not be executed when the player changes their origin with an Orb of Origin item.
                             type: boolean
-                            unspec: true
+                            default: true
                         entity_action_gained:
                             desc: If specified, this action will be executed on the player when the power is added to the entity for the first time.
                             link: entity_action
@@ -6806,7 +6798,7 @@ links:
                             desc: Which way the wheel has to turn.
                             enum: ['any','up','down']
                         reset_on_direction_change:
-                            desc: Scrolling the other way restarts the count instead of adding to it.
+                            desc: ('any' direction only) Scrolling the other way restarts the count instead of adding to it.
                             type: boolean
                             default: true
                         scroll_amount:
@@ -6833,11 +6825,11 @@ links:
                             desc: Only react to messages of this chat type, e.g. minecraft:chat. Omit to react to all of them.
                             or:
                               - title: built-in
-                                enum: ['all','chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
-                                unspec: 'all'
+                                enum: ['','chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
+                                unspec: true
                               - title: custom
                                 link: identifier
-                                default: unspec
+                                unspec: true
                         filter:
                             desc: A single filter. Merged into filters.
                             link: message_filter
@@ -7277,7 +7269,7 @@ links:
                         take_fall_damage:
                             desc: Determines whether the entity should take fall damage or not.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:modify_food:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_food/
@@ -7371,11 +7363,11 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_hearing_range/
                             desc: Apply to ordinary game sounds.
                             type: boolean
-                            unspec: true
+                            default: true
                         voice:
                             desc: Apply to Simple Voice Chat proximity audio.
                             type: boolean
-                            unspec: true
+                            default: true
                         modifier:
                             desc: A single modifier applied to the base hearing distance.
                             link: attribute_modifier
@@ -7447,7 +7439,7 @@ links:
                             type: list
                             vals:
                                 enum: ['third_person','first_person']
-                            unspec: ['third_person']
+                            default: ['third_person']
                     string-origins:modify_player_model:
                         model:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_model/
@@ -7473,7 +7465,7 @@ links:
                             desc: |
                                 Defines the ratio of Overworld blocks to blocks in the specified dimension. e.g: for The Nether dimension, this would be set to 0.125. This needs to be set when spawn_strategy is set to "default"
                             type: number
-                            default: unspec
+                            unspec: true
                     string-origins:modify_projectile_damage:
                         damage_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_projectile_damage/
@@ -7557,7 +7549,7 @@ links:
                         included:
                             desc: true adds the entity to the tag; false removes it, even if its entity type is genuinely in the tag.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:modify_velocity:
                         axes:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_velocity/
@@ -7774,7 +7766,7 @@ links:
                             unpress:
                                 desc: Release everything currently held the moment the block starts, so a player who was already running does not keep sliding.
                                 type: boolean
-                                unspec: true
+                                default: true
                     string-origins:prevent_powers:
                         update_rate:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_powers/
@@ -7810,7 +7802,7 @@ links:
                         prevent_dimension_change:
                             desc: Whether portals and end gateways are blocked too. Set it to false to leave normal travel alone and only stop teleports within a dimension.
                             type: boolean
-                            unspec: true
+                            default: true
                     string-origins:prevent_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_use/
@@ -7929,28 +7921,12 @@ links:
             fail	Indicates that the action is not performed and prevents other actions from performing.
             pass	Indicates that the action is not performed but allows other actions to perform.
             success	Indicates that the action is performed and the actor’s hand is swung.
-    advancement:
-        or:
-          - title: built-in
-            or:
-              - title: story
-                enum: ['story/root','story/mine_stone','story/upgrade_tools','story/smelt_iron','story/obtain_armor','story/lava_bucket','story/iron_tools','story/deflect_arrow','story/form_obsidian','story/mine_diamond','story/enter_the_nether','story/shiny_gear','story/cure_zombie_villager','story/follow_ender_eye','story/enter_the_end']
-              - title: nether
-                enum: ['nether/root','nether/return_to_sender','nether/find_bastion','nether/obtain_ancient_debris','nether/fast_travel','nether/find_fortress','nether/obtain_crying_obsidian','nether/distract_piglin','nether/ride_strider','nether/uneasy_alliance','nether/loot_bastion','nether/netherite_armor','nether/get_wither_skull','nether/obtain_blaze_rod','nether/charge_respawn_anchor','nether/ride_strider_in_overworld_lava','nether/explore_nether','nether/summon_wither','nether/brew_potion','nether/all_potions','nether/create_full_beacon','nether/all_effects']
-              - title: end
-                enum: ['end/root','end/kill_dragon','end/dragon_egg','end/enter_end_gateway','end/respawn_dragon','end/dragon_breath','end/find_end_city','end/elytra','end/levitate']
-              - title: adventure
-                enum: ['adventure/root','adventure/heart_transplanter','adventure/voluntary_exile','adventure/use_lodestone','adventure/spyglass_at_parrot','adventure/kill_a_mob','adventure/read_power_of_chiseled_bookshelf','adventure/trade','adventure/trim_with_any_armor_pattern','adventure/honey_block_slide','adventure/ol_betsy','adventure/lightning_rod_with_villager_no_fire','adventure/fall_from_world_height','adventure/salvage_sherd','adventure/avoid_vibration','adventure/sleep_in_bed','adventure/hero_of_the_village','adventure/spyglass_at_ghast','adventure/throw_trident','adventure/kill_mob_near_sculk_catalyst','adventure/shoot_arrow','adventure/kill_all_mobs','adventure/totem_of_undying','adventure/spear_many_mobs','adventure/summon_iron_golem','adventure/trade_at_world_height','adventure/trim_with_all_exclusive_armor_patterns','adventure/two_birds_one_arrow','adventure/whos_the_pillager_now','adventure/arbalistic','adventure/craft_decorated_pot_using_only_sherds','adventure/adventuring_time','adventure/play_jukebox_in_meadows','adventure/walk_on_powder_snow_with_leather_boots','adventure/spyglass_at_dragon','adventure/very_very_frightening','adventure/sniper_duel','adventure/bullseye','adventure/brush_armadillo','adventure/minecraft_trials_edition','adventure/crafters_crafting_crafters','adventure/lighten_up','adventure/who_needs_rockets','adventure/under_lock_and_key','adventure/revaulting','adventure/blowback','adventure/overoverkill']
-              - title: husbandry
-                enum: ['husbandry/root','husbandry/place_dried_ghast_in_water','husbandry/safely_harvest_honey','husbandry/breed_an_animal','husbandry/allay_deliver_item_to_player','husbandry/ride_a_boat_with_a_goat','husbandry/tame_an_animal','husbandry/make_a_sign_glow','husbandry/fishy_business','husbandry/silk_touch_nest','husbandry/tadpole_in_a_bucket','husbandry/uh_oh','husbandry/obtain_sniffer_egg','husbandry/plant_seed','husbandry/wax_on','husbandry/bred_all_animals','husbandry/allay_deliver_cake_to_note_block','husbandry/complete_catalogue','husbandry/tactical_fishing','husbandry/leash_all_frog_variants','husbandry/feed_snifflet','husbandry/balanced_diet','husbandry/obtain_netherite_hoe','husbandry/wax_off','husbandry/axolotl_in_a_bucket','husbandry/froglights','husbandry/plant_any_sniffer_seed','husbandry/kill_axolotl_target','husbandry/repair_wolf_armor','husbandry/whole_pack','husbandry/remove_wolf_armor']
-          - title: custom
-            link: identifier
     arm_pose:
         enum: ['empty','item','block','bow_and_arrow','throw_spear','crossbow_charge','crossbow_hold','spyglass','toot_horn','brush']
     attribute:
         or:
           - title: built-in
-            enum: ['any','generic.armor_toughness','generic.attack_damage','generic.attack_knockback','generic.attack_speed','generic.block_break_speed','player.block_interaction_range','generic.burning_time','player.entity_interaction_range','generic.explosion_knockback_resistance','generic.fall_damage_multiplier','generic.flying_speed','generic.gravity','generic.jump_strength','generic.knockback_resistance','generic.max_absorption','generic.max_health','player.mining_efficiency','generic.follow_range','generic.movement_efficiency','generic.oxygen_bonus','generic.safe_fall_distance','generic.scale','player.sneaking_speed','generic.movement_speed','generic.step_height','player.submerged_mining_speed','player.sweeping_damage_ratio','generic.water_movement_efficiency','zombie.spawn_reinforcements']
+            enum: ['','generic.armor_toughness','generic.attack_damage','generic.attack_knockback','generic.attack_speed','generic.block_break_speed','player.block_interaction_range','generic.burning_time','player.entity_interaction_range','generic.explosion_knockback_resistance','generic.fall_damage_multiplier','generic.flying_speed','generic.gravity','generic.jump_strength','generic.knockback_resistance','generic.max_absorption','generic.max_health','player.mining_efficiency','generic.follow_range','generic.movement_efficiency','generic.oxygen_bonus','generic.safe_fall_distance','generic.scale','player.sneaking_speed','generic.movement_speed','generic.step_height','player.submerged_mining_speed','player.sweeping_damage_ratio','generic.water_movement_efficiency','zombie.spawn_reinforcements']
             unspec: true
           - title: custom
             link: identifier
@@ -7963,15 +7939,15 @@ links:
             attribute:
                 desc: The vanilla attribute id this modifier targets.
                 link: identifier
-                default: unspec
+                unspec: true
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
                 link: meta_key
-                default: unspec
+                unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: identifier
-                default: unspec
+                unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
                 link: expression_float
@@ -8002,11 +7978,11 @@ links:
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
                 link: meta_key
-                default: unspec
+                unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: identifier
-                default: unspec
+                unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
                 link: expression_float
@@ -8021,11 +7997,11 @@ links:
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
                 link: meta_key
-                default: unspec
+                unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: identifier
-                default: unspec
+                unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
                 link: expression_float
@@ -8040,11 +8016,11 @@ links:
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
                 link: meta_key
-                default: unspec
+                unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: identifier
-                default: unspec
+                unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
                 link: expression_float
@@ -8077,26 +8053,26 @@ links:
     biome:
         or:
           - title: built-in
-            enum: ['any',$Overworld,'the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark',$Nether,'nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas',$The End,'the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
+            enum: ['',$Overworld,'the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark',$Nether,'nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas',$The End,'the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
             unspec: true
           - title: custom
             link: identifier
     biome_tag:
         or:
           - title: built-in
-            enum: ['no_tag',$General,'allows_surface_slime_spawns','allows_tropical_fish_spawns_at_any_height','has_closest_water_fog','increased_fire_burnout','is_badlands','is_beach','is_deep_ocean','is_end','is_forest','is_hill','is_jungle','is_mountain','is_nether','is_ocean','is_overworld','is_river','is_savanna','is_taiga','mineshaft_blocking','more_frequent_drowned_spawns','polar_bears_spawn_on_alternate_blocks','plays_underwater_music','produces_corals_from_bonemeal','reduce_water_ambient_spawns','required_ocean_monument_surrounding','snow_golem_melts','spawns_cold_variant_frogs','spawns_gold_rabbits','spawns_snow_foxes','spawns_warm_variant_frogs','spawns_white_rabbits','strongold_biased_to','water_on_map_outlines','without_patrol_spawns','without_wandering_trader_spawns','without_zombie_sieges',Structure Check,'has_structure/ancient_city','has_structure/bastion_remnant','has_structure/buried_treasure','has_structure/desert_pyramid','has_structure/end_city','has_structure/igloo','has_structure/jungle_temple','has_structure/mineshaft','has_structure/mineshaft_mesa','has_structure/nether_fortress','has_structure/nether_fossil','has_structure/ocean_monument','has_structure/ocean_ruin_cold','has_structure/ocean_ruin_warm,','has_structure/pillager_outpost','has_structure/ruined_portal_desert,','has_structure/ruined_portal_jungle','has_structure/ruined_portal_mountain','has_structure/ruined_portal_nether','has_structure/ruined_portal_ocean','has_structure/ruined_portal_standard','has_structure/ruined_portal_swamp','has_structure/shipwreck','has_structure/shipwreck_beached','has_structure/stronghold','has_structure/swamp_hut','has_structure/trail_ruins','has_structure/trial_chambers','has_structure/village_desert','has_structure/village_plains','has_structure/village_savanna','has_structure/village_snowy','has_structure/village_taiga','has_structure/woodland_mansion']
+            enum: ['',$General,'allows_surface_slime_spawns','allows_tropical_fish_spawns_at_any_height','has_closest_water_fog','increased_fire_burnout','is_badlands','is_beach','is_deep_ocean','is_end','is_forest','is_hill','is_jungle','is_mountain','is_nether','is_ocean','is_overworld','is_river','is_savanna','is_taiga','mineshaft_blocking','more_frequent_drowned_spawns','polar_bears_spawn_on_alternate_blocks','plays_underwater_music','produces_corals_from_bonemeal','reduce_water_ambient_spawns','required_ocean_monument_surrounding','snow_golem_melts','spawns_cold_variant_frogs','spawns_gold_rabbits','spawns_snow_foxes','spawns_warm_variant_frogs','spawns_white_rabbits','strongold_biased_to','water_on_map_outlines','without_patrol_spawns','without_wandering_trader_spawns','without_zombie_sieges',Structure Check,'has_structure/ancient_city','has_structure/bastion_remnant','has_structure/buried_treasure','has_structure/desert_pyramid','has_structure/end_city','has_structure/igloo','has_structure/jungle_temple','has_structure/mineshaft','has_structure/mineshaft_mesa','has_structure/nether_fortress','has_structure/nether_fossil','has_structure/ocean_monument','has_structure/ocean_ruin_cold','has_structure/ocean_ruin_warm,','has_structure/pillager_outpost','has_structure/ruined_portal_desert,','has_structure/ruined_portal_jungle','has_structure/ruined_portal_mountain','has_structure/ruined_portal_nether','has_structure/ruined_portal_ocean','has_structure/ruined_portal_standard','has_structure/ruined_portal_swamp','has_structure/shipwreck','has_structure/shipwreck_beached','has_structure/stronghold','has_structure/swamp_hut','has_structure/trail_ruins','has_structure/trial_chambers','has_structure/village_desert','has_structure/village_plains','has_structure/village_savanna','has_structure/village_snowy','has_structure/village_taiga','has_structure/woodland_mansion']
             unspec: true
           - title: custom
             link: identifier
     block_facing:
-        enum: ['default','up','down','north','south','east','west']
-        unspec: 'default'
+        enum: ['','up','down','north','south','east','west']
+        unspec: true
     block_state:
-        enum: ['none','age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','cracked','crafting','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
-        unspec: 'none'
+        enum: ['','age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','cracked','crafting','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
+        unspec: true
     boolean_optional:
-        enum: ['default','false','true']
-        unspec: 'default'
+        enum: ['','false','true']
+        unspec: true
     comparison:
         desc: |
             Specify how the two values should be compared:
@@ -8107,18 +8083,17 @@ links:
             ==	A equals B
             !=	A does not equal B
         enum: ['<','<=','>','>=','==','!=']
-        default: '>='
     comparison_optional:
         desc: |
-            Specify how the two values should be compared:
+            Optionally specify how the two values should be compared:
             <	A less than B
             <=	A less than or equal to B
             >	A greater than B
             >=	A greater than or equal to B
             ==	A equals B
             !=	A does not equal B
-        enum: ['unset','<','<=','>','>=','==','!=']
-        unspec: 'unset'
+        enum: ['','<','<=','>','>=','==','!=']
+        unspec: true
     container_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/container-type
         desc: |
@@ -8189,14 +8164,14 @@ links:
     damage_type:
         or:
           - title: built-in
-            enum: ['arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+            enum: ['','arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
             unspec: true
           - title: custom
             link: identifier
     damage_type_tag:
         or:
           - title: built-in
-            enum: ['always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
+            enum: ['','always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
             unspec: true
           - title: custom
             link: identifier
@@ -8242,8 +8217,8 @@ links:
     enchantment:
         or:
           - title: built-in
-            enum: ['none','aqua_affinity','bane_of_arthropods','blast_protection','breach','channeling','binding_curse','vanishing_curse','density','depth_strider','efficiency','feather_falling','fire_aspect','fire_protection','flame','fortune','frost_walker','impaling','infinity','knockback','looting','loyalty','luck_of_the_sea','lure','mending','multishot','piercing','power','projectile_protection','protection','punch','quick_charge','respiration','riptide','sharpness','silk_touch','smite','soul_speed','sweeping_edge','swift_sneak','thorns','unbreaking','wind_burst','cleaving']
-            unspec: 'none'
+            enum: ['','aqua_affinity','bane_of_arthropods','blast_protection','breach','channeling','binding_curse','vanishing_curse','density','depth_strider','efficiency','feather_falling','fire_aspect','fire_protection','flame','fortune','frost_walker','impaling','infinity','knockback','looting','loyalty','luck_of_the_sea','lure','mending','multishot','piercing','power','projectile_protection','protection','punch','quick_charge','respiration','riptide','sharpness','silk_touch','smite','soul_speed','sweeping_edge','swift_sneak','thorns','unbreaking','wind_burst','cleaving']
+            unspec: true
           - title: custom
             link: identifier
     entity_action_target:
@@ -8258,8 +8233,8 @@ links:
               - title: mobs
                 link: mob_type_enum
               - title: object_entities
-                enum: ['no_type','area_effect_cloud','block_display','chest_minecart','command_block_minecart','end_crystal','evoker_fangs','experience_orb','falling_block','furnace_minecraft','glow_item_frame','hopper_minecart','interaction','item','item_display','item_frame','leash_knot','lightning_bolt','marker','minecart','ominous_item_spawner','painting','spawner_minecart','text_display','tnt','tnt_minecart']
-                unspec: 'no_type'
+                enum: ['','area_effect_cloud','block_display','chest_minecart','command_block_minecart','end_crystal','evoker_fangs','experience_orb','falling_block','furnace_minecraft','glow_item_frame','hopper_minecart','interaction','item','item_display','item_frame','leash_knot','lightning_bolt','marker','minecart','ominous_item_spawner','painting','spawner_minecart','text_display','tnt','tnt_minecart']
+                unspec: true
               - title: projectiles
                 link: projectile_type_enum
           - title: custom
@@ -8267,15 +8242,15 @@ links:
     entity_type_tag:
         or:
           - title: built-in
-            enum: ['no_tag','aquatic','arrows','arthropod','axolotl_always_hostiles','axolotl_hunt_targets','beehive_inhabitors','can_breathe_under_water','can_turn_in_boats','deflects_projectiles','dismounts_underwater','fall_damage_immune','freeze_hurts_extra_types','freeze_immune_entity_types','frog_food','ignores_poison_and_regen','illager','illager_friends','immune_to_infested','immune_to_oozing','impact_projectiles','inverted_healing_and_harm','no_anger_from_wind_charge','non_controlling_rider','not_scary_for_pufferfish','powder_snow_walkable_mobs','raiders','redirectable_projectile','sensitive_to_bane_of_arthropods','sensitive_to_impaling','sensitive_to_smite','skeletons','undead','wither_friends','zombies','deflects_arrows','deflects_tridents']
-            unspec: 'no_tag'
+            enum: ['','aquatic','arrows','arthropod','axolotl_always_hostiles','axolotl_hunt_targets','beehive_inhabitors','can_breathe_under_water','can_turn_in_boats','deflects_projectiles','dismounts_underwater','fall_damage_immune','freeze_hurts_extra_types','freeze_immune_entity_types','frog_food','ignores_poison_and_regen','illager','illager_friends','immune_to_infested','immune_to_oozing','impact_projectiles','inverted_healing_and_harm','no_anger_from_wind_charge','non_controlling_rider','not_scary_for_pufferfish','powder_snow_walkable_mobs','raiders','redirectable_projectile','sensitive_to_bane_of_arthropods','sensitive_to_impaling','sensitive_to_smite','skeletons','undead','wither_friends','zombies','deflects_arrows','deflects_tridents']
+            unspec: true
           - title: custom
             link: identifier
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
     equipment_slot:
-        enum: ['mainhand','offhand','head','chest','legs','feet']
+        enum: ['','main_hand','off_hand','head','chest','legs','feet']
         unspec: true
     expression_float:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
@@ -8310,8 +8285,8 @@ links:
     features:
         or:
           - title: built-in
-            enum: ['none','armor','cape','cat_collar','creeper_power','deadmau5','dolphin_held_item','drowned_overlay','elytra','enderman_block','energy_swirl_overlay','eyes','fox_held_item','head','held_item','horse_armor','horse_marking','iron_golem_crack','iron_golem_flower','llama_decor','mooshroom_mushroom','panda_held_item','saddle','sheep_wool','shoulder_parrot','shulker_head','skeleton_clothing','slime_overlay','snowman_pumpkin','stuck_arrows','stuck_objects','stuck_stingers','trident_riptide','tropical_fish_color','villager_clothing','villager_held_item','witch_item','wither_armor','wolf_armor','wolf_collar','breeze_wind']
-            unspec: 'none'
+            enum: ['','armor','cape','cat_collar','creeper_power','deadmau5','dolphin_held_item','drowned_overlay','elytra','enderman_block','energy_swirl_overlay','eyes','fox_held_item','head','held_item','horse_armor','horse_marking','iron_golem_crack','iron_golem_flower','llama_decor','mooshroom_mushroom','panda_held_item','saddle','sheep_wool','shoulder_parrot','shulker_head','skeleton_clothing','slime_overlay','snowman_pumpkin','stuck_arrows','stuck_objects','stuck_stingers','trident_riptide','tropical_fish_color','villager_clothing','villager_held_item','witch_item','wither_armor','wolf_armor','wolf_collar','breeze_wind']
+            unspec: true
           - title: custom
             link: identifier
     fluid:
@@ -8363,15 +8338,15 @@ links:
     game_event:
         or:
           - title: built-in
-            enum: ['no_event',$Detected,'flap','step','swim','bounce','hit_ground','projectile_land','splash','instrument_play','item_interact_finish','projectile_shoot','elytra_glide','entity_action','unequip','entity_dismount','equip','entity_interact','entity_mount','shear','entity_damage','drink','eat','block_close','block_deactivate','block_detach','container_close','block_activate','block_attach','block_open','container_open','note_block_play','prime_fuse','block_change','block_destroy','fluid_pickup','block_place','fluid_place','entity_place','lightning_strike','teleport','entity_die','explode',$Undetected,'item_interact_start','jukebox_play','jukebox_stop_play','resonate_1','resonate_2','resonate_3','resonate_4','resonate_5','resonate_6','resonate_7','resonate_8','resonate_9','resonate_10','resonate_11','resonate_12','resonate_13','resonate_14','resonate_15','sculk_sensor_tendrils_clicking','shriek']
-            unspec: 'no_event'
+            enum: ['',$Detected,'flap','step','swim','bounce','hit_ground','projectile_land','splash','instrument_play','item_interact_finish','projectile_shoot','elytra_glide','entity_action','unequip','entity_dismount','equip','entity_interact','entity_mount','shear','entity_damage','drink','eat','block_close','block_deactivate','block_detach','container_close','block_activate','block_attach','block_open','container_open','note_block_play','prime_fuse','block_change','block_destroy','fluid_pickup','block_place','fluid_place','entity_place','lightning_strike','teleport','entity_die','explode',$Undetected,'item_interact_start','jukebox_play','jukebox_stop_play','resonate_1','resonate_2','resonate_3','resonate_4','resonate_5','resonate_6','resonate_7','resonate_8','resonate_9','resonate_10','resonate_11','resonate_12','resonate_13','resonate_14','resonate_15','sculk_sensor_tendrils_clicking','shriek']
+            unspec: true
           - title: custom
             link: identifier
     game_event_tag:
         or:
           - title: built-in
-            enum: ['no_tag','allay_can_listen','ignore_vibrations_sneaking','shrieker_can_listen','vibrations','warden_can_listen']
-            unspec: 'no_tag'
+            enum: ['','allay_can_listen','ignore_vibrations_sneaking','shrieker_can_listen','vibrations','warden_can_listen']
+            unspec: true
           - title: custom
             link: identifier
     hand:
@@ -8404,7 +8379,7 @@ links:
             should_render:
                 desc: Whether the bar should be visible or not
                 type: boolean
-                unspec: true
+                default: true
             condition:
                 desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
                 link: entity_condition
@@ -8639,8 +8614,8 @@ links:
           - title: custom
             link: identifier
     mob_type_enum:
-        enum: ['no_type',$Passive,'allay','armadillo','axolotl','bat','camel','cat','chicken','cod','cow','donkey','frog','glow_squid','horse','mooshroom','mule','ocelot','parrot','pig','rabbit','salmon','sheep','skeleton_horse','sniffer','snow_golem','squid','strider','tadpole','tropical_fish','turtle','villager','wandering_trader','zombie_horse',$Neutral,'bee','cave_spider','dolphin','drowned','enderman','fox','goat','iron_golem','llama','panda','piglin','polar_bear','pufferfish','spider','trader_llama','wolf','zombified_piglin',$Hostile,'blaze','breeze','creeper','elder_guardian','endermite','evoker','ghast','guardian','hoglin','husk','magma_cube','phantom','piglin_brute','pillager','ravager','shulker','silverfish','skeleton','slime','stray','vex','vindicator','warden','witch','wither_skeleton','zoglin','zombie','zombie_villager',$Boss,'ender_dragon','wither',$Unused,'giant','illusioner',$Stands,'armor_stand']
-        unspec: 'no_type'
+        enum: ['',$Passive,'allay','armadillo','axolotl','bat','camel','cat','chicken','cod','cow','donkey','frog','glow_squid','horse','mooshroom','mule','ocelot','parrot','pig','rabbit','salmon','sheep','skeleton_horse','sniffer','snow_golem','squid','strider','tadpole','tropical_fish','turtle','villager','wandering_trader','zombie_horse',$Neutral,'bee','cave_spider','dolphin','drowned','enderman','fox','goat','iron_golem','llama','panda','piglin','polar_bear','pufferfish','spider','trader_llama','wolf','zombified_piglin',$Hostile,'blaze','breeze','creeper','elder_guardian','endermite','evoker','ghast','guardian','hoglin','husk','magma_cube','phantom','piglin_brute','pillager','ravager','shulker','silverfish','skeleton','slime','stray','vex','vindicator','warden','witch','wither_skeleton','zoglin','zombie','zombie_villager',$Boss,'ender_dragon','wither',$Unused,'giant','illusioner',$Stands,'armor_stand']
+        unspec: true
     model_animation:
         type: object
         props:
@@ -8707,13 +8682,13 @@ links:
             fade_out_duration:
                 desc: Ticks to fade the whole transformation in when the power becomes active. 0 applies it instantly, which is the original behaviour.
                 type: number
-                default: unspec
+                unspec: true
                 min: 0
             easing:
                 desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
                 link: easing
     model_parts:
-        enum: ['head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
+        enum: ['','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
         unspec: true
     modify_entity_data:
         href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
@@ -8810,12 +8785,12 @@ links:
                 default: 1
             draw_mode:
                 desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
-                enum: ['nausea','texture']
+                enum: ['','texture','nausea']
                 default: 1
                 unspec: true
             draw_phase:
                 desc: Determines if the overlay should render below or above the HUD ("below_hud" or "above_hud" respectively).
-                enum: ['above_hud','below_hud']
+                enum: ['','above_hud','below_hud']
                 unspec: true
             hide_with_hud:
                 desc: Hide it when the HUD is hidden with F1.
@@ -8833,15 +8808,13 @@ links:
             width:
                 desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
                 link: expression_integer
-                default: unspec
             height:
                 desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
                 link: expression_integer
-                default: unspec
             anchor:
                 desc: Which point of the screen x/y are measured from.
-                enum: ['top_left','top_center','top_right','left','center','right','bottom_left','bottom_center','bottom_right']
-                unspec: 0
+                enum: ['','top_left','top_center','top_right','left','center','right','bottom_left','bottom_center','bottom_right']
+                unspec: true
             u:
                 desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
                 link: expression_integer
@@ -8851,11 +8824,11 @@ links:
             texture_width:
                 desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
                 type: integer
-                default: unspec
+                unspec: true
             texture_height:
                 desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
                 type: integer
-                default: unspec
+                unspec: true
     part_color:
         type: object
         props:
@@ -8901,8 +8874,8 @@ links:
     particle_type:
         or:
           - title: built-in
-            enum: ['default',$Unique Particles,'bubble','bubble_column_up','current_down','dolphin','bubble_pop','fishing','rain','splash','cherry_leaves','flame','small_flame','soul_fire_flame','lava','damage_indicator','angry_villager','composter','egg_crack','happy_villager','heart','elder_guardian','firefly','infested','raid_omen','small_gust','trial_omen','gust','gust_emitter','campfire_cosy_smoke','campfire_signal_smoke','soul','sculk_soul','sculk_charge','sculk_charge_pop','shriek','sonic_boom','vibration','trial_spawner_detection','trial_spawner_detection_ominous','vault_connection',$Block/item,'block','dust_pillar','block_marker','item','item_snowball','item_slime','item_cobweb',$Colored Particles,'mycelium','underwater','ash','crimson_spore','warped_spore','white_ash','witch','instant_effect','crit','enchanted_hit','sweep_attack','firework','flash','glow','electric_spark','scrape','wax_on','wax_off','note','enchant','end_rod','totem_of_undying','effect','entity_effect','dripping_water','falling_water','dripping_dripstone_water','falling_dripstone_water','dripping_lava','falling_lava','dripping_dripstone_lava','falling_dripstone_lava','dripping_honey','falling_honey','falling_nectar','falling_spore_blossom','spore_blossom_air','dripping_obsidian_tear','falling_obsidian_tear','landing_honey','landing_lava','landing_obsidian_tear','explosion_emitter','explosion','dragon_breath','spit','cloud','poof','smoke','large_smoke','glow_squid_ink','squid_ink','sneeze','snowflake','white_smoke','portal','reverse_portal','dust','dust_color_transition','dust_plume','falling_dust','ominous_spawning']
-            unspec: 0
+            enum: ['',$Unique Particles,'bubble','bubble_column_up','current_down','dolphin','bubble_pop','fishing','rain','splash','cherry_leaves','flame','small_flame','soul_fire_flame','lava','damage_indicator','angry_villager','composter','egg_crack','happy_villager','heart','elder_guardian','firefly','infested','raid_omen','small_gust','trial_omen','gust','gust_emitter','campfire_cosy_smoke','campfire_signal_smoke','soul','sculk_soul','sculk_charge','sculk_charge_pop','shriek','sonic_boom','vibration','trial_spawner_detection','trial_spawner_detection_ominous','vault_connection',$Block/item,'block','dust_pillar','block_marker','item','item_snowball','item_slime','item_cobweb',$Colored Particles,'mycelium','underwater','ash','crimson_spore','warped_spore','white_ash','witch','instant_effect','crit','enchanted_hit','sweep_attack','firework','flash','glow','electric_spark','scrape','wax_on','wax_off','note','enchant','end_rod','totem_of_undying','effect','entity_effect','dripping_water','falling_water','dripping_dripstone_water','falling_dripstone_water','dripping_lava','falling_lava','dripping_dripstone_lava','falling_dripstone_lava','dripping_honey','falling_honey','falling_nectar','falling_spore_blossom','spore_blossom_air','dripping_obsidian_tear','falling_obsidian_tear','landing_honey','landing_lava','landing_obsidian_tear','explosion_emitter','explosion','dragon_breath','spit','cloud','poof','smoke','large_smoke','glow_squid_ink','squid_ink','sneeze','snowflake','white_smoke','portal','reverse_portal','dust','dust_color_transition','dust_plume','falling_dust','ominous_spawning']
+            unspec: true
           - title: custom
             link: identifier
     player_abilities:
@@ -8940,8 +8913,8 @@ links:
           - title: custom
             link: identifier
     projectile_type_enum:
-        enum: ['no_type','fireball','small_fireball','dragon_fireball','firework_rocket','llama_spit','arrow','spectral_arrow','shulker_bullet','experience_bottle','egg','ender_pearl','eye_of_ender','snowball','splash_potion','lingering_potion','trident','wind_charge','breeze_wind_charge','wither_skull']
-        unspec: 'no_type'
+        enum: ['','fireball','small_fireball','dragon_fireball','firework_rocket','llama_spit','arrow','spectral_arrow','shulker_bullet','experience_bottle','egg','ender_pearl','eye_of_ender','snowball','splash_potion','lingering_potion','trident','wind_charge','breeze_wind_charge','wither_skull']
+        unspec: true
     radial_menu_entry:
         type: object
         props:
@@ -9017,7 +8990,7 @@ links:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/raycast
                 desc: Maximum range for both block and entity raycasting. Defaults to the entity’s effective reach.
                 type: number
-                default: unspec
+                unspec: true
             block:
                 desc: Whether the ray can hit blocks
                 type: boolean
@@ -9056,11 +9029,11 @@ links:
             entity_distance:
                 desc: Maximum range for entity detection only. Overrides distance for entities
                 type: number
-                default: unspec
+                unspec: true
             block_distance:
                 desc: Maximum range for block detection only. Overrides distance for blocks
                 type: number
-                default: unspec
+                unspec: true
             radius:
                 desc: |
                     Thickens the ray into a beam for entity detection — a single number (uniform) or a vector { "x": .., "y": .., "z": .. } (width / height / depth). Entities within this half-extent of the ray line are hit. Block detection still uses the centre line.
@@ -9068,7 +9041,7 @@ links:
             cone_angle:
                 desc: Turns entity detection into a directional cone attack — hits every entity within this many degrees of the ray direction, out to the entity range. Takes the place of radius for entities; block detection still follows the centre line.
                 type: number
-                default: unspec
+                unspec: true
                 gap: true
             bientity_condition:
                 desc: If specified, only entities passing this condition (actor = source, target = candidate) are considered valid hits
@@ -9118,8 +9091,8 @@ links:
             chain_direction:
                 desc: |
                     For a chained ray only — how the child ray is aimed: forward (continue in the same direction), reflect (bounce off the hit block’s surface), or custom (use the child’s own direction/space).
-                enum: ['default','forward','reflect','custom']
-                unspec: 'default'
+                enum: ['','forward','reflect','custom']
+                unspec: true
     render_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/render-type
         desc: |
@@ -9152,7 +9125,7 @@ links:
             blocks:
                 desc: For raycast - whether the ray can attach to a block it hits. When both entities and blocks are enabled the nearest hit wins.
                 type: boolean
-                unspec: true
+                default: true
             position:
                 desc: For position - The fixed [x,y,z] world coordinate.
                 type: list
@@ -9197,8 +9170,8 @@ links:
         enum: ['collider','outline','visual']
     sound_category:
         desc: If specified, this specifies the category and options the sound event falls under. Otherwise, uses the category specified in the entity that invoked this action.
-        enum: ['default','master','music','record','weather','block','hostile','neutral','players','ambient','voice']
-        unspec: 'default'
+        enum: ['','master','music','record','weather','block','hostile','neutral','players','ambient','voice']
+        unspec: true
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
         desc: A String that defines which coordinate system is used for directions. See the doc for more information
@@ -9216,11 +9189,11 @@ links:
     status_effect:
         or:
           - title: built-in
-            enum: ['all','absorption','unluck','bad_omen','blindness','conduit_power','darkness','dolphins_grace','fire_resistance','glowing','haste','health_boost','hero_of_the_village','hunger','infested','instant_damage','instant_health','invisibility','jump_boost','levitation','luck','mining_fatigue','nausea','night_vision','oozing','poison','raid_omen','regeneration','resistance','saturation','slowness','slow_falling','speed','strength','trial_omen','water_breathing','weakness','weaving','wind_charged','wither']
-            unspec: 'all'
+            enum: ['','absorption','unluck','bad_omen','blindness','conduit_power','darkness','dolphins_grace','fire_resistance','glowing','haste','health_boost','hero_of_the_village','hunger','infested','instant_damage','instant_health','invisibility','jump_boost','levitation','luck','mining_fatigue','nausea','night_vision','oozing','poison','raid_omen','regeneration','resistance','saturation','slowness','slow_falling','speed','strength','trial_omen','water_breathing','weakness','weaving','wind_charged','wither']
+            unspec: true
           - title: custom
             link: identifier
-            default: unspec
+            unspec: true
     status_effect_array:
         type: list
         vals:
@@ -9249,11 +9222,11 @@ links:
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
                 type: boolean
-                unspec: true
+                default: true
             show_icon:
                 desc: Determines whether the status effect should display an icon on the HUD.
                 type: boolean
-                unspec: true
+                default: true
     status_effect_instance_chance:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/status-effect-instance
         desc: An Object which defines a status effect with duration, amplifier, etc.
@@ -9278,19 +9251,19 @@ links:
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
                 type: boolean
-                unspec: true
+                default: true
             show_icon:
                 desc: Determines whether the status effect should display an icon on the HUD.
                 type: boolean
-                unspec: true
+                default: true
             chance:
                 desc: Chance of the status effect taking effect.
                 link: number_percent
     structure:
         or:
           - title: built-in
-            enum: ['any','ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
-            unspec: 'any'
+            enum: ['','ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
+            unspec: true
           - title: custom
             link: identifier
     team:
