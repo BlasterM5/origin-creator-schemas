@@ -6645,7 +6645,7 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the entity that died.
-                            link: target_condition
+                            link: entity_condition
                         bientity_action:
                             desc: Action run with the (killer, victim) pair.
                             link: bientity_action
@@ -6683,7 +6683,7 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the entity that died.
-                            link: target_condition
+                            link: entity_condition
                         bientity_action:
                             desc: Action run with the (killer, victim) pair.
                             link: bientity_action
