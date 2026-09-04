@@ -2550,7 +2550,6 @@ links:
                       - origins:heal
                       - origins:inventory_action
                       - origins:modify_death_ticks
-                      - origins:modify_inventory
                       - origins:open_swap_menu
                       - origins:passenger_action
                       - origins:play_sound
@@ -3125,13 +3124,183 @@ links:
                                 link: entity_action
                         string-origins:dismount: {}
                         string-origins:inventory_action:
-                            link: inventory_action
+                            operation:
+                                extend: inventory_action_description
+                                link: inventory_operation
+                            inventory_type:
+                                desc: Whether to walk the entity’s own inventory or a power’s inventory.
+                                link: inventory_type
+                            item_condition:
+                                desc: If set, this item condition must match the items in the given slots to have the action applied.
+                                link: item_condition
+                            entity_action:
+                                desc: Executed on the entity once, before the slots are walked.
+                                link: entity_action
+                            item_action:
+                                desc: If specified, only items fulfilling this condition are affected.
+                                link: item_action
+                            slot:
+                                desc: Restrict to a single slot.
+                                link: item_slot
+                            slots:
+                                desc: Restrict to these slots. For a power inventory, use the container.N form (raw slot index).
+                                type: list
+                                vals:
+                                    link: item_slot
+                            power:
+                                desc: The apoli:inventory to walk, when inventory_type is "power".
+                                link: identifier
+                                default: unspec
+                            process_mode:
+                                desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
+                                link: process_mode
+                            limit:
+                                desc: Max number of stacks (or items, in items mode) to affect. <= 0 means no limit.
+                                type: integer
+                                default: 0
+                            stack:
+                                desc: Replace only — the replacement item.
+                                link: item_stack
+                                gap: before
+                            merge_nbt:
+                                desc: |
+                                    replace only — merge the old item’s data onto the replacement. (1.20.1: NBT tag; 1.21.1: data components.)
+                                type: boolean
+                            throw_randomly:
+                                desc: Drop only — scatter items in random directions (death-drop style).
+                                type: boolean
+                                gap: before
+                            retain_ownership:
+                                desc: Drop only — keep the dropping entity as the item’s thrower.
+                                type: boolean
+                                unspec: true
+                            amount:
+                                desc: Drop only — split this many off each matching stack instead of dropping the whole stack.
+                                type: integer_optional
                         string-origins:modify_inventory:
-                            link: inventory_action_legacy_modify
+                            operation:
+                                extend: inventory_action_description
+                                link: inventory_operation
+                            inventory_type:
+                                desc: Whether to walk the entity’s own inventory or a power’s inventory.
+                                link: inventory_type
+                            item_condition:
+                                desc: If set, this item condition must match the items in the given slots to have the action applied.
+                                link: item_condition
+                            entity_action:
+                                desc: Executed on the entity once, before the slots are walked.
+                                link: entity_action
+                            item_action:
+                                desc: If specified, only items fulfilling this condition are affected.
+                                link: item_action
+                            slot:
+                                desc: Restrict to a single slot.
+                                link: item_slot
+                            slots:
+                                desc: Restrict to these slots. For a power inventory, use the container.N form (raw slot index).
+                                type: list
+                                vals:
+                                    link: item_slot
+                            power:
+                                desc: The apoli:inventory to walk, when inventory_type is "power".
+                                link: identifier
+                                default: unspec
+                            process_mode:
+                                desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
+                                link: process_mode
+                            limit:
+                                desc: Max number of stacks (or items, in items mode) to affect. <= 0 means no limit.
+                                type: integer
+                                default: 0
                         string-origins:replace_inventory:
-                            link: inventory_action_legacy_replace
+                            operation:
+                                extend: inventory_action_description
+                                link: inventory_operation
+                            inventory_type:
+                                desc: Whether to walk the entity’s own inventory or a power’s inventory.
+                                link: inventory_type
+                            item_condition:
+                                desc: If set, this item condition must match the items in the given slots to have the action applied.
+                                link: item_condition
+                            entity_action:
+                                desc: Executed on the entity once, before the slots are walked.
+                                link: entity_action
+                            item_action:
+                                desc: If specified, only items fulfilling this condition are affected.
+                                link: item_action
+                            slot:
+                                desc: Restrict to a single slot.
+                                link: item_slot
+                            slots:
+                                desc: Restrict to these slots. For a power inventory, use the container.N form (raw slot index).
+                                type: list
+                                vals:
+                                    link: item_slot
+                            power:
+                                desc: The apoli:inventory to walk, when inventory_type is "power".
+                                link: identifier
+                                default: unspec
+                            process_mode:
+                                desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
+                                link: process_mode
+                            limit:
+                                desc: Max number of stacks (or items, in items mode) to affect. <= 0 means no limit.
+                                type: integer
+                                default: 0
+                            stack:
+                                desc: Replace only — the replacement item.
+                                link: item_stack
+                                gap: before
+                            merge_nbt:
+                                desc: |
+                                    replace only — merge the old item’s data onto the replacement. (1.20.1: NBT tag; 1.21.1: data components.)
+                                type: boolean
                         string-origins:drop_inventory:
-                            link: inventory_action_legacy_drop
+                            operation:
+                                extend: inventory_action_description
+                                link: inventory_operation
+                            inventory_type:
+                                desc: Whether to walk the entity’s own inventory or a power’s inventory.
+                                link: inventory_type
+                            item_condition:
+                                desc: If set, this item condition must match the items in the given slots to have the action applied.
+                                link: item_condition
+                            entity_action:
+                                desc: Executed on the entity once, before the slots are walked.
+                                link: entity_action
+                            item_action:
+                                desc: If specified, only items fulfilling this condition are affected.
+                                link: item_action
+                            slot:
+                                desc: Restrict to a single slot.
+                                link: item_slot
+                            slots:
+                                desc: Restrict to these slots. For a power inventory, use the container.N form (raw slot index).
+                                type: list
+                                vals:
+                                    link: item_slot
+                            power:
+                                desc: The apoli:inventory to walk, when inventory_type is "power".
+                                link: identifier
+                                default: unspec
+                            process_mode:
+                                desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
+                                link: process_mode
+                            limit:
+                                desc: Max number of stacks (or items, in items mode) to affect. <= 0 means no limit.
+                                type: integer
+                                default: 0
+                            throw_randomly:
+                                desc: Drop only — scatter items in random directions (death-drop style).
+                                type: boolean
+                                gap: before
+                            retain_ownership:
+                                desc: Drop only — keep the dropping entity as the item’s thrower.
+                                type: boolean
+                                unspec: true
+                            amount:
+                                desc: Drop only — split this many off each matching stack instead of dropping the whole stack.
+                                type: integer_optional
                         string-origins:emit_game_event:
                             event:
                                 desc: The namespace and ID of a game event. See the Minecraft Wiki for a chart of game events and their vibration amplitudes.
@@ -9183,64 +9352,6 @@ links:
         type: integer
         min: -1
         max: 2147483647
-    inventory_action:
-        or:
-          - title: modify
-            operation:
-                const: 'modify'
-            link: inventory_action_common
-          - title: replace
-            operation:
-                const: 'replace'
-            link: [inventory_action_common,inventory_action_replace]
-          - title: drop
-            operation:
-                const: 'drop'
-            link: [inventory_action_common,inventory_action_drop]
-    inventory_action_legacy_modify:
-        operation:
-            const: 'modify'
-        link: inventory_action_common
-    inventory_action_legacy_replace:
-        operation:
-            const: 'replace'
-        link: [inventory_action_common,inventory_action_replace]
-    inventory_action_legacy_drop:
-        operation:
-            const: 'drop'
-        link: [inventory_action_common,inventory_action_drop]
-    inventory_action_common:
-        inventory_type:
-            desc: Whether to walk the entity’s own inventory or a power’s inventory.
-            link: inventory_type
-        entity_action:
-            desc: Executed on the entity once, before the slots are walked.
-            link: entity_action
-        item_action:
-            desc: If specified, only items fulfilling this condition are affected.
-            link: item_action
-        item_condition:
-            desc: If set, this item condition must match the items in the given slots to have the action applied.
-            link: item_condition
-        slot:
-            desc: Restrict to a single slot.
-            link: item_slot
-        slots:
-            desc: Restrict to these slots. For a power inventory, use the container.N form (raw slot index).
-            type: list
-            vals:
-                link: item_slot
-        power:
-            desc: The apoli:inventory to walk, when inventory_type is "power".
-            link: identifier
-            default: unspec
-        process_mode:
-            desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
-            link: process_mode
-        limit:
-            desc: Max number of stacks (or items, in items mode) to affect. <= 0 means no limit.
-            type: integer
-            default: 0
     inventory_action_description:
         href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
         desc: |
@@ -9252,25 +9363,6 @@ links:
             drop		|Drops the stack into the world,	|skipped
                         |then runs item_action (if any)		|
                         |on the dropped stack first.		|
-    inventory_action_drop:
-        throw_randomly:
-            desc: drop only — scatter items in random directions (death-drop style).
-            type: boolean
-        retain_ownership:
-            desc: drop only — keep the dropping entity as the item’s thrower.
-            type: boolean
-            unspec: true
-        amount:
-            desc: drop only — split this many off each matching stack instead of dropping the whole stack.
-            type: integer_optional
-    inventory_action_replace:
-        stack:
-            desc: replace only — the replacement item.
-            link: item_stack
-        merge_nbt:
-            desc: |
-                replace only — merge the old item’s data onto the replacement. (1.20.1: NBT tag; 1.21.1: data components.)
-            type: boolean
     inventory_type:
         desc: Determines whether to reference the inventory of the entity or the inventory of the power present in the entity.
         enum: ['inventory','power']
