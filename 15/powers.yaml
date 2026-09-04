@@ -764,10 +764,10 @@ links:
                                 link: item_condition
                             slots:
                                 desc: If specified, only items from these specified item slots are evaluated.
-                                link: slot
+                                link: item_slot
                             slot:
                                 desc: If specified, only the item from this specified item slot is evaluated.
-                                link: slot
+                                link: item_slot
                             power:
                                 desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
                                 link: identifier
@@ -2770,7 +2770,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/conjure_equipment
                                 desc: |
                                     The vanilla equipment slot: mainhand, offhand, head, chest, legs or feet.
-                                link: slot
+                                link: item_slot
                             accessory_slot:
                                 desc: An accessory slot to conjure into. Requires Trinkets, Accessories or Curios; without one of those installed this does nothing.
                                 or:
