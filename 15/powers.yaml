@@ -4390,7 +4390,7 @@ links:
                                 link: block_action
                             end_action:
                                 desc: Run at the position right after the original block is put back.
-                                link: end_action
+                                link: block_action
                         string-origins:modify_block_state:
                             property:
                                 href: https://minecraft.wiki/w/Block_states
