@@ -6704,11 +6704,18 @@ links:
                             link: entity_action
                         direction:
                             desc: Which way the wheel has to turn.
-                            enum: ['any','up','down']
-                        reset_on_direction_change:
-                            desc: Scrolling the other way restarts the count instead of adding to it.
-                            type: boolean
-                            default: true
+                            enum:
+                              - any
+                              - up
+                              - down
+                            more:
+                                string-any:
+                                    reset_on_direction_change:
+                                        desc: Scrolling the other way restarts the count instead of adding to it.
+                                        type: boolean
+                                        default: true
+                                string-up: {}
+                                string-down: {}
                         scroll_amount:
                             desc: How many notches are needed before the action runs.
                             type: integer
