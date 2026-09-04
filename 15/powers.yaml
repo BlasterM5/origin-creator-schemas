@@ -8331,8 +8331,10 @@ links:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render
         desc: Defines how the bar should be rendered. See the doc for more information.
         or:
-          - link: hud_render_element
-          - type: list
+          - title: single
+            link: hud_render_element
+          - title: multiple
+            type: list
             vals:
                 link: hud_render_element
     hud_render_element:
@@ -8342,7 +8344,6 @@ links:
                 desc: Whether the bar should be visible or not
                 type: boolean
                 unspec: true
-            extend: hud_render_textures
             condition:
                 desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
                 link: entity_condition
@@ -8352,6 +8353,7 @@ links:
             order:
                 desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
                 type: integer
+            extend: hud_render_textures
     hud_render_textures:
         or:
           - title: built-in
