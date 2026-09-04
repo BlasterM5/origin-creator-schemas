@@ -5873,9 +5873,7 @@ links:
                             overlays:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
                                 desc: Several overlays in one power. All of them whose condition passes are drawn, in order, so this is a stack of layers rather than a pick-one.
-                                type: object
-                                extra:
-                                    link: overlay_power_multiple
+                                link: overlay_power_multiple
                     string-origins:particle:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/particle/
@@ -8811,10 +8809,12 @@ links:
             desc: Scales this layer’s geometry outward from the model origin — the same idea as Sync’s Energy Swirl size. Above 1.0 puffs the texture out past the skin (an aura/shell), below 1.0 pulls it inside. 1.0 sits flush on the body.
             link: number_percent
     overlay_power_multiple:
-        condition:
-            desc: Per-overlay condition, inside overlays only. Checked every frame; an overlay whose condition fails is skipped while the rest keep drawing. On the single-overlay spelling the power’s own condition already does this job.
-            link: entity_condition
-        extend: overlay_power
+        type: object
+        extra:
+            condition:
+                desc: Per-overlay condition, inside overlays only. Checked every frame; an overlay whose condition fails is skipped while the rest keep drawing. On the single-overlay spelling the power’s own condition already does this job.
+                link: entity_condition
+            extend: overlay_power
     overlay_power:
         type: object
         props:
