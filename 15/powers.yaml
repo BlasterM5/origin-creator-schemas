@@ -7240,26 +7240,20 @@ links:
                         item_action_after_grinding:
                             desc: If specified, this action will be executed on the result item stack after the grinding process.
                             link: item_action
-                        or:
-                          - title: result_type:specified
-                            result_type:
-                                desc: Replace the initial item stack with the item stack specified below.
-                                const: 'specified'
-                            result_stack:
-                                desc: If specified, this item stack will be used as a replacement.
-                                link: item_stack
-                          - title: result_type:unchanged
-                            result_type:
-                                desc: Do not change the initial item stack.
-                                const: 'unchanged'
-                          - title: result_type:from_top
-                            result_type:
-                                desc: Replace the initial item stack with the item stack from the top input slot of the Grindstone block.
-                                const: 'from_top'
-                          - title: result_type:from_bottom
-                            result_type:
-                                desc: Replace the initial item stack with the item stack from the bottom input slot of a Grindstone block.
-                                const: 'from_bottom'
+                        result_type:
+                            enum:
+                              - specified
+                              - unchanged
+                              - from_top
+                              - from_bottom
+                            more:
+                                string-specified:
+                                    result_stack:
+                                        desc: If specified, this item stack will be used   as a replacement.
+                                        link: item_stack
+                                string-unchanged: {}
+                                string-from_top: {}
+                                string-from_bottom: {}
                         block_action:
                             desc: If specified, this action will be executed on the Grindstone block upon taking the item stack from the result slot of the said Grindstone block.
                             link: block_action
