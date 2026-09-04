@@ -171,7 +171,7 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/script/
                                 link: identifier_script
-                            link: script_params
+                            extend: script_params
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/send_condition/
@@ -995,7 +995,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/script/
                                 link: identifier_script
                                 required: true
-                            link: script_params
+                            extend: script_params
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/send_condition/
@@ -1327,7 +1327,7 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/script/
                                 link: identifier_script
-                            link: script_params
+                            extend: script_params
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/send_condition/
@@ -1575,7 +1575,7 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/script/
                                 link: identifier_script
-                            link: script_params
+                            extend: script_params
                         string-origins:slipperiness:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/slipperiness
@@ -2141,7 +2141,7 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/script/
                                 link: identifier_script
-                            link: script_params
+                            extend: script_params
                         string-origins:send_action:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/send_action/
@@ -2559,7 +2559,7 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/script/
                                 link: identifier_script
-                            link: script_params
+                            extend: script_params
                         string-origins:selector_action:
                             selector:
                                 href: https://minecraft.wiki/w/Target_selectors
@@ -3860,7 +3860,7 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/script/
                                 link: identifier_script
-                            link: script_params
+                            extend: script_params
                         string-origins:send_action:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/send_action/
@@ -4114,7 +4114,7 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/script/
                                 link: identifier_script
-                            link: script_params
+                            extend: script_params
                         string-origins:set_block:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/set_block
