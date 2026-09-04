@@ -45,25 +45,29 @@ links:
                         string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
-                                extend: description_all_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: bientity_condition
                         string-origins:and:
                             conditions:
-                                extend: description_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: bientity_condition
                         string-origins:any_of:
                             conditions:
-                                extend: description_any_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: bientity_condition
                         string-origins:or:
                             conditions:
-                                extend: description_or
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: bientity_condition
@@ -314,25 +318,29 @@ links:
                         string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
-                                extend: description_all_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: entity_condition
                         string-origins:and:
                             conditions:
-                                extend: description_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: entity_condition
                         string-origins:any_of:
                             conditions:
-                                extend: description_any_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: entity_condition
                         string-origins:or:
                             conditions:
-                                extend: description_or
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: entity_condition
@@ -1218,25 +1226,29 @@ links:
                         string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
-                                extend: description_all_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:and:
                             conditions:
-                                extend: description_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:any_of:
                             conditions:
-                                extend: description_any_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: item_condition
                         string-origins:or:
                             conditions:
-                                extend: description_or
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: item_condition
@@ -1437,25 +1449,29 @@ links:
                         string-origins:noting: {}
                         string-origins:all_of:
                             conditions:
-                                extend: description_all_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: block_condition
                         string-origins:and:
                             conditions:
-                                extend: description_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: block_condition
                         string-origins:any_of:
                             conditions:
-                                extend: description_any_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: block_condition
                         string-origins:or:
                             conditions:
-                                extend: description_or
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: block_condition
@@ -1671,25 +1687,29 @@ links:
                         string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
-                                extend: description_all_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:and:
                             conditions:
-                                extend: description_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:any_of:
                             conditions:
-                                extend: description_any_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: fluid_condition
                         string-origins:or:
                             conditions:
-                                extend: description_or
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: fluid_condition
@@ -1740,25 +1760,29 @@ links:
                         string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
-                                extend: description_all_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:and:
                             conditions:
-                                extend: description_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:any_of:
                             conditions:
-                                extend: description_any_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: biome_condition
                         string-origins:or:
                             conditions:
-                                extend: description_or
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: biome_condition
@@ -1833,25 +1857,29 @@ links:
                         string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
-                                extend: description_all_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: damage_condition
                         string-origins:and:
                             conditions:
-                                extend: description_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: damage_condition
                         string-origins:any_of:
                             conditions:
-                                extend: description_any_of
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: damage_condition
                         string-origins:or:
                             conditions:
-                                extend: description_or
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
                                 type: list
                                 vals:
                                     link: damage_condition
@@ -8116,18 +8144,6 @@ links:
             unspec: true
           - title: custom
             link: identifier
-    description_all_of:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
-        desc: All must pass. Same flavour as the containing condition.
-    description_and:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
-        desc: (ALIAS) All must pass. Same flavour as the containing condition.
-    description_any_of:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
-        desc: Any one passing is enough. Same flavour as the containing condition.
-    description_or:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
-        desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
     destruction_type:
         desc: |
             Determines the effect of the explosion to the terrain:
