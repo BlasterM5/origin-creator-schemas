@@ -2027,7 +2027,8 @@ links:
                                 link: bientity_action
                         string-origins:choice:
                             actions:
-                                extend: meta_action_choice
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
+                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
                                     type: object
@@ -2041,7 +2042,8 @@ links:
                                             link: bientity_action
                         string-origins:delay:
                             action:
-                                extend: meta_action_delay
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
+                                desc: The action which will be executed after the delay.
                                 link: bientity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
@@ -2049,11 +2051,13 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                extend: meta_action_if_case
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 link: meta_condition_if_list_bientity
                         string-origins:if_else:
                             condition:
-                                extend: meta_action_if_else
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
+                                desc: A condition based on the type of action.
                                 link: bientity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
@@ -2063,7 +2067,8 @@ links:
                                 link: bientity_action
                         string-origins:if_else_list:
                             actions:
-                                extend: meta_action_if_else_list
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
                                 link: meta_condition_if_list_bientity
                         string-origins:loop:
                             value:
@@ -2889,7 +2894,8 @@ links:
                                 link: entity_action
                         string-origins:choice:
                             actions:
-                                extend: meta_action_choice
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
+                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
                                     type: object
@@ -2903,7 +2909,9 @@ links:
                                             link: entity_action
                         string-origins:delay:
                             action:
-                                extend: meta_action_delay
+                                extend:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
+                                desc: The action which will be executed after the delay.
                                 link: entity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
@@ -2911,11 +2919,13 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                extend: meta_action_if_case
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 link: meta_condition_if_list_entity
                         string-origins:if_else:
                             condition:
-                                extend: meta_action_if_else
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
+                                desc: A condition based on the type of action.
                                 link: entity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
@@ -2925,7 +2935,8 @@ links:
                                 link: entity_action
                         string-origins:if_else_list:
                             actions:
-                                extend: meta_action_if_else_list
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
                                 link: meta_condition_if_list_entity
                         string-origins:loop:
                             value:
@@ -4571,7 +4582,8 @@ links:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
-                                extend: meta_action_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
+                                desc: These actions will be executed one after the other (but in the same tick).
                                 type: list
                                 vals:
                                     link: item_action
@@ -4595,7 +4607,8 @@ links:
                                 link: item_action
                         string-origins:choice:
                             actions:
-                                extend: meta_action_choice
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
+                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
                                     type: object
@@ -4609,7 +4622,8 @@ links:
                                             link: item_action
                         string-origins:delay:
                             action:
-                                extend: meta_action_delay
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
+                                desc: The action which will be executed after the delay.
                                 link: item_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
@@ -4617,7 +4631,8 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                extend: meta_action_if_case
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 type: list
                                 vals:
                                     type: object
@@ -4630,7 +4645,8 @@ links:
                                             link: item_action
                         string-origins:if_else:
                             condition:
-                                extend: meta_action_if_else
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
+                                desc: A condition based on the type of action.
                                 link: item_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
@@ -4640,7 +4656,8 @@ links:
                                 link: item_action
                         string-origins:if_else_list:
                             actions:
-                                extend: meta_action_if_else_list
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
                                 type: list
                                 vals:
                                     type: object
@@ -4772,7 +4789,8 @@ links:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
-                                extend: meta_action_and
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
+                                desc: These actions will be executed one after the other (but in the same tick).
                                 type: list
                                 vals:
                                     link: block_action
@@ -4796,7 +4814,8 @@ links:
                                 link: block_action
                         string-origins:choice:
                             actions:
-                                extend: meta_action_choice
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
+                                desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
                                 type: list
                                 vals:
                                     type: object
@@ -4818,7 +4837,8 @@ links:
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                extend: meta_action_if_case
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
+                                desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 type: list
                                 vals:
                                     type: object
@@ -4841,7 +4861,8 @@ links:
                                 link: block_action
                         string-origins:if_else_list:
                             actions:
-                                extend: meta_action_if_else_list
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
+                                desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
                                 type: list
                                 vals:
                                     type: object
@@ -8530,9 +8551,6 @@ links:
                 prevent:
                     desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
                     type: boolean
-    meta_action_and:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/and
-        desc: These actions will be executed one after the other (but in the same tick).
     meta_action_random_chance:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
         desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
@@ -8542,21 +8560,6 @@ links:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
         desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
         link: expression_float
-    meta_action_choice:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/choice
-        desc: Executes one of the provided actions, choosing randomly based on the assigned weights. The actions with higher weight values are more likely to be chosen.
-    meta_action_delay:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/delay
-        desc: The action which will be executed after the delay.
-    meta_action_if_case:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
-        desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
-    meta_action_if_else:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else
-        desc: A condition based on the type of action.
-    meta_action_if_else_list:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_else_list
-        desc: Checks a list of actions associated with conditions, and executes the first one whose condition holds. A less indentation-heavy way to write a deeply nested apoli:if_else chain.
     meta_advancement_selection:
         desc: |
             Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
