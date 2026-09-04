@@ -6496,6 +6496,7 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the target.
+                            link: entity_condition
                         bientity_action:
                             desc: The action to execute upon hit.
                             link: bientity_action
@@ -6525,6 +6526,7 @@ links:
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the target.
+                            link: entity_condition
                         self_action:
                             desc: Action run on the actor (the entity that has the power).
                             talias: attacker_action
