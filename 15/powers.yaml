@@ -9363,6 +9363,8 @@ links:
             drop		|Drops the stack into the world,	|skipped
                         |then runs item_action (if any)		|
                         |on the dropped stack first.		|
+    inventory_operation:
+        enum: ['modify','replace','drop']
     inventory_type:
         desc: Determines whether to reference the inventory of the entity or the inventory of the power present in the entity.
         enum: ['inventory','power']
