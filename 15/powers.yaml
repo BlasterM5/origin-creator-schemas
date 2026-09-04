@@ -2745,14 +2745,36 @@ links:
                                 desc: |
                                     (ALIAS) The advancement to grant. Omit it with selection: everything to act on all of them.
                                 link: advancement
-                            link: meta_advancement_action
+                            criterion:
+                                desc: A single criterion name, rather than the whole advancement.
+                                type: string
+                                ext: true
+                            criteria:
+                                desc: Several criterion names.
+                                type: list
+                                vals:
+                                    type: string
+                                    ext: true
+                            selection:
+                                link: meta_advancement_selection
                         string-origins:revoke_advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_advancement
                                 desc: |
                                     (ALIAS) The advancement to revoke. Omit it with selection: everything to act on all of them.
                                 link: advancement
-                            link: meta_advancement_action
+                            criterion:
+                                desc: A single criterion name, rather than the whole advancement.
+                                type: string
+                                ext: true
+                            criteria:
+                                desc: Several criterion names.
+                                type: list
+                                vals:
+                                    type: string
+                                    ext: true
+                            selection:
+                                link: meta_advancement_selection
                         string-origins:apply_effect:
                             effect:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/apply_effect
