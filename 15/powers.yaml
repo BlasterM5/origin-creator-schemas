@@ -5688,7 +5688,7 @@ links:
                         trigger_order:
                             desc: Determines whether the power type should prioritize game events by distance ("by_distance") or arbitrarily ("unspecified").
                             enum: ['unspecified','by_distance']
-                            unspec: 'unspecified'
+                            unspec: true
                         entity:
                             desc: Determines whether the power type should listen to game events emitted by entities.
                             type: boolean
@@ -5702,6 +5702,7 @@ links:
                             link: bientity_action
                         block_action:
                             desc: If specified, this block action type will be executed at the position where the game event or vibration was emitted.
+                            link: block_action
                         event:
                             desc: If specified, will make the power only listen for the game events with this namespace and IDs.
                             link: game_event
