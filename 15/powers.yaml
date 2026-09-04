@@ -3490,11 +3490,14 @@ links:
                                 desc: This modifier will be applied to the current death ticks value of the entity.
                                 link: attribute_modifier
                         string-origins:modify_entity_data:
-                            link: modify_entity_data
+                            data:
+                                link: modify_entity_data
                         string-origins:set_entity_data:
-                            link: modify_entity_data
+                            data:
+                                link: modify_entity_data
                         string-origins:change_entity_data:
-                            link: modify_entity_data
+                            data:
+                                link: modify_entity_data
                         string-origins:modify_resource:
                             resource:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_resource
@@ -9678,26 +9681,25 @@ links:
         enum: ['default','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
         unspec: 'default'
     modify_entity_data:
-        data:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
-            desc: |
-                Which property to change:
-                data				|Type		|Property
-                no_gravity			|boolean	|Whether the entity ignores gravity.
-                invulnerable		|boolean	|Whether the entity is invulnerable.
-                silent				|boolean	|Whether the entity makes sounds.
-                glowing				|boolean	|Whether the entity has the glowing outline.
-                invisible			|boolean	|Whether the entity is invisible.
-                custom_name_visible	|boolean	|Whether the entity’s custom name is always shown.
-                no_ai				|boolean	|Disables AI (mobs only).
-                fall_distance		|number		|The accumulated fall distance.
-                air					|number		|Remaining air (in ticks).
-                fire_ticks			|number		|Remaining fire (in ticks).
-            or:
-              - title: built-in
-                enum: ['no_gravity','invulnerable','silent','glowing','invisible','custom_name_visible','no_ai','fall_distance','air','fire_ticks']
-              - title: custom
-                link: meta_key
+        href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
+        desc: |
+            Which property to change:
+            data				|Type		|Property
+            no_gravity			|boolean	|Whether the entity ignores gravity.
+            invulnerable		|boolean	|Whether the entity is invulnerable.
+            silent				|boolean	|Whether the entity makes sounds.
+            glowing				|boolean	|Whether the entity has the glowing outline.
+            invisible			|boolean	|Whether the entity is invisible.
+            custom_name_visible	|boolean	|Whether the entity’s custom name is always shown.
+            no_ai				|boolean	|Disables AI (mobs only).
+            fall_distance		|number		|The accumulated fall distance.
+            air					|number		|Remaining air (in ticks).
+            fire_ticks			|number		|Remaining fire (in ticks).
+        or:
+            - title: built-in
+            enum: ['no_gravity','invulnerable','silent','glowing','invisible','custom_name_visible','no_ai','fall_distance','air','fire_ticks']
+            - title: custom
+            link: meta_key
         value:
             desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
             or:
