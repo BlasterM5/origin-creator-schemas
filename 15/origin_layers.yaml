@@ -85,10 +85,8 @@ props:
                 more:
                     string-uniform: {}
                     string-weighted:
-                        desc: Randomly chooses the origin based on a table of weighted origins.
                         weights:
-                            desc: |
-                                Per-origin weighting, for style: weighted.
+                            desc: Randomly chooses the origin based on a table of weighted origins.
                             type: list
                             vals:
                                 link: weight_map

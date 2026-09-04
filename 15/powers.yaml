@@ -5633,7 +5633,7 @@ links:
                         blue:
                             desc: |
                                 Value by which the blue component of the glow will be multiplied. Range: 0.0 - 1.0.
-                            type: number_percent
+                            link: number_percent
                             default: 1
                         self_glow_target:
                             desc: If true, the power makes the entity that has the power glow for everyone else, instead of making other entities glow for the holder. The apoli:self_glow type ID is an alias for this power with self_glow_target defaulting to true (see Self Glow).
@@ -6811,18 +6811,11 @@ links:
                             link: entity_action
                         direction:
                             desc: Which way the wheel has to turn.
-                            enum:
-                              - any
-                              - up
-                              - down
-                            more:
-                                string-any:
-                                    reset_on_direction_change:
-                                        desc: Scrolling the other way restarts the count instead of adding to it.
-                                        type: boolean
-                                        default: true
-                                string-up: {}
-                                string-down: {}
+                            enum: ['any','up','down']
+                        reset_on_direction_change:
+                            desc: Scrolling the other way restarts the count instead of adding to it.
+                            type: boolean
+                            default: true
                         scroll_amount:
                             desc: How many notches are needed before the action runs.
                             type: integer
