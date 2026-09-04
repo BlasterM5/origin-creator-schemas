@@ -8377,34 +8377,9 @@ links:
             enum: ['origins:textures/gui/sprites/hud_render/apace/resource_bar.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png','origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png']
           - title: custom
             link: identifier
-    icon:
-        icon:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
-            desc: |
-                An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
-            or:
-              - title: item
-                link: identifier
-              - title: stack
-                link: item_stack
-              - title: texture
-                type: object
-                props:
-                    texture:
-                        desc: Path to the PNG, relative to assets/<namespace>/.
-                        link: identifier
-                    width:
-                        desc: Width in pixels of the region to draw, measured from the top-left of the file.
-                        type: integer
-                        default: unspec
-                    height:
-                        desc: Height in pixels of the region to draw, measured from the top-left of the file.
-                        type: integer
-                        default: unspec
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
-        hook: [ns]
     identifier_array:
         type: list
         vals:
