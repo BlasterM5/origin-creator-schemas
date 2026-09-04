@@ -2097,7 +2097,75 @@ links:
                                 desc: |
                                     The other end. Use { "source": "target" } for the entity this action was run against.
                                 link: rope_endpoint
-                            extend: action_attach_rope
+                            slot:
+                                desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
+                                link: meta_key
+                                default: unspec
+                            texture:
+                                desc: The texture the rope is drawn with.
+                                link: identifier
+                                default: 'apoli:textures/rope/rope.png'
+                            toggle:
+                                desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
+                                type: boolean
+                                unspec: true
+                            controllable:
+                                desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
+                                type: boolean
+                                unspec: true
+                            mode:
+                                link: rope_mode
+                            break_beyond:
+                                desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
+                                type: number
+                                default: 0
+                            min_length:
+                                desc: Shortest the rope can reel to.
+                                type: number
+                                default: 1
+                            max_length:
+                                desc: Longest the rope can be.
+                                type: number
+                                default: 30
+                            start_length:
+                                desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
+                                type: number
+                            stiffness:
+                                desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
+                                link: number_percent
+                                default: 0.1
+                            radial_damping:
+                                desc: How much outward speed is bled off at the length limit.
+                                link: number_percent
+                                default: 0.85
+                            spring_scaling:
+                                desc: Extra softening while swinging inward.
+                                link: number_percent
+                                default: 0.65
+                            swing_boost:
+                                desc: Speed multiplier applied to a sprinting player’s swing.
+                                type: number
+                                default: 1.08
+                            max_swing_speed:
+                                desc: Cap on the sprint swing boost.
+                                type: number
+                                default: 0.7
+                            reel_step:
+                                desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
+                                type: number
+                                default: 0.2
+                            slack_pull_rate:
+                                desc: Multiplier applied to reeling in while there is slack.
+                                type: number
+                                default: 5.0
+                            constrain_from:
+                                desc: Whether the physics may pull the from end (only matters when it is an entity).
+                                type: boolean
+                                unspec: true
+                            constrain_to:
+                                desc: Whether the physics may pull the to end.
+                                type: boolean
+                                unspec: true
                         string-origins:damage:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
@@ -2814,7 +2882,75 @@ links:
                                 desc: |
                                     The other end. The default reproduces the classic grapple (a block you look at).
                                 link: rope_endpoint
-                            extend: action_attach_rope
+                            slot:
+                                desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
+                                link: meta_key
+                                default: unspec
+                            texture:
+                                desc: The texture the rope is drawn with.
+                                link: identifier
+                                default: 'apoli:textures/rope/rope.png'
+                            toggle:
+                                desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
+                                type: boolean
+                                unspec: true
+                            controllable:
+                                desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
+                                type: boolean
+                                unspec: true
+                            mode:
+                                link: rope_mode
+                            break_beyond:
+                                desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
+                                type: number
+                                default: 0
+                            min_length:
+                                desc: Shortest the rope can reel to.
+                                type: number
+                                default: 1
+                            max_length:
+                                desc: Longest the rope can be.
+                                type: number
+                                default: 30
+                            start_length:
+                                desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
+                                type: number
+                            stiffness:
+                                desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
+                                link: number_percent
+                                default: 0.1
+                            radial_damping:
+                                desc: How much outward speed is bled off at the length limit.
+                                link: number_percent
+                                default: 0.85
+                            spring_scaling:
+                                desc: Extra softening while swinging inward.
+                                link: number_percent
+                                default: 0.65
+                            swing_boost:
+                                desc: Speed multiplier applied to a sprinting player’s swing.
+                                type: number
+                                default: 1.08
+                            max_swing_speed:
+                                desc: Cap on the sprint swing boost.
+                                type: number
+                                default: 0.7
+                            reel_step:
+                                desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
+                                type: number
+                                default: 0.2
+                            slack_pull_rate:
+                                desc: Multiplier applied to reeling in while there is slack.
+                                type: number
+                                default: 5.0
+                            constrain_from:
+                                desc: Whether the physics may pull the from end (only matters when it is an entity).
+                                type: boolean
+                                unspec: true
+                            constrain_to:
+                                desc: Whether the physics may pull the to end.
+                                type: boolean
+                                unspec: true
                         string-origins:block_action_at:
                             block_action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/block_action_at
@@ -7080,76 +7216,6 @@ links:
                     type: integer
                 provider:
                     enum: ['accessories','curios','trinkets']
-    action_attach_rope:
-        slot:
-            desc: A label for this rope. Attaching again with the same slot replaces the previous rope in it (so left_whip/right_whip give you exactly two).
-            link: meta_key
-            default: unspec
-        texture:
-            desc: The texture the rope is drawn with.
-            link: identifier
-            default: 'apoli:textures/rope/rope.png'
-        toggle:
-            desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
-            type: boolean
-            unspec: true
-        controllable:
-            desc: Whether the built-in reel/swing keys drive this rope for its owner. Set false for tethers you cast on other entities.
-            type: boolean
-            unspec: true
-        mode:
-            link: rope_mode
-        break_beyond:
-            desc: If greater than 0, the rope snaps (auto-detaches) once its two ends are pulled farther apart than this many blocks. 0 never breaks. (Ropes also always break when an entity end dies or unloads.)
-            type: number
-            default: 0
-        min_length:
-            desc: Shortest the rope can reel to.
-            type: number
-            default: 1
-        max_length:
-            desc: Longest the rope can be.
-            type: number
-            default: 30
-        start_length:
-            desc: The length the rope is created at, clamped to min_length–max_length. Left out, a controllable rope starts taut — exactly as far apart as its two ends already are, so a grapple bites the moment it lands — and a rope that is not controllable starts at max_length, so a tether has its full slack immediately. Set it explicitly when you want a taut tether or a slack grapple.
-            type: number
-        stiffness:
-            desc: How hard the rope yanks an end back once it passes its length. Higher = snappier.
-            link: number_percent
-            default: 0.1
-        radial_damping:
-            desc: How much outward speed is bled off at the length limit.
-            link: number_percent
-            default: 0.85
-        spring_scaling:
-            desc: Extra softening while swinging inward.
-            link: number_percent
-            default: 0.65
-        swing_boost:
-            desc: Speed multiplier applied to a sprinting player’s swing.
-            type: number
-            default: 1.08
-        max_swing_speed:
-            desc: Cap on the sprint swing boost.
-            type: number
-            default: 0.7
-        reel_step:
-            desc: Blocks per tick the length changes while a reel key (jump/sneak) is held. This is the main “pull speed” knob for a controllable grapple — 1.0 reels in 20 blocks per second; much above ~2 feels like teleporting.
-            type: number
-            default: 0.2
-        slack_pull_rate:
-            desc: Multiplier applied to reeling in while there is slack.
-            type: number
-            default: 5.0
-        constrain_from:
-            desc: Whether the physics may pull the from end (only matters when it is an entity).
-            type: boolean
-            unspec: true
-        constrain_to:
-            desc: Whether the physics may pull the to end.
-            type: boolean
-            unspec: true
     action_fire_projectile_common:
         texture_location:
             desc: If specified, the texture used for the custom projectile and entity_type is ignored.
