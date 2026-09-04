@@ -172,7 +172,7 @@ links:
                         string-origins:send_condition:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/send_condition/
-                                link:meta_send_condition_action
+                                link: meta_send_condition_action
                         string-origins:target_condition:
                             condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/target_condition/
