@@ -61,61 +61,63 @@ props:
         desc: Translation key for that placeholder’s description.
         type: string
         gap: true
-    or:
-      - title: 0vergrown Random
-        random:
-            type: object
-            props:
-                allow:
-                    desc: Offer the “random” option in the screen.
-                    type: boolean
-                    unspec: true
-                allow_unchoosable:
-                    desc: Let the roll land on unchoosable origins.
-                    type: boolean
-                exclude:
-                    desc: Origins the roll never picks.
-                    type: list
-                    vals:
-                        link: identifier
-                or:
-                  - title: Uniform Random
-                    style:
-                        desc: |
-                            Simple random selection of an origin.
-                        const: 'uniform'
-                  - title: Weighted Random
-                    style:
+    random:
+        type: object
+        props:
+            allow:
+                desc: Offer the “random” option in the screen.
+                type: boolean
+                unspec: true
+            allow_unchoosable:
+                desc: Let the roll land on unchoosable origins.
+                type: boolean
+            exclude:
+                desc: Origins the roll never picks.
+                type: list
+                vals:
+                    link: identifier
+            style:
+                enum:
+                  - uniform
+                  - weighted
+                  - roll
+                  - gacha
+                more:
+                    string-uniform: {}
+                    string-weighted:
                         desc: Randomly chooses the origin based on a table of weighted origins.
-                        const: 'weighted'
-                    weights:
-                        desc: |
-                            Per-origin weighting, for style: weighted.
-                        type: list
-                        vals:
-                            link: weight_map
-                  - title: Rolling Random
-                    style:
+                        weights:
+                            desc: |
+                                Per-origin weighting, for style: weighted.
+                            type: list
+                            vals:
+                                link: weight_map
+                    string-roll:
                         desc: |
                             An animated 'roll' or 'gacha' style random selection animation.
-                        enum: ['roll','gacha']
-                    roll_duration:
-                        desc: Animation length in ticks.
-                        type: integer
-                        default: 80
-      - title: Apoli Random
-        allow_random:
-            desc: (DEPRECATED) If set to true, this layer will show an option for choosing a random origin.
-            type: boolean
-        allow_random_unchoosable:
-            title: Random Unchoosable
-            desc: Whether origins which are unchoosable (unchoosable field set to true in the origin file) should be included in the random option. Can for example be used to force players to choose a random origin, by setting this to true and making all origins in the layer unchoosable.
-            type: boolean
-        exclude_random:
-            desc: If specified, the origins included in this list will not be picked by the random choice.
-            type: list
-            vals:
-                link: identifier
+                        roll_duration:
+                            desc: Animation length in ticks.
+                            type: integer
+                            default: 80
+                    string-gacha:
+                        desc: |
+                            (ALIAS) An animated 'roll' or 'gacha' style random selection animation.
+                        roll_duration:
+                            desc: Animation length in ticks.
+                            type: integer
+                            default: 80
+    allow_random:
+        desc: (DEPRECATED) If set to true, this layer will show an option for choosing a random origin.
+        type: boolean
+    allow_random_unchoosable:
+        title: Random Unchoosable
+        desc: Whether origins which are unchoosable (unchoosable field set to true in the origin file) should be included in the random option. Can for example be used to force players to choose a random origin, by setting this to true and making all origins in the layer unchoosable.
+        type: boolean
+    exclude_random:
+        desc: If specified, the origins included in this list will not be picked by the random choice.
+        type: list
+        vals:
+            link: identifier
     default_origin:
         desc: Fallback for players this layer offers no choice to.
         link: identifier
