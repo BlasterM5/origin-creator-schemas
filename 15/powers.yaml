@@ -8952,18 +8952,20 @@ links:
         or:
           - title: simple
             link: identifier
-          - title: object
-            link: ingredient_select_object
-    ingredient_select_object:
-        type: object
-        props:
+          - title: advanced
             or:
-                - item:
-                    desc: ID of a registered item.
-                    link: identifier
-                - tag:
-                    desc: ID of an item tag.
-                    link: identifier
+              - title: item
+                type: object
+                props:
+                    item:
+                        desc: ID of a registered item.
+                        link: identifier
+              - title: tag
+                type: object
+                props:
+                    tag:
+                        desc: ID of an item tag.
+                        link: identifier
     integer_amp:
         desc: The minimum and maximum amplifier of the status effect.
         type: integer
