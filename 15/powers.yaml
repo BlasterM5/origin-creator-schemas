@@ -2979,9 +2979,9 @@ links:
                                     "add" translates to add_base_early; "set" translates to set_base.
                                 enum: ['add','set']
                         string-origins:change_selected_slot:
-                            or:
-                              - title: absolute
-                                slot:
+                            slot:
+                                or:
+                                  - title: absolute
                                     href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
                                     desc: |
                                         The hotbar slot to select — 0 is the far left, 8 the far right. Out-of-range values are clamped.
@@ -2989,15 +2989,15 @@ links:
                                     min: 0
                                     max: 8
                                     required: true
-                              - title: relative
-                                slot:
+                                  - title: relative
                                     href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
                                     desc: |
                                         Add slot to the current hotbar selection and wrap around, so 1 cycles right and -1 cycles left.
                                     type: integer
                                     required: true
-                                relative:
-                                    const: true
+                            relative:
+                                desc: Match the choice above (check for relative, uncheck for absolute), or this action will not work as expected.
+                                type: boolean
                         string-origins:change_slot:
                             slot_a:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_slot
