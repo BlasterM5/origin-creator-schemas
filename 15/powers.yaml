@@ -3974,7 +3974,7 @@ links:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
-                                link: meta_action_and
+                                extend: meta_action_and
                                 type: list
                                 vals:
                                     link: item_action
@@ -4170,7 +4170,7 @@ links:
                         string-origins:nothing: {}
                         string-origins:and:
                             actions:
-                                link: meta_action_and
+                                extend: meta_action_and
                                 type: list
                                 vals:
                                     link: block_action
