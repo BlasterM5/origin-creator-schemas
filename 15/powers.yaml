@@ -6916,17 +6916,15 @@ links:
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
-                        or:
-                          - self_action:
-                                desc: Action run on the target (the entity that has the power).
-                                talias: target_action
-                                link: entity_action
-                          - title: legacy_action
-                            entity_action_target:
-                                link: entity_action_target
-                            entity_action:
-                                desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
-                                link: entity_action
+                        self_action:
+                            desc: Action run on the target (the entity that has the power).
+                            talias: target_action
+                            link: entity_action
+                        entity_action_target:
+                            link: entity_action_target
+                        entity_action:
+                            desc: (DEPRECATED) Legacy field. Runs on whichever side entity_action_target names.
+                            link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
