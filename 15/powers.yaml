@@ -8755,38 +8755,6 @@ links:
     objective:
         type: string
         allow: 'a-zA-Z0-9_.+-'
-    overlay_layer:
-        texture_location:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/data-types
-            desc: Texture used for both models. Used when a model-specific texture is not given. If omitted entirely, the layer inherits the power’s base wide/slim texture (handy for re-styling one part without repeating the texture).
-            link: identifier
-        wide_texture_location:
-            desc: Texture used for the wide (Steve) model
-            link: identifier
-        slim_teture_location:
-            desc: Texture used for the slim (Alex) model
-            link: identifier
-        render_type:
-            link: render_type
-        body_parts:
-            desc: |
-                Restrict this layer to specific model parts (e.g. "head" or ["head", "body"]). When omitted, the layer covers the whole model. Part names follow Model Color: head, hat, body, right_arm, left_arm, right_leg, left_leg (plus jacket, the sleeves and the trousers). Matching ignores case and separators.
-            link: model_parts
-        red:
-            link: number_percent
-        green:
-            link: number_percent
-        blue:
-            link: number_percent
-        alpha:
-            link: number_percent
-        show_first_person:
-            desc: If true, this layer is also drawn on the holder’s own first-person arm (only the arm/sleeve parts are affected in first person).
-            type: boolean
-            unspec: true
-        scale:
-            desc: Scales this layer’s geometry outward from the model origin — the same idea as Sync’s Energy Swirl size. Above 1.0 puffs the texture out past the skin (an aura/shell), below 1.0 pulls it inside. 1.0 sits flush on the body.
-            link: number_percent
     overlay_power_multiple:
         type: object
         extra:
