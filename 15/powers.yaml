@@ -5866,14 +5866,9 @@ links:
                             link: number_percent
                             default: 1
                     string-origins:overlay:
-                        or:
-                          - title: single
-                            link: overlay_power
-                          - title: multiple
-                            overlays:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
-                                desc: Several overlays in one power. All of them whose condition passes are drawn, in order, so this is a stack of layers rather than a pick-one.
-                                link: overlay_power_multiple
+                        extend: overlay_power
+                        overlays:
+                            link: overlay_power_multiple
                     string-origins:particle:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/particle/
