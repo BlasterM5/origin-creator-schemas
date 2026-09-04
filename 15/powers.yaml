@@ -2013,17 +2013,20 @@ links:
                                             link: bientity_action
                         string-origins:delay:
                             action:
-                                extend: [meta_action_delay,bientity_action]
+                                extend: meta_action_delay
+                                link: bientity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                extend: [meta_action_if_case,meta_condition_if_list_bientity]
+                                extend: meta_action_if_case
+                                link: meta_condition_if_list_bientity
                         string-origins:if_else:
                             condition:
-                                extend: [meta_action_if_else,bientity_condition]
+                                extend: meta_action_if_else
+                                link: bientity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: bientity_action
@@ -2032,7 +2035,8 @@ links:
                                 link: bientity_action
                         string-origins:if_else_list:
                             actions:
-                                extend: [meta_action_if_else_list,meta_condition_if_list_bientity]
+                                extend: meta_action_if_else_list
+                                link: meta_condition_if_list_bientity
                         string-origins:loop:
                             link: meta_action_loop
                             before_action:
@@ -2570,17 +2574,20 @@ links:
                                             link: entity_action
                         string-origins:delay:
                             action:
-                                extend: [meta_action_delay,entity_action]
+                                extend: meta_action_delay
+                                link: entity_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
                         string-origins:if_case:
                             cases:
                                 talias: actions
-                                extend: [meta_action_if_case,meta_condition_if_list_entity]
+                                extend: meta_action_if_case
+                                link: meta_condition_if_list_entity
                         string-origins:if_else:
                             condition:
-                                extend: [meta_action_if_else,entity_condition]
+                                extend: meta_action_if_else
+                                link: entity_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: entity_action
@@ -2589,7 +2596,8 @@ links:
                                 link: entity_action
                         string-origins:if_else_list:
                             actions:
-                                extend: [meta_action_if_else_list,meta_condition_if_list_entity]
+                                extend: meta_action_if_else_list
+                                link: meta_condition_if_list_entity
                         string-origins:loop:
                             link: meta_action_loop
                             before_action:
@@ -3815,7 +3823,8 @@ links:
                                             link: item_action
                         string-origins:delay:
                             action:
-                                extend: [meta_action_delay,item_action]
+                                extend: meta_action_delay
+                                link: item_action
                             ticks:
                                 desc: The amount of ticks until the action is executed.
                                 type: integer
@@ -3835,7 +3844,8 @@ links:
                                             link: item_action
                         string-origins:if_else:
                             condition:
-                                extend: [meta_action_if_else,item_condition]
+                                extend: meta_action_if_else
+                                link: item_condition
                             if_action:
                                 desc: The action which is executed when the condition evaluates to true.
                                 link: item_action
