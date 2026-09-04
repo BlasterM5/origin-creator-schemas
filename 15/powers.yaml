@@ -1578,7 +1578,8 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/script/
                                 link: identifier_script
-                            link: script_params
+                            params:
+                                link: script_params
                         string-origins:slipperiness:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/slipperiness
@@ -2144,7 +2145,8 @@ links:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/script/
                                 link: identifier_script
-                            link: script_params
+                            params:
+                                link: script_params
                         string-origins:send_action:
                             receiver:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/send_action/
