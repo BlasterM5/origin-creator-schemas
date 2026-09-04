@@ -303,9 +303,6 @@ links:
                       - origins:held_key
                       - origins:key_held
                       - origins:set_size
-                      - origins:stats
-                      - origins:status
-                      - origins:statistic
                       - origins:team
                       - origins:xp_levels
                       - origins:xp_points
@@ -1005,13 +1002,21 @@ links:
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:stat:
-                            extend: entity_condition_stat
-                        string-origins:stats:
-                            extend: entity_condition_stat_legacy
-                        string-origins:status:
-                            extend: entity_condition_stat_legacy
-                        string-origins:statistic:
-                            extend: entity_condition_stat_legacy
+                            talias: [origins:stats,origins:status,origins:statistic]
+                            stat:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
+                                desc: |
+                                    Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                talias: status
+                                link: stat
+                                required: true
+                            comparison:
+                                desc: How to compare the stat value.
+                                link: comparison
+                            compare_to:
+                                desc: The number to compare against.
+                                type: integer
+                                required: true
                         string-origins:status_effect:
                             effect:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/status_effect
@@ -7400,34 +7405,6 @@ links:
     entity_action_target:
         desc: Which entity entity_action runs on. Set automatically by the legacy IDs.
         enum: ['self','attacker','target']
-    entity_condition_stat:
-        stat:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
-            desc: |
-                Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
-            link: stat
-            required: true
-        comparison:
-            desc: How to compare the stat value.
-            link: comparison
-        compare_to:
-            desc: The number to compare against.
-            type: integer
-            required: true
-    entity_condition_stat_legacy:
-        stat:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
-            desc: |
-                (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
-            link: stat
-            required: true
-        comparison:
-            desc: How to compare the stat value.
-            link: comparison
-        compare_to:
-            desc: The number to compare against.
-            type: integer
-            required: true
     entity_pose:
         enum: ['standing','crouching','swimming','fall_flying','sleeping','spin_attack','sitting','sliding','shooting','inhaling']
     entity_type:
@@ -7454,8 +7431,8 @@ links:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
     equipment_slot:
-        enum: ['default','mainhand','offhand','head','chest','legs','feet']
-        unspec: 'default'
+        enum: ['mainhand','offhand','head','chest','legs','feet']
+        unspec: true
     expression_float:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
         desc: A floating-point value or a math expression. See the doc for more information.
