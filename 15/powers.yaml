@@ -2714,7 +2714,7 @@ links:
             type: object
             props:
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/entity_action_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/actions/
                     enum:
                       - $Meta Actions
                       - origins:nothing
@@ -3989,9 +3989,10 @@ links:
                         string-origins:release_grab: {}
                         string-origins:remove_disguise: {}
                         string-origins:remove_power:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/remove_power
-                            desc: The ID of the power to remove from the entity.
-                            link: identifier
+                            power:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/remove_power
+                                desc: The ID of the power to remove from the entity.
+                                link: identifier
                         string-origins:revoke_all_powers:
                             source:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_all_powers
