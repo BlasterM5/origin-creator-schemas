@@ -2717,7 +2717,7 @@ links:
                                 link: expression_integer
                             levels:
                                 desc: If set, this is the amount experience levels that will be given to the player. Can be negative and thus used to subtract levels.
-                                link: expresion_integer
+                                link: expression_integer
                         string-origins:advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
@@ -2977,7 +2977,7 @@ links:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/exhaust
                                 desc: The amount of exhaustion to apply to the player.
-                                link: expresion_float
+                                link: expression_float
                         string-origins:explode:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/explode
@@ -2993,10 +2993,10 @@ links:
                             food:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/feed
                                 desc: The food amount to restore.
-                                link: expresion_integer
+                                link: expression_integer
                             saturation:
                                 desc: The amount of saturation points to restore.
-                                link: expresion_float
+                                link: expression_float
                         string-origins:fire_projectile:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
