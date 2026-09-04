@@ -5309,49 +5309,49 @@ links:
                             unspec: true
                     string-origins:creative_flight: {}
                     string-origins:custom_model_render:
-                        or:
-                          - title: 'Geometry Mode'
-                            mode:
-                                const: 'geometry'
-                            model_location:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/powers/custom_model_render/
-                                desc: |
-                                    The Blockbench model. mymod:cape resolves to assets/mymod/geo/cape.geo.json (the standard Blockbench/GeckoLib folder) — assets/mymod/models/apoli/cape.geo.json also works. Export from Blockbench as Bedrock geometry (.geo.json).
-                                link: identifier
-                                required: true
-                            texture_location:
-                                desc: The texture that UV-maps onto the model, e.g. mymod:textures/entity/cape.png.
-                                link: identifier
-                                required: true
-                            render_as_overlay:
-                                desc: Minions only! false replaces the minion’s own model with yours; true draws yours on top of it. Ignored on players, where geometry is always drawn over the player model.
-                                type: boolean
-                            animations:
-                                desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
-                                or:
-                                  - title: 'single'
-                                    link: model_animation
-                                  - title: 'multiple'
-                                    type: list
-                                    vals:
-                                        link: model_animation
-                          - title: 'Texture Mode'
-                            mode:
-                                const: 'texture'
-                            wide_texture_location:
-                                href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
-                                desc: Texture for the wide (Steve) model.
-                                link: identifier
-                                required: true
-                            slim_texture_location:
-                                desc: Texture for the slim (Alex) model.
-                                link: identifier
-                            render_as_overlay:
-                                desc: false replaces the skin; true draws the texture as an overlay layer honouring render_type, body_parts and the tint.
-                                type: boolean
-                            hide_cape:
-                                desc: Hide the holder’s cape while active.
-                                type: boolean
+                        mode:
+                            enum:
+                              - geometry
+                              - texture
+                            more:
+                                string-geometry:
+                                    model_location:
+                                        href: https://0vergrown.github.io/Handbook/docs/datapack/powers/custom_model_render/
+                                        desc: |
+                                            The Blockbench model. mymod:cape resolves to assets/mymod/geo/cape.geo.json (the standard Blockbench/GeckoLib folder) — assets/mymod/models/apoli/cape.geo.json also works. Export from Blockbench as Bedrock geometry (.geo.json).
+                                        link: identifier
+                                        required: true
+                                    texture_location:
+                                        desc: The texture that UV-maps onto the model, e.g. mymod:textures/entity/cape.png.
+                                        link: identifier
+                                        required: true
+                                    render_as_overlay:
+                                        desc: Minions only! false replaces the minion’s own model with yours; true draws yours on top of it. Ignored on players, where geometry is always drawn over the player model.
+                                        type: boolean
+                                    animations:
+                                        desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
+                                        or:
+                                          - title: 'single'
+                                            link: model_animation
+                                          - title: 'multiple'
+                                            type: list
+                                            vals:
+                                                link: model_animation
+                                string-texture:
+                                    wide_texture_location:
+                                        href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
+                                        desc: Texture for the wide (Steve) model.
+                                        link: identifier
+                                        required: true
+                                    slim_texture_location:
+                                        desc: Texture for the slim (Alex) model.
+                                        link: identifier
+                                    render_as_overlay:
+                                        desc: false replaces the skin; true draws the texture as an overlay layer honouring render_type, body_parts and the tint.
+                                        type: boolean
+                                    hide_cape:
+                                        desc: Hide the holder’s cape while active.
+                                        type: boolean
                         render_type:
                             link: render_type
                         body_parts:
