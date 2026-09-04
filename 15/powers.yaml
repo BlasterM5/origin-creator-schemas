@@ -764,7 +764,7 @@ links:
                                 link: item_condition
                             slots:
                                 desc: If specified, only items from these specified item slots are evaluated.
-                                link: slots
+                                link: slot
                             slot:
                                 desc: If specified, only the item from this specified item slot is evaluated.
                                 link: slot
