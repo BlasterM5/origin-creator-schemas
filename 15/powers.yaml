@@ -4280,10 +4280,15 @@ links:
                                 desc: Determines if this action should ignore the Unbreaking enchantment.
                                 type: boolean
                         string-origins:holder_action:
-                            talias: origins:holder
                             action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
                                 desc: The entity action to execute on the holder of the item stack.
+                                talias: entity_action
+                                link: entity_action
+                        string-origins:holder:
+                            action:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
+                                desc: (DEPRECATED) The entity action to execute on the holder of the item stack.
                                 talias: entity_action
                                 link: entity_action
                         string-origins:merge_nbt:
