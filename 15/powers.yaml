@@ -8407,7 +8407,7 @@ links:
         link: identifier
         required: true
     ingredient_key:
-      - nopanel: true
+        allowkey: '*a-z0-9_#\/:.-'
         link: ingredient
     ingredient:
         or:
