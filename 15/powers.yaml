@@ -8378,9 +8378,9 @@ links:
           - title: custom
             link: identifier
     icon:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
-        desc: An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
         icon:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
+            desc: An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
             or:
               - title: item
                 link: identifier
