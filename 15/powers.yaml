@@ -2097,7 +2097,7 @@ links:
                                 desc: |
                                     The other end. Use { "source": "target" } for the entity this action was run against.
                                 link: rope_endpoint
-                            link: action_attach_rope
+                            extend: action_attach_rope
                         string-origins:damage:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
@@ -2814,7 +2814,7 @@ links:
                                 desc: |
                                     The other end. The default reproduces the classic grapple (a block you look at).
                                 link: rope_endpoint
-                            link: action_attach_rope
+                            extend: action_attach_rope
                         string-origins:block_action_at:
                             block_action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/block_action_at
