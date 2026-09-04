@@ -3367,7 +3367,6 @@ links:
                         string-origins:dismount: {}
                         string-origins:inventory_action:
                             operation:
-                                extend: inventory_action_description
                                 link: inventory_operation
                             inventory_type:
                                 desc: Whether to walk the entity’s own inventory or a power’s inventory.
@@ -3421,7 +3420,6 @@ links:
                                 type: integer_optional
                         string-origins:modify_inventory:
                             operation:
-                                extend: inventory_action_description
                                 link: inventory_operation
                             inventory_type:
                                 desc: Whether to walk the entity’s own inventory or a power’s inventory.
@@ -3456,7 +3454,6 @@ links:
                                 default: 0
                         string-origins:replace_inventory:
                             operation:
-                                extend: inventory_action_description
                                 link: inventory_operation
                             inventory_type:
                                 desc: Whether to walk the entity’s own inventory or a power’s inventory.
@@ -3499,7 +3496,6 @@ links:
                                 type: boolean
                         string-origins:drop_inventory:
                             operation:
-                                extend: inventory_action_description
                                 link: inventory_operation
                             inventory_type:
                                 desc: Whether to walk the entity’s own inventory or a power’s inventory.
@@ -8434,7 +8430,7 @@ links:
         type: integer
         min: -1
         max: 2147483647
-    inventory_action_description:
+    inventory_operation:
         href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
         desc: |
             operation	|Per-slot behaviour					|Empty slots
@@ -8445,7 +8441,6 @@ links:
             drop		|Drops the stack into the world,	|skipped
                         |then runs item_action (if any)		|
                         |on the dropped stack first.		|
-    inventory_operation:
         enum: ['modify','replace','drop']
     inventory_type:
         desc: Determines whether to reference the inventory of the entity or the inventory of the power present in the entity.
