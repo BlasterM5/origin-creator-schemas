@@ -5359,11 +5359,11 @@ links:
                                 In texture mode, restrict an overlay to these parts: head, hat, body, right_arm, left_arm, right_leg, left_leg on a player, main, flat2, flat3 on a minion. In geometry mode, render only the bones with these names — any bone name in your own model, not just the vanilla ones. Every bone you do not name is hidden, and hiding a bone hides everything nested under it.
                             or:
                               - title: 'Player - All/Single Part'
-                                link: body_part
+                                link: model_parts
                               - title: 'Player - Multiple Parts'
                                 type: list
                                 vals:
-                                    link: body_part
+                                    link: model_parts
                               - title: 'Minion - All/Single Part'
                                 enum: ['main','flat2','flat3']
                                 unspec: true
@@ -8715,8 +8715,8 @@ links:
                 desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
                 link: easing
     model_parts:
-        enum: ['default','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
-        unspec: 'default'
+        enum: ['head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
+        unspec: true
     modify_entity_data:
         href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
         desc: |
