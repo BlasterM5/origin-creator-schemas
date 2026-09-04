@@ -303,6 +303,9 @@ links:
                       - origins:held_key
                       - origins:key_held
                       - origins:set_size
+                      - origins:stats
+                      - origins:status
+                      - origins:statistic
                       - origins:team
                       - origins:xp_levels
                       - origins:xp_points
@@ -1002,11 +1005,55 @@ links:
                         string-origins:sneaking: {}
                         string-origins:sprinting: {}
                         string-origins:stat:
-                            aliases: [origins:stats,origins:status,origins:statistic]
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
                                     Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                talias: status
+                                link: stat
+                                required: true
+                            comparison:
+                                desc: How to compare the stat value.
+                                link: comparison
+                            compare_to:
+                                desc: The number to compare against.
+                                type: integer
+                                required: true
+                        string-origins:stats:
+                            stat:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
+                                desc: |
+                                    (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                talias: status
+                                link: stat
+                                required: true
+                            comparison:
+                                desc: How to compare the stat value.
+                                link: comparison
+                            compare_to:
+                                desc: The number to compare against.
+                                type: integer
+                                required: true
+                        string-origins:status:
+                            stat:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
+                                desc: |
+                                    (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                talias: status
+                                link: stat
+                                required: true
+                            comparison:
+                                desc: How to compare the stat value.
+                                link: comparison
+                            compare_to:
+                                desc: The number to compare against.
+                                type: integer
+                                required: true
+                        string-origins:statistic:
+                            stat:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
+                                desc: |
+                                    (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
                                 talias: status
                                 link: stat
                                 required: true
