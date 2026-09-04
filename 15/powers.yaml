@@ -7920,6 +7920,10 @@ links:
         type: list
         vals:
             link: attribute_modifier
+    attribute_modifier_array_attribute:
+        type: list
+        vals:
+            link: attribute_modifier_attribute
     attribute_modifier_attribute:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
         type: object
