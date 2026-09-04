@@ -73,7 +73,10 @@ links:
                                     link: bientity_condition
                         string-origins:random_chance:
                             chance:
-                                link: meta_condition_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
+                                desc: Probability of passing, 0.0 to 1.0.
+                                link: number_percent
+                                required: true
                         string-origins:chance:
                             chance:
                                 link: meta_condition_chance
@@ -346,7 +349,10 @@ links:
                                     link: entity_condition
                         string-origins:random_chance:
                             chance:
-                                link: meta_condition_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
+                                desc: Probability of passing, 0.0 to 1.0.
+                                link: number_percent
+                                required: true
                         string-origins:chance:
                             chance:
                                 link: meta_condition_chance
@@ -1254,7 +1260,10 @@ links:
                                     link: item_condition
                         string-origins:random_chance:
                             chance:
-                                link: meta_condition_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
+                                desc: Probability of passing, 0.0 to 1.0.
+                                link: number_percent
+                                required: true
                         string-origins:chance:
                             chance:
                                 link: meta_condition_chance
@@ -1477,7 +1486,10 @@ links:
                                     link: block_condition
                         string-origins:random_chance:
                             chance:
-                                link: meta_condition_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
+                                desc: Probability of passing, 0.0 to 1.0.
+                                link: number_percent
+                                required: true
                         string-origins:chance:
                             chance:
                                 link: meta_condition_chance
@@ -1715,7 +1727,10 @@ links:
                                     link: fluid_condition
                         string-origins:random_chance:
                             chance:
-                                link: meta_condition_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
+                                desc: Probability of passing, 0.0 to 1.0.
+                                link: number_percent
+                                required: true
                         string-origins:chance:
                             chance:
                                 link: meta_condition_chance
@@ -1788,7 +1803,10 @@ links:
                                     link: biome_condition
                         string-origins:random_chance:
                             chance:
-                                link: meta_condition_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
+                                desc: Probability of passing, 0.0 to 1.0.
+                                link: number_percent
+                                required: true
                         string-origins:chance:
                             chance:
                                 link: meta_condition_chance
@@ -1885,7 +1903,10 @@ links:
                                     link: damage_condition
                         string-origins:random_chance:
                             chance:
-                                link: meta_condition_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
+                                desc: Probability of passing, 0.0 to 1.0.
+                                link: number_percent
+                                required: true
                         string-origins:chance:
                             chance:
                                 link: meta_condition_chance
@@ -2009,7 +2030,10 @@ links:
                                     link: bientity_action
                         string-origins:random_chance:
                             chance:
-                                link: meta_action_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
+                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
+                                required: true
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -2018,7 +2042,9 @@ links:
                                 link: bientity_action
                         string-origins:chance:
                             chance:
-                                link: meta_action_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -2874,7 +2900,10 @@ links:
                                     link: entity_action
                         string-origins:random_chance:
                             chance:
-                                link: meta_action_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
+                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
+                                required: true
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
@@ -2885,7 +2914,9 @@ links:
                                 default: unspec
                         string-origins:chance:
                             chance:
-                                link: meta_action_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
@@ -4589,7 +4620,10 @@ links:
                                     link: item_action
                         string-origins:random_chance:
                             chance:
-                                link: meta_action_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
+                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
+                                required: true
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -4598,7 +4632,9 @@ links:
                                 link: item_action
                         string-origins:chance:
                             chance:
-                                link: meta_action_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -4796,7 +4832,10 @@ links:
                                     link: block_action
                         string-origins:random_chance:
                             chance:
-                                link: meta_action_random_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
+                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
+                                required: true
                             action:
                                 desc: The action which might be executed.
                                 link: block_action
@@ -4805,7 +4844,9 @@ links:
                                 link: block_action
                         string-origins:chance:
                             chance:
-                                link: meta_action_chance
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+                                link: expression_float
                             action:
                                 desc: The action which might be executed.
                                 link: block_action
@@ -8551,14 +8592,6 @@ links:
                 prevent:
                     desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
                     type: boolean
-    meta_action_random_chance:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-        desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-        link: expression_float
-        required: true
-    meta_action_chance:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-        desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
         link: expression_float
     meta_advancement_selection:
         desc: |
