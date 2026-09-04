@@ -8952,7 +8952,8 @@ links:
         or:
           - title: simple
             link: identifier
-          - type: object
+          - title: object
+            type: object
             props:
                 or:
                   - item:
