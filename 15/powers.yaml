@@ -8814,7 +8814,7 @@ links:
         condition:
             desc: Per-overlay condition, inside overlays only. Checked every frame; an overlay whose condition fails is skipped while the rest keep drawing. On the single-overlay spelling the power’s own condition already does this job.
             link: entity_condition
-        link: overlay_power
+        extend: overlay_power
     overlay_power:
         type: object
         props:
@@ -8845,16 +8845,16 @@ links:
             draw_mode:
                 desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
                 enum: ['nausea','texture']
-                default: 'texture'
-                unspec: 'texture'
+                default: 1
+                unspec: true
             draw_phase:
                 desc: Determines if the overlay should render below or above the HUD ("below_hud" or "above_hud" respectively).
                 enum: ['above_hud','below_hud']
-                unspec: 'above hud'
+                unspec: true
             hide_with_hud:
                 desc: Hide it when the HUD is hidden with F1.
                 type: boolean
-                unspec: true
+                default: true
             visible_in_third_person:
                 desc: Determines if the overlay is visible in third person.
                 type: boolean
