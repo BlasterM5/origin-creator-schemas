@@ -91,17 +91,15 @@ props:
                             vals:
                                 link: weight_map
                     string-roll:
-                        desc: |
-                            An animated 'roll' or 'gacha' style random selection animation.
                         roll_duration:
-                            desc: Animation length in ticks.
+                            desc: |
+                                An animated 'roll' or 'gacha' style random selection animation.
                             type: integer
                             default: 80
                     string-gacha:
-                        desc: |
-                            (ALIAS) An animated 'roll' or 'gacha' style random selection animation.
                         roll_duration:
-                            desc: Animation length in ticks.
+                            desc: |
+                                (ALIAS) An animated 'roll' or 'gacha' style random selection animation.
                             type: integer
                             default: 80
     allow_random:
