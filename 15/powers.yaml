@@ -1999,7 +1999,7 @@ links:
                                 link: bientity_action
                         string-origins:choice:
                             actions:
-                                link: meta_action_choice
+                                extend: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
@@ -2556,7 +2556,7 @@ links:
                                 link: entity_action
                         string-origins:choice:
                             actions:
-                                link: meta_action_choice
+                                extend: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
@@ -3801,7 +3801,7 @@ links:
                                 link: item_action
                         string-origins:choice:
                             actions:
-                                link: meta_action_choice
+                                extend: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
@@ -3985,7 +3985,7 @@ links:
                                 link: block_action
                         string-origins:choice:
                             actions:
-                                link: meta_action_choice
+                                extend: meta_action_choice
                                 type: list
                                 vals:
                                     type: object
