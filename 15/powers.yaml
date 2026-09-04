@@ -8342,7 +8342,7 @@ links:
                 desc: Whether the bar should be visible or not
                 type: boolean
                 unspec: true
-            link: hud_render_textures
+            extend: hud_render_textures
             condition:
                 desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
                 link: entity_condition
