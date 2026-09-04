@@ -8816,78 +8816,80 @@ links:
             link: entity_condition
         link: overlay_power
     overlay_power:
-        texture:
-            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
-            desc: The namespace and ID of the texture to use as an overlay.
-            link: identifier
-        strength:
-            desc: |
-                In texture mode, the alpha the texture is drawn at. In nausea mode, how far it is stretched (1.0 = screen size). Range 0.0–1.0.
-            link: number_percent
-            default: 1
-        red:
-            desc: |
-                Multiplied into the matching colour channel. Range 0.0–1.0.
-            link: number_percent
-            default: 1
-        green:
-            desc: |
-                Multiplied into the matching colour channel. Range 0.0–1.0.
-            link: number_percent
-            default: 1
-        blue:
-            desc: |
-                Multiplied into the matching colour channel. Range 0.0–1.0.
-            link: number_percent
-            default: 1
-        draw_mode:
-            desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
-            enum: ['nausea','texture']
-            default: 'texture'
-            unspec: 'texture'
-        draw_phase:
-            desc: Determines if the overlay should render below or above the HUD ("below_hud" or "above_hud" respectively).
-            enum: ['above_hud','below_hud']
-            unspec: 'above hud'
-        hide_with_hud:
-            desc: Hide it when the HUD is hidden with F1.
-            type: boolean
-            unspec: true
-        visible_in_third_person:
-            desc: Determines if the overlay is visible in third person.
-            type: boolean
-        x:
-            desc: Offset in GUI pixels from the anchor.
-            link: expression_integer
-        y:
-            desc: Offset in GUI pixels from the anchor. y grows downward.
-            link: expression_integer
-        width:
-            desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
-            link: expression_integer
-            default: unspec
-        height:
-            desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
-            link: expression_integer
-            default: unspec
-        anchor:
-            desc: Which point of the screen x/y are measured from.
-            enum: ['top_left','top_center','top_right','left','center','right','bottom_left','bottom_center','bottom_right']
-            unspec: 0
-        u:
-            desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
-            link: expression_integer
-        v:
-            desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
-            link: expression_integer
-        texture_width:
-            desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
-            type: integer
-            default: unspec
-        texture_height:
-            desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
-            type: integer
-            default: unspec
+        type: object
+        props:
+            texture:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
+                desc: The namespace and ID of the texture to use as an overlay.
+                link: identifier
+            strength:
+                desc: |
+                    In texture mode, the alpha the texture is drawn at. In nausea mode, how far it is stretched (1.0 = screen size). Range 0.0–1.0.
+                link: number_percent
+                default: 1
+            red:
+                desc: |
+                    Multiplied into the matching colour channel. Range 0.0–1.0.
+                link: number_percent
+                default: 1
+            green:
+                desc: |
+                    Multiplied into the matching colour channel. Range 0.0–1.0.
+                link: number_percent
+                default: 1
+            blue:
+                desc: |
+                    Multiplied into the matching colour channel. Range 0.0–1.0.
+                link: number_percent
+                default: 1
+            draw_mode:
+                desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
+                enum: ['nausea','texture']
+                default: 'texture'
+                unspec: 'texture'
+            draw_phase:
+                desc: Determines if the overlay should render below or above the HUD ("below_hud" or "above_hud" respectively).
+                enum: ['above_hud','below_hud']
+                unspec: 'above hud'
+            hide_with_hud:
+                desc: Hide it when the HUD is hidden with F1.
+                type: boolean
+                unspec: true
+            visible_in_third_person:
+                desc: Determines if the overlay is visible in third person.
+                type: boolean
+            x:
+                desc: Offset in GUI pixels from the anchor.
+                link: expression_integer
+            y:
+                desc: Offset in GUI pixels from the anchor. y grows downward.
+                link: expression_integer
+            width:
+                desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
+                link: expression_integer
+                default: unspec
+            height:
+                desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
+                link: expression_integer
+                default: unspec
+            anchor:
+                desc: Which point of the screen x/y are measured from.
+                enum: ['top_left','top_center','top_right','left','center','right','bottom_left','bottom_center','bottom_right']
+                unspec: 0
+            u:
+                desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
+                link: expression_integer
+            v:
+                desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
+                link: expression_integer
+            texture_width:
+                desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
+                type: integer
+                default: unspec
+            texture_height:
+                desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
+                type: integer
+                default: unspec
     part_color:
         type: object
         props:
