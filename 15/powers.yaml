@@ -5971,7 +5971,7 @@ links:
                             link: bientity_condition
                         particle:
                             desc: The particle type that will be spawned.
-                            link: particle_type
+                            link: identifier
                         frequency:
                             desc: Determines how often the particles should spawn (interval in ticks).
                             type: integer
@@ -8860,24 +8860,17 @@ links:
         desc: A data type that's either a String which defines only the particle type or an Object which defines the particle type and its additional parameters.
         or:
           - title: simple
-            link: particle_type
+            link: identifier
           - title: custom
             type: object
             props:
                 type:
                     desc: The namespace and ID of the particle type.
-                    link: particle_type
+                    link: identifier
                 params:
                     desc: The additional parameters for the particle type.
                     type: string
                     ext: true
-    particle_type:
-        or:
-          - title: built-in
-            enum: ['',$Unique Particles,'bubble','bubble_column_up','current_down','dolphin','bubble_pop','fishing','rain','splash','cherry_leaves','flame','small_flame','soul_fire_flame','lava','damage_indicator','angry_villager','composter','egg_crack','happy_villager','heart','elder_guardian','firefly','infested','raid_omen','small_gust','trial_omen','gust','gust_emitter','campfire_cosy_smoke','campfire_signal_smoke','soul','sculk_soul','sculk_charge','sculk_charge_pop','shriek','sonic_boom','vibration','trial_spawner_detection','trial_spawner_detection_ominous','vault_connection',$Block/item,'block','dust_pillar','block_marker','item','item_snowball','item_slime','item_cobweb',$Colored Particles,'mycelium','underwater','ash','crimson_spore','warped_spore','white_ash','witch','instant_effect','crit','enchanted_hit','sweep_attack','firework','flash','glow','electric_spark','scrape','wax_on','wax_off','note','enchant','end_rod','totem_of_undying','effect','entity_effect','dripping_water','falling_water','dripping_dripstone_water','falling_dripstone_water','dripping_lava','falling_lava','dripping_dripstone_lava','falling_dripstone_lava','dripping_honey','falling_honey','falling_nectar','falling_spore_blossom','spore_blossom_air','dripping_obsidian_tear','falling_obsidian_tear','landing_honey','landing_lava','landing_obsidian_tear','explosion_emitter','explosion','dragon_breath','spit','cloud','poof','smoke','large_smoke','glow_squid_ink','squid_ink','sneeze','snowflake','white_smoke','portal','reverse_portal','dust','dust_color_transition','dust_plume','falling_dust','ominous_spawning']
-            unspec: true
-          - title: custom
-            link: identifier
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.
