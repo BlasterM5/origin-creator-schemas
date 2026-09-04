@@ -9377,7 +9377,7 @@ links:
           - title: advanced
             type: object
             extra:
-                extend: nbt_object
+                link: nbt_object
     nbt_object:
         nopanel: true
         or:
@@ -9389,6 +9389,7 @@ links:
             vals:
                 link: nbt_object
           - title: object
+            type: object
             extra:
                 link: nbt_object
     number_percent:
