@@ -9377,7 +9377,7 @@ links:
           - title: advanced
             type: object
             extra:
-                link: nbt_object
+                extend: nbt_object
     nbt_object:
         nopanel: true
         or:
