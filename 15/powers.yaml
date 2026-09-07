@@ -4793,7 +4793,7 @@ links:
                                 link: identifier_array
                             levels:
                                 desc: If specified, only the enchantments that has the specified level will be removed from the item.
-                                link: enchantment
+                                type: integer
                                 unspec: true
                             reset_repair_cost:
                                 desc: Determines whether the ‘repair cost’ of the item should be reset.
