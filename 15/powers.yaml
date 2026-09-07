@@ -5316,7 +5316,6 @@ links:
                   - origins:action_when_damage_taken
                   - origins:attacker_action_when_hit
                   - origins:burn
-                  - origins:conditioned_attribute
                   - origins:damage_over_time
                   - origins:exhaust
                   - origins:ignore_water
@@ -5344,22 +5343,6 @@ links:
                         modifiers:
                             desc: Multiple modifiers applied to their respective attribute fields.
                             link: attribute_modifier_array_attribute
-                        update_health:
-                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
-                            type: boolean
-                            default: true
-                    string-origins:conditioned_attribute:
-                        attribute:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
-                            desc: (DEPRECATED) The vanilla attribute id this modifier targets.
-                            link: identifier
-                            required: true
-                        modifier:
-                            desc: A single modifier applied to its attribute.
-                            link: attribute_modifier_legacy
-                        modifiers:
-                            desc: Multiple modifiers applied to their respective attribute fields.
-                            link: attribute_modifier_array_legacy
                         update_health:
                             desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
