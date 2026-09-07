@@ -3104,7 +3104,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
                                 desc: |
                                     The advancement to act on. Omit it with selection: everything to act on all of them.
-                                link: identifier
+                                link: advancement
                             criterion:
                                 desc: A single criterion name, rather than the whole advancement.
                                 type: string
@@ -3125,7 +3125,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_advancement
                                 desc: |
                                     (ALIAS) The advancement to grant. Omit it with selection: everything to act on all of them.
-                                link: identifier
+                                link: advancement
                             criterion:
                                 desc: A single criterion name, rather than the whole advancement.
                                 type: string
@@ -3143,7 +3143,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_advancement
                                 desc: |
                                     (ALIAS) The advancement to revoke. Omit it with selection: everything to act on all of them.
-                                link: identifier
+                                link: advancement
                             criterion:
                                 desc: A single criterion name, rather than the whole advancement.
                                 type: string
@@ -7906,6 +7906,22 @@ links:
             fail	Indicates that the action is not performed and prevents other actions from performing.
             pass	Indicates that the action is not performed but allows other actions to perform.
             success	Indicates that the action is performed and the actor’s hand is swung.
+    advancement:
+        or:
+          - title: built-in
+            or:
+              - title: story
+                enum: ['story/root','story/mine_stone','story/upgrade_tools','story/smelt_iron','story/obtain_armor','story/lava_bucket','story/iron_tools','story/deflect_arrow','story/form_obsidian','story/mine_diamond','story/enter_the_nether','story/shiny_gear','story/cure_zombie_villager','story/follow_ender_eye','story/enter_the_end']
+              - title: nether
+                enum: ['nether/root','nether/return_to_sender','nether/find_bastion','nether/obtain_ancient_debris','nether/fast_travel','nether/find_fortress','nether/obtain_crying_obsidian','nether/distract_piglin','nether/ride_strider','nether/uneasy_alliance','nether/loot_bastion','nether/netherite_armor','nether/get_wither_skull','nether/obtain_blaze_rod','nether/charge_respawn_anchor','nether/ride_strider_in_overworld_lava','nether/explore_nether','nether/summon_wither','nether/brew_potion','nether/all_potions','nether/create_full_beacon','nether/all_effects']
+              - title: end
+                enum: ['end/root','end/kill_dragon','end/dragon_egg','end/enter_end_gateway','end/respawn_dragon','end/dragon_breath','end/find_end_city','end/elytra','end/levitate']
+              - title: adventure
+                enum: ['adventure/root','adventure/heart_transplanter','adventure/voluntary_exile','adventure/use_lodestone','adventure/spyglass_at_parrot','adventure/kill_a_mob','adventure/read_power_of_chiseled_bookshelf','adventure/trade','adventure/trim_with_any_armor_pattern','adventure/honey_block_slide','adventure/ol_betsy','adventure/lightning_rod_with_villager_no_fire','adventure/fall_from_world_height','adventure/salvage_sherd','adventure/avoid_vibration','adventure/sleep_in_bed','adventure/hero_of_the_village','adventure/spyglass_at_ghast','adventure/throw_trident','adventure/kill_mob_near_sculk_catalyst','adventure/shoot_arrow','adventure/kill_all_mobs','adventure/totem_of_undying','adventure/spear_many_mobs','adventure/summon_iron_golem','adventure/trade_at_world_height','adventure/trim_with_all_exclusive_armor_patterns','adventure/two_birds_one_arrow','adventure/whos_the_pillager_now','adventure/arbalistic','adventure/craft_decorated_pot_using_only_sherds','adventure/adventuring_time','adventure/play_jukebox_in_meadows','adventure/walk_on_powder_snow_with_leather_boots','adventure/spyglass_at_dragon','adventure/very_very_frightening','adventure/sniper_duel','adventure/bullseye','adventure/brush_armadillo','adventure/minecraft_trials_edition','adventure/crafters_crafting_crafters','adventure/lighten_up','adventure/who_needs_rockets','adventure/under_lock_and_key','adventure/revaulting','adventure/blowback','adventure/overoverkill']
+              - title: husbandry
+                enum: ['husbandry/root','husbandry/place_dried_ghast_in_water','husbandry/safely_harvest_honey','husbandry/breed_an_animal','husbandry/allay_deliver_item_to_player','husbandry/ride_a_boat_with_a_goat','husbandry/tame_an_animal','husbandry/make_a_sign_glow','husbandry/fishy_business','husbandry/silk_touch_nest','husbandry/tadpole_in_a_bucket','husbandry/uh_oh','husbandry/obtain_sniffer_egg','husbandry/plant_seed','husbandry/wax_on','husbandry/bred_all_animals','husbandry/allay_deliver_cake_to_note_block','husbandry/complete_catalogue','husbandry/tactical_fishing','husbandry/leash_all_frog_variants','husbandry/feed_snifflet','husbandry/balanced_diet','husbandry/obtain_netherite_hoe','husbandry/wax_off','husbandry/axolotl_in_a_bucket','husbandry/froglights','husbandry/plant_any_sniffer_seed','husbandry/kill_axolotl_target','husbandry/repair_wolf_armor','husbandry/whole_pack','husbandry/remove_wolf_armor']
+          - title: custom
+            link: identifier
     arm_pose:
         enum: ['empty','item','block','bow_and_arrow','throw_spear','crossbow_charge','crossbow_hold','spyglass','toot_horn','brush']
     attribute:
@@ -8393,9 +8409,34 @@ links:
             enum: ['origins:textures/gui/sprites/hud_render/apace/resource_bar.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png','origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png']
           - title: custom
             link: identifier
+    icon:
+        icon:
+            href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
+            desc: |
+                An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
+            or:
+              - title: item
+                link: identifier
+              - title: stack
+                link: item_stack
+              - title: texture
+                type: object
+                props:
+                    texture:
+                        desc: Path to the PNG, relative to assets/<namespace>/.
+                        link: identifier
+                    width:
+                        desc: Width in pixels of the region to draw, measured from the top-left of the file.
+                        type: integer
+                        default: unspec
+                    height:
+                        desc: Height in pixels of the region to draw, measured from the top-left of the file.
+                        type: integer
+                        default: unspec
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
+        hook: [ns]
     identifier_array:
         type: list
         vals:
