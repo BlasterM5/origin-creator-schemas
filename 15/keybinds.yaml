@@ -1,0 +1,14 @@
+type: object
+props:
+    key:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/key/#data-driven-keybinds
+        desc: The default physical key, e.g. key.keyboard.g, key.mouse.left.
+        type: string
+        allow: 'a-z0-9_.-'
+    category:
+        desc: The Controls-menu group it’s listed under.
+        type: string
+        allow: 'a-z0-9_.-'
+    name:
+        desc: Display name. Falls back to an automatic translation key.
+        type: string
