@@ -38,8 +38,8 @@ links:
                                 link: item
                             nbt:
                                 desc: The nbt data of the item to use for the icon.
-                                type: string
-                                ext: true
+                                id: powers
+                                link: nbt
                     title:
                         desc: The title for this advancement.
                         id: item_modifiers
@@ -99,7 +99,7 @@ links:
                         allow: '*a-z0-9_\/:.-'
 type: or
 or:
-  - name: normal
+  - title: built-in
     type: object
     extend: advancement_base
     props:
@@ -922,7 +922,7 @@ or:
                                             desc: The origin that was chosen.
                                             type: string
                                             allow: '*a-z0-9_\/:.-'
-  - name: custom
+  - title: custom
     type: object
     extend: advancement_base
     props:
