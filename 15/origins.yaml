@@ -67,5 +67,5 @@ props:
         default: -1
 links:
     identifier:
-    type: string
-    allow: '*a-z0-9_#\/:.-'
+        type: string
+        allow: '*a-z0-9_#\/:.-'
