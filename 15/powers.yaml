@@ -8090,7 +8090,7 @@ links:
             double_chest	9x8 Double Chest inventory.
         enum: ['chest','hopper','dropper','dispenser','double_chest']
     cooldown:
-        link: cooldown
+        link: expression_integer
     crafting_recipe:
         desc: The type of recipe.
         or:
