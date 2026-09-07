@@ -1,7 +1,7 @@
-type: object
-props:
-    or:
-      - title: Tree
+or:
+  - title: Tree
+    type: object
+    props:
         name:
             href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-json-format/
             desc: The display name of the tree’s tab.
@@ -43,7 +43,9 @@ props:
             desc: If true, players can shift-click a purchased skill in the tree screen to un-buy it — the power is removed and its point cost returned (only allowed while no purchased skill depends on it). Set false to make purchases permanent (admins can still unbuy via the /apoli:skill_tree command).
             type: boolean
             unspec: true
-      - title: Skill
+  - title: Skill
+    type: object
+    props:
         parent:
             href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-json-format/#skill-file-fields
             desc: The tree, or another skill, this one hangs off.
