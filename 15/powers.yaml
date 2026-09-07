@@ -400,7 +400,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/attack_charge
                                 desc: How the charge is compared to compare_to.
                                 link: comparison
-                                default: '<='
+                                default: 1
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
                                 link: expression_float

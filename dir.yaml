@@ -11,4 +11,5 @@ $: 200
   - recipes
   - loot_tables
   - item_modifiers
+  - skill_trees
   - tags
