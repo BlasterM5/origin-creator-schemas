@@ -49,17 +49,14 @@ props:
             desc: The tree, or another skill, this one hangs off.
             link: identifier
             required: true
-        or:
-          - title: single
-            power:
-                desc: The power buying this skill grants.
+        power:
+            desc: The power buying this skill grants.
+            link: identifier
+        powers:
+            type: list
+            vals:
+                desc: The powers buying this skill grants.
                 link: identifier
-          - title: multiple
-            powers:
-                type: list
-                vals:
-                    desc: The powers buying this skill grants.
-                    link: identifier
         name:
             desc: Display name.
             id: powers
