@@ -8427,11 +8427,11 @@ links:
                 width:
                     desc: Width in pixels of the region to draw, measured from the top-left of the file.
                     type: integer
-                    default: unspec
+                    unspec: none
                 height:
                     desc: Height in pixels of the region to draw, measured from the top-left of the file.
                     type: integer
-                    default: unspec
+                    unspec: none
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
