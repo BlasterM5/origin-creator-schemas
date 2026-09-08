@@ -2901,9 +2901,6 @@ links:
                       - origins:modify_team
                       - origins:set_entity_data
                       - origins:set_stat
-                      - origins:drop_inventory
-                      - origins:modify_inventory
-                      - origins:replace_inventory
                       - origins:grant_advancement
                       - origins:revoke_advancement
 
