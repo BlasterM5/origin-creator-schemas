@@ -890,7 +890,7 @@ links:
                                 link: identifier
                             source:
                                 desc: If specified, the condition will check if the power is from the specified power source.
-                                type: identifier
+                                link: identifier
                                 unspec: true
                         string-origins:power_active:
                             power:
@@ -1205,7 +1205,6 @@ links:
                       - origins:amount
                       - origins:armor_value
                       - origins:durability
-                      - origins:empty
                       - origins:enchantable
                       - origins:enchantment
                       - origins:fireproof
@@ -3776,7 +3775,7 @@ links:
                                 link: identifier
                             source:
                                 desc: The namespace and ID of the source of the granted power.
-                                type: identifier
+                                link: identifier
                         string-origins:heal:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/heal
@@ -4242,7 +4241,7 @@ links:
                                 min: 0
                             summon_id:
                                 desc: A tag used by apoli:set_summon_max_life to target this clone.
-                                type: identifier
+                                link: identifier
                                 unspec: true
                             powers:
                                 desc: Powers to grant the clone on spawn.
