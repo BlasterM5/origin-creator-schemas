@@ -9311,7 +9311,7 @@ links:
                 link: jsontxt
             condition:
                 desc: The segment only shows while this condition passes (tested on the displaying player, server side).
-                type: entity_condition
+                link: entity_condition
     use_trigger:
         desc: |
             Defines when the action is executed.
