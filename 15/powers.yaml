@@ -3475,7 +3475,7 @@ links:
                                 default: true
                             amount:
                                 desc: Drop only — split this many off each matching stack instead of dropping the whole stack.
-                                type: integer_optional
+                                link: integer_optional
                         string-origins:modify_inventory:
                             inventory_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
@@ -3593,7 +3593,7 @@ links:
                                 default: true
                             amount:
                                 desc: Drop only — split this many off each matching stack instead of dropping the whole stack.
-                                type: integer_optional
+                                link: integer_optional
                         string-origins:emit_game_event:
                             event:
                                 desc: The namespace and ID of a game event. See the Minecraft Wiki for a chart of game events and their vibration amplitudes.
