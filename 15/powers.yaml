@@ -374,7 +374,7 @@ links:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/advancement/
                                 desc: The namespace and ID of the advancement the player needs to have completed in order for this condition to evaluate to true. Only works on players!
-                                link: identifier
+                                link: advancement
                         string-origins:air:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/air/
