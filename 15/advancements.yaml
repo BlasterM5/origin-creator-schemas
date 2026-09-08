@@ -158,6 +158,7 @@ links:
           - minecraft:player_hurt_entity
           - minecraft:player_interacted_with_entity
           - minecraft:player_killed_entity
+          - minecraft:recipe_crafted
           - minecraft:recipe_unlocked
           - minecraft:ride_entity_in_lava
           - minecraft:shot_crossbow
