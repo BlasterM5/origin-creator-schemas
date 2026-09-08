@@ -127,7 +127,7 @@ links:
           - link: entity_pred
           - type: list
             vals:
-                link: single_pred
+                link: entity_pred
     entity_pred:
         desc: Properties of a Minecraft entity.
         type: object
