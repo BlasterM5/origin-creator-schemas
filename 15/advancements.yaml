@@ -512,9 +512,9 @@ links:
                         victims:
                             desc: Either a single predicate that must match any of the killed entities, or a list of predicates that must match any of the killed entities. All of the predicates must be matched, and one killed entity may match only one predicate.
                             or:
-                                - id: predicates
+                              - id: predicates
                                 link: entity_pred
-                                - type: list
+                              - type: list
                                 vals:
                                     id: predicates
                                     link: entity_preds
