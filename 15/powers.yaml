@@ -1114,7 +1114,7 @@ links:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_origin
                                 desc: Only check this key. Omit to match any stored origin.
-                                type: meta_key
+                                link: meta_key
                             origin:
                                 desc: The stored entry must be this origin.
                                 link: identifier
@@ -1127,10 +1127,10 @@ links:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_value
                                 desc: Which entry to check.
-                                type: meta_key
+                                link: meta_key
                             value:
                                 desc: The stored text must equal this exactly. Omit to check only that the key exists.
-                                type: meta_key
+                                link: meta_key
                         string-origins:swapped:
                             layer:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/swapped
@@ -1550,9 +1550,9 @@ links:
                             value:
                                 desc: If specified, the boolean to compare to the boolean value of the specified property. Only used if the specified property has a boolean value.
                                 link: boolean_optional
-                            enum:
+                            'enum':
                                 desc: If specified, the string at which the string value of the specified property will be compared to. Only used if the specified property has a string value.
-                                type: meta_key
+                                link: meta_key
                         string-origins:command:
                             command:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/command
