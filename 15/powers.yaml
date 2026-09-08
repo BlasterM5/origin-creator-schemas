@@ -110,7 +110,6 @@ links:
                                 default: 2
                             fluid_handling:
                                 link: fluid_handling
-                                default: 'none'
                         string-origins:damage_would_kill:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/damage_would_kill/
