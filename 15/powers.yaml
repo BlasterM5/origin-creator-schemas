@@ -107,7 +107,7 @@ links:
                             shape_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/can_see/
                                 link: shape_type
-                                default: 'visual'
+                                default: 2
                             fluid_handling:
                                 link: fluid_handling
                                 default: 'none'
@@ -924,10 +924,9 @@ links:
                                 default: true
                             shape_type:
                                 link: shape_type
-                                default: 'visual'
+                                default: 2
                             fluid_handling:
                                 link: fluid_handling
-                                default: 'any'
                             space:
                                 desc: Determines how the direction will be calculated. Only used if 'direction' is specified.
                                 link: space
