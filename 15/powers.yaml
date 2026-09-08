@@ -3332,8 +3332,10 @@ links:
                             accessory_slot:
                                 desc: An accessory slot to conjure into. Requires Trinkets, Accessories or Curios; without one of those installed this does nothing.
                                 or:
-                                  - link: accessory_slot
-                                  - type: list
+                                  - title: single
+                                    link: accessory_slot
+                                  - title: multiple
+                                    type: list
                                     vals:
                                         link: accessory_slot
                             item:
@@ -7880,9 +7882,10 @@ links:
 
     accessory_slot:
         or:
-          - title: single
+          - title: simple
             link: meta_key
-          - type: object
+          - title: advanced
+            type: object
             props:
                 group:
                     link: meta_key
