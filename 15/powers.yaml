@@ -2816,7 +2816,6 @@ links:
                       - origins:area_of_effect
                       - origins:attach_rope
                       - origins:block_action_at
-                      - origins:change_resource
                       - origins:change_selected_slot
                       - origins:change_slot
                       - origins:clear_effect
@@ -3478,9 +3477,8 @@ links:
                                 desc: Drop only — split this many off each matching stack instead of dropping the whole stack.
                                 type: integer_optional
                         string-origins:modify_inventory:
-                            operation:
-                                link: inventory_operation
                             inventory_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
                                 desc: Whether to walk the entity’s own inventory or a power’s inventory.
                                 link: inventory_type
                             item_condition:
@@ -3512,9 +3510,8 @@ links:
                                 type: integer
                                 default: 0
                         string-origins:replace_inventory:
-                            operation:
-                                link: inventory_operation
                             inventory_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
                                 desc: Whether to walk the entity’s own inventory or a power’s inventory.
                                 link: inventory_type
                             item_condition:
@@ -3554,9 +3551,8 @@ links:
                                     replace only — merge the old item’s data onto the replacement. (1.20.1: NBT tag; 1.21.1: data components.)
                                 type: boolean
                         string-origins:drop_inventory:
-                            operation:
-                                link: inventory_operation
                             inventory_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/inventory_action
                                 desc: Whether to walk the entity’s own inventory or a power’s inventory.
                                 link: inventory_type
                             item_condition:
