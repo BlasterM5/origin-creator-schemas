@@ -3,7 +3,7 @@ links:
     bientity_condition:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 inverted:
@@ -202,7 +202,7 @@ links:
         unspec: none
         hooks: [fix_type]
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 inverted:
@@ -301,6 +301,7 @@ links:
                       - origins:xp
                       - $Origins Conditions
                       - origins:origin
+                      - origins:origin_tag
                       - origins:stored_origin
                       - origins:stored_value
                       - origins:swapped
@@ -403,7 +404,6 @@ links:
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
                                 link: expression_float
-                                default: 0.9
                         string-origins:attribute:
                             attribute:
                                 desc: |
@@ -467,7 +467,6 @@ links:
                             compare_to:
                                 desc: The value at which the amount of blocks which fulfill block_condition will be compared to.
                                 link: expression_integer
-                                default: 1
                         string-origins:brightness:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/brightness
@@ -607,7 +606,6 @@ links:
                             compare_to:
                                 desc: The value to compare the count against.
                                 link: expression_integer
-                                default: 1
                         string-origins:entity_set_size:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
@@ -844,6 +842,24 @@ links:
                                 link: identifier_single_or_array
                             layer:
                                 desc: Only check this layer. Omit to pass if a match is held on any layer.
+                                link: identifier
+                            selection:
+                                desc: |
+                                    Where to look: main (the chosen origin), active (the swapped-in origin, falling back to the chosen one), pool (origins sitting in a swap pool) or all (any of the three).
+                                link: selection
+                        string-origins:origin_tag:
+                            tag:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/origin_tag/
+                                desc: The tag(s) to look for. Passes if the origin carries any of them.
+                                or:
+                                  - title: single
+                                    link: meta_key
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: meta_key
+                            layer:
+                                desc: Only look at the origin held on this layer.
                                 link: identifier
                             selection:
                                 desc: |
@@ -1187,7 +1203,7 @@ links:
     item_condition:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 inverted:
@@ -1420,7 +1436,7 @@ links:
     block_condition:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 inverted:
@@ -1539,7 +1555,8 @@ links:
                                 link: block_state
                             comparison:
                                 desc: If specified and if the property uses an integer, determines how the integer value of the specified property should be compared to the specified value. Only used if the specified property has an integer value.
-                                link: comparison_optional
+                                link: comparison
+                                unspec: true
                             compare_to:
                                 desc: If specified, the integer at which the integer value of the specified property will be compared to. Only used if the specified property has an integer value.
                                 type: integer
@@ -1683,7 +1700,7 @@ links:
     fluid_condition:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 inverted:
@@ -1761,7 +1778,7 @@ links:
     biome_condition:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 inverted:
@@ -1853,7 +1870,7 @@ links:
     damage_condition:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 inverted:
@@ -1948,7 +1965,6 @@ links:
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
                                 link: expression_float
-                                default: 0.9
                         string-origins:attacker:
                             entity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attacker
@@ -1990,7 +2006,7 @@ links:
     bientity_action:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 type:
@@ -2150,15 +2166,12 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_velocity
                                 desc: The amount of velocity to add on the x-axis.
                                 link: expression_float
-                                default: 0
                             y:
                                 desc: The amount of velocity to add on the y-axis.
                                 link: expression_float
-                                default: 0
                             z:
                                 desc: The amount of velocity to add on the z-axis.
                                 link: expression_float
-                                default: 0
                             reference:
                                 desc: Determines whether to use the target entity’s "position" or "rotation" when calculating the velocity that will be applied to the target entity.
                                 enum: ['position','rotation']
@@ -2311,8 +2324,7 @@ links:
                                 default: 0
                             distance:
                                 desc: How far in front of the actor’s eyes the target is held, in blocks.
-                                type: number
-                                default: 2
+                                expression_float
                             disable_grabber:
                                 desc: While the grab is active, the actor cannot use Apoli power keybinds (active powers, toggles).
                                 type: boolean
@@ -2598,16 +2610,13 @@ links:
                             x:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 link: expression_float
-                                default: 0
-                                gap: true
+                                gap: above
                             y:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 link: expression_float
-                                default: 0
                             z:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 link: expression_float
-                                default: 0
                             space:
                                 desc: |
                                     Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind them.
@@ -2645,16 +2654,13 @@ links:
                             x:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 link: expression_float
-                                default: 0
-                                gap: true
+                                gap: above
                             y:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 link: expression_float
-                                default: 0
                             z:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 link: expression_float
-                                default: 0
                             space:
                                 desc: |
                                     Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind them.
@@ -2787,7 +2793,7 @@ links:
     entity_action:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 type:
@@ -3666,14 +3672,31 @@ links:
                                 link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use.
-                                type: integer
-                                default: 1
-                                min: 1
+                                link: expression_integer
                             speed:
                                 desc: The speed applied to the fired projectile.
+                                link: expression_float
+                            offset_x:
+                                desc: |
+                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
                                 type: number
-                                min: 0
-                                default: 1.5
+                                default: 0
+                            offset_y:
+                                desc: |
+                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                                type: number
+                                default: 0
+                            offset_z:
+                                desc: |
+                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                                type: number
+                                default: 0
+                            space:
+                                desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
+                                link: space
+                            max_distance:
+                                desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
+                                link: expression_float
                             divergence:
                                 desc: How much each projectile fired is affected by random spread.
                                 type: number
@@ -4166,38 +4189,60 @@ links:
                                 desc: If specified, this bi-entity action will be executed on either or both the actor (the entity that invoked the entity action) and the target (the spawned entity).
                                 link: bientity_action
                         string-origins:spawn_particles:
-                            particle:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_particles
-                                desc: The particle type that will be spawned.
-                                link: particle_effect
                             bientity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_particles
                                 desc: If specified, the particle will only be visible if this bi-entity condition is fulfilled by either or both the entity that has the power and the entity looking at the entity that has the power.
                                 link: bientity_condition
+                            particle:
+                                desc: The particle type that will be spawned.
+                                link: particle_effect
                             count:
                                 desc: How much of the specified particle type will be spawned.
-                                type: integer
+                                link: expression_integer
                             speed:
-                                desc: Determines the speed of the specified particle type.
-                                type: number
-                                default: 0
+                                desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
+                                or:
+                                  - title: number
+                                    link: expression_float
+                                  - title: vector
+                                    link: vector
+                            velocity_x:
+                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                                link: expression_float
+                            velocity_y:
+                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                                link: expression_float
+                            velocity_z:
+                                desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
+                                link: expression_float
+                            space:
+                                desc: |
+                                    How offset_*, spread and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking. With model_part set and no space written, both are read in the part’s own frame instead — see below.
+                                link: space
+                                unspec: true
+                            model_part:
+                                desc: Anchor the particles to a body part instead of the entity’s feet, and read offset_* and the velocity along that part. See Particles on a body part for the names.
+                                link: model_parts
                             force:
                                 desc: If set to true, the specified particle type that will be spawned can be seen from a far distance.
                                 type: boolean
                             spread:
-                                desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in. Defaults to (0.5, 0.5, 0.5).
-                                link: vector
+                                desc: |
+                                    The size of the volume the particles scatter through. A single number is the same figure on all three axes; a vector is per axis. Every component may be an expression. Read through space like the offset is, so space: "local" with {"x": 0, "y": 0, "z": 3} draws a line running away from the entity’s face rather than along world south.
+                                or:
+                                  - title: number
+                                    link: expression_float
+                                  - title: vector
+                                    link: vector
                             offset_x:
                                 desc: The offset of where the particle will be centered in the X axis.
-                                type: number
-                                default: 0
+                                link: expression_float
                             offset_y:
                                 desc: The offset of where the particle will be centered in the Y axis. Defaults to 0.5.
-                                type: number
-                                default: 0.5
+                                link: expression_float
                             offset_z:
                                 desc: The offset of where the particle will be centered in the Z axis.
-                                type: number
-                                default: 0
+                                link: expression_float
                         string-origins:summon_clone:
                             can_attack:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_clone
@@ -4402,16 +4447,13 @@ links:
                             x:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
                                 link: expression_float
-                                default: 0
-                                gap: true
+                                gap: above
                             y:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
                                 link: expression_float
-                                default: 0
                             z:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
                                 link: expression_float
-                                default: 0
                             relative:
                                 desc: |
                                     Whether x/y/z are an offset from the entity (true) or world coordinates (false). Alias: relative_to_position.
@@ -4599,7 +4641,7 @@ links:
     item_action:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 type:
@@ -4807,7 +4849,7 @@ links:
     block_action:
         unspec: none
         or:
-          - title: original
+          - title: built-in
             type: object
             props:
                 type:
@@ -5142,6 +5184,16 @@ links:
                 desc: The description of the power. Can be a literal string or a translation key.
                 type: string
                 ext: true
+            tags:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/powers/#tagging-powers
+                desc: Free-form labels for this power. Actions that work on powers can select by tag instead of by id — see Tagging powers.
+                or:
+                  - title: single
+                    link: meta_key
+                  - title: multiple
+                    type: list
+                    vals:
+                        link: meta_key
             badges:
                 desc: If set, it will display icon(s) after the name of the power.
                 type: list
@@ -5241,6 +5293,7 @@ links:
                   - origins:action_on_key_sequence
                   - origins:action_on_kill
                   - origins:action_on_land
+                  - origins:action_on_mouse_movement
                   - origins:action_on_scroll_wheel
                   - origins:action_on_sending_message
                   - origins:action_on_swap
@@ -5277,6 +5330,7 @@ links:
                   - origins:modify_status_effect_amplifier
                   - origins:modify_status_effect_duration
                   - origins:modify_swim_speed
+                  - origins:modify_tick_rate
                   - origins:modify_type_tag
                   - origins:modify_velocity
                   - origins:modify_xp_gain
@@ -5652,6 +5706,27 @@ links:
                             type: number
                             min: 0
                             default: 1.5
+                        offset_x:
+                            desc: |
+                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                            type: number
+                            default: 0
+                        offset_y:
+                            desc: |
+                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                            type: number
+                            default: 0
+                        offset_z:
+                            desc: |
+                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                            type: number
+                            default: 0
+                        space:
+                            desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
+                            link: space
+                        max_distance:
+                            desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
+                            link: expression_float
                         divergence:
                             desc: How much each projectile fired is affected by random spread.
                             type: number
@@ -5953,55 +6028,54 @@ links:
                             link: particle_type
                         frequency:
                             desc: Determines how often the particles should spawn (interval in ticks).
-                            type: integer
+                            link: expression_integer
                         count:
                             desc: Determines the amount of particles to spawn.
-                            type: integer
-                            default: 1
+                            link: expression_integer
+                        offset_x:
+                            desc: The offset of where the particle will be centered in the X axis.
+                            link: expression_float
+                        offset_y:
+                            desc: The offset of where the particle will be centered in the Y axis.
+                            link: expression_float
+                        offset_z:
+                            desc: The offset of where the particle will be centered in the Z axis.
+                            link: expression_float
                         space:
                             desc: |
                                 How offset_* and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking.
                             link: space
-                        offset_x:
-                            desc: The offset of where the particle will be centered in the X axis.
-                            type: number
-                            default: 0
-                        offset_y:
-                            desc: The offset of where the particle will be centered in the Y axis.
-                            type: number
-                            default: 0.5
-                        offset_z:
-                            desc: The offset of where the particle will be centered in the Z axis.
-                            type: number
-                            default: 0
                         speed:
                             desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
                             or:
-                              - title: simple
-                                type: number
-                                default: 0
-                              - title: expression
+                              - title: number
                                 link: expression_float
                               - title: vector
                                 link: vector
                         velocity_x:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                            type: number
-                            default: 0
+                            link: expression_float
                         velocity_y:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                            type: number
-                            default: 0
+                            link: expression_float
                         velocity_z:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                            type: number
-                            default: 0
+                            link: expression_float
+                        model_part:
+                            desc: Anchor the particles to a body part instead of the entity’s feet, and read offset_* and the velocity along that part. See Particles on a body part for the names.
+                            link: model_parts
+                            unspec: true
                         force:
                             desc: Determines whether to display the emitted particles within 512 blocks (true) or 32 blocks (false).
                             type: boolean
                         spread:
-                            desc: Determines the size of the three-dimensional cuboid volume to spawn the specified particle type in.
-                            link: vector
+                            desc: |
+                                The size of the volume the particles scatter through. A single number is the same figure on all three axes; a vector is per axis. Every component may be an expression. Read through space like the offset is, so space: "local" with {"x": 0, "y": 0, "z": 3} draws a line running away from the entity’s face rather than along world south.
+                            or:
+                              - title: number
+                                link: expression_float
+                              - title: vector
+                                link: vector
                         model_part:
                             desc: |
                                 Anchor the particles to a body part instead of the entity’s feet: head, body, right_arm, left_arm, right_leg, left_leg. The same names apoli:model_color and apoli:modify_model_parts use. offset_* is then measured from that part.
@@ -6768,6 +6842,37 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_land/
                             desc: The action to execute on the player.
                             link: entity_action
+                    string-origins:action_on_mouse_movement:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_mouse_movement/
+                            desc: Run on the holder when the mouse moves.
+                            link: entity_action
+                        up:
+                            desc: Fire when the mouse moves the view up.
+                            type: boolean
+                        down:
+                            desc: Fire when the mouse moves the view down.
+                            type: boolean
+                        left:
+                            desc: Fire when the mouse moves the view left.
+                            type: boolean
+                        right:
+                            desc: Fire when the mouse moves the view right.
+                            type: boolean
+                        threshold:
+                            desc: Degrees the view must move in an enabled direction within one tick before the action fires. Raise it so a resting hand doesn’t trigger anything.
+                            type: number
+                            min: 0
+                            default: 0
+                        ignore_modify_cursor_speed:
+                            desc: Read the raw mouse movement instead of what actually turned the holder.
+                            type: boolean
+                        cooldown:
+                            desc: Ticks before the action can fire again.
+                            link: expression_integer
+                        hud_render:
+                            desc: How the cooldown is drawn on the HUD.
+                            link: hud_render
                     string-origins:action_on_scroll_wheel:
                         entity_action:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_scroll_wheel/
@@ -6949,7 +7054,6 @@ links:
                         onset_delay:
                             desc: Ticks to wait after the condition first becomes true before entity_action starts running. rising_action still fires immediately.
                             link: expression_integer
-                            default: 0
                         rising_action:
                             desc: The action to execute on the first interval tick in which the condition became true.
                             link: entity_action
@@ -7423,7 +7527,20 @@ links:
                         model:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_model/
                             desc: Which model to apply. Resolved against registered addon models first, then as a Figura avatar.
+                            or:
+                              - title: built-in
+                                enum: ['apoli:vanilla','apoli:centaur','apoli:digi_legs','apoli:four_arms','apoli:stinkfly']
+                              - title: custom
+                                link: identifier
+                        texture_location:
+                            desc: Texture to draw the model with, first-person hand included.
                             link: identifier
+                        model_texture_location:
+                            desc: Texture for the parts of a model that are not drawn from the player skin — the horse half of apoli:centaur, for instance.
+                            link: identifier
+                        animations:
+                            desc: Bedrock clips played on top of the model’s vanilla pose.
+                            link: model_animation
                     string-origins:modify_player_spawn:
                         dimension:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_spawn/
@@ -7512,6 +7629,40 @@ links:
                         modifiers:
                             desc: If specified, these modifiers will be applied to the player's swim speed.
                             link: attribute_modifier_array
+                    string-origins:modify_tick_rate:
+                        target:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_tick_rate/
+                            desc: What the tick rate is applied to. self is the holder, chunk the chunk they stand in, dimension their whole dimension, server Minecraft’s own tick rate (the /tick one — see the action), area every entity matching the filters below.
+                            enum: ['self','chunk','dimension','server','area']
+                            default: 0
+                        rate:
+                            desc: Logical ticks per second. 20 is normal speed, 10 is half speed, 0 stops everything. Omit it to leave the rate inherited and only set frozen.
+                            link: expression_integer
+                            unspec: true
+                        frozen:
+                            desc: Stops ticking entirely, regardless of rate.
+                            type: boolean
+                        include_self:
+                            desc: Whether the holder is affected along with everything else. On area it also keeps the holder out of the chunks affect_chunks slows. On chunk and dimension write false explicitly to exempt the holder from the rate this power sets; leave it out and the holder is affected like anything else standing there. It cannot exempt anyone from server, which is Minecraft’s own global rate.
+                            link: boolean_optional
+                        bientity_condition:
+                            desc: area only — the holder is the actor and each candidate the target. Only entities that pass are affected.
+                            gap: above
+                            link: bientity_condition
+                        radius:
+                            desc: area only — how far the effect reaches. A single number is used for all three axes.
+                            link: vector_or_number
+                        shape:
+                            desc: area only — the shape carved out of that radius.
+                            link: shape
+                        affect_chunks:
+                            desc: area only — also applies the rate to every chunk the radius covers, so blocks, block entities and random ticks slow down too, not just entities.
+                            type: boolean
+                        interval:
+                            desc: area only — how often the area is re-scanned, in ticks.
+                            type: integer
+                            min: 1
+                            default: 1
                     string-origins:modify_type_tag:
                         tag:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_type_tag/
@@ -7904,17 +8055,8 @@ links:
     advancement:
         or:
           - title: built-in
-            or:
-              - title: story
-                enum: ['story/root','story/mine_stone','story/upgrade_tools','story/smelt_iron','story/obtain_armor','story/lava_bucket','story/iron_tools','story/deflect_arrow','story/form_obsidian','story/mine_diamond','story/enter_the_nether','story/shiny_gear','story/cure_zombie_villager','story/follow_ender_eye','story/enter_the_end']
-              - title: nether
-                enum: ['nether/root','nether/return_to_sender','nether/find_bastion','nether/obtain_ancient_debris','nether/fast_travel','nether/find_fortress','nether/obtain_crying_obsidian','nether/distract_piglin','nether/ride_strider','nether/uneasy_alliance','nether/loot_bastion','nether/netherite_armor','nether/get_wither_skull','nether/obtain_blaze_rod','nether/charge_respawn_anchor','nether/ride_strider_in_overworld_lava','nether/explore_nether','nether/summon_wither','nether/brew_potion','nether/all_potions','nether/create_full_beacon','nether/all_effects']
-              - title: end
-                enum: ['end/root','end/kill_dragon','end/dragon_egg','end/enter_end_gateway','end/respawn_dragon','end/dragon_breath','end/find_end_city','end/elytra','end/levitate']
-              - title: adventure
-                enum: ['adventure/root','adventure/heart_transplanter','adventure/voluntary_exile','adventure/use_lodestone','adventure/spyglass_at_parrot','adventure/kill_a_mob','adventure/read_power_of_chiseled_bookshelf','adventure/trade','adventure/trim_with_any_armor_pattern','adventure/honey_block_slide','adventure/ol_betsy','adventure/lightning_rod_with_villager_no_fire','adventure/fall_from_world_height','adventure/salvage_sherd','adventure/avoid_vibration','adventure/sleep_in_bed','adventure/hero_of_the_village','adventure/spyglass_at_ghast','adventure/throw_trident','adventure/kill_mob_near_sculk_catalyst','adventure/shoot_arrow','adventure/kill_all_mobs','adventure/totem_of_undying','adventure/spear_many_mobs','adventure/summon_iron_golem','adventure/trade_at_world_height','adventure/trim_with_all_exclusive_armor_patterns','adventure/two_birds_one_arrow','adventure/whos_the_pillager_now','adventure/arbalistic','adventure/craft_decorated_pot_using_only_sherds','adventure/adventuring_time','adventure/play_jukebox_in_meadows','adventure/walk_on_powder_snow_with_leather_boots','adventure/spyglass_at_dragon','adventure/very_very_frightening','adventure/sniper_duel','adventure/bullseye','adventure/brush_armadillo','adventure/minecraft_trials_edition','adventure/crafters_crafting_crafters','adventure/lighten_up','adventure/who_needs_rockets','adventure/under_lock_and_key','adventure/revaulting','adventure/blowback','adventure/overoverkill']
-              - title: husbandry
-                enum: ['husbandry/root','husbandry/place_dried_ghast_in_water','husbandry/safely_harvest_honey','husbandry/breed_an_animal','husbandry/allay_deliver_item_to_player','husbandry/ride_a_boat_with_a_goat','husbandry/tame_an_animal','husbandry/make_a_sign_glow','husbandry/fishy_business','husbandry/silk_touch_nest','husbandry/tadpole_in_a_bucket','husbandry/uh_oh','husbandry/obtain_sniffer_egg','husbandry/plant_seed','husbandry/wax_on','husbandry/bred_all_animals','husbandry/allay_deliver_cake_to_note_block','husbandry/complete_catalogue','husbandry/tactical_fishing','husbandry/leash_all_frog_variants','husbandry/feed_snifflet','husbandry/balanced_diet','husbandry/obtain_netherite_hoe','husbandry/wax_off','husbandry/axolotl_in_a_bucket','husbandry/froglights','husbandry/plant_any_sniffer_seed','husbandry/kill_axolotl_target','husbandry/repair_wolf_armor','husbandry/whole_pack','husbandry/remove_wolf_armor']
+            id: enums
+            link: advancement
           - title: custom
             link: identifier
     arm_pose:
@@ -7922,7 +8064,8 @@ links:
     attribute:
         or:
           - title: built-in
-            enum: ['generic.armor_toughness','generic.attack_damage','generic.attack_knockback','generic.attack_speed','generic.block_break_speed','player.block_interaction_range','generic.burning_time','player.entity_interaction_range','generic.explosion_knockback_resistance','generic.fall_damage_multiplier','generic.flying_speed','generic.gravity','generic.jump_strength','generic.knockback_resistance','generic.max_absorption','generic.max_health','player.mining_efficiency','generic.follow_range','generic.movement_efficiency','generic.oxygen_bonus','generic.safe_fall_distance','generic.scale','player.sneaking_speed','generic.movement_speed','generic.step_height','player.submerged_mining_speed','player.sweeping_damage_ratio','generic.water_movement_efficiency','zombie.spawn_reinforcements']
+            id: enums
+            link: attribute
             unspec: true
           - title: custom
             link: identifier
@@ -8024,7 +8167,7 @@ links:
                 link: attribute_modifier_legacy
     attribute_modifier_operation:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier-operation
-        enum: ['add_base_early','addition','multiply_base_additive','multiply_base','multiply_base_multiplicative','standard_multiply_base','standard_divide_base','add_base_late','min_base','max_base','set_base','multiply_total_additive','multiply_total_multiplicative','multiply_total','standard_multiply_total','standard_divide_total','min_total','max_total','set_total']
+        enum: ['add_base_early','multiply_base_additive','multiply_base_multiplicative','standard_multiply_base','standard_divide_base','add_base_late','min_base','max_base','set_base','multiply_total_additive','multiply_total_multiplicative','standard_multiply_total','standard_divide_total','min_total','max_total','set_total',$DEPRECATED,'addition','multiply_base','multiply_total']
         desc: |
             The operation performed by this modifier. The following operations are available:
             add_base_early:					NewBase = Base + Modifier (early in the base phase)
@@ -8049,14 +8192,16 @@ links:
     biome:
         or:
           - title: built-in
-            enum: [$Overworld,'the_void','plains','sunflower_plains','snowy_plains','ice_spikes','desert','swamp','mangrove_swamp','forest','flower_forest','birch_forest','dark_forest','old_growth_birch_forest','old_growth_pine_taiga','old_growth_spruce_taiga','taiga','snowy_taiga','savanna','savanna_plateau','windswept_hills','windswept_gravelly_hills','windswept_forest','windswept_savanna','jungle','sparse_jungle','bamboo_jungle','badlands','eroded_badlands','wooded_badlands','meadow','cherry_grove','grove','snowy_slopes','frozen_peaks','jagged_peaks','stony_peaks','river','frozen_river','beach','snowy_beach','stony_shore','warm_ocean','lukewarm_ocean','deep_lukewarm_ocean','ocean','deep_ocean','cold_ocean','deep_cold_ocean','frozen_ocean','deep_frozen_ocean','mushroom_fields','dripstone_caves','lush_caves','deep_dark',$Nether,'nether_wastes','warped_forest','crimson_forest','soul_sand_valley','basalt_deltas',$The End,'the_end','end_highlands','end_midlands','small_end_islands','end_barrens']
+            id: enums
+            link: biome
             unspec: true
           - title: custom
             link: identifier
     biome_tag:
         or:
           - title: built-in
-            enum: [$General,'allows_surface_slime_spawns','allows_tropical_fish_spawns_at_any_height','has_closest_water_fog','increased_fire_burnout','is_badlands','is_beach','is_deep_ocean','is_end','is_forest','is_hill','is_jungle','is_mountain','is_nether','is_ocean','is_overworld','is_river','is_savanna','is_taiga','mineshaft_blocking','more_frequent_drowned_spawns','polar_bears_spawn_on_alternate_blocks','plays_underwater_music','produces_corals_from_bonemeal','reduce_water_ambient_spawns','required_ocean_monument_surrounding','snow_golem_melts','spawns_cold_variant_frogs','spawns_gold_rabbits','spawns_snow_foxes','spawns_warm_variant_frogs','spawns_white_rabbits','strongold_biased_to','water_on_map_outlines','without_patrol_spawns','without_wandering_trader_spawns','without_zombie_sieges',Structure Check,'has_structure/ancient_city','has_structure/bastion_remnant','has_structure/buried_treasure','has_structure/desert_pyramid','has_structure/end_city','has_structure/igloo','has_structure/jungle_temple','has_structure/mineshaft','has_structure/mineshaft_mesa','has_structure/nether_fortress','has_structure/nether_fossil','has_structure/ocean_monument','has_structure/ocean_ruin_cold','has_structure/ocean_ruin_warm','has_structure/pillager_outpost','has_structure/ruined_portal_desert','has_structure/ruined_portal_jungle','has_structure/ruined_portal_mountain','has_structure/ruined_portal_nether','has_structure/ruined_portal_ocean','has_structure/ruined_portal_standard','has_structure/ruined_portal_swamp','has_structure/shipwreck','has_structure/shipwreck_beached','has_structure/stronghold','has_structure/swamp_hut','has_structure/trail_ruins','has_structure/trial_chambers','has_structure/village_desert','has_structure/village_plains','has_structure/village_savanna','has_structure/village_snowy','has_structure/village_taiga','has_structure/woodland_mansion']
+            id: enums
+            link: biome_tag
             unspec: true
           - title: custom
             link: identifier
@@ -8064,7 +8209,8 @@ links:
         enum: ['up','down','north','south','east','west']
         unspec: true
     block_state:
-        enum: ['age','attached','attachment','axis','berries','bites','bloom','bottom','can_summon','candles','charges','conditional','cracked','crafting','delay','disarmed','distance','down','drag','dusted','east','eggs','enabled','extended','eye','face','facing','falling','flower_amount','half','hanging','has_book','has_bottle_0','has_bottle_1','has_bottle_2','has_record','hatch','hinge','honey_level','in_wall','instrument','inverted','layers','leaves','level','lit','locked','mode','moisture','natural','north','note','occupied','ominous','open','orientation','part','persistent','pickles','potent_sulfur_state','power','powered','rotation','sculk_sensor_phase','segment_amount','shape','short','shrieking','side_chain','signal_fire','slot_0_occupied','slot_1_occupied','slot_2_occupied','slot_3_occupied','slot_4_occupied','slot_5_occupied','snowy','south','stage','thickness','tilt','tip','trial_spawner_state','triggered','type','unstable','up','vault_state','vertical_direction','waterlogged','west','falling','level']
+        id: enums
+        link: block_state
         unspec: true
     boolean_optional:
         enum: ['false','true']
@@ -8079,27 +8225,10 @@ links:
             ==	A equals B
             !=	A does not equal B
         enum: ['<','<=','>','>=','==','!=']
-    comparison_optional:
-        desc: |
-            Optionally specify how the two values should be compared:
-            <	A less than B
-            <=	A less than or equal to B
-            >	A greater than B
-            >=	A greater than or equal to B
-            ==	A equals B
-            !=	A does not equal B
-        enum: ['<','<=','>','>=','==','!=']
-        unspec: true
     container_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/container-type
-        desc: |
-            Determines the type of container to use for the inventory.
-            chest			9x4 Chest inventory.
-            hopper			5x1 Hopper inventory.
-            dropper			3x3 Dropper inventory.
-            dispenser		3x3 Dispenser inventory.
-            double_chest	9x8 Double Chest inventory.
-        enum: ['chest','hopper','dropper','dispenser','double_chest']
+        id: enums
+        link: container_type
     cooldown:
         link: expression_integer
     crafting_recipe:
@@ -8151,8 +8280,8 @@ links:
     damage_source_name:
         or:
           - title: built-in
-            enum: ['anvil','anvil.player','arrow','arrow.item','badRespawnPoint','cactus','cactus.player','cramming','cramming.player','dragonBreath','dragonBreath.player','drown','drown.player','dryout','dryout.player','even_more_magic','explosion','explosion.player','fall','fall.player','fallingBlock','fallingBlock.player','fallingStalactite','fallingStalactite.player','fireball','fireball.item','fireworks','fireworks.player','fireworks.item','flyIntoWall','flyIntoWall.player','freeze','freeze.player','generic','generic.player','hotFloor','hotFloor.player','indirectMagic','indirectMagic.item','inFire','inFire.player','inWall','inWall.player','lava','lava.player','lightningBolt','lightningBolt.player','magic','magic.player','mob','mob.item','onFire','onFire.player','outOfWorld','outOfWorld.player','player','player.item','sonic_boom','sonic_boom.player','sonic_boom.item','stalagmite','stalagmite.player','starve','starve.player','sting','sting.player','sting.item','sweetBerryBush','sweetBerryBush.player','thorns','thorns.item','thrown.item','trident','trident.item','wither','wither.player','witherSkull']
-            default: 'generic'
+            id: enums
+            link: damage_source_name
           - title: origins
             enum: ['genericDamageOverTime','genericDamageOverTime.player','hurt_by_water','hurt_by_water.player','no_water_for_gills','no_water_for_gills.player']
           - title: custom
@@ -8160,14 +8289,16 @@ links:
     damage_type:
         or:
           - title: built-in
-            enum: ['arrow','bad_respawn_point','cactus','campfire','cramming','dragon_breath','drown','dry_out','explosion','fall','falling_anvil','falling_block','falling_stalactite','fireball','fireworks','fly_into_wall','freeze','generic','generic_kill','hot_floor','in_fire','in_wall','indirect_magic','lava','lightning_bolt','magic','mob_attack','mob_attack_no_aggro','mob_projectile','on_fire','out_of_world','outside_border','player_attack','player_explosion','sonic_boom','spit','stalagmite','starve','sting','sweet_berry_bush','thorns','thrown','trident','unattributed_fireball','wind_charge','wither','wither_skull']
+            id: enums
+            link: damage_type
             unspec: true
           - title: custom
             link: identifier
     damage_type_tag:
         or:
           - title: built-in
-            enum: ['always_hurts_ender_dragons','always_kills_armor_stands','always_most_significant_fall','always_triggers_silverfish','avoids_guardian_thorns','burns_armor_stands','burn_from_stepping','bypasses_armor','bypasses_cooldown','bypasses_effects','bypasses_enchantments','bypasses_invulnerability','bypasses_resistance','bypasses_shield','bypasses_wolf_armor','can_break_armor_stand','damages_helmet','ignites_armor_stands','is_drowning','is_explosion','is_fall','is_fire','is_freezing','is_lightning','is_projectile','no_anger','no_impact','no_knockback','panic_causes','panic_environmental_causes','witch_resistant_to','wither_immune_to']
+            id: enums
+            link: damage_type_tag
             unspec: true
           - title: custom
             link: identifier
@@ -8185,7 +8316,8 @@ links:
     dimension:
         or:
           - title: built-in
-            enum: ['overworld','the_nether','the_end']
+            id: enums
+            link: dimension
           - title: custom
             link: identifier
     easing:
@@ -8213,7 +8345,8 @@ links:
     enchantment:
         or:
           - title: built-in
-            enum: ['aqua_affinity','bane_of_arthropods','blast_protection','breach','channeling','binding_curse','vanishing_curse','density','depth_strider','efficiency','feather_falling','fire_aspect','fire_protection','flame','fortune','frost_walker','impaling','infinity','knockback','looting','loyalty','luck_of_the_sea','lure','mending','multishot','piercing','power','projectile_protection','protection','punch','quick_charge','respiration','riptide','sharpness','silk_touch','smite','soul_speed','sweeping_edge','swift_sneak','thorns','unbreaking','wind_burst','cleaving']
+            id: enums
+            link: enchantment
             unspec: true
           - title: custom
             link: identifier
@@ -8229,7 +8362,8 @@ links:
               - title: mobs
                 link: mob_type_enum
               - title: object_entities
-                enum: ['area_effect_cloud','block_display','chest_minecart','command_block_minecart','end_crystal','evoker_fangs','experience_orb','falling_block','furnace_minecraft','glow_item_frame','hopper_minecart','interaction','item','item_display','item_frame','leash_knot','lightning_bolt','marker','minecart','ominous_item_spawner','painting','spawner_minecart','text_display','tnt','tnt_minecart']
+                id: enums
+                link: object_entities
                 unspec: true
               - title: projectiles
                 link: projectile_type_enum
@@ -8238,7 +8372,8 @@ links:
     entity_type_tag:
         or:
           - title: built-in
-            enum: ['aquatic','arrows','arthropod','axolotl_always_hostiles','axolotl_hunt_targets','beehive_inhabitors','can_breathe_under_water','can_turn_in_boats','deflects_projectiles','dismounts_underwater','fall_damage_immune','freeze_hurts_extra_types','freeze_immune_entity_types','frog_food','ignores_poison_and_regen','illager','illager_friends','immune_to_infested','immune_to_oozing','impact_projectiles','inverted_healing_and_harm','no_anger_from_wind_charge','non_controlling_rider','not_scary_for_pufferfish','powder_snow_walkable_mobs','raiders','redirectable_projectile','sensitive_to_bane_of_arthropods','sensitive_to_impaling','sensitive_to_smite','skeletons','undead','wither_friends','zombies','deflects_arrows','deflects_tridents']
+            id: enums
+            link: entity_type_tag
             unspec: true
           - title: custom
             link: identifier
@@ -8281,7 +8416,8 @@ links:
     features:
         or:
           - title: built-in
-            enum: ['armor','cape','cat_collar','creeper_power','deadmau5','dolphin_held_item','drowned_overlay','elytra','enderman_block','energy_swirl_overlay','eyes','fox_held_item','head','held_item','horse_armor','horse_marking','iron_golem_crack','iron_golem_flower','llama_decor','mooshroom_mushroom','panda_held_item','saddle','sheep_wool','shoulder_parrot','shulker_head','skeleton_clothing','slime_overlay','snowman_pumpkin','stuck_arrows','stuck_objects','stuck_stingers','trident_riptide','tropical_fish_color','villager_clothing','villager_held_item','witch_item','wither_armor','wolf_armor','wolf_collar','breeze_wind']
+            id: enums
+            link: features
             unspec: true
           - title: custom
             link: identifier
@@ -8292,7 +8428,8 @@ links:
           - type: custom
             link: meta_key
     fluid_vanilla:
-        enum: ['none','water','lava','powder_snow']
+        id: enums
+        link: fluid_vanilla
     fluid_handling:
         desc: |
             Determines how the raycast will handle fluids
@@ -8334,14 +8471,16 @@ links:
     game_event:
         or:
           - title: built-in
-            enum: [$Detected,'flap','step','swim','bounce','hit_ground','projectile_land','splash','instrument_play','item_interact_finish','projectile_shoot','elytra_glide','entity_action','unequip','entity_dismount','equip','entity_interact','entity_mount','shear','entity_damage','drink','eat','block_close','block_deactivate','block_detach','container_close','block_activate','block_attach','block_open','container_open','note_block_play','prime_fuse','block_change','block_destroy','fluid_pickup','block_place','fluid_place','entity_place','lightning_strike','teleport','entity_die','explode',$Undetected,'item_interact_start','jukebox_play','jukebox_stop_play','resonate_1','resonate_2','resonate_3','resonate_4','resonate_5','resonate_6','resonate_7','resonate_8','resonate_9','resonate_10','resonate_11','resonate_12','resonate_13','resonate_14','resonate_15','sculk_sensor_tendrils_clicking','shriek']
+            id: enums
+            link: game_event
             unspec: true
           - title: custom
             link: identifier
     game_event_tag:
         or:
           - title: built-in
-            enum: ['allay_can_listen','ignore_vibrations_sneaking','shrieker_can_listen','vibrations','warden_can_listen']
+            id: enums
+            link: game_event_tag
             unspec: true
           - title: custom
             link: identifier
@@ -8401,7 +8540,7 @@ links:
     hud_render_texture_location:
         or:
           - title: built-in
-            enum: ['origins:textures/gui/sprites/hud_render/apace/resource_bar.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png','origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png']
+            enum: [$Apace,'origins:textures/gui/sprites/hud_render/apace/resource_bar.png',$JustHuangHere,'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png',$IssacFanta,'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png',$SpiderKolo,'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png',$Stella,'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png',$Vevehki,'origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png']
           - title: custom
             link: identifier
     icon:
@@ -8517,7 +8656,20 @@ links:
                 type: integer
                 default: 1
             tag:
+                desc: 1.20.1
                 link: nbt
+                unspec: none
+            component:
+                desc: 1.21.1
+                or:
+                  - title: single
+                    link: nbt
+                or:
+                  - title: multiple
+                    type: list
+                    vals:
+                        link: nbt
+                unspec: none
     keybind:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/key
         desc: Defines which key an active power reacts to - a built-in key or one you define in a datapack. See the doc for more information.
@@ -8536,7 +8688,8 @@ links:
     meta_keybind:
         or:
           - title: built-in
-            enum: [$Origins,'key.origins.primary_active','key.origins.secondary_active',$Apoli,'key.apoli.primary_active','key.apoli.secondary_active',$Minecraft,$Gameplay,'key.attack','key.pickItem','key.use',$Movement,'key.jump','key.sneak','key.sprint','key.left','key.right','key.back','key.forward',$Inventory,'key.drop','key.hotbar.1','key.hotbar.2','key.hotbar.3','key.hotbar.4','key.hotbar.5','key.hotbar.6','key.hotbar.7','key.hotbar.8','key.hotbar.9','key.inventory','key.swapOffhand',$Creative Mode,'key.loadToolbarActivator','key.saveToolbarActivator',$Spectator Mode,'key.spectatorOutlines','key.spectatorHotbar',$Multiplayer,'key.playerlist','key.chat','key.command','key.socialInteractions',$Miscellaneous,'key.advancements','key.quickActions','key.screenshot','key.smoothCamera','key.fullscreen','key.toggleGui','key.togglePerspective','key.toggleSpectatorShaderEffects',$Debug,'key.debug.overlay','key.debug.modifier','key.debug.clearChat','key.debug.copyRecreateCommand','key.debug.copyLocation','key.debug.spectate','key.debug.crash','key.debug.debugOptions','key.debug.dumpDynamicTextures','key.debug.dumpVersion','key.debug.switchGameMode','key.debug.reloadChunk','key.debug.reloadResourcePacks','key.debug.showAdvancedTooltips','key.debug.showChunkBorders','key.debug.showHitboxes','key.debug.profiling','key.debug.improvedTransparency','key.debug.focusPause','key.debug.profilingChart','key.debug.fpsCharts','key.debug.networkCharts']
+            id: enums
+            link: meta_keybind
           - title: custom
             link: meta_key
     message_filter:
@@ -8634,7 +8787,8 @@ links:
           - title: custom
             link: identifier
     mob_type_enum:
-        enum: [$Passive,'allay','armadillo','axolotl','bat','camel','cat','chicken','cod','cow','donkey','frog','glow_squid','horse','mooshroom','mule','ocelot','parrot','pig','rabbit','salmon','sheep','skeleton_horse','sniffer','snow_golem','squid','strider','tadpole','tropical_fish','turtle','villager','wandering_trader','zombie_horse',$Neutral,'bee','cave_spider','dolphin','drowned','enderman','fox','goat','iron_golem','llama','panda','piglin','polar_bear','pufferfish','spider','trader_llama','wolf','zombified_piglin',$Hostile,'blaze','breeze','creeper','elder_guardian','endermite','evoker','ghast','guardian','hoglin','husk','magma_cube','phantom','piglin_brute','pillager','ravager','shulker','silverfish','skeleton','slime','stray','vex','vindicator','warden','witch','wither_skeleton','zoglin','zombie','zombie_villager',$Boss,'ender_dragon','wither',$Unused,'giant','illusioner',$Stands,'armor_stand']
+        id: enums
+        link: mob_type_enum
         unspec: true
     model_animation:
         type: object
@@ -8708,27 +8862,20 @@ links:
                 desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
                 link: easing
     model_parts:
-        enum: ['head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants']
+        or:
+          - title: built-in
+            enum: [$Vanilla,'root','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
+          - title: custom
+            link: meta_key
         unspec: true
     modify_entity_data:
         href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
-        desc: |
-            Which property to change:
-            data				|Type		|Property
-            no_gravity			|boolean	|Whether the entity ignores gravity.
-            invulnerable		|boolean	|Whether the entity is invulnerable.
-            silent				|boolean	|Whether the entity makes sounds.
-            glowing				|boolean	|Whether the entity has the glowing outline.
-            invisible			|boolean	|Whether the entity is invisible.
-            custom_name_visible	|boolean	|Whether the entity’s custom name is always shown.
-            no_ai				|boolean	|Disables AI (mobs only).
-            fall_distance		|number		|The accumulated fall distance.
-            air					|number		|Remaining air (in ticks).
-            fire_ticks			|number		|Remaining fire (in ticks).
         or:
           - title: built-in
-            enum: ['no_gravity','invulnerable','silent','glowing','invisible','custom_name_visible','no_ai','fall_distance','air','fire_ticks']
+            id: enums
+            link: entity_data
           - title: custom
+            desc: The entity data property to change.
             link: meta_key
         value:
             desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
@@ -8890,14 +9037,16 @@ links:
     particle_type:
         or:
           - title: built-in
-            enum: [$Unique Particles,'bubble','bubble_column_up','current_down','dolphin','bubble_pop','fishing','rain','splash','cherry_leaves','flame','small_flame','soul_fire_flame','lava','damage_indicator','angry_villager','composter','egg_crack','happy_villager','heart','elder_guardian','firefly','infested','raid_omen','small_gust','trial_omen','gust','gust_emitter','campfire_cosy_smoke','campfire_signal_smoke','soul','sculk_soul','sculk_charge','sculk_charge_pop','shriek','sonic_boom','vibration','trial_spawner_detection','trial_spawner_detection_ominous','vault_connection',$Block/item,'block','dust_pillar','block_marker','item','item_snowball','item_slime','item_cobweb',$Colored Particles,'mycelium','underwater','ash','crimson_spore','warped_spore','white_ash','witch','instant_effect','crit','enchanted_hit','sweep_attack','firework','flash','glow','electric_spark','scrape','wax_on','wax_off','note','enchant','end_rod','totem_of_undying','effect','entity_effect','dripping_water','falling_water','dripping_dripstone_water','falling_dripstone_water','dripping_lava','falling_lava','dripping_dripstone_lava','falling_dripstone_lava','dripping_honey','falling_honey','falling_nectar','falling_spore_blossom','spore_blossom_air','dripping_obsidian_tear','falling_obsidian_tear','landing_honey','landing_lava','landing_obsidian_tear','explosion_emitter','explosion','dragon_breath','spit','cloud','poof','smoke','large_smoke','glow_squid_ink','squid_ink','sneeze','snowflake','white_smoke','portal','reverse_portal','dust','dust_color_transition','dust_plume','falling_dust','ominous_spawning']
+            id: enums
+            link: particle_type
             unspec: true
           - title: custom
             link: identifier
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.
-        enum: ['flying','instabuild','invulnerable','mayBuild','mayfly']
+        id: enums
+        link: player_abilities
     player_model_type:
         desc: A String used to pick one of the two vanilla player skin models.
         enum: ['wide','slim']
@@ -8929,7 +9078,8 @@ links:
           - title: custom
             link: identifier
     projectile_type_enum:
-        enum: ['fireball','small_fireball','dragon_fireball','firework_rocket','llama_spit','arrow','spectral_arrow','shulker_bullet','experience_bottle','egg','ender_pearl','eye_of_ender','snowball','splash_potion','lingering_potion','trident','wind_charge','breeze_wind_charge','wither_skull']
+        id: enums
+        link: projectile_type
         unspec: true
     radial_menu_entry:
         type: object
@@ -9026,7 +9176,7 @@ links:
                 link: vector
             pierce:
                 desc: Shorthand that sets both pierce_blocks and pierce_entities.
-                type: boolean
+                link: boolean_optional
             pierce_blocks:
                 desc: |
                     If true, the ray passes through blocks: block_action runs on every block the ray intersects (up to 128), blocks stop culling entities behind them, and the ray traces its full length.
@@ -9186,7 +9336,8 @@ links:
         enum: ['collider','outline','visual']
     sound_category:
         desc: If specified, this specifies the category and options the sound event falls under. Otherwise, uses the category specified in the entity that invoked this action.
-        enum: ['master','music','record','weather','block','hostile','neutral','players','ambient','voice']
+        id: enums
+        link: sound_category
         unspec: true
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
@@ -9205,7 +9356,8 @@ links:
     status_effect:
         or:
           - title: built-in
-            enum: ['absorption','unluck','bad_omen','blindness','conduit_power','darkness','dolphins_grace','fire_resistance','glowing','haste','health_boost','hero_of_the_village','hunger','infested','instant_damage','instant_health','invisibility','jump_boost','levitation','luck','mining_fatigue','nausea','night_vision','oozing','poison','raid_omen','regeneration','resistance','saturation','slowness','slow_falling','speed','strength','trial_omen','water_breathing','weakness','weaving','wind_charged','wither']
+            id: enums
+            link: status_effect
             unspec: true
           - title: custom
             link: identifier
@@ -9226,11 +9378,9 @@ links:
             duration:
                 desc: Determines the duration of the status effect in ticks.
                 link: expression_integer
-                default: 100
             amplifier:
                 desc: Determines the strength of the status effect (0 being level 1).
                 link: expression_integer
-                default: 0
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 talias: is_ambient
@@ -9255,11 +9405,9 @@ links:
             duration:
                 desc: Determines the duration of the status effect in ticks.
                 link: expression_integer
-                default: 100
             amplifier:
                 desc: Determines the strength of the status effect (0 being level 1).
                 link: expression_integer
-                default: 0
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 talias: is_ambient
@@ -9278,7 +9426,8 @@ links:
     structure:
         or:
           - title: built-in
-            enum: ['ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
+            id: enums
+            link: structure
             unspec: true
           - title: custom
             link: identifier
@@ -9333,7 +9482,7 @@ links:
                 type: number
 hooks: [preserve_single]
 or:
-  - title: simple
+  - title: single
     link: power
   - title: multiple
     link: multi_power

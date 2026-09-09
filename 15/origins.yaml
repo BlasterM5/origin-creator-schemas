@@ -11,6 +11,17 @@ props:
         desc: The lore shown when selecting.
         type: string
         ext: true
+    tags:
+        desc: Free-form labels on this origin. origins:origin_tag tests them, so a condition can name a group of origins instead of listing ids.
+        or:
+          - title: single
+            type: string
+            allow: 'a-z0-9._-'
+          - title: multiple
+            type: list
+            vals:
+                type: string
+                allow: 'a-z0-9._-'
     powers:
         desc: The powers this origin grants.
         type: list
