@@ -2324,7 +2324,7 @@ links:
                                 default: 0
                             distance:
                                 desc: How far in front of the actor’s eyes the target is held, in blocks.
-                                expression_float
+                                link: expression_float
                             disable_grabber:
                                 desc: While the grab is active, the actor cannot use Apoli power keybinds (active powers, toggles).
                                 type: boolean
