@@ -1,4 +1,5 @@
-type: link
+type: string
+ext: true
 links:
     advancement:
         or:
