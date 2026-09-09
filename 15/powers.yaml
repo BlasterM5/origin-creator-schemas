@@ -6076,10 +6076,6 @@ links:
                                 link: expression_float
                               - title: vector
                                 link: vector
-                        model_part:
-                            desc: |
-                                Anchor the particles to a body part instead of the entity’s feet: head, body, right_arm, left_arm, right_leg, left_leg. The same names apoli:model_color and apoli:modify_model_parts use. offset_* is then measured from that part.
-                            link: model_parts
                         visible_in_first_person:
                             desc: Determines whether the particle type should be visible in first person.
                             type: boolean
