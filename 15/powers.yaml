@@ -8660,7 +8660,6 @@ links:
                 or:
                   - title: single
                     link: nbt
-                or:
                   - title: multiple
                     type: list
                     vals:
