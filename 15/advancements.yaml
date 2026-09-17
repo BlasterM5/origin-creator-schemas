@@ -124,6 +124,7 @@ links:
         type: object
         props:
             trigger:
+                ns: minecraft
                 enum:
                   - $Origins
                   - origins:chose_origin
