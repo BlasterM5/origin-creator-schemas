@@ -15,6 +15,10 @@ links:
                       - origins:nothing
                       - origins:all_of
                       - origins:any_of
+                      - origins:minecraft_version
+                      - origins:mod_loaded
+                      - origins:random_chance
+                      - origins:constant
                       - origins:invert
                       - origins:actor_condition
                       - origins:target_condition
@@ -35,12 +39,14 @@ links:
                       - origins:riding_recursive
                       - origins:riding_root
                       - origins:roped_together
+                      - origins:same_equipped_item
                       - origins:same_team
                       - origins:script
                       - origins:send_condition
                       - $DEPRECATED
                       - origins:and
                       - origins:or
+                      - origins:chance
                     more:
                         string-origins:nothing: {}
                         string-origins:all_of:
@@ -71,6 +77,31 @@ links:
                                 type: list
                                 vals:
                                     link: bientity_condition
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
                         string-origins:random_chance:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
@@ -176,6 +207,45 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/same_team/
                                 desc: If true, two entities that are both on no team count as allied.
                                 type: boolean
+                        string-origins:same_equipped_item:
+                            item_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/same_equipped_item/
+                                desc: If specified, the actor’s stack must satisfy this condition.
+                                link: item_condition
+                            equipment_slot:
+                                desc: The actor’s slot(s) to read.
+                                or:
+                                  - title: single
+                                    link: equipment_slot
+                                    default: 0
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: equipment_slot
+                                        default: 0
+                            target_equipment_slot:
+                                desc: The target’s slot(s) to read. Defaults to equipment_slot.
+                                or:
+                                  - title: single
+                                    link: equipment_slot
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: equipment_slot
+                            compare_id:
+                                desc: The two stacks must be the same item.
+                                type: boolean
+                                default: true
+                            compare_count:
+                                desc: The two stacks must have the same count.
+                                type: boolean
+                            compare_tag:
+                                desc: The two stacks must carry identical item data — enchantments, custom name, custom data and the rest.
+                                talias: ['compare_components','compare_nbt']
+                                type: boolean
+                            allow_empty:
+                                desc: Count two empty slots as a match. Off by default, so an unarmed pair never passes.
+                                type: boolean
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/script/
@@ -216,6 +286,8 @@ links:
                       - origins:any_of
                       - origins:constant
                       - origins:random_chance
+                      - origins:minecraft_version
+                      - origins:mod_loaded
                       - origins:ability
                       - origins:advancement
                       - origins:air
@@ -289,9 +361,11 @@ links:
                       - origins:script
                       - origins:send_condition
                       - origins:sneaking
+                      - origins:sound_playing
                       - origins:sprinting
                       - origins:stat
                       - origins:status_effect
+                      - origins:stored_power
                       - origins:submerged_in
                       - origins:swimming
                       - origins:tamed
@@ -350,6 +424,31 @@ links:
                                 type: list
                                 vals:
                                     link: entity_condition
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
                         string-origins:random_chance:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
@@ -547,7 +646,7 @@ links:
                                 default: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
-                                type: boolean_optional
+                                link: boolean_optional
                             round_to_digit:
                                 desc: |
                                     If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work (e.g: -2 rounds to multiples of 100).
@@ -678,9 +777,7 @@ links:
                                 link: meta_key
                             command_tags:
                                 desc: Several tags. Passes if the entity has any of them. Combines with command_tag.
-                                type: list
-                                vals:
-                                    link: meta_key
+                                link: meta_key_array
                         string-origins:has_location:
                             id:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/has_location/
@@ -792,7 +889,7 @@ links:
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
                                 link: comparison
-                                default: '>'
+                                default: 2
                             compare_to:
                                 desc: The value at which the amount of items/stacks that were evaluated are compared to.
                                 type: integer
@@ -851,13 +948,7 @@ links:
                             tag:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/origin_tag/
                                 desc: The tag(s) to look for. Passes if the origin carries any of them.
-                                or:
-                                  - title: single
-                                    link: meta_key
-                                  - title: multiple
-                                    type: list
-                                    vals:
-                                        link: meta_key
+                                link: meta_key_single_or_array
                             layer:
                                 desc: Only look at the origin held on this layer.
                                 link: identifier
@@ -1037,6 +1128,24 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/send_condition/
                                 link: meta_send_condition_action
                         string-origins:sneaking: {}
+                        string-origins:sound_playing:
+                            sound:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/sound_playing/
+                                desc: The sound event to watch for, e.g. minecraft:entity.ender_dragon.growl.
+                                link: identifier
+                                required: true
+                            category:
+                                desc: Only match this sound category. Omit to match any.
+                                link: sound_category
+                            duration:
+                                desc: How many ticks after the sound starts it still counts as playing. Set this to roughly the length of the sound.
+                                type: integer
+                                default: 20
+                                min: 0
+                            range:
+                                desc: Maximum distance from the entity to the point the sound was played. Left out, the sound’s own audible radius is used, so the condition is true exactly for entities that could hear it.
+                                type: number
+                                unspec: true
                         string-origins:sprinting: {}
                         string-origins:stat:
                             stat:
@@ -1119,6 +1228,25 @@ links:
                                 desc: The maximum duration the status effect should have in order to pass the check. Defaults to 2147483647.
                                 link: integer_dur
                                 unspec: 2147483647
+                        strign-stored_origin:
+                            storage:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stored_power/
+                                desc: Only look in this storage power. Omit to count across every one the entity has.
+                                link: identifier
+                            power:
+                                desc: Only count this stored power.
+                                link: identifier
+                            tags:
+                                desc: Only count stored powers carrying one of these tags.
+                                link: meta_key_single_or_array
+                            comparison:
+                                desc: How to compare the number of matches against compare_to.
+                                link: comparison
+                                default: 3
+                            compare_to:
+                                desc: The number to compare against.
+                                type: integer
+                                default: 1
                         string-origins:submerged_in:
                             fluid:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/submerged_in
@@ -1210,12 +1338,14 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/item_condition_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/conditions/
                     enum:
                       - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
+                      - origins:minecraft_version
+                      - origins:mod_loaded
                       - origins:random_chance
                       - origins:empty
                       - origins:amount
@@ -1292,6 +1422,31 @@ links:
                             value:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
                         string-origins:empty: {}
                         string-origins:amount:
                             comparison:
@@ -1342,7 +1497,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/fuel
                                 desc: Determines how the fuel time value (in ticks) of the item stack should be compared to a specific value.
                                 link: comparison
-                                default: '>'
+                                default: 2
                             compare_to:
                                 desc: The value at which the fuel time value (in ticks) of the item stack will be compared to.
                                 type: integer
@@ -1443,12 +1598,14 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/block_condition_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/conditions/
                     enum:
                       - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
+                      - origins:minecraft_version
+                      - origins:mod_loaded
                       - origins:random_chance
                       - origins:adjacent
                       - origins:attachable
@@ -1521,6 +1678,31 @@ links:
                             value:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
                         string-origins:adjacent:
                             adjacent_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/adjacent
@@ -1605,7 +1787,7 @@ links:
                                 default: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
-                                type: boolean_optional
+                                link: boolean_optional
                             round_to_digit:
                                 desc: If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work.
                                 type: integer
@@ -1707,12 +1889,14 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/fluid_condition_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/conditions/
                     enum:
                       - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
+                      - origins:minecraft_version
+                      - origins:mod_loaded
                       - origins:random_chance
                       - origins:empty
                       - origins:in_tag
@@ -1766,6 +1950,31 @@ links:
                             value:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
                         string-origins:empty: {}
                         string-origins:in_tag:
                             tag:
@@ -1785,12 +1994,14 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/biome_condition_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/conditions/
                     enum:
                       - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
+                      - origins:minecraft_version
+                      - origins:mod_loaded
                       - origins:random_chance
                       - origins:high_humidity
                       - origins:in_tag
@@ -1845,6 +2056,31 @@ links:
                             value:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
                         string-origins:high_humidity: {}
                         string-origins:in_tag:
                             tag:
@@ -1877,12 +2113,14 @@ links:
                     desc: Whether or not this condition is inverted (This condition passes only when the conditions are NOT met).
                     type: boolean
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/damage_condition_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/conditions/
                     enum:
                       - origins:nothing
                       - origins:all_of
                       - origins:any_of
                       - origins:constant
+                      - origins:minecraft_version
+                      - origins:mod_loaded
                       - origins:random_chance
                       - origins:amount
                       - origins:attack_charge
@@ -1948,6 +2186,31 @@ links:
                             value:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
                         string-origins:amount:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/amount
@@ -1961,7 +2224,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attack_charge
                                 desc: How the charge is compared to compare_to.
                                 link: comparison
-                                default: '<='
+                                default: 1
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
                                 link: expression_float
@@ -2003,6 +2266,85 @@ links:
                         string-origins:unblockable: {}
           - title: custom
             link: custom_condition
+    load_condition:
+        unspec: none
+        or:
+          - title: built-in
+            type: object
+            props:
+                type:
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/conditions/
+                    enum:
+                      - origins:nothing
+                      - origins:all_of
+                      - origins:any_of
+                      - origins:constant
+                      - origins:minecraft_version
+                      - origins:mod_loaded
+                      - $DEPRECATED
+                      - origins:and
+                      - origins:or
+                    more:
+                        string-origins:nothing: {}
+                        string-origins:all_of:
+                            conditions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
+                                desc: All must pass. Same flavour as the containing condition.
+                                type: list
+                                vals:
+                                    link: load_condition
+                        string-origins:and:
+                            conditions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/and/
+                                desc: (ALIAS) All must pass. Same flavour as the containing condition.
+                                type: list
+                                vals:
+                                    link: load_condition
+                        string-origins:any_of:
+                            conditions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/any_of/
+                                desc: Any one passing is enough. Same flavour as the containing condition.
+                                type: list
+                                vals:
+                                    link: load_condition
+                        string-origins:or:
+                            conditions:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/or/
+                                desc: (ALIAS) Any one passing is enough. Same flavour as the containing condition.
+                                type: list
+                                vals:
+                                    link: load_condition
+                        string-origins:constant:
+                            value:
+                                desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
+                                type: boolean
+                        string-origins:minecraft_version:
+                            version:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
+                            comparison:
+                                desc: How the running version is compared to version / data_version.
+                                link: comparison
+                                default: 3
+                        string-origins:mod_loaded:
+                            mod:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
+                                desc: A mod id that must be installed.
+                                link: meta_key
+                            mods:
+                                desc: Mod ids that must all be installed.
+                                link: meta_key_array
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
+                            comparison:
+                                desc: How each mod’s version is compared to version.
+                                link: comparison
+                                default: 3
+          - title: custom
+            link: custom_condition
     bientity_action:
         unspec: none
         or:
@@ -2010,7 +2352,7 @@ links:
             type: object
             props:
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/bientity_action_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/actions/
                     enum:
                       - $Meta Actions
                       - origins:nothing
@@ -2049,6 +2391,7 @@ links:
                       - origins:copy_origin
                       - origins:store_origin
                       - origins:transfer_origin
+                      - origins:store_power
                       - $DEPRECATED
                       - origins:add_to_set
                       - origins:chance
@@ -2788,6 +3131,23 @@ links:
                                 desc: The layer set on the actor to the copied origin. Its powers are granted from this layer’s source, so clearing the actor’s to_layer (e.g. /origin set @s origins:copy <blank>) removes them again — the basis for a temporary copy.
                                 link: identifier
                                 default: 'origins:copy'
+                        string-origins:store_power:
+                            storage:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/store_power/
+                                desc: Only touch this storage power on the target. Omit to apply to every one it has.
+                                link: identifier
+                            power:
+                                desc: The power ids to store or remove.
+                                link: identifier_single_or_array
+                            tags:
+                                desc: Every loaded power carrying one of these tags. Combined with power, both sets are used.
+                                link: meta_key_single_or_array
+                            from_held:
+                                desc: Take the ids from the powers the actor holds, narrowed by power and tags.
+                                type: boolean
+                            operation:
+                                desc: What to do. clear empties the storage and ignores the filters.
+                                enum: ['add','remove','clear']
           - title: custom
             link: custom_action
     entity_action:
@@ -2810,6 +3170,7 @@ links:
                       - origins:if_else_list
                       - origins:loop
                       - origins:run_function
+                      - origins:run_stored_power
                       - origins:script
                       - origins:selector_action
                       - origins:self_bientity_action
@@ -2892,6 +3253,7 @@ links:
                       - origins:revoke_power
                       - origins:save_location
                       - origins:store_origin
+                      - origins:store_power
                       - origins:store_value
                       - origins:suppress_power
                       - origins:unsuppress_power
@@ -3020,6 +3382,28 @@ links:
                                 type: object
                                 extra:
                                     link: function_arguments
+                        string-origins:run_stored_power:
+                            storage:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/run_stored_power/
+                                desc: Only read this storage power. Omit to search every apoli:power_storage the entity has.
+                                link: identifier
+                            key:
+                                desc: The key to run as. Omit and the stored power fires regardless of which key it declares.
+                                link: meta_key
+                            power:
+                                desc: Only run this stored power.
+                                link: identifier
+                            tags:
+                                desc: Only run stored powers carrying one of these tags.
+                                link: meta_key_single_or_array
+                            index:
+                                desc: Run only the stored power at this position, oldest first. -1 means “no position filter”.
+                                type: integer
+                                default: -1
+                                min: -1
+                            all:
+                                desc: Run every match instead of stopping after the first one that fires.
+                                type: boolean
                         string-origins:script:
                             script:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/script/
@@ -4614,6 +4998,23 @@ links:
                             clear:
                                 desc: Remove the entry at key instead of writing one.
                                 type: boolean
+                        string-origins:store_power:
+                            storage:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/store_power/
+                                desc: Only touch this storage power. Omit to apply to every apoli:power_storage the entity has.
+                                link: identifier
+                            power:
+                                desc: The power ids to store or remove.
+                                link: identifier_single_or_array
+                            tags:
+                                desc: Every loaded power carrying one of these tags. Combined with power, both sets are used.
+                                link: meta_key_single_or_array
+                            from_held:
+                                desc: Take the ids from the powers the entity actually holds, narrowed by power and tags, instead of from the ids themselves.
+                                type: boolean
+                            operation:
+                                desc: What to do. clear empties the storage and ignores the filters.
+                                enum: ['add','remove','clear']
                         string-origins:store_value:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_value/
@@ -4645,7 +5046,7 @@ links:
             type: object
             props:
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/item_action_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/actions/
                     enum:
                       - origins:nothing
                       - origins:and
@@ -4853,7 +5254,7 @@ links:
             type: object
             props:
                 type:
-                    href: https://origins.readthedocs.io/en/latest/types/block_action_types/
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/actions/
                     enum:
                       - origins:nothing
                       - origins:and
@@ -5144,7 +5545,7 @@ links:
         type: object
         props:
             type:
-                href: https://origins.readthedocs.io/en/latest/types/badge_types/
+                href: https://0vergrown.github.io/Handbook/docs/datapack/origins/badges/
                 desc: The namespace and ID of the desired badge type.
                 enum: [origins:sprite, origins:crafting_recipe, origins:keybind, origins:tooltip]
                 more:
@@ -5187,13 +5588,7 @@ links:
             tags:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/powers/#tagging-powers
                 desc: Free-form labels for this power. Actions that work on powers can select by tag instead of by id — see Tagging powers.
-                or:
-                  - title: single
-                    link: meta_key
-                  - title: multiple
-                    type: list
-                    vals:
-                        link: meta_key
+                link: meta_key_single_or_array
             badges:
                 desc: If set, it will display icon(s) after the name of the power.
                 type: list
@@ -5212,6 +5607,10 @@ links:
         type: object
         show: true
         props:
+            load_condition:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/powers/#gating-a-power-at-load-time
+                desc: Checked during the reload; the power is skipped before it parses if it fails — see Gating a power at load time.
+                link: load_condition
             condition:
                 desc: If set, this power will only be active when the player with this power fulfills the condition.
                 link: entity_condition
@@ -5256,6 +5655,7 @@ links:
                   - origins:particle
                   - origins:phasing
                   - origins:pose
+                  - origins:power_storage
                   - origins:receive_action
                   - origins:receive_condition
                   - origins:recipe
@@ -5822,9 +6222,7 @@ links:
                             link: entity_action
                         parameters:
                             desc: The argument names the body uses. Leave it out and it is read from the [name] placeholders in the body.
-                            type: list
-                            vals:
-                                link: meta_key
+                            link: meta_key_array
                     string-origins:game_event_listener:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/game_event_listener/
@@ -5888,7 +6286,6 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/inventory/
                             desc: The translation key or literal text to use as the display name for the inventory.
                             link: text_component
-                            default: 'container.inventory'
                             unspec: true
                         container_type:
                             link: container_type
@@ -6017,7 +6414,7 @@ links:
                             desc: Several overlays in one power. All of them whose condition passes are drawn, in order, so this is a stack of layers rather than a pick-one.
                             type: list
                             vals:
-                                link: overlay_power_multiple
+                                link: overlay_power_object
                     string-origins:particle:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/particle/
@@ -6025,7 +6422,7 @@ links:
                             link: bientity_condition
                         particle:
                             desc: The particle type that will be spawned.
-                            link: particle_type
+                            link: particle_effect
                         frequency:
                             desc: Determines how often the particles should spawn (interval in ticks).
                             link: expression_integer
@@ -6528,7 +6925,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_callback:
                         entity_action_chosen:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_callback/
@@ -6767,12 +7164,16 @@ links:
                             desc: The keys this power watches. Each may carry its own action, run on every press.
                             type: list
                             vals:
-                                link: keybind
+                                link: meta_keybind
                         key_sequence:
                             desc: The combo, as key names in order.
                             type: list
                             vals:
-                                link: meta_key
+                                or:
+                                  - title: simple
+                                    link: keybind
+                                  - title: advanced
+                                    link: meta_sequence_step
                     string-origins:action_on_kill:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_kill/
@@ -6970,7 +7371,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_entity_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
@@ -6999,7 +7400,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_being_used:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
@@ -7028,7 +7429,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_wake_up:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_wake_up/
@@ -7059,6 +7460,12 @@ links:
                         falling_action:
                             desc: The action to execute on the first interval tick in which the condition became false.
                             link: entity_action
+                        actions:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_over_time/#several-intervals-in-one-power
+                            desc: Extra actions on their own intervals, all driven by the same condition. See Several intervals in one power.
+                            type: list
+                            vals:
+                                link: action_step
                     string-origins:action_when_hit:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_when_hit/
@@ -7525,7 +7932,7 @@ links:
                             desc: Which model to apply. Resolved against registered addon models first, then as a Figura avatar.
                             or:
                               - title: built-in
-                                enum: ['apoli:vanilla','apoli:centaur','apoli:digi_legs','apoli:four_arms','apoli:stinkfly']
+                                enum: ['apoli:vanilla','apoli:centaur','apoli:digi_legs','apoli:four_arms','apoli:six_arms','apoli:stinkfly']
                               - title: custom
                                 link: identifier
                         texture_location:
@@ -7948,6 +8355,33 @@ links:
                         result_stack:
                             desc: Replace the used stack with this when the use is blocked.
                             link: item_stack
+                    string-origins:power_storage:
+                        slots:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/power_storage/
+                            desc: How many powers fit. 0 means unlimited.
+                            type: integer
+                            default: 0
+                            min: 0
+                        powers:
+                            desc: If set, only these power ids may be stored.
+                            link: identifier_single_or_array
+                        tags:
+                            desc: If set, only powers carrying one of these tags may be stored. This also tags the storage power itself — see the note above.
+                            link: meta_key_single_or_array
+                        replace_oldest:
+                            desc: When the storage is full, drop the oldest entry to make room instead of refusing the new one.
+                            type: boolean
+                        drop_on_death:
+                            desc: Empty the storage when the holder dies. Left false, the stored powers survive death and respawn.
+                            type: boolean
+                        grant:
+                            desc: Whether a stored power is granted to the holder. See Granting powers vs. holding them.
+                            type: boolean
+                            default: true
+                        own_key:
+                            desc: Whether a stored power still answers the keybind it declares. Set it false and only apoli:run_stored_power can fire what is in here.
+                            type: boolean
+                            default: true
             fabric:load_conditions:
                 desc: Checks for the following namespaces or mods to be loaded and loads the power if true.
                 gap: before
@@ -8048,6 +8482,23 @@ links:
             fail	Indicates that the action is not performed and prevents other actions from performing.
             pass	Indicates that the action is not performed but allows other actions to perform.
             success	Indicates that the action is performed and the actor’s hand is swung.
+    action_step:
+        type: object
+        props:
+            condition:
+                desc: An extra gate for this step only, checked on the ticks the step is due.
+                link: entity_condition
+            interval:
+                desc: Ticks between executions of this step.
+                type: integer
+                default: 20
+            onset_delay:
+                desc: Ticks to wait after the condition first became true before this step starts.
+                link: expression_integer
+            entity_action:
+                desc: The action this step runs.
+                link: entity_action
+                required: true
     advancement:
         or:
           - title: built-in
@@ -8738,6 +9189,21 @@ links:
         desc: |
             Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
         enum: ['only','through','from','until','everything']
+    meta_color:
+        or:
+          - title: '#RGB, #RGBA, 0xARGB HEX String'
+            type: string
+            allow: 'x0-9a-fA-F#'
+          - title: '[r,g,b], [r,g,b,a] Decimal Array'
+            type: list
+            vals:
+                type: number
+                min: 0
+                max: 1
+          - title: 'Packed Integer'
+            type: integer
+            min: 0
+            max: 4294967295
     meta_condition_if_list_bientity:
         type: list
         vals:
@@ -8763,6 +9229,16 @@ links:
     meta_key:
         type: string
         allow: 'a-z0-9._-'
+    meta_key_array:
+        type: list
+        vals:
+            link: meta_key
+    meta_key_single_or_array:
+        or:
+          - title: single
+            link: meta_key
+          - title: multiple
+            link: meta_key_array
     meta_key_value:
         type: string
         allowkey: '*a-z0-9_#\/:.-'
@@ -8771,10 +9247,51 @@ links:
         type: string
         allowkey: '*a-z0-9_#\/:.\[\]\(\)\{\}$^?+\|-'
         allow: '*a-z0-9_#\/:.-'
+    meta_minecraft_version:
+        desc: A version name such as 1.21 or 1.20.1, compared with comparison.
+        or:
+          - title: supported
+            enum: [1.20.1,1.21.1]
+          - title: custom
+            link: meta_key
     meta_send_condition_action:
         desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
         link: identifier
         required: true
+    meta_sequence_step:
+        type: object
+        props:
+            key:
+                desc: The keybinding this position expects.
+                link: meta_keybind
+            taps:
+                desc: How many presses of that key satisfy this position. 2 is a double tap, 3 a triple. Max 16.
+                type: integer
+                default: 1
+                min: 1
+                max: 16
+            hold:
+                desc: Ticks the key must stay down after the last of those presses. 0 means the press alone is enough. Max 1200.
+                type: integer
+                default: 0
+                min: 0
+                max: 1200
+            max_gap:
+                desc: Ticks allowed before this position’s press — and between its own taps. 0 means only the power’s timeout applies. Max 1200.
+                type: integer
+                default: 0
+                min: 0
+                max: 1200
+    meta_world_data_version:
+        desc: The world data version (3465 on 1.20.1, 3955 on 1.21.1), compared with comparison.
+        or:
+          - title: supported
+            enum: [3465,3955]
+            unspec: true
+          - title: custom
+            type: integer
+            min: 0
+            unspec: true
     mob_type:
         or:
           - title: built-in
@@ -8859,7 +9376,7 @@ links:
     model_parts:
         or:
           - title: built-in
-            enum: [$Vanilla,'root','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
+            enum: [$Vanilla,'root','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four+ Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Six Arms,'right_third_arm','left_third_arm','right_third_sleeve','left_third_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
           - title: custom
             link: meta_key
         unspec: true
@@ -8911,7 +9428,7 @@ links:
     objective:
         type: string
         allow: 'a-zA-Z0-9_.+-'
-    overlay_power_multiple:
+    overlay_power_object:
         type: object
         props:
             condition:
@@ -8920,27 +9437,34 @@ links:
             texture:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
                 desc: The namespace and ID of the texture to use as an overlay.
+                or:
+                  - title: Texture Resource
+                    link: identifier
+                  - title: Live Keyword
+                    enum: ['player','player_face','player_cape','entity','held_item','offhand_item']
+            selector:
+                desc: |
+                    Whose texture a live keyword resolves to: @s (the power holder) or @p (the player looking at the screen).
+                enum: ['@s','@p']
+            set:
+                desc: An apoli:entity_set power. Draws the overlay once per member of that set — see Live textures.
                 link: identifier
             strength:
                 desc: |
                     In texture mode, the alpha the texture is drawn at. In nausea mode, how far it is stretched (1.0 = screen size). Range 0.0–1.0.
-                link: number_percent
-                default: 1
+                link: expression_float
             red:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
-                link: number_percent
-                default: 1
+                link: expression_float
             green:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
-                link: number_percent
-                default: 1
+                link: expression_float
             blue:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
-                link: number_percent
-                default: 1
+                link: expression_float
             draw_mode:
                 desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
                 enum: ['texture','nausea']
@@ -8957,6 +9481,11 @@ links:
             visible_in_third_person:
                 desc: Determines if the overlay is visible in third person.
                 type: boolean
+            gui_scale_lock:
+                desc: Draw at this fixed GUI scale instead of the viewer’s. 0 follows the viewer’s setting.
+                type: integer
+                default: 0
+                min: 0
             x:
                 desc: Offset in GUI pixels from the anchor.
                 link: expression_integer
@@ -8985,6 +9514,14 @@ links:
                 unspec: true
             texture_height:
                 desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
+                type: integer
+                unspec: true
+            region_width:
+                desc: The size of the patch cut out of the texture, when it differs from the size it is drawn at. This is what scales an 8×8 sprite up to a 64×64 quad.
+                type: integer
+                unspec: true
+            region_height:
+                desc: The size of the patch cut out of the texture, when it differs from the size it is drawn at. This is what scales an 8×8 sprite up to a 64×64 quad.
                 type: integer
                 unspec: true
     part_color:
@@ -9018,15 +9555,100 @@ links:
         desc: A data type that's either a String which defines only the particle type or an Object which defines the particle type and its additional parameters.
         or:
           - title: simple
+            id: enums
             link: particle_type
-          - title: custom
+          - title: advanced
             type: object
             props:
                 type:
                     desc: The namespace and ID of the particle type.
                     link: particle_type
+                texture:
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/custom-particle/
+                    desc: Path to the PNG in a resource pack. Required for custom particles!
+                    link: identifier
+                lifetime:
+                    desc: How many ticks the particle lives.
+                    link: expression_integer
+                lifetime_variation:
+                    desc: A random 0–n extra ticks added per particle, so a burst does not vanish all at once.
+                    link: expression_integer
+                size:
+                    desc: Size of the quad when it spawns.
+                    link: expression_float
+                size_variation:
+                    desc: A random 0–n added to size per particle, so a burst is not all one size. end_size is scaled by the same amount, so each particle keeps the shape of its own size curve.
+                    link: expression_float
+                color_variation:
+                    desc: A random -n–+n added to each of the red, green and blue channels per particle. 0.05 is a subtle shimmer, 0.2 is a visibly mixed burst.
+                    link: expression_float
+                hue_variation:
+                    desc: A random -n–+n degrees of hue rotation per particle, out of 360. 15 keeps a burst recognisably one colour, 180 scatters it across the whole wheel.
+                    link: expression_float
+                end_size:
+                    desc: Size at the end of its life. Interpolated with easing; set 0.0 to shrink away.
+                    link: expression_float
+                color:
+                    desc: Tint at spawn. Multiplies the texture, so a white texture takes the colour exactly.
+                    link: meta_color
+                end_color:
+                    desc: Tint at the end of its life, interpolated with easing — the dust_color_transition behaviour, on your own texture.
+                    link: meta_color
+                gravity:
+                    desc: Downward pull per tick. Negative values make the particle rise.
+                    link: expression_float
+                friction:
+                    desc: Velocity kept each tick. 1.0 never slows down, 0.9 drags hard.
+                    link: expression_float
+                roll:
+                    desc: Starting rotation of the quad, in degrees. Evaluated once per particle.
+                    link: expression_float
+                roll_speed:
+                    desc: Degrees added to the rotation each tick. Evaluated once per particle.
+                    link: expression_float
+                frames:
+                    desc: Number of animation frames in the texture. 0 reads the count from the texture itself; 1 forces a single static frame.
+                    link: expression_integer
+                frame_time:
+                    desc: Ticks per frame. 0 uses the frametime from the texture’s animation metadata, or — if the texture has none — spreads all frames evenly across lifetime.
+                    link: expression_integer
+                frame_layout:
+                    desc: |
+                        How the frames are arranged: vertical (a column, the vanilla layout), horizontal (a row), grid (square cells, left to right then top to bottom), or auto to work it out from the image.
+                    enum: ['auto','grid','horizontal','vertical']
+                    default: 0
+                loop_frames:
+                    desc: If true the animation repeats; if false it holds the last frame. Left out, an animation that came from the texture’s metadata loops and a hand-numbered one holds.
+                    link: boolean_optional
+                physics:
+                    desc: Whether the particle collides with blocks instead of passing through them.
+                    type: boolean
+                emissive:
+                    desc: Draw at full brightness, ignoring the light level at its position.
+                    type: boolean
+                alpha_bleed:
+                    desc: Fill the texture’s colour in under its semi-transparent pixels when it is loaded, so a soft edge that lost its colour does not draw as a dark fringe. The PNG on disk is not modified.
+                    type: boolean
+                blend:
+                    desc: translucent for normal alpha blending, additive for a glow that brightens whatever is behind it.
+                    enum: ['translucent','additive']
+                    default: 0
+                facing:
+                    desc: camera turns the quad to face the viewer on every axis; vertical keeps it upright and only turns it around Y.
+                    enum: ['camera','vertical']
+                    default: 0
+                easing:
+                    desc: The curve used for the colour and size interpolation over the particle’s life.
+                    link: easing
+                    default: 0
+          - title: legacy_advanced
+            type: object
+            props:
+                type:
+                    desc: The namespace and ID of the particle type.
+                    link: identifier
                 params:
-                    desc: The additional parameters for the particle type.
+                    desc: (DEPRECATED) The additional parameters for the particle type.
                     type: string
                     ext: true
     particle_type:
@@ -9036,7 +9658,7 @@ links:
             link: particle_type
             unspec: true
           - title: custom
-            link: identifier
+            const: 'origins:custom'
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.

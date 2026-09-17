@@ -3,7 +3,7 @@ props:
     order:
         desc: Order when several layers are chosen in turn. Lowest first.
         type: integer
-        unspec: 0
+        unspec: true
     origins:
         href: https://0vergrown.github.io/Handbook/docs/datapack/origins/layers/
         desc: The origins offered in this layer.
@@ -32,7 +32,7 @@ props:
     enabled:
         desc: Whether the layer is active.
         type: boolean
-        unspec: true
+        default: true
     replace:
         desc: Discard lower-priority packs’ version of this layer instead of merging into it.
         type: boolean
@@ -67,7 +67,7 @@ props:
             allow:
                 desc: Offer the “random” option in the screen.
                 type: boolean
-                unspec: true
+                default: true
             allow_unchoosable:
                 desc: Let the roll land on unchoosable origins.
                 type: boolean
@@ -141,11 +141,11 @@ props:
                 shift_returns_to_main:
                     desc: Holding shift while pressing the swap key jumps straight back to the main origin.
                     type: boolean
-                    unspec: true
+                    default: true
                 wrap_to_main:
                     desc: Cycling past the last option returns to the main origin rather than to the first option.
                     type: boolean
-                    unspec: true
+                    default: true
         gap: true
     randomiser:
         desc: Re-roll-over-a-life settings — see Lifecycle & re-rolls.
@@ -190,7 +190,7 @@ props:
             broadcast_messages:
                 desc: Announce re-rolls in chat.
                 type: boolean
-                unspec: true
+                default: true
     max_players_per_origin:
         desc: Default player cap for every origin in this layer — see Capping a whole layer.
         href: https://0vergrown.github.io/Handbook/docs/datapack/origins/layers/#capping-a-whole-layer
@@ -201,8 +201,8 @@ links:
         type: string
         allow: '*a-z0-9_#\/:.-'
     boolean_optional:
-        enum: ['default','true','false']
-        unspec: 'default'
+        enum: ['true','false']
+        unspec: true
     weight_map:
         allowkey: '*a-z0-9_#\/:.-'
         type: integer
