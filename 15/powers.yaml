@@ -9615,7 +9615,8 @@ links:
                     desc: Ticks per frame. 0 uses the frametime from the texture’s animation metadata, or — if the texture has none — spreads all frames evenly across lifetime.
                     link: expression_integer
                 frame_layout:
-                    desc: How the frames are arranged: vertical (a column, the vanilla layout), horizontal (a row), grid (square cells, left to right then top to bottom), or auto to work it out from the image.
+                    desc: |
+                        How the frames are arranged: vertical (a column, the vanilla layout), horizontal (a row), grid (square cells, left to right then top to bottom), or auto to work it out from the image.
                     enum: ['auto','grid','horizontal','vertical']
                     default: 0
                 loop_frames:
