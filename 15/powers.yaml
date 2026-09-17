@@ -6423,7 +6423,7 @@ links:
                             link: bientity_condition
                         particle:
                             desc: The particle type that will be spawned.
-                            link: particle_type
+                            link: particle_effect
                         frequency:
                             desc: Determines how often the particles should spawn (interval in ticks).
                             link: expression_integer
@@ -9190,6 +9190,21 @@ links:
         desc: |
             Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
         enum: ['only','through','from','until','everything']
+    meta_color:
+        or:
+          - title: '#RGB, #RGBA, 0xARGB HEX String'
+            type: string
+            allow: 'x0-9a-fA-F#'
+          - title: '[r,g,b], [r,g,b,a] Decimal Array'
+            type: list
+            vals:
+                type: number
+                min: 0
+                max: 1
+          - title: 'Packed Integer'
+            type: integer
+            min: 0
+            max: 4294967295
     meta_condition_if_list_bientity:
         type: list
         vals:
@@ -9541,15 +9556,100 @@ links:
         desc: A data type that's either a String which defines only the particle type or an Object which defines the particle type and its additional parameters.
         or:
           - title: simple
+            id: enums
             link: particle_type
-          - title: custom
+          - title: advanced
             type: object
             props:
                 type:
                     desc: The namespace and ID of the particle type.
                     link: particle_type
+                texture:
+                    href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/custom-particle/
+                    desc: Path to the PNG in a resource pack. Required for custom particles!
+                    link: identifier
+                lifetime:
+                    desc: How many ticks the particle lives.
+                    link: expression_integer
+                lifetime_variation:
+                    desc: A random 0–n extra ticks added per particle, so a burst does not vanish all at once.
+                    link: expression_integer
+                size:
+                    desc: Size of the quad when it spawns.
+                    link: expression_float
+                size_variation:
+                    desc: A random 0–n added to size per particle, so a burst is not all one size. end_size is scaled by the same amount, so each particle keeps the shape of its own size curve.
+                    link: expression_float
+                color_variation:
+                    desc: A random -n–+n added to each of the red, green and blue channels per particle. 0.05 is a subtle shimmer, 0.2 is a visibly mixed burst.
+                    link: expression_float
+                hue_variation:
+                    desc: A random -n–+n degrees of hue rotation per particle, out of 360. 15 keeps a burst recognisably one colour, 180 scatters it across the whole wheel.
+                    link: expression_float
+                end_size:
+                    desc: Size at the end of its life. Interpolated with easing; set 0.0 to shrink away.
+                    link: expression_float
+                color:
+                    desc: Tint at spawn. Multiplies the texture, so a white texture takes the colour exactly.
+                    link: meta_color
+                    default: '#FFFFFF'
+                end_color:
+                    desc: Tint at the end of its life, interpolated with easing — the dust_color_transition behaviour, on your own texture.
+                    link: meta_color
+                gravity:
+                    desc: Downward pull per tick. Negative values make the particle rise.
+                    link: expression_float
+                friction:
+                    desc: Velocity kept each tick. 1.0 never slows down, 0.9 drags hard.
+                    link: expression_float
+                roll:
+                    desc: Starting rotation of the quad, in degrees. Evaluated once per particle.
+                    link: expression_float
+                roll_speed:
+                    desc: Degrees added to the rotation each tick. Evaluated once per particle.
+                    link: expression_float
+                frames:
+                    desc: Number of animation frames in the texture. 0 reads the count from the texture itself; 1 forces a single static frame.
+                    link: expression_integer
+                frame_time:
+                    desc: Ticks per frame. 0 uses the frametime from the texture’s animation metadata, or — if the texture has none — spreads all frames evenly across lifetime.
+                    link: expression_integer
+                frame_layout:
+                    desc: How the frames are arranged: vertical (a column, the vanilla layout), horizontal (a row), grid (square cells, left to right then top to bottom), or auto to work it out from the image.
+                    enum: ['auto','grid','horizontal','vertical']
+                    default: 0
+                loop_frames:
+                    desc: If true the animation repeats; if false it holds the last frame. Left out, an animation that came from the texture’s metadata loops and a hand-numbered one holds.
+                    type: boolean_optional
+                physics:
+                    desc: Whether the particle collides with blocks instead of passing through them.
+                    type: boolean
+                emissive:
+                    desc: Draw at full brightness, ignoring the light level at its position.
+                    type: boolean
+                alpha_bleed:
+                    desc: Fill the texture’s colour in under its semi-transparent pixels when it is loaded, so a soft edge that lost its colour does not draw as a dark fringe. The PNG on disk is not modified.
+                    type: boolean
+                blend:
+                    desc: translucent for normal alpha blending, additive for a glow that brightens whatever is behind it.
+                    enum: ['translucent','additive']
+                    default: 0
+                facing:
+                    desc: camera turns the quad to face the viewer on every axis; vertical keeps it upright and only turns it around Y.
+                    enum: ['camera','vertical']
+                    default: 0
+                easing:
+                    desc: The curve used for the colour and size interpolation over the particle’s life.
+                    link: easing
+                    default: 0
+          - title: legacy_advanced
+            type: object
+            props:
+                type:
+                    desc: The namespace and ID of the particle type.
+                    link: identifier
                 params:
-                    desc: The additional parameters for the particle type.
+                    desc: (DEPRECATED) The additional parameters for the particle type.
                     type: string
                     ext: true
     particle_type:
@@ -9559,7 +9659,7 @@ links:
             link: particle_type
             unspec: true
           - title: custom
-            link: identifier
+            const: 'origins:custom'
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.
