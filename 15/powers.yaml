@@ -7165,7 +7165,7 @@ links:
                             desc: The keys this power watches. Each may carry its own action, run on every press.
                             type: list
                             vals:
-                                link: keybind
+                                link: meta_keybind
                         key_sequence:
                             desc: The combo, as key names in order.
                             type: list
@@ -7174,7 +7174,7 @@ links:
                                   - title: simple
                                     link: keybind
                                   - title: advanced
-                                    link: key_sequence
+                                    link: meta_sequence_step
                     string-origins:action_on_kill:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_kill/
@@ -9225,30 +9225,6 @@ links:
             link: meta_key
           - title: multiple
             link: meta_key_array
-    meta_key_sequence:
-        type: object
-        props:
-            key:
-                desc: The keybinding this position expects.
-                link: keybind
-            taps:
-                desc: How many presses of that key satisfy this position. 2 is a double tap, 3 a triple. Max 16.
-                type: integer
-                default: 1
-                min: 1
-                max: 16
-            hold:
-                desc: Ticks the key must stay down after the last of those presses. 0 means the press alone is enough. Max 1200.
-                type: integer
-                default: 0
-                min: 0
-                max: 1200
-            max_gap:
-                desc: Ticks allowed before this position’s press — and between its own taps. 0 means only the power’s timeout applies. Max 1200.
-                type: integer
-                default: 0
-                min: 0
-                max: 1200
     meta_key_value:
         type: string
         allowkey: '*a-z0-9_#\/:.-'
@@ -9268,6 +9244,30 @@ links:
         desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
         link: identifier
         required: true
+    meta_sequence_step:
+        type: object
+        props:
+            key:
+                desc: The keybinding this position expects.
+                link: meta_keybind
+            taps:
+                desc: How many presses of that key satisfy this position. 2 is a double tap, 3 a triple. Max 16.
+                type: integer
+                default: 1
+                min: 1
+                max: 16
+            hold:
+                desc: Ticks the key must stay down after the last of those presses. 0 means the press alone is enough. Max 1200.
+                type: integer
+                default: 0
+                min: 0
+                max: 1200
+            max_gap:
+                desc: Ticks allowed before this position’s press — and between its own taps. 0 means only the power’s timeout applies. Max 1200.
+                type: integer
+                default: 0
+                min: 0
+                max: 1200
     meta_world_data_version:
         desc: The world data version (3465 on 1.20.1, 3955 on 1.21.1), compared with comparison.
         or:
