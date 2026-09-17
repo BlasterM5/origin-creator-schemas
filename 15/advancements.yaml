@@ -124,7 +124,11 @@ links:
         type: object
         props:
             trigger:
+                ns: minecraft
                 enum:
+                  - $Origins
+                  - origins:chose_origin
+                  - $Minecraft
                   - allay_drop_item_on_block
                   - avoid_vibration
                   - bee_nest_destroyed
@@ -177,7 +181,6 @@ links:
                   - using_item
                   - villager_trade
                   - voluntary_exile
-                  - origins:chose_origin
                 more:
                     string-allay_drop_item_on_block:
                         conditions:
