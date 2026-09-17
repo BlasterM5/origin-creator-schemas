@@ -889,7 +889,7 @@ links:
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
                                 link: comparison
-                                default: '>'
+                                default: 2
                             compare_to:
                                 desc: The value at which the amount of items/stacks that were evaluated are compared to.
                                 type: integer
@@ -1497,7 +1497,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/fuel
                                 desc: Determines how the fuel time value (in ticks) of the item stack should be compared to a specific value.
                                 link: comparison
-                                default: '>'
+                                default: 2
                             compare_to:
                                 desc: The value at which the fuel time value (in ticks) of the item stack will be compared to.
                                 type: integer
@@ -2224,7 +2224,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attack_charge
                                 desc: How the charge is compared to compare_to.
                                 link: comparison
-                                default: '<='
+                                default: 1
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
                                 link: expression_float
@@ -6286,7 +6286,6 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/inventory/
                             desc: The translation key or literal text to use as the display name for the inventory.
                             link: text_component
-                            default: 'container.inventory'
                             unspec: true
                         container_type:
                             link: container_type
@@ -6926,7 +6925,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_callback:
                         entity_action_chosen:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_callback/
@@ -7372,7 +7371,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_entity_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
@@ -7401,7 +7400,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_being_used:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
@@ -7430,7 +7429,7 @@ links:
                         action_result:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
-                            default: 'success'
+                            default: 4
                     string-origins:action_on_wake_up:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_wake_up/
@@ -9592,7 +9591,6 @@ links:
                 color:
                     desc: Tint at spawn. Multiplies the texture, so a white texture takes the colour exactly.
                     link: meta_color
-                    default: '#FFFFFF'
                 end_color:
                     desc: Tint at the end of its life, interpolated with easing — the dust_color_transition behaviour, on your own texture.
                     link: meta_color
