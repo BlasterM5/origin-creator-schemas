@@ -7168,7 +7168,13 @@ links:
                                 link: keybind
                         key_sequence:
                             desc: The combo, as key names in order.
-                            link: meta_key_array
+                            type: list
+                            vals:
+                                or:
+                                  - title: simple
+                                    link: keybind
+                                  - title: advanced
+                                    link: key_sequence
                     string-origins:action_on_kill:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_kill/
@@ -9219,6 +9225,30 @@ links:
             link: meta_key
           - title: multiple
             link: meta_key_array
+    meta_key_sequence:
+        type: object
+        props:
+            key:
+                desc: The keybinding this position expects.
+                link: keybind
+            taps:
+                desc: How many presses of that key satisfy this position. 2 is a double tap, 3 a triple. Max 16.
+                type: integer
+                default: 1
+                min: 1
+                max: 16
+            hold:
+                desc: Ticks the key must stay down after the last of those presses. 0 means the press alone is enough. Max 1200.
+                type: integer
+                default: 0
+                min: 0
+                max: 1200
+            max_gap:
+                desc: Ticks allowed before this position’s press — and between its own taps. 0 means only the power’s timeout applies. Max 1200.
+                type: integer
+                default: 0
+                min: 0
+                max: 1200
     meta_key_value:
         type: string
         allowkey: '*a-z0-9_#\/:.-'
