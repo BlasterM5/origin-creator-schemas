@@ -1,5 +1,0 @@
-type: object
-extend:
-    type: string
-    allowkey: 'a-zA-Z0-9._-'
-    ext: true
