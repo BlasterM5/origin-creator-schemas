@@ -646,7 +646,7 @@ links:
                                 default: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
-                                type: boolean_optional
+                                link: boolean_optional
                             round_to_digit:
                                 desc: |
                                     If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work (e.g: -2 rounds to multiples of 100).
@@ -1787,7 +1787,7 @@ links:
                                 default: true
                             result_on_the_wrong_dimension:
                                 desc: If specified, this value will override the result of the comparison if the block being tested is not in the reference's dimension.
-                                type: boolean_optional
+                                link: boolean_optional
                             round_to_digit:
                                 desc: If specified, rounds the result to the closest number with the specified amount of digits after the comma. Negative numbers also work.
                                 type: integer
@@ -9619,7 +9619,7 @@ links:
                     default: 0
                 loop_frames:
                     desc: If true the animation repeats; if false it holds the last frame. Left out, an animation that came from the texture’s metadata loops and a hand-numbered one holds.
-                    type: boolean_optional
+                    link: boolean_optional
                 physics:
                     desc: Whether the particle collides with blocks instead of passing through them.
                     type: boolean
