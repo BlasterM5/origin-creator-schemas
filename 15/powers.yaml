@@ -9594,6 +9594,7 @@ links:
                 end_color:
                     desc: Tint at the end of its life, interpolated with easing — the dust_color_transition behaviour, on your own texture.
                     link: meta_color
+                    unspec: true
                 gravity:
                     desc: Downward pull per tick. Negative values make the particle rise.
                     link: expression_float
