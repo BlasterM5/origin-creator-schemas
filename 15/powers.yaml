@@ -9126,7 +9126,6 @@ links:
     hud_render:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render
         desc: Defines how the bar should be rendered. See the doc for more information.
-        unspec: none
         or:
           - title: single
             link: hud_render_element
@@ -9136,6 +9135,7 @@ links:
                 link: hud_render_element
     hud_render_element:
         type: object
+        unspec: none
         props:
             should_render:
                 desc: Whether the bar should be visible or not
