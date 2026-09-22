@@ -357,6 +357,7 @@ links:
                       - origins:riding_recursive
                       - origins:riding_root
                       - origins:saturation_level
+                      - origins:scale
                       - origins:scoreboard
                       - origins:script
                       - origins:send_condition
@@ -1102,6 +1103,17 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/riding_root
                                 desc: If specified, this condition type will only evaluate to true if this condition is fulfilled by either or both the ’actor’ and ’target’ entities.
                                 link: bientity_condition
+                        string-origins:scale:
+                            scale_type:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/scale/
+                                desc: Which scale to read.
+                                link: scale_type
+                            comparison:
+                                desc: How to compare.
+                                link: comparison
+                            compare_to:
+                                desc: What to compare against.
+                                link: expression_float
                         string-origins:scoreboard:
                             name:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/scoreboard
@@ -2125,6 +2137,7 @@ links:
                       - origins:amount
                       - origins:attack_charge
                       - origins:attacker
+                      - origins:body_part
                       - origins:critical
                       - origins:in_tag
                       - origins:projectile
@@ -2233,6 +2246,63 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attacker
                                 desc: If set, the attacker entity must fulfill the provided entity condition type in order for this condition to evaluate to true.
                                 link: entity_condition
+                        string-origins:body_part:
+                            body_part:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/body_part/
+                                desc: Passes when the hit landed on one of these parts. Limbs, regions such as hands, chest or achilles_heel, and groups such as arms or upper all work. An unknown name is a load error.
+                                or:
+                                  - title: single
+                                    link: body_part
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: body_part
+                            x_min:
+                                desc: |
+                                    Side to side across the target’s hitbox: -1 is its right edge, 1 its left.
+                                type: number
+                                min: -1
+                                max: 1
+                                default: -1
+                            x_max:
+                                desc: |
+                                    Side to side across the target’s hitbox: -1 is its right edge, 1 its left.
+                                type: number
+                                min: -1
+                                max: 1
+                                default: 1
+                            y_min:
+                                desc: |
+                                    Bottom to top: 0 is the feet, 1 the top of the head. 0.88 always sits at eye level, so a head band starting there follows eye height on tall and short entities alike.
+                                type: number
+                                min: 0
+                                max: 1
+                                default: 0
+                            y_max:
+                                desc: |
+                                    Bottom to top: 0 is the feet, 1 the top of the head. 0.88 always sits at eye level, so a head band starting there follows eye height on tall and short entities alike.
+                                type: number
+                                min: 0
+                                max: 1
+                                default: 1
+                            z_min:
+                                desc: |
+                                    Front to back: -1 is the front, 1 the back.
+                                type: number
+                                min: -1
+                                max: 1
+                                default: -1
+                            z_max:
+                                desc: |
+                                    Front to back: -1 is the front, 1 the back.
+                                type: number
+                                min: -1
+                                max: 1
+                                default: 1
+                            require_hit_data:
+                                desc: Only pass when the hit has a real direction behind it — a projectile, a melee swing or an explosion — rather than a guess. See How the hit is found.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/body_part/#how-the-hit-is-found
+                                type: boolean
                         string-origins:bypasses_armor: {}
                         string-origins:critical: {}
                         string-origins:explosive: {}
@@ -3202,6 +3272,7 @@ links:
                       - origins:feed
                       - origins:fire_projectile
                       - origins:force_key_pressed
+                      - origins:freeze
                       - origins:gain_air
                       - origins:give
                       - origins:heal
@@ -3219,6 +3290,7 @@ links:
                       - origins:replace_inventory
                       - origins:riding_action
                       - origins:rope_pull
+                      - origins:scale
                       - origins:set_fall_distance
                       - origins:set_on_fire
                       - origins:swing_hand
@@ -3229,6 +3301,7 @@ links:
                       - origins:text
                       - origins:toggle
                       - origins:trigger_cooldown
+                      - origins:unfreeze
                       - $Summon Actions
                       - origins:conjure_equipment
                       - origins:set_summon_max_life
@@ -3247,6 +3320,7 @@ links:
                       - origins:modify_entity_data
                       - origins:modify_resource
                       - origins:modify_stat
+                      - origins:print
                       - origins:remove_power
                       - origins:revoke_origin
                       - origins:revoke_all_powers
@@ -3458,15 +3532,15 @@ links:
                             x:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_velocity
                                 desc: The amount of velocity to add on the x-axis.
-                                type: expression_float
+                                link: expression_float
                                 default: 0
                             y:
                                 desc: The amount of velocity to add on the y-axis.
-                                type: expression_float
+                                link: expression_float
                                 default: 0
                             z:
                                 desc: The amount of velocity to add on the z-axis.
-                                type: expression_float
+                                link: expression_float
                                 default: 0
                             space:
                                 desc: Determines how the direction of the velocity to add/set will be calculated.
@@ -4141,6 +4215,12 @@ links:
                             release:
                                 desc: Cancel a force that is still running on this key instead of starting one.
                                 type: boolean
+                        string-origins:freeze:
+                            duration:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/freeze/
+                                desc: What to set the freeze counter to. Left out, the entity is frozen solid immediately and stays there — set just far enough past the threshold to survive vanilla’s drain, so freeze damage actually lands. A negative value freezes it effectively forever.
+                                link: expression_integer
+                        string-origins:unfreeze: {}
                         string-origins:gain_air:
                             value:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/gain_air
@@ -4269,6 +4349,21 @@ links:
                                 link: boolean_optional
                             internal:
                                 desc: Whether to skip playing the sound for the entity itself, so only other players hear it. Only has an effect when the entity is a player.
+                                type: boolean
+                        string-origins:print:
+                            text:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/print/
+                                desc: Text to print. A plain string works; so does a full text component with colour, translation or a keybind.
+                                link: text_component
+                            number:
+                                desc: A number to print. Written as a number, or as an expression that is evaluated against the entity every time the action runs.
+                                type: string
+                                ext: true
+                            message_id:
+                                desc: The logger name the line is written under, so you can filter your prints out of the rest of the log.
+                                type: string
+                            show_in_chat:
+                                desc: Whether the entity also receives the line in chat. Only players can see chat; on any other entity this does nothing.
                                 type: boolean
                         string-origins:radial_menu:
                             entries:
@@ -4514,6 +4609,29 @@ links:
                                 desc: Also shorten the rope by this amount each time the action runs (a scripted reel-in).
                                 type: number
                                 default: 0
+                        string-origins:scale:
+                            scale_types:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/scale/
+                                desc: Which scales to change.
+                                talias: scale_type
+                                or:
+                                  - title: single
+                                    link: scale_type
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: scale_type
+                            operation:
+                                enum: ['set','add','subtract','multiply','divide','power']
+                            scale:
+                                desc: The right-hand side of the operation.
+                                link: expression_float
+                            ticks:
+                                desc: How long the change takes. 0 snaps immediately.
+                                link: expression_integer
+                            easing:
+                                desc: How the change is spread over ticks.
+                                link: easing
                         string-origins:set_fall_distance:
                             fall_distance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_fall_distance
@@ -4606,7 +4724,7 @@ links:
                                 unspec: true
                             model_part:
                                 desc: Anchor the particles to a body part instead of the entity’s feet, and read offset_* and the velocity along that part. See Particles on a body part for the names.
-                                link: model_parts
+                                link: body_part
                             force:
                                 desc: If set to true, the specified particle type that will be spawned can be seen from a far distance.
                                 type: boolean
@@ -5664,6 +5782,7 @@ links:
                   - origins:replace_sound_reception
                   - origins:resource
                   - origins:restrict_armor
+                  - origins:scale
                   - origins:scare_mobs
                   - origins:script
                   - origins:self_glow
@@ -5715,6 +5834,7 @@ links:
                   - origins:modify_enchantment_level
                   - origins:modify_exhaustion
                   - origins:modify_falling
+                  - origins:modify_fog
                   - origins:modify_food
                   - origins:modify_grindstone
                   - origins:modify_harvest
@@ -5847,7 +5967,7 @@ links:
                     string-origins:custom_model_render:
                         mode:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/custom_model_render/
-                            enum: ['geometry','texture']
+                            enum: ['geometry','texture','energy_swirl']
                         model_location:
                             desc: |
                                 The Blockbench model. mymod:cape resolves to assets/mymod/geo/cape.geo.json (the standard Blockbench/GeckoLib folder) — assets/mymod/models/apoli/cape.geo.json also works. Export from Blockbench as Bedrock geometry (.geo.json).
@@ -5888,11 +6008,11 @@ links:
                                 In texture mode, restrict an overlay to these parts: head, hat, body, right_arm, left_arm, right_leg, left_leg on a player, main, flat2, flat3 on a minion. In geometry mode, render only the bones with these names — any bone name in your own model, not just the vanilla ones. Every bone you do not name is hidden, and hiding a bone hides everything nested under it.
                             or:
                               - title: 'Player - All/Single Part'
-                                link: model_parts
+                                link: body_part
                               - title: 'Player - Multiple Parts'
                                 type: list
                                 vals:
-                                    link: model_parts
+                                    link: body_part
                               - title: 'Minion - All/Single Part'
                                 enum: ['main','flat2','flat3']
                                 unspec: true
@@ -6460,7 +6580,7 @@ links:
                             link: expression_float
                         model_part:
                             desc: Anchor the particles to a body part instead of the entity’s feet, and read offset_* and the velocity along that part. See Particles on a body part for the names.
-                            link: model_parts
+                            link: body_part
                             unspec: true
                         force:
                             desc: Determines whether to display the emitted particles within 512 blocks (true) or 32 blocks (false).
@@ -6661,6 +6781,26 @@ links:
                         feet:
                             desc: If specified, items which fulfills this condition cannot be equipped in the feet equipment slot.
                             link: item_condition
+                    string-origins:scale:
+                        scale_types:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/scale/
+                            desc: Which scale types this power multiplies.
+                            or:
+                              - title: single
+                                link: scale_type
+                              - title: multiple
+                                type: list
+                                vals:
+                                    link: scale_type
+                        scale:
+                            desc: A straight multiplier. 2 is twice the size, 0.5 is half.
+                            link: expression_float
+                        modifier:
+                            desc: A modifier applied to scale (or to 1.0 when scale is absent).
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers, applied in operation order.
+                            link: attribute_modifier_array
                     string-origins:scare_mobs:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/scare_mobs/
@@ -7745,7 +7885,7 @@ links:
                         velocity:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_falling/
                             desc: Determines the speed of the falling velocity.
-                            type: expression_float
+                            link: expression_float
                         modifier:
                             desc: A single modifier applied to the gravity that survives the velocity step. Unlike velocity this can speed a fall up.
                             link: attribute_modifier
@@ -7756,6 +7896,33 @@ links:
                             desc: Determines whether the entity should take fall damage or not.
                             type: boolean
                             default: true
+                    string-origins:modify_fog:
+                        s:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_fog/
+                            desc: Fog start distance in blocks — how far you can see before fog begins.
+                            link: expression_float
+                        v:
+                            desc: Fog end distance in blocks — where fog becomes fully opaque.
+                            link: expression_float
+                        r:
+                            desc: Red channel of the fog colour, 0–1.
+                            link: expression_float
+                        g:
+                            desc: Green channel of the fog colour, 0–1.
+                            link: expression_float
+                        b:
+                            desc: Blue channel of the fog colour, 0–1.
+                            link: expression_float
+                        fade_in:
+                            desc: Seconds to ease into this power’s fog when it starts applying.
+                            link: expression_float
+                        fade_out:
+                            desc: Seconds to ease out of this power’s fog when it stops applying.
+                            link: expression_float
+                        priority:
+                            desc: Which power wins when two of them set the same field. Higher wins.
+                            type: integer
+                            default: 0
                     string-origins:modify_food:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_food/
@@ -8659,6 +8826,17 @@ links:
         id: enums
         link: block_state
         unspec: true
+    body_part:
+        or:
+          - title: Limbs and Layers
+            enum: [$Vanilla,'head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four+ Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Six Arms,'right_third_arm','left_third_arm','right_third_sleeve','left_third_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
+          - title: Regions
+            enum: ['right_hand','left_hand','main_hand','off_hand','hands','right_foot','left_foot','feet','chest','back','achilles_heel']
+          - title: Groups
+            enum: ['arms','legs','upper','lower','whole']
+          - title: custom
+            link: meta_key
+        unspec: true
     boolean_optional:
         enum: ['false','true']
         unspec: true
@@ -8957,6 +9135,7 @@ links:
                 link: hud_render_element
     hud_render_element:
         type: object
+        unspec: none
         props:
             should_render:
                 desc: Whether the bar should be visible or not
@@ -9341,7 +9520,7 @@ links:
         props:
             model_part:
                 desc: The part to edit.
-                link: model_parts
+                link: body_part
                 required: true
             type:
                 desc: The type of transformation to apply.
@@ -9373,13 +9552,6 @@ links:
             easing:
                 desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
                 link: easing
-    model_parts:
-        or:
-          - title: built-in
-            enum: [$Vanilla,'root','head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four+ Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Six Arms,'right_third_arm','left_third_arm','right_third_sleeve','left_third_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
-          - title: custom
-            link: meta_key
-        unspec: true
     modify_entity_data:
         href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
         or:
@@ -9528,7 +9700,7 @@ links:
         type: object
         props:
             part:
-                link: model_parts
+                link: body_part
                 required: true
             red:
                 desc: |
@@ -9921,6 +10093,18 @@ links:
             spring	a soft elastic pull past length, so the rope visibly stretches and eases back (a rubber band).
             rigid	holds a fixed distance both ways — pulled in when too far and pushed out when too close (a rod/pole).
         enum: ['leash','spring','rigid']
+    scale_type:
+        desc: |
+            A Namespaced ID naming one axis of an entity’s size. Every entity has a value for each one, and every value starts at 1.
+
+            A scale type is written apoli:base. A pehkui: namespace resolves to the matching Apoli type, so ids copied from a Pehkui pack keep working.
+        or:
+          - title: built-in
+            enum: ['origins:base','origins:width','origins:height','origins:hitbox_width','origins:hitbox_height','origins:eye_height','origins:model_width','origins:model_height','origins:third_person','origins:motion','origins:falling','origins:step_height','origins:jump_height','origins:visibility','origins:mining_speed','origins:knockback','origins:attack','origins:defense','origins:held_item']
+          - title: pehkui
+            enum: ['pehkui:base','pehkui:width','pehkui:height','pehkui:hitbox_width','pehkui:hitbox_height','pehkui:eye_height','pehkui:model_width','pehkui:model_height','pehkui:third_person','pehkui:motion','pehkui:step_height','pehkui:view_bobbling','pehkui:falling','pehkui:flight','pehkui:jump_height','pehkui:visibility','pehkui:reach','pehkui:block_reach','pehkui:entity_reach','pehkui:held_item','pehkui:drops','pehkui:projectiles','pehkui:explosions','pehkui:attack','pehkui:defense','pehkui:knockback','pehkui:health','pehkui:mining_speed','pehkui:attack_speed']
+          - title: custom
+            link: identifier
     script_params:
         desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
         link: nbt
