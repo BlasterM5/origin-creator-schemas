@@ -6161,7 +6161,8 @@ links:
                             type: boolean
                             default: true
                         water_sensitive:
-                            desc: Passed to LambDynamicLights: when true the emitted light is suppressed underwater, the way a torch would be.
+                            desc: |
+                                Passed to LambDynamicLights: when true the emitted light is suppressed underwater, the way a torch would be.
                             type: boolean
                     string-origins:entity_glow:
                         entity_condition:
