@@ -9126,6 +9126,7 @@ links:
     hud_render:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render
         desc: Defines how the bar should be rendered. See the doc for more information.
+        unspec: true
         or:
           - title: single
             link: hud_render_element
