@@ -9134,14 +9134,12 @@ links:
             vals:
                 link: hud_render_element
     hud_render_element:
-        unspec: none
         type: object
         unspec: none
         props:
             should_render:
                 desc: Whether the bar should be visible or not
                 type: boolean
-                default: true
             condition:
                 desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
                 link: entity_condition
@@ -9158,12 +9156,10 @@ links:
                 desc: The indexed position of the bar on the sprite to use.
                 type: integer
                 min: 0
-                default: 0
             icon_index:
                 desc: The indexed position of the icon on the sprite to use.
                 type: integer
                 min: 0
-                default: 0
     hud_render_texture_location:
         or:
           - title: built-in
