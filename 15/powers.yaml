@@ -9220,6 +9220,7 @@ links:
         vals:
             link: identifier
     identifier_single_or_array:
+        unspec: true
         or:
           - title: single
             link: identifier
@@ -9234,6 +9235,7 @@ links:
         allowkey: '*a-z0-9_#\/:.-'
         link: ingredient
     ingredient:
+        unspec: true
         or:
           - title: single
             link: ingredient_select
@@ -9337,6 +9339,7 @@ links:
           - title: custom
             link: meta_key
     message_filter:
+        unspec: true
         or:
           - title: simple
             type: string
@@ -9388,6 +9391,7 @@ links:
             Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
         enum: ['only','through','from','until','everything']
     meta_color:
+        unspec: true
         or:
           - title: '#RGB, #RGBA, 0xARGB HEX String'
             type: string
@@ -9492,6 +9496,7 @@ links:
             min: 0
             unspec: true
     mob_type:
+        unspec: true
         or:
           - title: built-in
             link: mob_type_enum
@@ -9845,11 +9850,11 @@ links:
                     type: string
                     ext: true
     particle_type:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: particle_type
-            unspec: true
           - title: custom
             const: 'origins:custom'
     player_abilities:
@@ -9882,6 +9887,7 @@ links:
         desc: A String that determines how an item stack is processed; be it either being modified or evaluated. See the doc for more information.
         enum: ['items','stacks']
     projectile_type:
+        unspec: true
         or:
           - title: built-in
             link: projectile_type_enum
@@ -9890,7 +9896,6 @@ links:
     projectile_type_enum:
         id: enums
         link: projectile_type
-        unspec: true
     radial_menu_entry:
         type: object
         props:
@@ -10245,16 +10250,17 @@ links:
                 desc: Chance of the status effect taking effect.
                 link: number_percent
     structure:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: structure
-            unspec: true
           - title: custom
             link: identifier
     team:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
         desc: A scoreboard team, given either by name or as a set of properties to match.
+        unspec: true
         or:
           - title: simple
             link: identifier
@@ -10287,6 +10293,7 @@ links:
             instant		The action will not fire for items with a use duration, but will instead fire when an item is used which triggers its effect instantly, such as an ender pearl or splash potion.
         enum: ['finish', 'start', 'stop', 'during', 'instant']
     vector_or_number:
+        unspec: true
         or:
           - title: number
             type: number
