@@ -6122,7 +6122,6 @@ links:
                         consume_sound:
                             desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
                             link: identifier
-                            default: 'entity.generic.eat'
                         consuming_time_modifier:
                             desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
                             link: attribute_modifier
@@ -10155,14 +10154,13 @@ links:
                 desc: The name of the statistic; may depend on the specified type of the statistic.
                 link: identifier
     status_effect:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: status_effect
-            unspec: true
           - title: custom
             link: identifier
-            unspec: true
     status_effect_array:
         type: list
         vals:
