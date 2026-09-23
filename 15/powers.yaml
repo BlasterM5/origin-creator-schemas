@@ -9481,6 +9481,7 @@ links:
         link: mob_type_enum
         unspec: true
     model_animation:
+        unspec: true
         type: object
         props:
             animation:
