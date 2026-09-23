@@ -5892,9 +5892,6 @@ links:
                   - origins:modify_camera_submersion_type
                   - origins:modify_damage_dealt
                   - origins:modify_damage_taken
-                  - origins:modify_fluid_render
-                  - origins:modify_insomnia_ticks
-                  - origins:modify_lava_speed
                   - origins:self_action_on_hit
                   - origins:self_action_on_kill
                   - origins:self_action_when_hit
@@ -7178,13 +7175,13 @@ links:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
                     string-origins:self_action_on_hit:
-                        attacker_condition:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
-                            desc: (DEPRECATED) Gates firing on the attacker (the holder).
-                            link: entity_condition
                         bientity_condition:
-                            desc: Gates firing on the (actor, target) pair.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
+                            desc: (DEPRECATED) Gates firing on the (actor, target) pair.
                             link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the attacker (the holder).
+                            link: entity_condition
                         damage_condition:
                             desc: Gates firing on the damage that was dealt.
                             link: damage_condition
@@ -7194,12 +7191,12 @@ links:
                         bientity_action:
                             desc: The action to execute upon hit.
                             link: bientity_action
-                        target_action:
-                            desc: Action run on the target (the entity that was hit).
-                            link: entity_action
                         self_action:
                             desc: Action run on the actor (the entity that has the power).
                             talias: [attacker_action,entity_action]
+                            link: entity_action
+                        target_action:
+                            desc: Action run on the target (the entity that was hit).
                             link: entity_action
                         cooldown:
                             link: cooldown
@@ -7208,26 +7205,26 @@ links:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
                     string-origins:target_action_on_hit:
-                        attacker_condition:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
-                            desc: (DEPRECATED) Gates firing on the attacker (the holder).
-                            link: entity_condition
                         bientity_condition:
-                            desc: Gates firing on the (actor, target) pair.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_hit/
+                            desc: (DEPRECATED) Gates firing on the (actor, target) pair.
                             link: bientity_condition
+                        attacker_condition:
+                            desc: Gates firing on the attacker (the holder).
+                            link: entity_condition
                         damage_condition:
                             desc: Gates firing on the damage that was dealt.
                             link: damage_condition
                         target_condition:
                             desc: Gates firing on the target.
                             link: entity_condition
+                        bientity_action:
+                            desc: The action to execute upon hit.
+                            link: bientity_action
                         self_action:
                             desc: Action run on the actor (the entity that has the power).
                             talias: attacker_action
                             link: entity_action
-                        bientity_action:
-                            desc: The action to execute upon hit.
-                            link: bientity_action
                         target_action:
                             desc: Action run on the target (the entity that was hit).
                             talias: entity_action
@@ -8270,6 +8267,7 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_type_tag/
                             desc: |
                                 The entity type tag(s) to change membership of. A leading # is optional.
+                            unspec: true
                             or:
                               - title: single
                                 link: entity_type_tag
@@ -8477,6 +8475,36 @@ links:
                         entity_action:
                             desc: If specified, this action will be executed on the entity upon preventing game events.
                             link: entity_action
+                    string-origins:prevent_item_pickup:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_item_pickup/
+                            desc: |
+                                If specified, the restriction will only happen if this bi-entity condition is fulfilled by either or both the actor and target entities:
+                                Actor: The entity that threw the item.
+                                Target: The entity about to pick up the item.
+                            link: bientity_condition
+                        item_condition:
+                            desc: If specified, the restriction will only happen if this item condition is fulfilled by the item about to be picked up.
+                            link: item_condition
+                        bientity_action_thrower:
+                            desc: |
+                                If specified, this bi-entity action will be executed on either or both the actor and target entities:
+                                Actor: The entity that threw the item.
+                                Target: The entity about to pick up the item.
+                            link: bientity_action
+                        bientity_action_item:
+                            desc: |
+                                If specified, this bi-entity action will be executed on either or both the actor and target entities
+                                Actor: The entity about to pick up the item.
+                                Target: The item entity to be picked up.
+                            link: bientity_action
+                        item_action:
+                            desc: If specified,this item action will be executed on the item that was attempted to be picked up.
+                            link: item_action
+                        priority:
+                            desc: Determines the execution priority of the powers that use this power type (in a low-to-high priority order.)
+                            type: integer
+                            default: 0
                     string-origins:prevent_item_use:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_item_use/
@@ -8935,6 +8963,7 @@ links:
                             type: integer
                             min: 1
     damage_source_name:
+        unspec: true
         or:
           - title: built-in
             id: enums
@@ -8942,21 +8971,21 @@ links:
           - title: origins
             enum: ['genericDamageOverTime','genericDamageOverTime.player','hurt_by_water','hurt_by_water.player','no_water_for_gills','no_water_for_gills.player']
           - title: custom
-            link: meta_key
+            link: ingredient_key
     damage_type:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: damage_type
-            unspec: true
           - title: custom
             link: identifier
     damage_type_tag:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: damage_type_tag
-            unspec: true
           - title: custom
             link: identifier
     destruction_type:
