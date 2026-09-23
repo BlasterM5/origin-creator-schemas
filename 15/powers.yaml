@@ -95,13 +95,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
                         string-origins:random_chance:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
@@ -443,13 +443,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
                         string-origins:random_chance:
                             chance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/random_chance
@@ -1452,13 +1452,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
                         string-origins:empty: {}
                         string-origins:amount:
                             comparison:
@@ -1708,13 +1708,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
                         string-origins:adjacent:
                             adjacent_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-conditions/adjacent
@@ -1980,13 +1980,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
                         string-origins:empty: {}
                         string-origins:in_tag:
                             tag:
@@ -2086,13 +2086,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
                         string-origins:high_humidity: {}
                         string-origins:in_tag:
                             tag:
@@ -2217,13 +2217,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
                         string-origins:amount:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/amount
@@ -2406,13 +2406,13 @@ links:
                             mods:
                                 desc: Mod ids that must all be installed.
                                 link: meta_key_array
-                            version:
-                                desc: If set, every named mod’s version must also satisfy comparison against this.
-                                link: meta_key
                             comparison:
                                 desc: How each mod’s version is compared to version.
                                 link: comparison
                                 default: 3
+                            version:
+                                desc: If set, every named mod’s version must also satisfy comparison against this.
+                                link: meta_key
           - title: custom
             link: custom_condition
     bientity_action:
