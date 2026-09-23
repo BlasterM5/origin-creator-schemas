@@ -7723,12 +7723,12 @@ links:
                         attacker_condition:
                             desc: Gates firing on the attacker. Fails if there is no attacker.
                             link: entity_condition
-                        target_condition:
-                            desc: Gates firing on the target (the holder).
-                            link: entity_condition
                         damage_condition:
                             desc: Gates firing on the damage that was dealt.
                             link: damage_condition
+                        target_condition:
+                            desc: Gates firing on the target (the holder).
+                            link: entity_condition
                         bientity_action:
                             desc: The action to execute upon being hit.
                             link: bientity_action
