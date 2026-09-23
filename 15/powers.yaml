@@ -8131,7 +8131,7 @@ links:
                             desc: Which model to apply. Resolved against registered addon models first, then as a Figura avatar.
                             or:
                               - title: built-in
-                                enum: ['apoli:vanilla','apoli:centaur','apoli:digi_legs','apoli:four_arms','apoli:six_arms','apoli:stinkfly']
+                                enum: ['origins:vanilla','origins:centaur','origins:digi_legs','origins:four_arms','origins:six_arms','origins:stinkfly']
                               - title: custom
                                 link: identifier
                         texture_location:
@@ -8836,19 +8836,19 @@ links:
             max_total:						NewTotal = min(Total, Modifier)
             set_total:						NewTotal = Modifier (last, overrides everything)
     biome:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: biome
-            unspec: true
           - title: custom
             link: identifier
     biome_tag:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: biome_tag
-            unspec: true
           - title: custom
             link: identifier
     block_facing:
@@ -8971,6 +8971,7 @@ links:
     difficulty:
         enum: ['peaceful','easy','normal','hard']
     dimension:
+        unspec: true
         or:
           - title: built-in
             id: enums
