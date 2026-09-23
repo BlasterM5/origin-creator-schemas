@@ -9516,6 +9516,7 @@ links:
     model_part_transformation:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-part-transformation
         desc: A single edit to one named part of a biped model. See the doc for more information.
+        unspec: true
         type: object
         props:
             model_part:
@@ -9542,7 +9543,6 @@ links:
             duration:
                 desc: Ticks to fade the whole transformation in when the power becomes active. 0 applies it instantly, which is the original behaviour.
                 type: number
-                default: 0
                 min: 0
             fade_out_duration:
                 desc: Ticks to fade the whole transformation in when the power becomes active. 0 applies it instantly, which is the original behaviour.
