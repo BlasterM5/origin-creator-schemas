@@ -6148,6 +6148,21 @@ links:
                             desc: If specified, this will be the texture used by the Elytra granted by this power.
                             link: identifier
                             unspec: true
+                    string-origins:emissive:
+                        luminance:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/emissive/
+                            desc: Light level from 0 to 15, on the same scale as block light — 15 is a torch and then some, 7 is roughly a redstone torch.
+                            type: integer
+                            min: 0
+                            max: 15
+                            default: 15
+                        self_lit:
+                            desc: Whether the holder’s own model renders at that brightness. Set it false for a holder that lights the room without looking lit itself.
+                            type: boolean
+                            default: true
+                        water_sensitive:
+                            desc: Passed to LambDynamicLights: when true the emitted light is suppressed underwater, the way a torch would be.
+                            type: boolean
                     string-origins:entity_glow:
                         entity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/entity_glow/
