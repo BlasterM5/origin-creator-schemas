@@ -7830,6 +7830,22 @@ links:
                         result:
                             desc: If specified, this item will replace the item of a recipe.
                             link: item_stack
+                    string-origins:modify_cursor_speed:
+                        horizontal:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_cursor_speed/
+                            desc: Scale left/right turning.
+                            type: boolean
+                            default: true
+                        vertical:
+                            desc: Scale up/down turning.
+                            type: boolean
+                            default: true
+                        modifier:
+                            desc: A single modifier applied to a base of 1.0.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers applied to a base of 1.0.
+                            link: attribute_modifier_array
                     string-origins:modify_damage:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_damage/
