@@ -9488,7 +9488,6 @@ links:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-animation/
                 desc: The animation file. mymod:wings resolves to assets/mymod/animations/wings.animation.json (.json also works).
                 link: identifier
-                required: true
             name:
                 desc: Which animation inside the file to play, e.g. animation.wings.flap. A Blockbench animation file usually holds several.
                 link: meta_key
