@@ -8984,6 +8984,7 @@ links:
             Elastic			ease_in_elastic, ease_out_elastic, ease_in_out_elastic	Springs past the target and oscillates.
             Bounce			ease_in_bounce, ease_out_bounce, ease_in_out_bounce	Hits the target and bounces off it.
     enchantment:
+        unspec: true
         or:
           - title: built-in
             id: enums
@@ -8997,6 +8998,7 @@ links:
     entity_pose:
         enum: ['standing','crouching','swimming','fall_flying','sleeping','spin_attack','sitting','sliding','shooting','inhaling']
     entity_type:
+        unspec: true
         or:
           - title: built-in
             or:
@@ -9005,17 +9007,16 @@ links:
               - title: object_entities
                 id: enums
                 link: object_entities
-                unspec: true
               - title: projectiles
                 link: projectile_type_enum
           - title: custom
             link: identifier
     entity_type_tag:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: entity_type_tag
-            unspec: true
           - title: custom
             link: identifier
     entity_type_tag_like:
@@ -9026,7 +9027,7 @@ links:
         unspec: true
     expression_float:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
-        desc: A floating-point value or a math expression. See the doc for more information.
+        desc: A floating-point value or a math expression. See the doc for more information.d
         or:
           - title: value
             type: number
