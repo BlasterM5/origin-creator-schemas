@@ -9058,18 +9058,19 @@ links:
                 vals:
                     link: identifier
     features:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: features
-            unspec: true
           - title: custom
             link: identifier
     fluid:
+        unspec: true
         or:
-          - type: built-in
+          - title: built-in
             link: fluid_vanilla
-          - type: custom
+          - title: custom
             link: meta_key
     fluid_vanilla:
         id: enums
