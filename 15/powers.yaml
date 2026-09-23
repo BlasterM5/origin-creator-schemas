@@ -9114,19 +9114,19 @@ links:
         type: string
         ext: true
     game_event:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: game_event
-            unspec: true
           - title: custom
             link: identifier
     game_event_tag:
+        unspec: true
         or:
           - title: built-in
             id: enums
             link: game_event_tag
-            unspec: true
           - title: custom
             link: identifier
     hand:
@@ -9182,10 +9182,10 @@ links:
                 type: integer
                 min: 0
     hud_render_texture_location:
+        unspec: true
         or:
           - title: built-in
             enum: [$Apace,'origins:textures/gui/sprites/hud_render/apace/resource_bar.png',$JustHuangHere,'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png',$IssacFanta,'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png',$SpiderKolo,'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png',$Stella,'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png',$Vevehki,'origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png']
-            unspec: true
           - title: custom
             link: identifier
     icon:
