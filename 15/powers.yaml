@@ -9498,7 +9498,6 @@ links:
             speed:
                 desc: Playback rate. 2.0 is twice as fast, 0.5 half.
                 type: number
-                default: 1.0
             loop:
                 desc: Overrides the animation’s own loop setting. true loops forever, false plays once and stops. Blockbench’s “Hold on last frame” is honoured when this field is absent.
                 link: boolean_optional
