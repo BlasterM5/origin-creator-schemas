@@ -4117,6 +4117,7 @@ links:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
                                 desc: The identifier of the projectile or entity that will be launched.
+                                unspec: true
                                 or:
                                   - title: projectile
                                     link: projectile_type
@@ -6213,7 +6214,12 @@ links:
                         entity_type:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
                             desc: The ID of the entity type that will be fired.
-                            link: identifier
+                            unspec: true
+                            or:
+                              - title: projectile
+                                link: projectile_type
+                              - title: mob
+                                link: mob_type
                         interval:
                             desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
                             type: integer
