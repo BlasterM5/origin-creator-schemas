@@ -9432,6 +9432,7 @@ links:
         vals:
             link: meta_key
     meta_key_single_or_array:
+        unspec: true
         or:
           - title: single
             link: meta_key
