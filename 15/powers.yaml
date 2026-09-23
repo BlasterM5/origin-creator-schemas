@@ -1646,7 +1646,7 @@ links:
                       - origins:or
                       - origins:chance
                     more:
-                        string-origins:noting: {}
+                        string-origins:nothing: {}
                         string-origins:all_of:
                             conditions:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/all_of/
@@ -3528,6 +3528,28 @@ links:
                             iterate:
                                 desc: Which side of the set to walk — members for the set you own, owners for every set that has you in it.
                                 link: set_iteration
+                        string-origins:action_on_set:
+                            set:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/action_on_entity_set/
+                                desc: (DEPRECATED) The ID of the power.
+                                link: identifier
+                            bientity_condition:
+                                desc: If specified, only execute the bi-entity action if this bi-entity condition is fulfilled by both or either the actor and target.
+                                link: bientity_condition
+                            bientity_action:
+                                desc: The bi-entity action to execute on both or either the actor and target.
+                                link: bientity_action
+                            limit:
+                                desc: Determines the max amount of times the entity action type should iterate and execute the bi-entity action on the entities stored within the power. If the value is less than or equal to 0, then there will be no limit.
+                                type: integer
+                                min: 0
+                                default: 0
+                            reverse:
+                                desc: Determines whether to reverse the order of the entities within the power when processing.
+                                type: boolean
+                            iterate:
+                                desc: Which side of the set to walk — members for the set you own, owners for every set that has you in it.
+                                link: set_iteration
                         string-origins:add_velocity:
                             x:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_velocity
@@ -4704,6 +4726,7 @@ links:
                                 link: expression_integer
                             speed:
                                 desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
+                                unspec: true
                                 or:
                                   - title: number
                                     link: expression_float
@@ -4732,6 +4755,7 @@ links:
                             spread:
                                 desc: |
                                     The size of the volume the particles scatter through. A single number is the same figure on all three axes; a vector is per axis. Every component may be an expression. Read through space like the offset is, so space: "local" with {"x": 0, "y": 0, "z": 3} draws a line running away from the entity’s face rather than along world south.
+                                unspec: true
                                 or:
                                   - title: number
                                     link: expression_float
@@ -8692,6 +8716,7 @@ links:
 # Data Type Definitions and repeat schema links
 
     accessory_slot:
+        unspec: true
         or:
           - title: simple
             link: meta_key
