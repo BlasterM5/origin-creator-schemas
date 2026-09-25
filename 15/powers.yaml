@@ -9828,6 +9828,7 @@ links:
     particle_effect:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/particle-effect
         desc: A data type that's either a String which defines only the particle type or an Object which defines the particle type and its additional parameters.
+        unspec: true
         or:
           - title: simple
             id: enums
