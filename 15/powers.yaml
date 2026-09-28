@@ -148,7 +148,7 @@ links:
                                 link: expression_float
                                 required: true
                             damage_type:
-                                desc: The damage type to simulate, e.g. minecraft:player_attack.
+                                desc: The damage type to simulate, e.g. player_attack.
                                 link: damage_type
                                 required: true
                             modifier:
@@ -1143,7 +1143,7 @@ links:
                         string-origins:sound_playing:
                             sound:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/sound_playing/
-                                desc: The sound event to watch for, e.g. minecraft:entity.ender_dragon.growl.
+                                desc: The sound event to watch for, e.g. entity.ender_dragon.growl.
                                 link: identifier
                                 required: true
                             category:
@@ -1163,7 +1163,7 @@ links:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
-                                    Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                    Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
                                 talias: status
                                 link: stat
                                 required: true
@@ -1178,7 +1178,7 @@ links:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
-                                    (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                    (DEPRECATED) Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
                                 talias: status
                                 link: stat
                                 required: true
@@ -1193,7 +1193,7 @@ links:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
-                                    (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                    (DEPRECATED) Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
                                 talias: status
                                 link: stat
                                 required: true
@@ -1208,7 +1208,7 @@ links:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
-                                    (DEPRECATED) Either a plain id string, shorthand for the minecraft:custom stat type, or an object choosing a typed statistic, where type is a stat type (minecraft:custom, minecraft:mined, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:picked_up, minecraft:dropped, minecraft:killed, minecraft:killed_by) and id is the entry in that type’s registry.
+                                    (DEPRECATED) Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
                                 talias: status
                                 link: stat
                                 required: true
@@ -2759,7 +2759,7 @@ links:
                                 desc: Punch with this item instead of whatever is in the actor’s main hand. The item is held for the duration of the attack only — its attribute modifiers and enchantments count, the actor’s real inventory is untouched, and the item takes no durability damage from the swap itself.
                                 link: item_stack
                             damage_type:
-                                desc: Deal the punch’s damage under this damage type instead of minecraft:player_attack / minecraft:mob_attack. Doing so takes the direct route — the amount is still the attack damage the item would have dealt, but the knockback, sweep and on-hit enchantment effects of a real attack are skipped.
+                                desc: Deal the punch’s damage under this damage type instead of player_attack / mob_attack. Doing so takes the direct route — the amount is still the attack damage the item would have dealt, but the knockback, sweep and on-hit enchantment effects of a real attack are skipped.
                                 link: damage_type
                             swing_hand:
                                 desc: Whether the actor visibly swings its main arm.
@@ -3861,7 +3861,7 @@ links:
                                 type: string
                                 unspec: true
                             entity_type:
-                                desc: The mob type to appear as (e.g. minecraft:zombie). Ignored if a player field is set.
+                                desc: The mob type to appear as (e.g. zombie). Ignored if a player field is set.
                                 link: mob_type
                             nbt:
                                 desc: Extra NBT applied to the mob disguise (e.g. to set a variant or custom name).
@@ -5934,7 +5934,7 @@ links:
                             desc: Multiple modifiers applied to their respective attribute fields.
                             link: attribute_modifier_array_attribute
                         update_health:
-                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
+                            desc: When the modifier touches generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
                             default: true
                     string-origins:modify_attribute:
@@ -5950,7 +5950,7 @@ links:
                             desc: Multiple modifiers applied to their respective attribute fields.
                             link: attribute_modifier_array_legacy
                         update_health:
-                            desc: When the modifier touches minecraft:generic.max_health, scale the player’s current health so their fill ratio is preserved.
+                            desc: When the modifier touches generic.max_health, scale the player’s current health so their fill ratio is preserved.
                             type: boolean
                             default: true
                     string-origins:burn:
@@ -7011,7 +7011,7 @@ links:
                         fluid:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/walk_on_fluid/
                             desc: |
-                                ID of the fluid tag on which the player should be able to walk. Most important examples: minecraft:water and minecraft:lava.
+                                ID of the fluid tag on which the player should be able to walk. Most important examples: water and lava.
                             link: identifier
                     string-origins:water_breathing:
                         suffocate_outside_water:
@@ -7486,7 +7486,7 @@ links:
                     string-origins:action_on_sending_message:
                         message_type:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_sending_message/
-                            desc: Only react to messages of this chat type, e.g. minecraft:chat. Omit to react to all of them.
+                            desc: Only react to messages of this chat type, e.g. chat. Omit to react to all of them.
                             or:
                               - title: built-in
                                 enum: ['chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
@@ -7924,7 +7924,7 @@ links:
                             desc: If specified, only applies/modifies the level of the specified enchantment to/from the entity if the item condition is fulfilled by the item.
                             link: item_condition
                         enchantment:
-                            desc: ID of the enchantment to apply/modify the level of to the entity., e.g. minecraft:protection.
+                            desc: ID of the enchantment to apply/modify the level of to the entity., e.g. protection.
                             link: enchantment
                         modifier:
                             desc: If specified, this modifier will be applied to the current level of the specified enchantment from the entity.
@@ -9026,7 +9026,7 @@ links:
             none:		The explosion will *not* destroy blocks at all
             destroy:	The explosion will destroy blocks and drop the loot of *some* of them.
                         The chance to drop blocks decreases with higher explosion power.
-                        It also defers to the 'minecraft:survives_explosion' loot condition in the loot tables.
+                        It also defers to the 'survives_explosion' loot condition in the loot tables.
         enum: ['break','none','destroy']
     difficulty:
         enum: ['peaceful','easy','normal','hard']
