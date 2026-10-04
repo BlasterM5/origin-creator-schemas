@@ -345,6 +345,7 @@ links:
                       - origins:owner
                       - origins:passenger
                       - origins:passenger_recursive
+                      - origins:perspective
                       - origins:player_model_type
                       - origins:power
                       - origins:power_active
@@ -986,6 +987,19 @@ links:
                                 desc: The value at which the amount of passengers (including the passengers’ passengers) of the entity will be compared to.
                                 type: integer
                                 default: 1
+                        string-origins:perspective:
+                            perspective:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/perspective/
+                                desc: |
+                                    Passes if the player is in any of these views: first_person, third_person (either third-person view), third_person_back or third_person_front.
+                                or:
+                                  - title: single
+                                    link: meta_perspective
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: meta_perspective
+                                required: true
                         string-origins:player_model_type:
                             model_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/player_model_type
@@ -3304,10 +3318,12 @@ links:
                       - origins:unfreeze
                       - $Summon Actions
                       - origins:conjure_equipment
+                      - origins:set_perspective
                       - origins:set_summon_max_life
                       - origins:spawn_effect_cloud
                       - origins:spawn_entity
                       - origins:spawn_particles
+                      - origins:start_raid
                       - origins:summon_clone
                       - origins:summon_minion
                       - $Data Actions
@@ -4136,95 +4152,14 @@ links:
                                 desc: The amount of saturation points to restore.
                                 link: expression_float
                         string-origins:fire_projectile:
-                            entity_type:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
-                                desc: The identifier of the projectile or entity that will be launched.
-                                unspec: true
-                                or:
-                                  - title: projectile
-                                    link: projectile_type
-                                  - title: mob
-                                    link: mob_type
                             entity_id:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
                                 desc: Identifier for tracking the projectile
-                                link: identifier
-                            texture_location:
-                                desc: If specified, the texture used for the custom projectile and entity_type is ignored.
                                 link: identifier
                             count:
                                 desc: The amount of projectiles to fire each use.
                                 link: expression_integer
-                            speed:
-                                desc: The speed applied to the fired projectile.
-                                link: expression_float
-                            offset_x:
-                                desc: |
-                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                                type: number
-                                default: 0
-                            offset_y:
-                                desc: |
-                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                                type: number
-                                default: 0
-                            offset_z:
-                                desc: |
-                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                                type: number
-                                default: 0
-                            space:
-                                desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
-                                link: space
-                            max_distance:
-                                desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
-                                link: expression_float
-                            divergence:
-                                desc: How much each projectile fired is affected by random spread.
-                                type: number
-                                min: 0
-                                default: 1
-                            sound:
-                                desc: If set, the sound with this ID will be played when the power is used.
-                                link: identifier
-                            tag:
-                                desc: NBT data to apply to projectiles.
-                                link: nbt
-                            entity_action_before_firing:
-                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-                                link: entity_action
-                            projectile_action:
-                                desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
-                                link: entity_action
-                            tick_bientity_action:
-                                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
-                                link: bientity_action
-                            bientity_action_after_firing:
-                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                                link: bientity_action
-                            block_condition:
-                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                                link: block_condition
-                            block_action_on_hit:
-                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-                                link: block_action
-                            block_action_cancels_miss_action:
-                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                                type: boolean
-                            bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            bientity_action_on_miss:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                                link: bientity_action
-                            bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bientity_action
-                            owner_bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
-                            owner_target_bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
-                                link: bientity_action
+                            extend: meta_fire_projectile
                         string-origins:force_key_pressed:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/force_key_pressed
@@ -4665,6 +4600,12 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_on_fire
                                 desc: The amount of seconds the entity should burn.
                                 link: expression_integer
+                        string-origins:set_perspective:
+                            perspective:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_perspective/
+                                desc: The perspective to set on the player's camera.
+                                link: meta_perspective
+                                required: true
                         string-origins:set_summon_max_life:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_summon_max_life
@@ -4770,6 +4711,18 @@ links:
                             offset_z:
                                 desc: The offset of where the particle will be centered in the Z axis.
                                 link: expression_float
+                        string-origins:start_raid:
+                            omen_level:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/start_raid/
+                                desc: The omen level the raid absorbs, from 1 to 5. A new raid starts at this level; a raid already running here adds it to its own level, up to 5. Values outside 1–5 are clamped. Higher levels add a bonus wave and give raiders better odds of enchanted gear.
+                                link: expression_integer
+                            success_action:
+                                desc: Runs on the entity when a raid starts or grows.
+                                link: entity_action
+                            fail_action:
+                                desc: Runs on the entity when no raid can start here. See the link.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/start_raid/#when-it-fails
+                                link: entity_action
                         string-origins:summon_clone:
                             can_attack:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_clone
@@ -5814,6 +5767,7 @@ links:
                   - origins:shader
                   - origins:shaking
                   - origins:show_both_arms
+                  - origins:solid_hitbox
                   - origins:stacking_status_effect
                   - origins:starting_equipment
                   - origins:swimming
@@ -5821,6 +5775,7 @@ links:
                   - origins:tooltip
                   - origins:walk_on_fluid
                   - origins:water_breathing
+                  - origins:zoom
 
                   - $Action Types
 
@@ -5852,6 +5807,7 @@ links:
                   - origins:modify_block_render
                   - origins:modify_block_stuck_speed
                   - origins:modify_break_speed
+                  - origins:modify_camera
                   - origins:modify_camera_submersion
                   - origins:modify_crafting
                   - origins:modify_cursor_speed
@@ -5860,6 +5816,7 @@ links:
                   - origins:modify_exhaustion
                   - origins:modify_falling
                   - origins:modify_fog
+                  - origins:modify_fov
                   - origins:modify_food
                   - origins:modify_grindstone
                   - origins:modify_harvest
@@ -6235,15 +6192,12 @@ links:
                             desc: Exhaustion added each interval.
                             type: number
                     string-origins:fire_projectile:
-                        entity_type:
+                        count:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
-                            desc: The ID of the entity type that will be fired.
-                            unspec: true
-                            or:
-                              - title: projectile
-                                link: projectile_type
-                              - title: mob
-                                link: mob_type
+                            desc: The amount of projectiles to fire each use.
+                            type: integer
+                            default: 1
+                            min: 1
                         interval:
                             desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
                             type: integer
@@ -6256,90 +6210,6 @@ links:
                         allow_conditional_cancelling:
                             desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
                             type: boolean
-                        texture_location:
-                            desc: If specified, the texture used for the custom projectile and entity_type is ignored.
-                            link: identifier
-                        count:
-                            desc: The amount of projectiles to fire each use.
-                            type: integer
-                            default: 1
-                            min: 1
-                        speed:
-                            desc: The speed applied to the fired projectile.
-                            type: number
-                            min: 0
-                            default: 1.5
-                        offset_x:
-                            desc: |
-                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                            type: number
-                            default: 0
-                        offset_y:
-                            desc: |
-                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                            type: number
-                            default: 0
-                        offset_z:
-                            desc: |
-                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                            type: number
-                            default: 0
-                        space:
-                            desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
-                            link: space
-                        max_distance:
-                            desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
-                            link: expression_float
-                        divergence:
-                            desc: How much each projectile fired is affected by random spread.
-                            type: number
-                            min: 0
-                            default: 1
-                        sound:
-                            desc: If set, the sound with this ID will be played when the power is used.
-                            link: identifier
-                        tag:
-                            desc: NBT data to apply to projectiles.
-                            link: nbt
-                        entity_action_before_firing:
-                            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-                            link: entity_action
-                        projectile_action:
-                            desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
-                            link: entity_action
-                        tick_bientity_action:
-                            desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
-                            link: bientity_action
-                        bientity_action_after_firing:
-                            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                            link: bientity_action
-                        block_condition:
-                            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                            link: block_condition
-                        block_action_on_hit:
-                            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-                            link: block_action
-                        block_action_cancels_miss_action:
-                            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                            type: boolean
-                        bientity_condition:
-                            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                            link: bientity_condition
-                        bientity_action_on_miss:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                            link: bientity_action
-                        bientity_action_on_hit:
-                            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                            link: bientity_action
-                        owner_bientity_condition:
-                            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                            link: bientity_condition
-                        owner_target_bientity_action_on_hit:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
-                            link: bientity_action
-                        shooter_action:
-                            desc: If specified, this entity action will be executed on the entity that has the power.
-                            link: entity_action
                         key:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
                             link: keybind
@@ -6349,6 +6219,7 @@ links:
                         hud_render:
                             desc: 	Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
+                        extend: meta_fire_projectile
                     string-origins:fluid_vision:
                         fluid:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fluid_vision/
@@ -6806,6 +6677,27 @@ links:
                         max_action:
                             desc: Run on the entity whenever the value reaches max.
                             link: entity_action
+                        on_change:
+                            desc: Actions to run when the value changes, each with an optional test on the new value — see Reacting to changes.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/resource/#reacting-to-changes
+                            type: list
+                            vals:
+                                type: object
+                                props:
+                                    entity_action:
+                                        desc: What to run. An entry without one never runs.
+                                        link: entity_action
+                                    comparison:
+                                        desc: How the new value is compared.
+                                        link: comparison
+                                    value:
+                                        desc: The number the new value is compared with.
+                                        link: expression_integer
+                                    values:
+                                        desc: More numbers to compare with. The entry matches if the comparison holds for value or for any of these.
+                                        type: list
+                                        vals:
+                                            link: expression_integer
                         persistent:
                             desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
                             type: boolean
@@ -6933,6 +6825,14 @@ links:
                             link: number_percent
                             default: 0.35
                     string-origins:simple: {}
+                    string-origins:solid_hitbox:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/solid_hitbox/
+                            desc: Checked with the holder as actor and the entity trying to move through it as target. When it fails, that entity passes through as if the power were not there.
+                            link: bientity_condition
+                        pushable:
+                            desc: Whether the holder can still be shoved by the entities bumping into it. false makes it an immovable platform.
+                            type: boolean
                     string-origins:stacking_status_effect:
                         min_stacks:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/stacking_status_effect/
@@ -7018,6 +6918,27 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/water_breathing/
                             desc: If true, the entity loses air and eventually takes drowning damage whenever its eyes are not in water — the aquatic-creature trade-off.
                             type: boolean
+                    string-origins:zoom:
+                        zoom:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/zoom/
+                            desc: Magnification. 4 shows a quarter of the normal field of view. Values below 1 widen the view instead. Clamped to 0.05 – 100.
+                            link: expression_float
+                        scale_sensitivity:
+                            desc: Slow mouse turning by the same factor, so aiming feels the same at any zoom.
+                            type: boolean
+                            default: true
+                        cinematic:
+                            desc: Smooth the mouse like vanilla’s cinematic camera while zoomed.
+                            type: boolean
+                        hide_hand:
+                            desc: Hide the first-person hand while zoomed.
+                            type: boolean
+                        speed:
+                            desc: How quickly the zoom eases toward its target each tick, from 0.01 (slow glide) to 1 (instant).
+                            type: number
+                            default: 0.5
+                            min: 0.01
+                            max: 1
                     string-origins:action_on_block_place:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_block_place/
@@ -7818,6 +7739,73 @@ links:
                         hardness_modifiers:
                             desc: If specified, these modifiers will be applied to the effective hardness value of the block while calculating the block’s break speed.
                             link: attribute_modifier_array
+                    string-origins:modify_camera:
+                        space:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera/
+                            desc: How x, y and z are read. See Offsets.
+                            link: space
+                        x:
+                            desc: Offset to the left (local) or along world X (world), in blocks.
+                            link: expression_float
+                        y:
+                            desc: Offset upward, in blocks.
+                            link: expression_float
+                        z:
+                            desc: Offset forward (local) or along world Z (world), in blocks. Negative is behind.
+                            link: expression_float
+                        pitch:
+                            desc: |
+                                Degrees added to the camera’s pitch. Positive looks down. With look: fixed, the absolute pitch.
+                            link: expression_float
+                        yaw:
+                            desc: |
+                                Degrees added to the camera’s yaw. With look: fixed, the absolute yaw (0 faces south).
+                            link: expression_float
+                        roll:
+                            desc: Degrees the camera is rolled. Positive tilts the view clockwise.
+                            link: expression_float
+                        fov:
+                            desc: Field-of-view multiplier. 0.5 halves the FOV (zooms in), 1.5 widens it.
+                            link: expression_float
+                        look:
+                            desc: |
+                                    Where the camera points:
+                                    look	The camera points
+                                    anchor	Where the anchor looks. On the holder, that is wherever you aim the mouse. On another entity, it is a spectator’s view of that entity.
+                                    holder	Where the holder looks, wherever the camera is. Sit the camera on a pet and look around with your own mouse.
+                                    fixed	At the absolute pitch and yaw you give, ignoring the mouse.
+                                    at_holder	At the holder’s eyes — a tracking shot.
+                                    at_anchor	At the anchor’s eyes. With an offset, this orbits the anchor while keeping it centred.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera/#looking
+                            enum: ['anchor','holder','fixed','at_holder','at_anchor']
+                            default: 0
+                        follow:
+                            desc: true keeps the camera on its anchor as it moves. false fixes it where the anchor was when the power turned on.
+                            type: boolean
+                            default: true
+                        set:
+                            desc: An apoli:entity_set power the holder has. The camera sits on the nearest member of that set.
+                            link: identifier
+                        selector:
+                            desc: An entity selector, run as the holder. The camera sits on the first entity it finds, e.g. "@e[type=minecraft:pig,sort=nearest,limit=1]".
+                            type: string
+                        collision:
+                            desc: Pull the camera in when a block is between it and its anchor, like the vanilla third-person camera.
+                            type: boolean
+                            default: true
+                        keyframes:
+                            desc: Animates x, y, z, pitch, yaw, roll and fov over time. See Animation.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera/#animation
+                            type: list
+                            vals:
+                                link: camera_keyframe
+                        loop:
+                            desc: Repeat the keyframes. false holds the last keyframe once the animation ends.
+                            type: boolean
+                        priority:
+                            desc: When several modify_camera powers are active, the highest priority is the one used.
+                            type: integer
+                            default: 0
                     string-origins:modify_camera_submersion:
                         from:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera_submersion/
@@ -8020,6 +8008,18 @@ links:
                         item_action:
                             desc: If specified, this item action type will be executed on the remaining item stacks that was consumed.
                             link: item_action
+                    string-origins:modify_fov:
+                        modifier:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_fov/
+                            desc: Applied to the field-of-view multiplier.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers, applied in their usual order.
+                            link: attribute_modifier_array
+                        affected_by_fov_effect_scale:
+                            desc: true scales the change by the player’s FOV Effects accessibility slider, like vanilla speed effects. false always applies it in full.
+                            type: boolean
+                            default: true
                     string-origins:modify_grindstone:
                         top_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_grindstone/
@@ -8931,6 +8931,39 @@ links:
     boolean_optional:
         enum: ['false','true']
         unspec: true
+    camera_keyframe:
+        type: object
+        props:
+            time:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/camera-keyframe/
+                desc: Ticks after the power turned on. Fractions are allowed.
+                type: string
+                required: true
+            x:
+                desc: The camera’s x offset at this time.
+                type: number
+            y:
+                desc: The camera’s y offset at this time.
+                type: number
+            z:
+                desc: The camera’s z offset at this time.
+                type: number
+            pitch:
+                desc: The camera’s pitch at this time, in degrees.
+                type: number
+            yaw:
+                desc: The camera’s yaw at this time, in degrees.
+                type: number
+            roll:
+                desc: The camera’s roll at this time, in degrees.
+                type: number
+            fov:
+                desc: The camera’s field-of-view multiplier at this time.
+                type: number
+            easing:
+                desc: How the values move from this keyframe to the next one.
+                link: easing
+                default: 0
     comparison:
         desc: |
             Specify how the two values should be compared:
@@ -9505,6 +9538,123 @@ links:
                 action:
                     desc: An action which might be executed.
                     link: entity_action
+    meta_fire_projectile:
+        entity_type:
+            desc: The identifier of the projectile or entity that will be launched.
+            unspec: true
+            or:
+              - title: projectile
+                link: projectile_type
+              - title: mob
+                link: mob_type
+        texture_location:
+            desc: If specified, the texture used for the custom projectile and entity_type is ignored.
+            link: identifier
+        interval:
+            desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
+            type: integer
+            min: 0
+            default: 0
+        start_delay:
+            desc: Ticks to wait before the first shot.
+            type: integer
+            default: 0
+        speed:
+            desc: The speed applied to the fired projectile.
+            link: expression_float
+        max_distance:
+            desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
+            link: expression_float
+        lifetime:
+            desc: Removes the projectile after this many ticks in the air, whatever it is doing, running bientity_action_on_expire first. It is the backstop for a slow projectile that would otherwise hang where it stopped — in water, say. Unlike max_distance it also ends a projectile that is on its way back. 0 sets no limit.
+            link: expression_integer
+        offset_x:
+            desc: |
+                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+            link: expression_float
+        offset_y:
+            desc: |
+                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+            link: expression_float
+        offset_z:
+            desc: |
+                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+            link: expression_float
+        space:
+            desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
+            link: space
+        divergence:
+            desc: How much each projectile fired is affected by random spread.
+            type: number
+            min: 0
+            default: 1
+        reflective:
+            desc: Makes the projectile bounce off blocks instead of stopping on them. true bounces with the default settings. See Bouncing off walls.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
+            or:
+              - title: simple
+                type: boolean
+              - title: advanced
+                link: projectile_reflection
+        return:
+            desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#coming-back
+            link: projectile_return
+        homing:
+            desc: Makes the projectile seek out and curve toward a nearby target. See Chasing a target.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#chasing-a-target
+            link: projectile_homing
+        sound:
+            desc: If set, the sound with this ID will be played when the power is used.
+            link: identifier
+        tag:
+            desc: NBT data to apply to projectiles.
+            link: nbt
+        entity_action_before_firing:
+            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+            link: entity_action
+        projectile_action:
+            desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
+            link: entity_action
+        shooter_action:
+            desc: If specified, this entity action will be executed on the entity firing the projectile.
+            link: entity_action
+        bientity_action_after_firing:
+            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+            link: bientity_action
+        tick_bientity_action:
+            desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+            link: bientity_action
+        block_condition:
+            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+            link: block_condition
+        block_action_on_hit:
+            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+            link: block_action
+        block_action_cancels_miss_action:
+            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+            type: boolean
+        bientity_condition:
+            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+            link: bientity_condition
+        bientity_action_on_bounce:
+            desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target every time it bounces.
+            link: bientity_action
+        bientity_action_on_expire:
+            desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target when the projectile runs out of max_distance or lifetime and is removed. It does not run when return turns the projectile around instead.
+            link: bientity_action
+        bientity_action_on_miss:
+            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+            link: bientity_action
+        bientity_action_on_hit:
+            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+            link: bientity_action
+        owner_bientity_condition:
+            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+            link: bientity_condition
+        owner_target_bientity_action_on_hit:
+            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+            link: bientity_action
     meta_key:
         type: string
         allow: 'a-z0-9._-'
@@ -9534,6 +9684,8 @@ links:
             enum: [1.20.1,1.21.1]
           - title: custom
             link: meta_key
+    meta_perspective:
+        enum: ['first_person','third_person','third_person_back','third_person_front']
     meta_send_condition_action:
         desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
         link: identifier
@@ -9964,6 +10116,66 @@ links:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/process-mode
         desc: A String that determines how an item stack is processed; be it either being modified or evaluated. See the doc for more information.
         enum: ['items','stacks']
+    projectile_homing:
+        type: object
+        props:
+            bientity_condition:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/projectile-homing/
+                desc: If specified, only entities that pass it are chased, with the owner as the actor and the candidate as the target.
+                link: bientity_condition
+            delay:
+                desc: Ticks the projectile flies straight before it starts looking for a target.
+                link: expression_integer
+            duration:
+                desc: Ticks it keeps homing once delay is over. After that it lets go of its target and flies on in a straight line. 0 homes for the whole flight.
+                link: expression_integer
+            range:
+                desc: How far away, in blocks, a target can be picked up. A target it is already chasing is kept until it is half as far again away. 0 never finds one. Default 8.
+                link: expression_float
+            angle:
+                desc: How far to either side of its direction of travel, in degrees, the projectile looks. 180 looks all the way round, 20 only at what is nearly straight ahead. Default 60.
+                link: expression_float
+            turn_rate:
+                desc: The most the projectile turns in one tick, in degrees. It keeps its speed while it turns. 0 picks a target but never steers toward it. Default 8.
+                link: expression_float
+    projectile_reflection:
+        type: object
+        props:
+            max_bounces:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/projectile-reflection/
+                desc: How many times the projectile may bounce. The block hit after the last bounce ends the shot normally. -1 bounces forever. Default 4.
+                link: expression_integer
+            speed:
+                desc: The fraction of its speed the projectile keeps after each bounce. 1.0 loses nothing, 0.6 is a rubber ball, values above 1 speed it up. bounce_speed is another name for it.
+                link: expression_float
+    projectile_return:
+        type: object
+        props:
+            on_hit_entity:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/projectile-return/
+                desc: Come back after hitting an entity. When false, an entity hit ends the shot as usual.
+                type: boolean
+                default: true
+            on_hit_block:
+                desc: Come back after hitting a block. The projectile stops at the surface and starts back from there.
+                type: boolean
+            after:
+                desc: Come back on its own after this many ticks in the air, hit or not. 0 never does.
+                type: integer
+                default: 0
+            speed:
+                desc: |
+                    How strongly it is pulled back, on the same scale as Loyalty levels: 1 returns like Loyalty I, 3 like Loyalty III. Worked out when it turns around, with the owner as the entity. 0 or less means it does not come back this time.
+                link: expression_float
+            hit_while_returning:
+                desc: Whether it can hit entities on the way back. Each hit runs the shot’s usual hit actions. It never hits its owner, or the entity it hit last.
+                type: boolean
+            bientity_action_on_return:
+                desc: Runs when it turns around, with the owner as the actor and the projectile as the target.
+                link: bientity_action
+            bientity_action_on_catch:
+                desc: Runs when it reaches the owner, just before it disappears. Same actor and target.
+                link: bientity_action
     projectile_type:
         unspec: true
         or:
