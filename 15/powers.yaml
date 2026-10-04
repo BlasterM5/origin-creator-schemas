@@ -6345,10 +6345,6 @@ links:
                         texture_location:
                             desc: If specified, the texture used for the custom projectile and entity_type is ignored.
                             link: identifier
-                        start_delay:
-                            desc: Ticks to wait before the first shot.
-                            type: integer
-                            default: 0
                         speed:
                             desc: The speed applied to the fired projectile.
                             link: expression_float
