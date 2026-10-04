@@ -4152,7 +4152,129 @@ links:
                                 desc: The amount of saturation points to restore.
                                 link: expression_float
                         string-origins:fire_projectile:
-                            extend: [meta_fire_projectile_power,meta_fire_projectile_common]
+                            entity_id:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
+                                desc: Identifier for tracking the projectile
+                                link: identifier
+                            count:
+                                desc: The amount of projectiles to fire each use.
+                                link: expression_integer
+                            entity_type:
+                                desc: The identifier of the projectile or entity that will be launched.
+                                unspec: true
+                                or:
+                                  - title: projectile
+                                    link: projectile_type
+                                  - title: mob
+                                    link: mob_type
+                            texture_location:
+                                desc: If specified, the texture used for the custom projectile and entity_type is ignored.
+                                link: identifier
+                            interval:
+                                desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
+                                type: integer
+                                min: 0
+                                default: 0
+                            start_delay:
+                                desc: Ticks to wait before the first shot.
+                                type: integer
+                                default: 0
+                            speed:
+                                desc: The speed applied to the fired projectile.
+                                link: expression_float
+                            max_distance:
+                                desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
+                                link: expression_float
+                            lifetime:
+                                desc: Removes the projectile after this many ticks in the air, whatever it is doing, running bientity_action_on_expire first. It is the backstop for a slow projectile that would otherwise hang where it stopped — in water, say. Unlike max_distance it also ends a projectile that is on its way back. 0 sets no limit.
+                                link: expression_integer
+                            offset_x:
+                                desc: |
+                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                                link: expression_float
+                            offset_y:
+                                desc: |
+                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                                link: expression_float
+                            offset_z:
+                                desc: |
+                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                                link: expression_float
+                            space:
+                                desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
+                                link: space
+                            divergence:
+                                desc: How much each projectile fired is affected by random spread.
+                                type: number
+                                min: 0
+                                default: 1
+                            reflective:
+                                desc: Makes the projectile bounce off blocks instead of stopping on them. true bounces with the default settings. See Bouncing off walls.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
+                                or:
+                                  - title: simple
+                                    type: boolean
+                                  - title: advanced
+                                    link: projectile_reflection
+                            return:
+                                desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#coming-back
+                                link: projectile_return
+                            homing:
+                                desc: Makes the projectile seek out and curve toward a nearby target. See Chasing a target.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#chasing-a-target
+                                link: projectile_homing
+                            sound:
+                                desc: If set, the sound with this ID will be played when the power is used.
+                                link: identifier
+                            tag:
+                                desc: NBT data to apply to projectiles.
+                                link: nbt
+                            entity_action_before_firing:
+                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+                                link: entity_action
+                            projectile_action:
+                                desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
+                                link: entity_action
+                            shooter_action:
+                                desc: If specified, this entity action will be executed on the entity firing the projectile.
+                                link: entity_action
+                            bientity_action_after_firing:
+                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                                link: bientity_action
+                            tick_bientity_action:
+                                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+                                link: bientity_action
+                            block_condition:
+                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                                link: block_condition
+                            block_action_on_hit:
+                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                                link: block_action
+                            block_action_cancels_miss_action:
+                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                                type: boolean
+                            bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bientity_condition
+                            bientity_action_on_bounce:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target every time it bounces.
+                                link: bientity_action
+                            bientity_action_on_expire:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target when the projectile runs out of max_distance or lifetime and is removed. It does not run when return turns the projectile around instead.
+                                link: bientity_action
+                            bientity_action_on_miss:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                                link: bientity_action
+                            bientity_action_on_hit:
+                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                                link: bientity_action
+                            owner_bientity_condition:
+                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                link: bientity_condition
+                            owner_target_bientity_action_on_hit:
+                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+                                link: bientity_action
                         string-origins:force_key_pressed:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/force_key_pressed
@@ -6185,7 +6307,149 @@ links:
                             desc: Exhaustion added each interval.
                             type: number
                     string-origins:fire_projectile:
-                        extend: [meta_fire_projectile_power,meta_fire_projectile_common]
+                        count:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
+                            desc: The amount of projectiles to fire each use.
+                            type: integer
+                            default: 1
+                            min: 1
+                        interval:
+                            desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
+                            type: integer
+                            default: 0
+                            min: 0
+                        start_delay:
+                            desc: Determines how long the start of the firing process is delayed (in ticks).
+                            type: integer
+                            default: 0
+                        allow_conditional_cancelling:
+                            desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
+                            type: boolean
+                        key:
+                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
+                            link: keybind
+                        cooldown:
+                            link: cooldown
+                            default: 1
+                        hud_render:
+                            desc: 	Determines how the cooldown of this power is visualized on the HUD.
+                            link: hud_render
+                        entity_type:
+                            desc: The identifier of the projectile or entity that will be launched.
+                            unspec: true
+                            or:
+                              - title: projectile
+                                link: projectile_type
+                              - title: mob
+                                link: mob_type
+                        texture_location:
+                            desc: If specified, the texture used for the custom projectile and entity_type is ignored.
+                            link: identifier
+                        interval:
+                            desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
+                            type: integer
+                            min: 0
+                            default: 0
+                        start_delay:
+                            desc: Ticks to wait before the first shot.
+                            type: integer
+                            default: 0
+                        speed:
+                            desc: The speed applied to the fired projectile.
+                            link: expression_float
+                        max_distance:
+                            desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
+                            link: expression_float
+                        lifetime:
+                            desc: Removes the projectile after this many ticks in the air, whatever it is doing, running bientity_action_on_expire first. It is the backstop for a slow projectile that would otherwise hang where it stopped — in water, say. Unlike max_distance it also ends a projectile that is on its way back. 0 sets no limit.
+                            link: expression_integer
+                        offset_x:
+                            desc: |
+                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                            link: expression_float
+                        offset_y:
+                            desc: |
+                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                            link: expression_float
+                        offset_z:
+                            desc: |
+                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
+                            link: expression_float
+                        space:
+                            desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
+                            link: space
+                        divergence:
+                            desc: How much each projectile fired is affected by random spread.
+                            type: number
+                            min: 0
+                            default: 1
+                        reflective:
+                            desc: Makes the projectile bounce off blocks instead of stopping on them. true bounces with the default settings. See Bouncing off walls.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
+                            or:
+                              - title: simple
+                                type: boolean
+                              - title: advanced
+                                link: projectile_reflection
+                        return:
+                            desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#coming-back
+                            link: projectile_return
+                        homing:
+                            desc: Makes the projectile seek out and curve toward a nearby target. See Chasing a target.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#chasing-a-target
+                            link: projectile_homing
+                        sound:
+                            desc: If set, the sound with this ID will be played when the power is used.
+                            link: identifier
+                        tag:
+                            desc: NBT data to apply to projectiles.
+                            link: nbt
+                        entity_action_before_firing:
+                            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+                            link: entity_action
+                        projectile_action:
+                            desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
+                            link: entity_action
+                        shooter_action:
+                            desc: If specified, this entity action will be executed on the entity firing the projectile.
+                            link: entity_action
+                        bientity_action_after_firing:
+                            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                            link: bientity_action
+                        tick_bientity_action:
+                            desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+                            link: bientity_action
+                        block_condition:
+                            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                            link: block_condition
+                        block_action_on_hit:
+                            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                            link: block_action
+                        block_action_cancels_miss_action:
+                            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                            type: boolean
+                        bientity_condition:
+                            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                            link: bientity_condition
+                        bientity_action_on_bounce:
+                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target every time it bounces.
+                            link: bientity_action
+                        bientity_action_on_expire:
+                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target when the projectile runs out of max_distance or lifetime and is removed. It does not run when return turns the projectile around instead.
+                            link: bientity_action
+                        bientity_action_on_miss:
+                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                            link: bientity_action
+                        bientity_action_on_hit:
+                            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                            link: bientity_action
+                        owner_bientity_condition:
+                            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                            link: bientity_condition
+                        owner_target_bientity_action_on_hit:
+                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+                            link: bientity_action
                     string-origins:fluid_vision:
                         fluid:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fluid_vision/
@@ -9504,168 +9768,6 @@ links:
                 action:
                     desc: An action which might be executed.
                     link: entity_action
-    meta_fire_projectile_action:
-        type: object
-        show: true
-        props:
-            entity_id:
-                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
-                desc: Identifier for tracking the projectile
-                link: identifier
-            count:
-                desc: The amount of projectiles to fire each use.
-                link: expression_integer
-    meta_fire_projectile_power:
-        type: object
-        show: true
-        props:
-            count:
-                href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
-                desc: The amount of projectiles to fire each use.
-                type: integer
-                default: 1
-                min: 1
-            interval:
-                desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
-                type: integer
-                default: 0
-                min: 0
-            start_delay:
-                desc: Determines how long the start of the firing process is delayed (in ticks).
-                type: integer
-                default: 0
-            allow_conditional_cancelling:
-                desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
-                type: boolean
-            key:
-                desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
-                link: keybind
-            cooldown:
-                link: cooldown
-                default: 1
-            hud_render:
-                desc: 	Determines how the cooldown of this power is visualized on the HUD.
-                link: hud_render
-    meta_fire_projectile_common:
-        type: object
-        show: true
-        props:
-            entity_type:
-                desc: The identifier of the projectile or entity that will be launched.
-                unspec: true
-                or:
-                  - title: projectile
-                    link: projectile_type
-                  - title: mob
-                    link: mob_type
-            texture_location:
-                desc: If specified, the texture used for the custom projectile and entity_type is ignored.
-                link: identifier
-            interval:
-                desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
-                type: integer
-                min: 0
-                default: 0
-            start_delay:
-                desc: Ticks to wait before the first shot.
-                type: integer
-                default: 0
-            speed:
-                desc: The speed applied to the fired projectile.
-                link: expression_float
-            max_distance:
-                desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
-                link: expression_float
-            lifetime:
-                desc: Removes the projectile after this many ticks in the air, whatever it is doing, running bientity_action_on_expire first. It is the backstop for a slow projectile that would otherwise hang where it stopped — in water, say. Unlike max_distance it also ends a projectile that is on its way back. 0 sets no limit.
-                link: expression_integer
-            offset_x:
-                desc: |
-                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                link: expression_float
-            offset_y:
-                desc: |
-                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                link: expression_float
-            offset_z:
-                desc: |
-                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                link: expression_float
-            space:
-                desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
-                link: space
-            divergence:
-                desc: How much each projectile fired is affected by random spread.
-                type: number
-                min: 0
-                default: 1
-            reflective:
-                desc: Makes the projectile bounce off blocks instead of stopping on them. true bounces with the default settings. See Bouncing off walls.
-                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
-                or:
-                  - title: simple
-                    type: boolean
-                  - title: advanced
-                    link: projectile_reflection
-            return:
-                desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
-                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#coming-back
-                link: projectile_return
-            homing:
-                desc: Makes the projectile seek out and curve toward a nearby target. See Chasing a target.
-                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#chasing-a-target
-                link: projectile_homing
-            sound:
-                desc: If set, the sound with this ID will be played when the power is used.
-                link: identifier
-            tag:
-                desc: NBT data to apply to projectiles.
-                link: nbt
-            entity_action_before_firing:
-                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
-                link: entity_action
-            projectile_action:
-                desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
-                link: entity_action
-            shooter_action:
-                desc: If specified, this entity action will be executed on the entity firing the projectile.
-                link: entity_action
-            bientity_action_after_firing:
-                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
-                link: bientity_action
-            tick_bientity_action:
-                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
-                link: bientity_action
-            block_condition:
-                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
-                link: block_condition
-            block_action_on_hit:
-                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
-                link: block_action
-            block_action_cancels_miss_action:
-                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
-                type: boolean
-            bientity_condition:
-                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                link: bientity_condition
-            bientity_action_on_bounce:
-                desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target every time it bounces.
-                link: bientity_action
-            bientity_action_on_expire:
-                desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target when the projectile runs out of max_distance or lifetime and is removed. It does not run when return turns the projectile around instead.
-                link: bientity_action
-            bientity_action_on_miss:
-                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
-                link: bientity_action
-            bientity_action_on_hit:
-                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
-                link: bientity_action
-            owner_bientity_condition:
-                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                link: bientity_condition
-            owner_target_bientity_action_on_hit:
-                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
-                link: bientity_action
     meta_key:
         type: string
         allow: 'a-z0-9._-'
