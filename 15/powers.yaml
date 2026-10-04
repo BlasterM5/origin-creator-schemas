@@ -6329,7 +6329,7 @@ links:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
                             link: keybind
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: 	Determines how the cooldown of this power is visualized on the HUD.
@@ -6520,7 +6520,7 @@ links:
                             type: boolean
                             default: true
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -7300,7 +7300,7 @@ links:
                             desc: Action run on the entity being collided with.
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 0
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -7341,7 +7341,7 @@ links:
                             desc: Action run on the target (the entity that was hit).
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -7371,7 +7371,7 @@ links:
                             desc: Action run on the target (the entity that was hit).
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -7402,7 +7402,7 @@ links:
                             talias: entity_action
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -7444,7 +7444,7 @@ links:
                             desc: The action to execute on the player.
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -7458,7 +7458,7 @@ links:
                             desc: (DEPRECATED) The action to execute on the player.
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -7475,7 +7475,7 @@ links:
                             desc: Run when a key press breaks a partial match.
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 0
                         timeout:
                             desc: Ticks of no tracked key press before a partial combo is forgotten. 0 never expires.
@@ -7524,7 +7524,7 @@ links:
                             desc: Action run on the entity that died.
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -7554,7 +7554,7 @@ links:
                             desc: Action run on the entity that died.
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
@@ -7621,7 +7621,7 @@ links:
                             desc: Swallow the scroll so the held hotbar slot does not move.
                             type: boolean
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                         hud_render:
                             desc: Draws the cooldown as a resource bar.
                             link: hud_render
@@ -7821,7 +7821,7 @@ links:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -7851,7 +7851,7 @@ links:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -7882,7 +7882,7 @@ links:
                             talias: entity_action
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -7912,7 +7912,7 @@ links:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
                         cooldown:
-                            link: cooldown
+                            link: expression_integer
                             default: 1
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
@@ -9199,8 +9199,6 @@ links:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/container-type
         id: enums
         link: container_type
-    cooldown:
-        link: expression_integer
     crafting_recipe:
         desc: The type of recipe.
         or:
