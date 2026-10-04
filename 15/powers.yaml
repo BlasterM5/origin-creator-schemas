@@ -9543,7 +9543,7 @@ links:
     meta_fire_projectile:
         type: object
         show: true
-            props:
+        props:
             entity_type:
                 desc: The identifier of the projectile or entity that will be launched.
                 unspec: true
