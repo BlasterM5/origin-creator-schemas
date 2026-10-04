@@ -6345,11 +6345,6 @@ links:
                         texture_location:
                             desc: If specified, the texture used for the custom projectile and entity_type is ignored.
                             link: identifier
-                        interval:
-                            desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
-                            type: integer
-                            min: 0
-                            default: 0
                         start_delay:
                             desc: Ticks to wait before the first shot.
                             type: integer
