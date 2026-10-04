@@ -4152,14 +4152,7 @@ links:
                                 desc: The amount of saturation points to restore.
                                 link: expression_float
                         string-origins:fire_projectile:
-                            entity_id:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
-                                desc: Identifier for tracking the projectile
-                                link: identifier
-                            count:
-                                desc: The amount of projectiles to fire each use.
-                                link: expression_integer
-                            extend: meta_fire_projectile
+                            extend: [meta_fire_projectile_power,meta_fire_projectile_common]
                         string-origins:force_key_pressed:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/force_key_pressed
@@ -6192,34 +6185,7 @@ links:
                             desc: Exhaustion added each interval.
                             type: number
                     string-origins:fire_projectile:
-                        count:
-                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
-                            desc: The amount of projectiles to fire each use.
-                            type: integer
-                            default: 1
-                            min: 1
-                        interval:
-                            desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
-                            type: integer
-                            default: 0
-                            min: 0
-                        start_delay:
-                            desc: Determines how long the start of the firing process is delayed (in ticks).
-                            type: integer
-                            default: 0
-                        allow_conditional_cancelling:
-                            desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
-                            type: boolean
-                        key:
-                            desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
-                            link: keybind
-                        cooldown:
-                            link: cooldown
-                            default: 1
-                        hud_render:
-                            desc: 	Determines how the cooldown of this power is visualized on the HUD.
-                            link: hud_render
-                        extend: meta_fire_projectile
+                        extend: [meta_fire_projectile_power,meta_fire_projectile_common]
                     string-origins:fluid_vision:
                         fluid:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fluid_vision/
@@ -9538,7 +9504,49 @@ links:
                 action:
                     desc: An action which might be executed.
                     link: entity_action
-    meta_fire_projectile:
+    meta_fire_projectile_action:
+        type: object
+        show: true
+        props:
+            entity_id:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
+                desc: Identifier for tracking the projectile
+                link: identifier
+            count:
+                desc: The amount of projectiles to fire each use.
+                link: expression_integer
+    meta_fire_projectile_power:
+        type: object
+        show: true
+        props:
+            count:
+                href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
+                desc: The amount of projectiles to fire each use.
+                type: integer
+                default: 1
+                min: 1
+            interval:
+                desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
+                type: integer
+                default: 0
+                min: 0
+            start_delay:
+                desc: Determines how long the start of the firing process is delayed (in ticks).
+                type: integer
+                default: 0
+            allow_conditional_cancelling:
+                desc: Determines if extra projectiles will no longer be fired as soon as the entity no longer meets this power’s condition.
+                type: boolean
+            key:
+                desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
+                link: keybind
+            cooldown:
+                link: cooldown
+                default: 1
+            hud_render:
+                desc: 	Determines how the cooldown of this power is visualized on the HUD.
+                link: hud_render
+    meta_fire_projectile_common:
         type: object
         show: true
         props:
