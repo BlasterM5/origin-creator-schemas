@@ -4,6 +4,7 @@ props:
         href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/custom-status-effects/
         desc: The effect’s category. It decides the colour of the effect’s line in potion tooltips and which row it sits in on the HUD.
         enum: ['beneficial','neutral','harmful']
+        default: 0
         required: true
     powers:
         desc: The powers an entity holds while it has the effect. An empty array makes an effect with no powers.
