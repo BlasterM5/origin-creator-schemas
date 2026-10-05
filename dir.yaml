@@ -1,4 +1,4 @@
-$: 200
+$: 201
 15:
   - meta
   - powers
@@ -15,3 +15,21 @@ $: 200
   - tags
   - keybinds
   - enums
+  - effects
+48:
+  - meta
+  - powers
+  - global_powers
+  - origins
+  - origin_layers
+  - advancements
+  - damage_type
+  - predicates
+  - recipes
+  - loot_tables
+  - item_modifiers
+  - skill_trees
+  - tags
+  - keybinds
+  - enums
+  - effects
