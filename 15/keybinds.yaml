@@ -6,7 +6,7 @@ props:
         type: string
         allow: 'a-z0-9_.-'
     category:
-        desc: The Controls-menu group it’s listed under.
+        desc: The Controls-menu group it's listed under.
         type: string
         allow: 'a-z0-9_.-'
     name:

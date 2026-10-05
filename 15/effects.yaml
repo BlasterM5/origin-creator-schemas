@@ -1,0 +1,45 @@
+type: object
+props:
+    type:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/custom-status-effects/
+        desc: The effect’s category. It decides the colour of the effect’s line in potion tooltips and which row it sits in on the HUD.
+        enum: ['beneficial','neutral','harmful']
+        default: 0
+        required: true
+    powers:
+        desc: The powers an entity holds while it has the effect. An empty array makes an effect with no powers.
+        type: list
+        vals:
+            id: powers
+            link: identifier
+        required: true
+    r:
+        desc: Red part of the effect’s colour, from 0 to 1.
+        type: number
+        default: 0
+        min: 0
+        max: 1
+    g:
+        desc: Green part of the effect’s colour, from 0 to 1.
+        type: number
+        default: 0
+        min: 0
+        max: 1
+    b:
+        desc: Blue part of the effect’s colour, from 0 to 1.
+        type: number
+        default: 0
+        min: 0
+        max: 1
+    name:
+        desc: The effect’s display name, used as plain text everywhere. Leave it out to use a translation instead (see Name and icon).
+        href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/custom-status-effects/#name-and-icon
+        type: string
+    icon:
+        desc: A different sprite for the effect’s icon (see Name and icon).
+        href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/custom-status-effects/#name-and-icon
+        id: powers
+        link: identifier
+    loading_priority:
+        desc: When more than one data pack has a file with this id, the one with the highest loading_priority is used. On a tie, the pack that loads later wins.
+        type: integer

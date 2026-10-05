@@ -28,8 +28,13 @@ links:
             biome:
                 desc: The biome at the given location.
                 href: https://minecraft.wiki/w/Biome#Biome_IDs
-                type: string
-                allow: '*a-z0-9#\/:.-'
+                or:
+                  - title: built-in
+                    id: enums
+                    link: biome
+                  - title: custom
+                    type: string
+                    allow: '*a-z0-9#\/:.-'
             block:
                 type: object
                 props:
@@ -45,8 +50,8 @@ links:
                         allow: '*a-z0-9#\/:.-'
                     nbt:
                         desc: The block NBT.
-                        type: string
-                        ext: true
+                        id: powers
+                        link: nbt
                     state:
                         desc: A map of block property names to values. Test will fail if the block doesn't match.
                         type: object
@@ -76,8 +81,8 @@ links:
                         allow: '*a-z0-9#\/:.-'
                     nbt:
                         desc: The block NBT.
-                        type: string
-                        ext: true
+                        id: powers
+                        link: nbt
                     state:
                         desc: A map of fluid property names to values. Test will fail if the fluid doesn't match.
                         type: object
@@ -95,8 +100,13 @@ links:
                                         type: integer
             dimension:
                 desc: The dimension of ths location.
-                type: string
-                allow: '*a-z0-9#\/:.-'
+                unspec: true
+                or:
+                  - title: built-in
+                    enum: ['overworld','the_nether','the_end']
+                  - title: custom
+                    type: string
+                    allow: '*a-z0-9#\/:.-'
             feature:
                 desc: Whether or not this location is inside a naturally generating structure.
                 href: https://minecraft.wiki/w/Commands/locate#Arguments
@@ -122,9 +132,12 @@ links:
                 enum: [true, false]
                 unspec: true
     entity_preds:
+        unspec: true
         or:
-          - link: entity_pred
-          - type: list
+          - title: single
+            link: entity_pred
+          - title: multiple
+            type: list
             vals:
                 link: entity_pred
     entity_pred:
@@ -214,9 +227,11 @@ links:
                         extra:
                             allowkey: '*a-z0-9#\/:.-'
                             or:
-                              - type: boolean
+                              - title: simple
+                                type: boolean
                                 default: false
-                              - type: object
+                              - title: advanced
+                                type: object
                                 extra:
                                     type: boolean
                                     default: false
@@ -234,13 +249,13 @@ links:
                             allowkey: '*a-z0-9#\/:.-'
                             default: false
                     stats:
-                        desc: List of statistics to match. Note that unlike when adding scoreboard objectives, the base (for example, minecraft:custom) and the statistic (for example, minecraft:sneak_time) are split and use proper namespaces instead of the dot-notation (minecraft.custom:minecraft.sneak_time).
+                        desc: List of statistics to match. Note that unlike when adding scoreboard objectives, the base (for example, custom) and the statistic (for example, sneak_time) are split and use proper namespaces instead of the dot-notation (minecraft.custom:minecraft.sneak_time).
                         type: list
                         vals:
                             type: object
                             props:
                                 type:
-                                    desc: The statistic base. Possible values in vanilla are minecraft:custom, minecraft:crafted, minecraft:used, minecraft:broken, minecraft:mined, minecraft:killed, minecraft:picked_up, minecraft:dropped and minecraft:killed_by.
+                                    desc: The statistic base. Possible values in vanilla are custom, crafted, used, broken, mined, killed, picked_up, dropped and killed_by.
                                     type: string
                                     allow: '*a-z0-9_#\/:.-'
                                 stat:
@@ -271,8 +286,8 @@ links:
             type:
                 desc: An entity ID.
                 href: https://minecraft.wiki/w/Java_Edition_data_values/Entities
-                type: string
-                allow: '*a-z0-9_#\/:.-'
+                id: powers
+                link: entity_type
     item_pred:
         type: object
         props:
@@ -294,8 +309,8 @@ links:
                 link: intmm
             nbt:
                 desc: The NBT of the item.
-                type: string
-                ext: true
+                id: powers
+                link: nbt
             potion:
                 desc: A brewed potion ID.
                 href: https://minecraft.wiki/w/Potion#Item_data
@@ -310,8 +325,8 @@ links:
                         enchantment:
                             desc: An enchantment ID.
                             href: https://minecraft.wiki/w/Java_Edition_data_values#Enchantments
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: enchantment
                         levels:
                             desc: The level of the enchantment.
                             link: intmm
@@ -324,8 +339,8 @@ links:
                         enchantment:
                             desc: An enchantment ID.
                             href: https://minecraft.wiki/w/Java_Edition_data_values#Enchantments
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: enchantment
                         levels:
                             desc: The level of the enchantment.
                             link: intmm
@@ -406,10 +421,13 @@ links:
                     max:
                         type: number
     intmm0:
+        unspec: true
         or:
-          - type: integer
+          - title: exact
+            type: integer
             min: 0
-          - type: object
+          - title: range
+            type: object
             props:
                 min:
                     type: integer
@@ -418,19 +436,25 @@ links:
                     type: integer
                     min: 0
     intmm:
+        unspec: true
         or:
-          - type: integer
-          - type: object
+          - title: exact
+            type: integer
+          - title: range
+            type: object
             props:
                 min:
                     type: integer
                 max:
                     type: integer
     nummm0:
+        unspec: true
         or:
-          - type: number
+          - title: exact
+            type: number
             min: 0
-          - type: object
+          - title: range
+            type: object
             props:
                 min:
                     type: number
@@ -439,9 +463,12 @@ links:
                     type: number
                     min: 0
     nummm:
+        unspec: true
         or:
-          - type: number
-          - type: object
+          - title: exact
+            type: number
+          - title: range
+            type: object
             props:
                 min:
                     type: number
@@ -449,36 +476,38 @@ links:
                     type: number
     intprov:
         desc: An integer number provider.
+        unspec: true
         or:
-          - type: integer
-          - type: object
+          - title: simple
+            type: integer
+          - title: advanced
+            type: object
             props:
                 type:
                     desc: The type of this number provider. Keep in mind "score" is only available in 1.17+
-                    enum: [minecraft:constant, minecraft:uniform, minecraft:binomial, minecraft:score]
+                    enum: [constant, uniform, binomial, score]
                     more:
-                        string-minecraft:constant:
+                        string-constant:
                             value:
                                 type: integer
-                        string-minecraft:uniform:
+                        string-uniform:
                             min:
                                 link: intprov
                             max:
                                 link: intprov
-                        string-minecraft:binomial:
+                        string-binomial:
                             n:
                                 link: intprov
                             p:
                                 link: numprov
-                        string-minecraft:score:
+                        string-score:
                             target:
+                                unspec: true
                                 or:
-                                  - enum:
-                                      - this
-                                      - killer
-                                      - direct_killer
-                                      - player_killer
-                                  - type: object
+                                  - title: simple
+                                    enum: ['this','killer','direct_killer','player_killer']
+                                  - title: advanced
+                                    type: object
                                     props:
                                         type:
                                             enum: [fixed, context]
@@ -489,7 +518,7 @@ links:
                                                         type: string
                                                 string-context:
                                                     target:
-                                                        enum: [this, killer, direct_killer, player_killer]
+                                                        enum: ['this','killer','direct_killer','player_killer']
                             score:
                                 desc: The scoreboard objective.
                                 type: string
@@ -498,23 +527,26 @@ links:
                                 type: integer
     numprov:
         desc: A number provider.
+        unspec: true
         or:
-          - type: number
-          - type: object
+          - title: simple
+            type: number
+          - title: advanced
+            type: object
             props:
                 type:
                     desc: The type of this number provider. Keep in mind "score" is only available in 1.17+
-                    enum: [minecraft:constant, minecraft:uniform, minecraft:binomial, minecraft:score]
+                    enum: [constant, uniform, binomial, score]
                     more:
-                        string-minecraft:constant:
+                        string-constant:
                             value:
                                 type: number
-                        string-minecraft:uniform:
+                        string-uniform:
                             min:
                                 link: numprov
                             max:
                                 link: numprov
-                        string-minecraft:binomial:
+                        string-binomial:
                             n:
                                 desc: The amount of trials.
                                 link: intprov
@@ -522,8 +554,9 @@ links:
                                 title: P
                                 desc: The probability of success on an individual trial.
                                 link: numprov
-                        string-minecraft:score:
+                        string-score:
                             target:
+                                unspec: true
                                 or:
                                   - enum:
                                       - this
@@ -564,34 +597,33 @@ links:
         props:
             condition:
                 desc: A condition ID determining what to check for
-                ns: minecraft
                 enum:
-                  - minecraft:any_of
-                  - minecraft:block_state_property
-                  - minecraft:damage_source_properties
-                  - minecraft:entity_properties
-                  - minecraft:entity_scores
-                  - minecraft:inverted
-                  - minecraft:killed_by_player
-                  - minecraft:location_check
-                  - minecraft:match_tool
-                  - minecraft:random_chance
-                  - minecraft:random_chance_with_looting
-                  - minecraft:reference
-                  - minecraft:survives_explosion
-                  - minecraft:table_bonus
-                  - minecraft:time_check
-                  - minecraft:weather_check
-                  - minecraft:value_check
+                  - any_of
+                  - block_state_property
+                  - damage_source_properties
+                  - entity_properties
+                  - entity_scores
+                  - inverted
+                  - killed_by_player
+                  - location_check
+                  - match_tool
+                  - random_chance
+                  - random_chance_with_looting
+                  - reference
+                  - survives_explosion
+                  - table_bonus
+                  - time_check
+                  - weather_check
+                  - value_check
                   - apoli:origin
                   - apoli:power
                 more:
-                    string-minecraft:any_of:
+                    string-any_of:
                         terms:
                             type: list
                             vals:
                                 link: single_pred
-                    string-minecraft:block_state_property:
+                    string-block_state_property:
                         block:
                             link: block
                         properties:
@@ -600,18 +632,18 @@ links:
                             extra:
                                 type: string
                                 allowkey: '*a-z0-9#\/:.-'
-                    string-minecraft:damage_source_properties:
+                    string-damage_source_properties:
                         predicate:
                             desc: Predicate applied to the damage source.
                             link: damage_pred
-                    string-minecraft:entity_properties:
+                    string-entity_properties:
                         entity:
                             desc: Specifies the entity to check for the condition. Set to "this" to use the entity that died or the player that gained the advancement, opened the container or broke the block, "killer" for the killer, or "killer_player" for a killer that is a player.
                             enum: [this, killer, killer_player]
                         predicate:
                             desc: Predicate applied to entity, uses the same structure as advancements.
                             link: entity_pred
-                    string-minecraft:entity_scores:
+                    string-entity_scores:
                         entity:
                             desc: Specifies the entity to check for the condition. Set to "this" to use the entity that died or the player that gained the advancement, opened the container or broke the block, "killer" for the killer, or "killer_player" for a killer that is a player.
                             enum: [this, killer, killer_player]
@@ -620,13 +652,13 @@ links:
                             type: object
                             extra:
                                 link: intmm
-                    string-minecraft:inverted:
+                    string-inverted:
                         term:
                             link: single_pred
-                    string-minecraft:killed_by_player:
+                    string-killed_by_player:
                         inverse:
                             type: boolean
-                    string-minecraft:location_check:
+                    string-location_check:
                         offsetX:
                             type: integer
                         offsetY:
@@ -635,17 +667,17 @@ links:
                             type: integer
                         predicate:
                             link: location_pred
-                    string-minecraft:match_tool:
+                    string-match_tool:
                         predicate:
                             desc: Predicate applied on tool used to mine the block.
                             link: item_pred
-                    string-minecraft:random_chance:
+                    string-random_chance:
                         chance:
                             desc: Success rate as a number 0.0-1.0
                             type: number
                             min: 0
                             max: 1
-                    string-minecraft:random_chance_with_looting:
+                    string-random_chance_with_looting:
                         chance:
                             desc: Success rate as a number 0.0-1.0
                             type: number
@@ -654,13 +686,13 @@ links:
                         looting_multiplier:
                             desc: Looting adjustment to the base success rate. Formula is chance + (looting_level * looting_multiplier)
                             type: number
-                    string-minecraft:reference:
+                    string-reference:
                         name:
                             desc: The ID of another predicate to test.
                             type: string
                             allow: '*a-z0-9_#\/:.-'
-                    string-minecraft:survives_explosion: {}
-                    string-minecraft:table_bonus:
+                    string-survives_explosion: {}
+                    string-table_bonus:
                         enchantment:
                             desc: ID of enchantment to pull enchantment level from.
                             type: integer
@@ -671,12 +703,15 @@ links:
                                 type: number
                                 min: 0
                                 max: 1
-                    string-minecraft:time_check:
+                    string-time_check:
                         value:
                             desc: Time in ticks or range of times to compare with the current time.
+                            unspec: true
                             or:
-                              - type: integer
-                              - type: object
+                              - title: exact
+                                type: integer
+                              - title: range
+                                type: object
                                 props:
                                     min:
                                         link: intprov
@@ -686,22 +721,25 @@ links:
                             desc: If specified, time gets modulo-divided by this value (for example, if set to 24000, value operates on a time period of daytime ticks just like /time query daytime).
                             type: integer
                             min: 1
-                    string-minecraft:weather_check:
+                    string-weather_check:
                         raining:
                             desc: If true, the condition evaluates to true only if it's raining or thundering.
                             type: boolean
                         thundering:
                             desc: If true, the condition evaluates to true only if it's thundering.
                             type: boolean
-                    string-minecraft:value_check:
+                    string-value_check:
                         value:
                             desc: Value to compare with
                             link: intprov
                         range:
                             desc: Range or exact value to compare to.
+                            unspec: true
                             or:
-                              - type: integer
-                              - type: object
+                              - title: exact
+                                type: integer
+                              - title: range
+                                type: object
                                 props:
                                     min:
                                         link: intprov
