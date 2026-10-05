@@ -4203,6 +4203,7 @@ links:
                             space:
                                 desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
                                 link: space
+                                default: 1
                             divergence:
                                 desc: How much each projectile fired is affected by random spread.
                                 type: number
@@ -6369,6 +6370,7 @@ links:
                         space:
                             desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
                             link: space
+                            default: 1
                         divergence:
                             desc: How much each projectile fired is affected by random spread.
                             type: number
