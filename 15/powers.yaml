@@ -9920,7 +9920,7 @@ links:
                 required: true
             type:
                 desc: The type of transformation to apply.
-                enum: ['pitch','yaw','roll','x_scale','y_scale','z_scale','pivot_x','pivot_y','pivot_z','visible','hidden','xscale','yscale','zscale','pivotx','pivoty','pivotz'.'reach']
+                enum: ['pitch','yaw','roll','x_scale','y_scale','z_scale','pivot_x','pivot_y','pivot_z','visible','hidden','xscale','yscale','zscale','pivotx','pivoty','pivotz','reach']
             value:
                 desc: The amount. Its meaning is dependent on the selected transformation type.
                 type: number
