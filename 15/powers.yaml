@@ -2469,6 +2469,7 @@ links:
                       - origins:tame
                       - origins:teleport_to
                       - origins:transfer
+                      - origins:transfer_effects
                       - $Data Actions
                       - origins:add_to_entity_set
                       - origins:remove_from_entity_set
@@ -3155,6 +3156,37 @@ links:
                             target_action:
                                 desc: Action run on the target after the transfer.
                                 link: entity_action
+                        string-origins:transfer_effects:
+                            mode:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/transfer_effects/
+                                desc: steal moves effects target → actor; give moves them actor → target. The same words as apoli:transfer.
+                                enum: ['steal','give']
+                            effects:
+                                desc: |
+                                    Only transfer these effects. An entry starting with # names an effect tag. Leave it out to transfer every effect. effect is accepted as a spelling.
+                                link: identifier_single_or_array
+                            category:
+                                desc: Only transfer effects of these categories: beneficial, harmful or neutral.
+                                or:
+                                  - title: single
+                                    unspec: true
+                                    enum: ['beneficial','neutral','harmful']
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        enum: ['beneficial','neutral','harmful']
+                            copy:
+                                desc: If false, the donor loses each effect it hands over. If true, the donor keeps it.
+                                type: boolean
+                            duration_modifier:
+                                desc: Changes the duration the recipient gets, in ticks. Starts from the donor’s remaining duration.
+                                link: attribute_modifier_single_or_array
+                            amplifier_modifier:
+                                desc: Changes the amplifier the recipient gets (0 is level I). Starts from the donor’s amplifier and is kept between 0 and 255.
+                                link: attribute_modifier_single_or_array
+                            duration_modifier:
+                                desc: With copy, changes the duration the donor keeps, so one effect can be split between the two. Ignored without copy.
+                                link: attribute_modifier_single_or_array
                         string-origins:store_origin:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/store_origin_bientity
@@ -7130,6 +7162,10 @@ links:
                             desc: Determines the placement order of the tooltip(s) of the power.
                             type: integer
                             default: 0
+                        position:
+                            desc: Where in the tooltip the lines go.
+                            enum: ['below_name','below_lore']
+                            default: 1
                     string-origins:walk_on_fluid:
                         fluid:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/walk_on_fluid/
@@ -9143,11 +9179,11 @@ links:
     body_part:
         or:
           - title: Limbs and Layers
-            enum: [$Vanilla,'head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four+ Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Six Arms,'right_third_arm','left_third_arm','right_third_sleeve','left_third_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
+            enum: [$Vanilla,'head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_item','left_item','main_hand_item','off_hand_item','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four+ Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Six Arms,'right_third_arm','left_third_arm','right_third_sleeve','left_third_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
           - title: Regions
             enum: ['right_hand','left_hand','main_hand','off_hand','hands','right_foot','left_foot','feet','chest','back','achilles_heel']
           - title: Groups
-            enum: ['arms','legs','upper','lower','whole']
+            enum: ['arms','legs','items','upper','lower','whole']
           - title: custom
             link: meta_key
         unspec: true
@@ -9883,7 +9919,7 @@ links:
                 required: true
             type:
                 desc: The type of transformation to apply.
-                enum: ['pitch','yaw','roll','x_scale','y_scale','z_scale','pivot_x','pivot_y','pivot_z','visible','hidden','xscale','yscale','zscale','pivotx','pivoty','pivotz']
+                enum: ['pitch','yaw','roll','x_scale','y_scale','z_scale','pivot_x','pivot_y','pivot_z','visible','hidden','xscale','yscale','zscale','pivotx','pivoty','pivotz'.'reach']
             value:
                 desc: The amount. Its meaning is dependent on the selected transformation type.
                 type: number
@@ -10520,7 +10556,7 @@ links:
             A scale type is written apoli:base. A pehkui: namespace resolves to the matching Apoli type, so ids copied from a Pehkui pack keep working.
         or:
           - title: built-in
-            enum: ['origins:base','origins:width','origins:height','origins:hitbox_width','origins:hitbox_height','origins:eye_height','origins:model_width','origins:model_height','origins:third_person','origins:motion','origins:falling','origins:step_height','origins:jump_height','origins:visibility','origins:mining_speed','origins:knockback','origins:attack','origins:defense','origins:held_item']
+            enum: ['origins:base','origins:width','origins:height','origins:hitbox_width','origins:hitbox_height','origins:eye_height','origins:model_width','origins:model_height','origins:third_person','origins:motion','origins:falling','origins:step_height','origins:jump_height','origins:visibility','origins:mining_speed','origins:knockback','origins:attack','origins:defense','origins:held_item','origins:held_item_mainhand','origins:held_item_offhand','origins:doll']
           - title: pehkui
             enum: ['pehkui:base','pehkui:width','pehkui:height','pehkui:hitbox_width','pehkui:hitbox_height','pehkui:eye_height','pehkui:model_width','pehkui:model_height','pehkui:third_person','pehkui:motion','pehkui:step_height','pehkui:view_bobbling','pehkui:falling','pehkui:flight','pehkui:jump_height','pehkui:visibility','pehkui:reach','pehkui:block_reach','pehkui:entity_reach','pehkui:held_item','pehkui:drops','pehkui:projectiles','pehkui:explosions','pehkui:attack','pehkui:defense','pehkui:knockback','pehkui:health','pehkui:mining_speed','pehkui:attack_speed']
           - title: custom
@@ -10557,9 +10593,9 @@ links:
         enum: ['collider','outline','visual']
     sound_category:
         desc: If specified, this specifies the category and options the sound event falls under. Otherwise, uses the category specified in the entity that invoked this action.
+        unspec: true
         id: enums
         link: sound_category
-        unspec: true
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
         desc: A String that defines which coordinate system is used for directions. See the doc for more information
