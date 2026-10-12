@@ -3162,8 +3162,7 @@ links:
                                 desc: steal moves effects target → actor; give moves them actor → target. The same words as apoli:transfer.
                                 enum: ['steal','give']
                             effects:
-                                desc: |
-                                    Only transfer these effects. An entry starting with # names an effect tag. Leave it out to transfer every effect. effect is accepted as a spelling.
+                                desc: Only transfer these effects. An entry starting with \# names an effect tag. Leave it out to transfer every effect. effect is accepted as a spelling.
                                 link: identifier_single_or_array
                             category:
                                 desc: Only transfer effects of these categories: beneficial, harmful or neutral.
