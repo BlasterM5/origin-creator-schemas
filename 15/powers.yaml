@@ -3185,7 +3185,7 @@ links:
                             amplifier_modifier:
                                 desc: Changes the amplifier the recipient gets (0 is level I). Starts from the donor’s amplifier and is kept between 0 and 255.
                                 link: attribute_modifier_single_or_array
-                            duration_modifier:
+                            donor_duration_modifier:
                                 desc: With copy, changes the duration the donor keeps, so one effect can be split between the two. Ignored without copy.
                                 link: attribute_modifier_single_or_array
                         string-origins:store_origin:
