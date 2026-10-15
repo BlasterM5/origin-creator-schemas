@@ -13,24 +13,15 @@ props:
         desc: The pack's default namespace.
         default: my_pack
         nonempty: true
-        allow: '*a-z0-9_'
+        allow: '*a-z0-9_-'
     pack_format:
         desc: |
-            A version number used to group versions with compatable assets.
-            4: 1.13 - 1.14.4
-            5: 1.15 - 1.16.1
-            6: 1.16.2 - 1.16.5
-            7: 1.17
-            8: 1.18.0 - 1.18.1
-            9: 1.18.2
-            10: 1.19.0 - 1.19.3
-            12: 1.19.4
-            15: 1.20.0 - 1.20.1
-            18: 1.20.2
-            26: 1.20.3 - 1.20.4
+            The datapack version that corresponds with the Minecraft version. This schema only supports 0vergrown's Origins.
+            15: 1.20.1 (Forwards Compatible)
+            48: 1.21.1 (Exclusive to 1.21.1)
         href: https://minecraft.wiki/w/Pack_format
-        type: integer
-        min: 4
+        enum: [15,48]
+        default: 0
         hooks: [refresh]
         gap: true
     version:
@@ -50,12 +41,13 @@ props:
     license:
         type: string
         desc: |
-            The license your pack falls under. If left blank, defaults to "Unknown", which typically means "All Rights Reserved".
+            The license your pack falls under. If left blank, defaults to "Unknown", which typically means "All Rights Reserved", which disallows anything beyond what you very explicitly allow (if you give this mod to someone or put it up for download, they are only allowed to play it privately for themself and nothing more).
             I recommend setting this to CC BY 4.0, which means anyone can use your pack for any purpose and make changes as they desire, as long as they give you credit.
+            This is not legal advice, so read up on your country's copyright laws and/or consult with someone who can provide legal advice if you have questions about it.
     license_text:
         type: string
         desc: |
-            If you want to include a LICENSE file inside your mod, datapack, and resource pack, you can put it's content in this box.
+            If you want to include a LICENSE file inside your mod, datapack, and resource pack, you can put its content in this box.
             Leaving this blank will not include a LICENSE file in the pack.
         ext: true
         gap: true
