@@ -69,10 +69,9 @@ links:
                 type: string
             type:
                 gap: true
-                ns: minecraft
-                enum: [minecraft:crafting_shaped, minecraft:crafting_shapeless]
+                enum: [crafting_shaped, crafting_shapeless]
                 more:
-                    string-minecraft:crafting_shaped:
+                    string-crafting_shaped:
                         pattern:
                             desc: A list of single-character keys used to describe a pattern for shaped crafting. Each row in the crafting grid is one string in this list containing 3 or less keys. All strings in this list need to have the same amount of keys. A space can be used to indicate an empty spot.
                             type: list
@@ -88,7 +87,7 @@ links:
                         result:
                             id: recipes
                             link: result
-                    string-minecraft:crafting_shapeless:
+                    string-crafting_shapeless:
                         ingredients:
                             type: list
                             vals:
@@ -107,10 +106,9 @@ links:
                     type: string
                 type:
                     gap: true
-                    ns: minecraft
-                    enum: [minecraft:crafting_shaped, minecraft:crafting_shapeless, minecraft:smithing, minecraft:stonecutting]
+                    enum: [crafting_shaped, crafting_shapeless, smithing, stonecutting]
                     more:
-                        string-minecraft:crafting_shaped:
+                        string-crafting_shaped:
                             pattern:
                                 desc: A list of single-character keys used to describe a pattern for shaped crafting. Each row in the crafting grid is one string in this list containing 3 or less keys. All strings in this list need to have the same amount of keys. A space can be used to indicate an empty spot.
                                 type: list
@@ -125,14 +123,14 @@ links:
                                     extend: oritem
                             result:
                                 link: result
-                        string-minecraft:crafting_shapeless:
+                        string-crafting_shapeless:
                             ingredients:
                                 type: list
                                 vals:
                                     link: oritem
                             result:
                                 link: result
-                        string-minecraft:smithing:
+                        string-smithing:
                             base:
                                 desc: Ingredient specifying an item to be upgraded.
                                 link: itemtag
@@ -149,7 +147,7 @@ links:
                             template:
                                 desc: Ingredient specifying an item to act as the template.
                                 link: itemtag
-                        string-minecraft:stonecutting:
+                        string-stonecutting:
                             ingredient:
                                 link: oritem
                             result:
@@ -165,8 +163,7 @@ links:
                     desc: A string identifier. Used to group multiple recipes together in the recipe book.
                     type: string
                 type:
-                    ns: minecraft
-                    enum: [minecraft:blasting, minecraft:campfire_cooking, minecraft:smelting, minecraft:smoking]
+                    enum: [blasting, campfire_cooking, smelting, smoking]
                     gap: true
                 ingredient:
                     desc: The ingredient or list of acceptable incredients cooked by this recipe.
@@ -190,21 +187,20 @@ links:
             type: object
             props:
                 type:
-                    ns: minecraft
                     enum:
-                      - minecraft:crafting_special_armordye
-                      - minecraft:crafting_special_bannerduplicate
-                      - minecraft:crafting_special_bookcloning
-                      - minecraft:crafting_special_firework_rocket
-                      - minecraft:crafting_special_firework_star
-                      - minecraft:crafting_special_firework_star_fade
-                      - minecraft:crafting_special_mapcloning
-                      - minecraft:crafting_special_mapextending
-                      - minecraft:crafting_special_repairitem
-                      - minecraft:crafting_special_shielddecoration
-                      - minecraft:crafting_special_shulkerboxcoloring
-                      - minecraft:crafting_special_tippedarrow
-                      - minecraft:crafting_special_suspiciousstew
+                      - crafting_special_armordye
+                      - crafting_special_bannerduplicate
+                      - crafting_special_bookcloning
+                      - crafting_special_firework_rocket
+                      - crafting_special_firework_star
+                      - crafting_special_firework_star_fade
+                      - crafting_special_mapcloning
+                      - crafting_special_mapextending
+                      - crafting_special_repairitem
+                      - crafting_special_shielddecoration
+                      - crafting_special_shulkerboxcoloring
+                      - crafting_special_tippedarrow
+                      - crafting_special_suspiciousstew
           - title: Custom Recipe
             type: object
             props:

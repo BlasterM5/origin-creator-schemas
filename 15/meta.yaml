@@ -17,8 +17,8 @@ props:
     pack_format:
         desc: |
             The datapack version that corresponds with the Minecraft version. This schema only supports 0vergrown's Origins.
-            15: 1.20.1
-            48: 1.21.1
+            15: 1.20.1 (Forwards Compatible)
+            48: 1.21.1 (Exclusive to 1.21.1)
         href: https://minecraft.wiki/w/Pack_format
         enum: [15,48]
         default: 0

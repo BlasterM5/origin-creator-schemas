@@ -59,23 +59,18 @@ props:
     order:
         desc: Sort position in the screen.
         type: integer
-        default: 0
     impact:
         desc: The “impact” dots — how strong the origin is.
-        type: integer
+        enum: [0,1,2,3]
         default: 0
-        min: 0
-        max: 3
     loading_priority:
         desc: Higher wins when packs define the same id.
         type: integer
-        default: 0
     max_players:
         desc: How many players may hold this origin at once — see Capping an origin.
         href: https://0vergrown.github.io/Handbook/docs/datapack/origins/overview/#capping-an-origin
         type: integer
         min: -1
-        default: -1
 links:
     identifier:
         type: string
