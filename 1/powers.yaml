@@ -176,7 +176,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/in_entity_set/
                                 desc: The ID of the power to check whether the target entity is in.
-                                link: identifier
+                                link: meta_power_id
                         string-origins:owner: {}
                         string-origins:relative_rotation:
                             axes:
@@ -510,7 +510,7 @@ links:
                                 desc: |
                                     ID of the attribute of which the value should be checked. See Minecraft Wiki: Attribute (Attributes) for a list of vanilla attributes that can be checked for. Beware that newer Minecraft uses a different format than what is supported in this version.
                                 href: https://minecraft.wiki/w/Attribute
-                                link: attribute
+                                link: meta_attribute
                             comparison:
                                 desc: Determines how the attribute’s total value should be compared to the specified value.
                                 link: comparison
@@ -711,7 +711,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
                                 desc: The ID of the power.
-                                link: identifier
+                                link: meta_power_id
                             comparison:
                                 desc: Determines how the amount of referenced entities in the specified power should be compared to the specified value.
                                 link: comparison
@@ -722,7 +722,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
                                 desc: (DEPRECATED) The ID of the power.
-                                link: identifier
+                                link: meta_power_id
                             comparison:
                                 desc: Determines how the amount of referenced entities in the specified power should be compared to the specified value.
                                 link: comparison
@@ -759,7 +759,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/fluid_height
                                 desc: |
                                     ID of the fluid tag of which the height should be checked.
-                                link: identifier
+                                link: meta_fluid_tag
                             comparison:
                                 desc: Determines how the height of the fluid should be compared to the specified value.
                                 link: comparison
@@ -770,7 +770,7 @@ links:
                             gamemode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/gamemode
                                 desc: Name of the gamemode the player should have in order for this condition to evaluate to true. Only works on the local player.
-                                enum: ['survival', 'creative', 'adventure', 'spectator']
+                                link: meta_gamemode
                         string-origins:glowing: {}
                         string-origins:has_command_tag:
                             command_tag:
@@ -886,7 +886,7 @@ links:
                                 link: item_slot
                             power:
                                 desc: If specified and if inventory_types includes "power", the items in the inventory of only this power specifically will be evaluated.
-                                link: identifier
+                                link: meta_power_id
                                 unspec: true
                             comparison:
                                 desc: Determines how the amount of items/stacks that were evaluated are compared to the specified value.
@@ -938,10 +938,16 @@ links:
                             origin:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/origin/
                                 desc: The origin(s) to look for. Passes if any of them matches. Wildcard matching is supported.
-                                link: identifier_single_or_array
+                                or:
+                                  - title: single
+                                    link: meta_origin_id
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: meta_origin_id
                             layer:
                                 desc: Only check this layer. Omit to pass if a match is held on any layer.
-                                link: identifier
+                                link: meta_origin_layer_id
                             selection:
                                 desc: |
                                     Where to look: main (the chosen origin), active (the swapped-in origin, falling back to the chosen one), pool (origins sitting in a swap pool) or all (any of the three).
@@ -952,8 +958,8 @@ links:
                                 desc: The tag(s) to look for. Passes if the origin carries any of them.
                                 link: meta_key_single_or_array
                             layer:
-                                desc: Only look at the origin held on this layer.
-                                link: identifier
+                                desc: Only look at the origins held on this layer.
+                                link: meta_origin_layer_id
                             selection:
                                 desc: |
                                     Where to look: main (the chosen origin), active (the swapped-in origin, falling back to the chosen one), pool (origins sitting in a swap pool) or all (any of the three).
@@ -1009,7 +1015,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power
                                 desc: The namespace and ID of the power the entity needs to have to pass the check. Must be a 'living' entity or the game will crash!
-                                link: identifier
+                                link: meta_power_id
                             source:
                                 desc: If specified, the condition will check if the power is from the specified power source.
                                 link: identifier
@@ -1018,17 +1024,17 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_active
                                 desc: The namespace and ID of the power which will be checked for being active.
-                                link: identifier
+                                link: meta_power_id
                         string-origins:power_type:
                             power_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_type
                                 desc: The namespace and ID of the Power Type of a power the entity has.
-                                link: identifier
+                                link: meta_power_type
                         string-origins:predicate:
                             predicate:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/predicate
                                 desc: The namespace and ID of the predicate the entity needs to pass.
-                                link: identifier
+                                link: meta_predicate
                         string-origins:raycast:
                             distance:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/raycast
@@ -1084,7 +1090,7 @@ links:
                             resource:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/resource
                                 desc: The namespace and ID of a power that will be evaluated.
-                                link: identifier
+                                link: meta_power_id
                             position:
                                 desc: Which slot of a table resource to read. Omit it and the condition passes if any slot satisfies the comparison.
                                 link: expression_integer
@@ -1158,7 +1164,7 @@ links:
                             sound:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/sound_playing/
                                 desc: The sound event to watch for, e.g. entity.ender_dragon.growl.
-                                link: identifier
+                                link: meta_sound_event
                                 required: true
                             category:
                                 desc: Only match this sound category. Omit to match any.
@@ -1258,10 +1264,10 @@ links:
                             storage:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stored_power/
                                 desc: Only look in this storage power. Omit to count across every one the entity has.
-                                link: identifier
+                                link: meta_local_power_id
                             power:
                                 desc: Only count this stored power.
-                                link: identifier
+                                link: meta_power_id
                             tags:
                                 desc: Only count stored powers carrying one of these tags.
                                 link: meta_key_single_or_array
@@ -1277,7 +1283,7 @@ links:
                             fluid:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/submerged_in
                                 desc: The namespace and ID of the fluid tag that should be checked.
-                                link: identifier
+                                link: meta_fluid_tag
                         string-origins:stored_origin:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/stored_origin
@@ -1285,11 +1291,11 @@ links:
                                 link: meta_key
                             origin:
                                 desc: The stored entry must be this origin.
-                                link: identifier
+                                link: meta_origin_id
                                 unspec: true
                             layer:
                                 desc: The stored entry must have been taken from this layer.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 unspec: true
                         string-origins:stored_value:
                             key:
@@ -1303,11 +1309,11 @@ links:
                             layer:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/swapped
                                 desc: Which layer to check. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 unspec: true
                             origin:
                                 desc: Also require that this is the origin they are swapped into.
-                                link: identifier
+                                link: meta_origin_id
                                 unspec: true
                         string-origins:swimming: {}
                         string-origins:tamed: {}
@@ -1540,7 +1546,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/has_power
                                 desc: The ID of the power to check for.
-                                link: identifier
+                                link: meta_power_id
                             slot:
                                 desc: If specified, this will check if the power embedded to the item is assigned to this equipment slot.
                                 link: equipment_slot
@@ -1753,7 +1759,7 @@ links:
                             block:
                                 desc: The block this block needs to be. Prefix with \# to match a block tag instead
                                 href: https://minecraft.wiki/w/Java_Edition_data_values/Blocks
-                                link: identifier
+                                link: meta_block_id
                         string-origins:block_entity: {}
                         string-origins:block_state:
                             property:
@@ -1850,7 +1856,7 @@ links:
                             tag:
                                 href: https://minecraft.wiki/w/Block_tag_%28Java_Edition%29
                                 desc: The namespace and ID of the tag which the block should be in to pass the check.
-                                link: identifier
+                                link: meta_block_tag
                         string-origins:light_blocking: {}
                         string-origins:light_level:
                             light_type:
@@ -2006,7 +2012,7 @@ links:
                             tag:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/fluid-conditions/in_tag
                                 desc: ID of the tag which the fluid should be in to pass the check.
-                                link: identifier
+                                link: meta_fluid_tag
                         string-origins:still: {}
           - title: custom
             link: custom_condition
@@ -2621,7 +2627,7 @@ links:
                                 unspec: true
                             texture:
                                 desc: The texture the rope is drawn with.
-                                link: identifier
+                                link: meta_texture
                                 default: 'apoli:textures/rope/rope.png'
                             toggle:
                                 desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
@@ -3108,7 +3114,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_to_entity_set
                                 desc: The ID of the power to add the target entity into.
-                                link: identifier
+                                link: meta_local_power_id
                             time_limit:
                                 desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
                                 type: integer
@@ -3117,7 +3123,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_to_entity_set
                                 desc: (DEPRECATED) The ID of the power to add the target entity into.
-                                link: identifier
+                                link: meta_local_power_id
                             time_limit:
                                 desc: If specified, this will determine how long the target entity will be stored in the specified power in ticks.
                                 type: integer
@@ -3126,12 +3132,12 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/remove_from_entity_set
                                 desc: The ID of the power to remove the target entity from.
-                                link: identifier
+                                link: meta_local_power_id
                         string-origins:remove_from_set:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/remove_from_entity_set
                                 desc: (DEPRECATED) The ID of the power to remove the target entity from.
-                                link: identifier
+                                link: meta_local_power_id
                         string-origins:transfer:
                             mode:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/transfer
@@ -3164,7 +3170,13 @@ links:
                             effects:
                                 desc: |
                                     Only transfer these effects. An entry starting with # names an effect tag. Leave it out to transfer every effect. effect is accepted as a spelling.
-                                link: identifier_single_or_array
+                                or:
+                                  - title: single
+                                    link: status_effect
+                                  - title: multiple
+                                    type: list
+                                    vals:
+                                        link: status_effect
                             category:
                                 desc: |
                                     Only transfer effects of these categories: beneficial, harmful or neutral.
@@ -3211,11 +3223,11 @@ links:
                                 required: true
                             layer:
                                 desc: Which of the target’s layers to read, and the layer recorded with the entry.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 default: 'origins:origin'
                             origin:
                                 desc: Store this origin id literally instead of reading the target’s.
-                                link: identifier
+                                link: meta_origin_id
                                 unspec: true
                             clear:
                                 desc: Remove the entry at key from the actor instead of writing one.
@@ -3230,15 +3242,15 @@ links:
                                 type: boolean
                             from_layer:
                                 desc: The layer the origin is read from on the donor.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 default: 'origins:origin'
                             to_layer:
                                 desc: The layer the origin is written to on the recipient. Use a dedicated layer (e.g. origins:copy) to add the origin alongside the recipient’s own, or the same layer to replace it.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 default: 'origins:origin'
                             origin:
                                 desc: Transfer exactly this origin instead of searching the donor’s layer. Overrides selection.
-                                link: identifier
+                                link: meta_origin_id
                                 unspec: true
                             selection:
                                 desc: |
@@ -3257,20 +3269,20 @@ links:
                             from_layer:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/copy_origin
                                 desc: The layer whose origin is read from the target.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 default: 'origins:origin'
                             to_layer:
                                 desc: The layer set on the actor to the copied origin. Its powers are granted from this layer’s source, so clearing the actor’s to_layer (e.g. /origin set @s origins:copy <blank>) removes them again — the basis for a temporary copy.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 default: 'origins:copy'
                         string-origins:store_power:
                             storage:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/store_power/
                                 desc: Only touch this storage power on the target. Omit to apply to every one it has.
-                                link: identifier
+                                link: meta_local_power_id
                             power:
                                 desc: The power ids to store or remove.
-                                link: identifier_single_or_array
+                                link: meta_power_id_single_or_array
                             tags:
                                 desc: Every loaded power carrying one of these tags. Combined with power, both sets are used.
                                 link: meta_key_single_or_array
@@ -3513,7 +3525,7 @@ links:
                             function:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/run_function
                                 desc: The apoli:function power to run.
-                                link: identifier
+                                link: meta_local_power_id
                                 required: true
                             arguments:
                                 desc: One entry per parameter the function declares. Values may be any JSON the target field accepts.
@@ -3524,13 +3536,13 @@ links:
                             storage:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/run_stored_power/
                                 desc: Only read this storage power. Omit to search every apoli:power_storage the entity has.
-                                link: identifier
+                                link: meta_power_id
                             key:
                                 desc: The key to run as. Omit and the stored power fires regardless of which key it declares.
                                 link: meta_key
                             power:
                                 desc: Only run this stored power.
-                                link: identifier
+                                link: meta_power_id
                             tags:
                                 desc: Only run stored powers carrying one of these tags.
                                 link: meta_key_single_or_array
@@ -3574,7 +3586,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/action_on_entity_set/
                                 desc: The ID of the power.
-                                link: identifier
+                                link: meta_power_id
                             bientity_condition:
                                 desc: If specified, only execute the bi-entity action if this bi-entity condition is fulfilled by both or either the actor and target.
                                 link: bientity_condition
@@ -3596,7 +3608,7 @@ links:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/action_on_entity_set/
                                 desc: (DEPRECATED) The ID of the power.
-                                link: identifier
+                                link: meta_power_id
                             bientity_condition:
                                 desc: If specified, only execute the bi-entity action if this bi-entity condition is fulfilled by both or either the actor and target.
                                 link: bientity_condition
@@ -3744,7 +3756,7 @@ links:
                                 unspec: true
                             texture:
                                 desc: The texture the rope is drawn with.
-                                link: identifier
+                                link: meta_texture
                                 default: 'apoli:textures/rope/rope.png'
                             toggle:
                                 desc: When true and no slot is given, re-firing while you already hold a controllable rope releases it instead of adding another (classic one-key grapple).
@@ -3816,7 +3828,7 @@ links:
                             resource:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_resource
                                 desc: (DEPRECATED) The target Resource/Cooldown power to change.
-                                link: identifier
+                                link: meta_local_power_id
                             change:
                                 desc: The amount; never exceeds the resource’s min/max when enforce_limits is true. As an Expression it is evaluated each time the action runs, with value bound to the resource’s current value.
                                 link: expression_integer
@@ -3863,7 +3875,7 @@ links:
                                 link: inventory_type
                             power:
                                 desc: The apoli:inventory power to act on. Required when inventory_type is "power".
-                                link: identifier
+                                link: meta_local_power_id
                                 unspec: true
                         string-origins:clear_effect:
                             effect:
@@ -3997,8 +4009,7 @@ links:
                                     link: item_slot
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
-                                link: identifier
-                                unspec: true
+                                link: meta_local_power_id
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -4050,8 +4061,7 @@ links:
                                     link: item_slot
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
-                                link: identifier
-                                unspec: true
+                                link: meta_local_power_id
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -4083,8 +4093,7 @@ links:
                                     link: item_slot
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
-                                link: identifier
-                                unspec: true
+                                link: meta_local_power_id
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -4124,8 +4133,7 @@ links:
                                     link: item_slot
                             power:
                                 desc: The apoli:inventory to walk, when inventory_type is "power".
-                                link: identifier
-                                unspec: true
+                                link: meta_local_power_id
                             process_mode:
                                 desc: How stacks are counted toward limit. Honoured by modify; replace/drop always act once per stack.
                                 link: process_mode
@@ -4217,7 +4225,7 @@ links:
                                     link: mob_type
                             texture_location:
                                 desc: If specified, the texture used for the custom projectile and entity_type is ignored.
-                                link: identifier
+                                link: meta_texture
                             interval:
                                 desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
                                 type: integer
@@ -4275,7 +4283,7 @@ links:
                                 link: projectile_homing
                             sound:
                                 desc: If set, the sound with this ID will be played when the power is used.
-                                link: identifier
+                                link: meta_sound_event
                             tag:
                                 desc: NBT data to apply to projectiles.
                                 link: nbt
@@ -4378,7 +4386,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/grant_power
                                 desc: The namespace and ID of the power to be granted to the entity.
-                                link: identifier
+                                link: meta_power_id
                             source:
                                 desc: The namespace and ID of the source of the granted power.
                                 link: identifier
@@ -4394,18 +4402,96 @@ links:
                                 link: attribute_modifier
                         string-origins:modify_entity_data:
                             data:
-                                link: modify_entity_data
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
+
+                                desc: |
+                                    Which property to change:
+                                    data				|Type		|Property
+                                    no_gravity			|boolean	|Whether the entity ignores gravity.
+                                    invulnerable		|boolean	|Whether the entity is invulnerable.
+                                    silent				|boolean	|Whether the entity makes sounds.
+                                    glowing				|boolean	|Whether the entity has the glowing outline.
+                                    invisible			|boolean	|Whether the entity is invisible.
+                                    custom_name_visible	|boolean	|Whether the entity’s custom name is always shown.
+                                    no_ai				|boolean	|Disables AI (mobs only).
+                                    fall_distance		|number		|The accumulated fall distance.
+                                    air					|number		|Remaining air (in ticks).
+                                    fire_ticks			|number		|Remaining fire (in ticks).
+                                helper:
+                                    title: Entity Data
+                                    id: enums
+                                    list: entity_data
+                                link: meta_key
+                            value:
+                                desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
+                                or:
+                                  - title: boolean
+                                    link: boolean_optional
+                                  - title: number
+                                    type: number
                         string-origins:set_entity_data:
                             data:
-                                link: modify_entity_data
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
+
+                                desc: |
+                                    (DEPRECATED) Which property to change:
+                                    data				|Type		|Property
+                                    no_gravity			|boolean	|Whether the entity ignores gravity.
+                                    invulnerable		|boolean	|Whether the entity is invulnerable.
+                                    silent				|boolean	|Whether the entity makes sounds.
+                                    glowing				|boolean	|Whether the entity has the glowing outline.
+                                    invisible			|boolean	|Whether the entity is invisible.
+                                    custom_name_visible	|boolean	|Whether the entity’s custom name is always shown.
+                                    no_ai				|boolean	|Disables AI (mobs only).
+                                    fall_distance		|number		|The accumulated fall distance.
+                                    air					|number		|Remaining air (in ticks).
+                                    fire_ticks			|number		|Remaining fire (in ticks).
+                                helper:
+                                    title: Entity Data
+                                    id: enums
+                                    list: entity_data
+                                link: meta_key
+                            value:
+                                desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
+                                or:
+                                  - title: boolean
+                                    link: boolean_optional
+                                  - title: number
+                                    type: number
                         string-origins:change_entity_data:
                             data:
-                                link: modify_entity_data
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
+
+                                desc: |
+                                    (DEPRECATED) Which property to change:
+                                    data				|Type		|Property
+                                    no_gravity			|boolean	|Whether the entity ignores gravity.
+                                    invulnerable		|boolean	|Whether the entity is invulnerable.
+                                    silent				|boolean	|Whether the entity makes sounds.
+                                    glowing				|boolean	|Whether the entity has the glowing outline.
+                                    invisible			|boolean	|Whether the entity is invisible.
+                                    custom_name_visible	|boolean	|Whether the entity’s custom name is always shown.
+                                    no_ai				|boolean	|Disables AI (mobs only).
+                                    fall_distance		|number		|The accumulated fall distance.
+                                    air					|number		|Remaining air (in ticks).
+                                    fire_ticks			|number		|Remaining fire (in ticks).
+                                helper:
+                                    title: Entity Data
+                                    id: enums
+                                    list: entity_data
+                                link: meta_key
+                            value:
+                                desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
+                                or:
+                                  - title: boolean
+                                    link: boolean_optional
+                                  - title: number
+                                    type: number
                         string-origins:modify_resource:
                             resource:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_resource
                                 desc: The apoli:resource or apoli:cooldown power to modify. Any power with a built-in cooldown also works.
-                                link: identifier
+                                link: meta_local_power_id
                             modifier:
                                 desc: The modifier to apply to the current value of the target power.
                                 link: attribute_modifier
@@ -4416,7 +4502,7 @@ links:
                             from:
                                 desc: Copy from this resource instead of computing a value from the modifier. Also aliased as from_resource.
                                 talias: from_resource
-                                link: identifier
+                                link: meta_local_power_id
                             from_position:
                                 desc: Which slot of from to read. Also aliased as from_index and from_slot.
                                 talias: [from_index,from_slot]
@@ -4449,7 +4535,7 @@ links:
                             sound:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/play_sound
                                 desc: The ID of the sound event to play.
-                                link: identifier
+                                link: meta_sound_event
                             category:
                                 link: sound_category
                             volume:
@@ -4497,7 +4583,7 @@ links:
                                 required: true
                             sprite_location:
                                 desc: A texture used for the menu’s own background sprites. (256x256 pixels)
-                                link: identifier
+                                link: meta_texture
                                 unspec: true
                         string-origins:random_teleport:
                             area_width:
@@ -4696,7 +4782,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/remove_power
                                 desc: The ID of the power to remove from the entity.
-                                link: identifier
+                                link: meta_power_id
                         string-origins:revoke_all_powers:
                             source:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_all_powers
@@ -4706,7 +4792,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_power
                                 desc: The namespace and ID of the power to be revoked from the entity.
-                                link: identifier
+                                link: meta_power_id
                             source:
                                 desc: The namespace and ID of the source of the power.
                                 link: identifier
@@ -4780,7 +4866,6 @@ links:
                             summon_id:
                                 desc: If set, only summons whose summon_id matches are affected. If unset, any summon is affected.
                                 link: identifier
-                                unspec: true
                         string-origins:spawn_effect_cloud:
                             radius:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_effect_cloud
@@ -4808,7 +4893,7 @@ links:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_entity
                                 desc: The namespace and ID of the entity type that will be spawned.
-                                link: identifier
+                                link: entity_type
                             tag:
                                 desc: If specified, this NBT data will be applied to the entity that will be spawned.
                                 link: nbt
@@ -4914,12 +4999,10 @@ links:
                                 type: boolean
                             wide_texture:
                                 desc: Custom texture for the wide model. If unset, the owner’s skin is used.
-                                link: identifier
-                                unspec: true
+                                link: meta_texture
                             slim_texture:
                                 desc: Custom texture for the slim model. If unset, the owner’s skin is used.
-                                link: identifier
-                                unspec: true
+                                link: meta_texture
                             max_life_ticks:
                                 desc: Ticks before the clone vanishes. 0 or less = permanent until killed.
                                 type: integer
@@ -4928,10 +5011,9 @@ links:
                             summon_id:
                                 desc: A tag used by apoli:set_summon_max_life to target this clone.
                                 link: identifier
-                                unspec: true
                             powers:
                                 desc: Powers to grant the clone on spawn.
-                                link: identifier_array
+                                link: meta_power_id_array
                             bientity_action:
                                 desc: Runs once after the clone spawns, with the owner as actor and the clone as target.
                                 link: bientity_action
@@ -4939,7 +5021,7 @@ links:
                             texture:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_minion
                                 desc: The minion’s texture.
-                                link: identifier
+                                link: meta_texture
                                 default: 'apoli:textures/entity/minion_template.png'
                             follow_owner:
                                 desc: If true, the minion follows the owner (and floats, ignoring gravity).
@@ -4962,10 +5044,9 @@ links:
                             summon_id:
                                 desc: A tag used by apoli:set_summon_max_life to target this minion.
                                 link: identifier
-                                unspec: true
                             powers:
                                 desc: Powers to grant the minion on spawn. Granting it a geometry-mode apoli:custom_model_render replaces the minion’s model with a Blockbench one.
-                                link: identifier_array
+                                link: meta_power_id_array
                             bientity_action:
                                 desc: Runs once after the minion spawns, with the owner as actor and the minion as target.
                                 link: bientity_action
@@ -4973,7 +5054,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/suppress_power
                                 desc: The power(s) to suppress.
-                                link: identifier_single_or_array
+                                link: meta_power_id_single_or_array
                                 required: true
                             source:
                                 desc: The tag(s) the suppression is filed under. Unsuppressing must name the same source.
@@ -5165,13 +5246,13 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/toggle
                                 desc: Toggles the state of a power that uses the Toggle (Power Type).
-                                link: identifier
+                                link: meta_power_id
                         string-origins:trigger_cooldown:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
                                 desc: The apoli:cooldown power to trigger.
                                 talias: resource
-                                link: identifier
+                                link: meta_power_id
                         string-origins:apply_stored_origin:
                             key:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/apply_stored_origin/
@@ -5180,7 +5261,7 @@ links:
                                 required: true
                             layer:
                                 desc: Apply to this layer instead of the one recorded with the entry.
-                                link: identifier
+                                link: meta_origin_layer_id
                             clear:
                                 desc: Remove the entry once it has been applied.
                                 type: boolean
@@ -5191,12 +5272,10 @@ links:
                                 enum: ['linear','random','main']
                             layer:
                                 desc: Which layer to swap on. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
-                                link: identifier
-                                unspec: true
+                                link: meta_origin_layer_id
                             origin:
                                 desc: Swap directly to this origin, ignoring mode. Does nothing if it is not in the player’s pool.
-                                link: identifier
-                                unspec: true
+                                link: meta_origin_id
                             include_main:
                                 desc: In random mode, whether the main origin is one of the possible results.
                                 type: boolean
@@ -5205,11 +5284,10 @@ links:
                             origin:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/grant_origin/
                                 desc: The origin to grant. Unknown ids and origins:empty do nothing.
-                                link: identifier
-                                required: true
+                                link: meta_origin_id
                             layer:
                                 desc: The layer to grant it on.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 default: 'origins:origin'
                             to_pool:
                                 desc: On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant. Also accepts the alias swappable.
@@ -5219,17 +5297,15 @@ links:
                             layer:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/open_swap_menu/
                                 desc: Which layer to show the pool for. Accepts either the target layer or the swappable layer itself. Defaults to the first layer that has a swappable pool.
-                                link: identifier
-                                unspec: true
+                                link: meta_origin_layer_id
                         string-origins:revoke_origin:
                             origin:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/origins/revoke_origin/
                                 desc: The origin to take. Omit it to clear the layer and everything the player was granted in its swap pool.
-                                link: identifier
-                                unspec: true
+                                link: meta_origin_id
                             layer:
                                 desc: The layer to take it from.
-                                link: identifier
+                                link: meta_origin_layer_id
                                 default: 'origins:origin'
                         string-origins:save_location:
                             id:
@@ -5249,12 +5325,11 @@ links:
                                 required: true
                             layer:
                                 desc: Which layer’s origin to read, and the layer recorded with the entry.
-                                link: identifier
+                                link: meta_origin_id
                                 default: 'origins:origin'
                             origin:
                                 desc: Store this origin id literally instead of reading the entity’s current one.
-                                link: identifier
-                                unspec: true
+                                link: meta_origin_id
                             clear:
                                 desc: Remove the entry at key instead of writing one.
                                 type: boolean
@@ -5262,10 +5337,10 @@ links:
                             storage:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/store_power/
                                 desc: Only touch this storage power. Omit to apply to every apoli:power_storage the entity has.
-                                link: identifier
+                                link: meta_local_power_id
                             power:
                                 desc: The power ids to store or remove.
-                                link: identifier_single_or_array
+                                link: meta_power_id_single_or_array
                             tags:
                                 desc: Every loaded power carrying one of these tags. Combined with power, both sets are used.
                                 link: meta_key_single_or_array
@@ -5292,7 +5367,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/unsuppress_power
                                 desc: The power(s) to unsuppress.
-                                link: identifier_single_or_array
+                                link: meta_power_id_single_or_array
                                 required: true
                             source:
                                 desc: The source(s) to lift. Must match what suppressed the power.
@@ -5478,16 +5553,17 @@ links:
                             modifier:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/modify
                                 desc: The ID of an item modifier.
-                                link: identifier
+                                link: meta_item_modifiers
                         string-origins:remove_enchantment:
                             enchantment:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/remove_enchantment
                                 desc: If specified, this enchantment will be removed from the item.
                                 link: enchantment
-                                unspec: true
                             enchantments:
                                 desc: If specified, these enchantments will be removed from the item.
-                                link: identifier_array
+                                type: list
+                                vals:
+                                    link: enchantment
                             levels:
                                 desc: If specified, only the enchantments that has the specified level will be removed from the item.
                                 type: integer
@@ -5683,7 +5759,7 @@ links:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/add_block
                                 desc: The namespace and ID of the block to place.
-                                link: identifier
+                                link: meta_block_id
                             nbt:
                                 desc: The NBT data to give the block.
                                 link: nbt
@@ -5735,7 +5811,7 @@ links:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/ghost_block
                                 desc: The block to place, in its default state.
-                                link: identifier
+                                link: meta_block_id
                                 required: true
                             nbt:
                                 desc: Block entity data applied to the placed block.
@@ -5784,7 +5860,7 @@ links:
                             block:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/set_block
                                 desc: The namespace and ID of the block to place.
-                                link: identifier
+                                link: meta_block_id
                             nbt:
                                 desc: The NBT data to give the block.
                                 link: nbt
@@ -5792,7 +5868,7 @@ links:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/spawn_entity
                                 desc: The ID of the type of entity that will be spawned.
-                                link: identifier
+                                link: entity_type
                             tag:
                                 desc: If specified, this NBT data will be applied to the entity that will be spawned.
                                 link: nbt
@@ -5833,7 +5909,172 @@ links:
                             link: text_component
             sprite:
                 desc: The namespace, path and ID of the texture to use as the icon of the badge.
-                link: identifier
+                link: meta_texture
+    meta_power_type:
+        enum:
+          - $Regular Types
+
+          - origins:nothing
+          - origins:simple
+          - origins:attribute
+          - origins:climbing
+          - origins:cooldown
+          - origins:creative_flight
+          - origins:custom_model_render
+          - origins:disable_regen
+          - origins:disable_slot
+          - origins:edible_item
+          - origins:effect_immunity
+          - origins:elytra_flight
+          - origins:emissive
+          - origins:entity_glow
+          - origins:entity_set
+          - origins:fire_projectile
+          - origins:fluid_vision
+          - origins:freeze
+          - origins:function
+          - origins:game_event_listener
+          - origins:grounded
+          - origins:ignore_fluid
+          - origins:inventory
+          - origins:invisibility
+          - origins:invulnerability
+          - origins:item_on_item
+          - origins:keep_inventory
+          - origins:model_color
+          - origins:night_vision
+          - origins:overlay
+          - origins:particle
+          - origins:phasing
+          - origins:pose
+          - origins:power_storage
+          - origins:receive_action
+          - origins:receive_condition
+          - origins:recipe
+          - origins:replace_loot_table
+          - origins:replace_sound_emission
+          - origins:replace_sound_reception
+          - origins:resource
+          - origins:restrict_armor
+          - origins:scale
+          - origins:scare_mobs
+          - origins:script
+          - origins:self_glow
+          - origins:shader
+          - origins:shaking
+          - origins:show_both_arms
+          - origins:solid_hitbox
+          - origins:stacking_status_effect
+          - origins:starting_equipment
+          - origins:swimming
+          - origins:toggle
+          - origins:tooltip
+          - origins:walk_on_fluid
+          - origins:water_breathing
+          - origins:zoom
+
+          - $Action Types
+
+          - origins:action_on_block_break
+          - origins:action_on_block_place
+          - origins:action_on_block_use
+          - origins:action_on_callback
+          - origins:action_on_collision
+          - origins:action_on_death
+          - origins:action_on_hit
+          - origins:action_on_item_pickup
+          - origins:action_on_item_use
+          - origins:action_on_key_press
+          - origins:action_on_key_sequence
+          - origins:action_on_kill
+          - origins:action_on_land
+          - origins:action_on_mouse_movement
+          - origins:action_on_scroll_wheel
+          - origins:action_on_sending_message
+          - origins:action_on_swap
+          - origins:action_on_use
+          - origins:action_on_wake_up
+          - origins:action_over_time
+          - origins:action_when_hit
+
+          - $Modify Types
+
+          - origins:modify_air_speed
+          - origins:modify_block_render
+          - origins:modify_block_stuck_speed
+          - origins:modify_break_speed
+          - origins:modify_camera
+          - origins:modify_camera_submersion
+          - origins:modify_crafting
+          - origins:modify_cursor_speed
+          - origins:modify_damage
+          - origins:modify_enchantment_level
+          - origins:modify_exhaustion
+          - origins:modify_falling
+          - origins:modify_fog
+          - origins:modify_fov
+          - origins:modify_food
+          - origins:modify_grindstone
+          - origins:modify_harvest
+          - origins:modify_healing
+          - origins:modify_hearing_range
+          - origins:modify_jump
+          - origins:modify_label_render
+          - origins:modify_model_parts
+          - origins:modify_player_model
+          - origins:modify_player_spawn
+          - origins:modify_projectile_damage
+          - origins:modify_slipperiness
+          - origins:modify_status_effect_amplifier
+          - origins:modify_status_effect_duration
+          - origins:modify_swim_speed
+          - origins:modify_tick_rate
+          - origins:modify_type_tag
+          - origins:modify_velocity
+          - origins:modify_xp_gain
+
+          - $Prevent Types
+
+          - origins:prevent_bee_anger
+          - origins:prevent_being_used
+          - origins:prevent_block_place
+          - origins:prevent_block_selection
+          - origins:prevent_block_use
+          - origins:prevent_death
+          - origins:prevent_elytra_flight
+          - origins:prevent_entity_collision
+          - origins:prevent_entity_render
+          - origins:prevent_entity_use
+          - origins:prevent_feature_render
+          - origins:prevent_game_event
+          - origins:prevent_item_pickup
+          - origins:prevent_item_use
+          - origins:prevent_key_press
+          - origins:prevent_powers
+          - origins:prevent_sleep
+          - origins:prevent_sprinting
+          - origins:prevent_use
+
+          - $DEPRECATED
+          - origins:active_self
+          - origins:action_on_being_used
+          - origins:action_on_entity_use
+          - origins:action_when_damage_taken
+          - origins:attacker_action_when_hit
+          - origins:burn
+          - origins:damage_over_time
+          - origins:exhaust
+          - origins:ignore_water
+          - origins:lava_vision
+          - origins:modify_attribute
+          - origins:modify_camera_submersion_type
+          - origins:modify_damage_dealt
+          - origins:modify_damage_taken
+          - origins:self_action_on_hit
+          - origins:self_action_on_kill
+          - origins:self_action_when_hit
+          - origins:target_action_on_hit
+          - origins:toggle_night_vision
     power_meta:
         type: object
         show: true
@@ -5851,9 +6092,19 @@ links:
                 link: meta_key_single_or_array
             badges:
                 desc: If set, it will display icon(s) after the name of the power.
-                type: list
-                vals:
-                    link: badge
+                or:
+                  - title: file
+                    type: list
+                    vals:
+                        helper:
+                            title: Badge
+                            list: ['origins:passive']
+                            folder: badges
+                        link: identifier
+                  - title: object
+                    type: list
+                    vals:
+                        link: badge
                 gap: true
             hidden:
                 desc: If set to true, this power will not be displayed in the power list of the origin.
@@ -5879,171 +6130,7 @@ links:
                 desc: ID of the desired Power Type.
                 href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/powers/
                 hooks: [fix_cond]
-                enum:
-                  - $Regular Types
-
-                  - origins:nothing
-                  - origins:simple
-                  - origins:attribute
-                  - origins:climbing
-                  - origins:cooldown
-                  - origins:creative_flight
-                  - origins:custom_model_render
-                  - origins:disable_regen
-                  - origins:disable_slot
-                  - origins:edible_item
-                  - origins:effect_immunity
-                  - origins:elytra_flight
-                  - origins:emissive
-                  - origins:entity_glow
-                  - origins:entity_set
-                  - origins:fire_projectile
-                  - origins:fluid_vision
-                  - origins:freeze
-                  - origins:function
-                  - origins:game_event_listener
-                  - origins:grounded
-                  - origins:ignore_fluid
-                  - origins:inventory
-                  - origins:invisibility
-                  - origins:invulnerability
-                  - origins:item_on_item
-                  - origins:keep_inventory
-                  - origins:model_color
-                  - origins:night_vision
-                  - origins:overlay
-                  - origins:particle
-                  - origins:phasing
-                  - origins:pose
-                  - origins:power_storage
-                  - origins:receive_action
-                  - origins:receive_condition
-                  - origins:recipe
-                  - origins:replace_loot_table
-                  - origins:replace_sound_emission
-                  - origins:replace_sound_reception
-                  - origins:resource
-                  - origins:restrict_armor
-                  - origins:scale
-                  - origins:scare_mobs
-                  - origins:script
-                  - origins:self_glow
-                  - origins:shader
-                  - origins:shaking
-                  - origins:show_both_arms
-                  - origins:solid_hitbox
-                  - origins:stacking_status_effect
-                  - origins:starting_equipment
-                  - origins:swimming
-                  - origins:toggle
-                  - origins:tooltip
-                  - origins:walk_on_fluid
-                  - origins:water_breathing
-                  - origins:zoom
-
-                  - $Action Types
-
-                  - origins:action_on_block_break
-                  - origins:action_on_block_place
-                  - origins:action_on_block_use
-                  - origins:action_on_callback
-                  - origins:action_on_collision
-                  - origins:action_on_death
-                  - origins:action_on_hit
-                  - origins:action_on_item_pickup
-                  - origins:action_on_item_use
-                  - origins:action_on_key_press
-                  - origins:action_on_key_sequence
-                  - origins:action_on_kill
-                  - origins:action_on_land
-                  - origins:action_on_mouse_movement
-                  - origins:action_on_scroll_wheel
-                  - origins:action_on_sending_message
-                  - origins:action_on_swap
-                  - origins:action_on_use
-                  - origins:action_on_wake_up
-                  - origins:action_over_time
-                  - origins:action_when_hit
-
-                  - $Modify Types
-
-                  - origins:modify_air_speed
-                  - origins:modify_block_render
-                  - origins:modify_block_stuck_speed
-                  - origins:modify_break_speed
-                  - origins:modify_camera
-                  - origins:modify_camera_submersion
-                  - origins:modify_crafting
-                  - origins:modify_cursor_speed
-                  - origins:modify_damage
-                  - origins:modify_enchantment_level
-                  - origins:modify_exhaustion
-                  - origins:modify_falling
-                  - origins:modify_fog
-                  - origins:modify_fov
-                  - origins:modify_food
-                  - origins:modify_grindstone
-                  - origins:modify_harvest
-                  - origins:modify_healing
-                  - origins:modify_hearing_range
-                  - origins:modify_jump
-                  - origins:modify_label_render
-                  - origins:modify_model_parts
-                  - origins:modify_player_model
-                  - origins:modify_player_spawn
-                  - origins:modify_projectile_damage
-                  - origins:modify_slipperiness
-                  - origins:modify_status_effect_amplifier
-                  - origins:modify_status_effect_duration
-                  - origins:modify_swim_speed
-                  - origins:modify_tick_rate
-                  - origins:modify_type_tag
-                  - origins:modify_velocity
-                  - origins:modify_xp_gain
-
-                  - $Prevent Types
-
-                  - origins:prevent_bee_anger
-                  - origins:prevent_being_used
-                  - origins:prevent_block_place
-                  - origins:prevent_block_selection
-                  - origins:prevent_block_use
-                  - origins:prevent_death
-                  - origins:prevent_elytra_flight
-                  - origins:prevent_entity_collision
-                  - origins:prevent_entity_render
-                  - origins:prevent_entity_use
-                  - origins:prevent_feature_render
-                  - origins:prevent_game_event
-                  - origins:prevent_item_pickup
-                  - origins:prevent_item_use
-                  - origins:prevent_key_press
-                  - origins:prevent_powers
-                  - origins:prevent_sleep
-                  - origins:prevent_sprinting
-                  - origins:prevent_use
-
-                  - $DEPRECATED
-                  - origins:active_self
-                  - origins:action_on_being_used
-                  - origins:action_on_entity_use
-                  - origins:action_when_damage_taken
-                  - origins:attacker_action_when_hit
-                  - origins:burn
-                  - origins:damage_over_time
-                  - origins:exhaust
-                  - origins:ignore_water
-                  - origins:lava_vision
-                  - origins:modify_attribute
-                  - origins:modify_camera_submersion_type
-                  - origins:modify_damage_dealt
-                  - origins:modify_damage_taken
-                  - origins:self_action_on_hit
-                  - origins:self_action_on_kill
-                  - origins:self_action_when_hit
-                  - origins:target_action_on_hit
-                  - origins:toggle_night_vision
-
+                link: meta_power_type
                 more:
                     string-origins:nothing: {}
                     string-origins:attribute:
@@ -6062,7 +6149,7 @@ links:
                         attribute:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute/
                             desc: (DEPRECATED) The vanilla attribute id this modifier targets.
-                            link: identifier
+                            link: meta_attribute
                             required: true
                         modifier:
                             desc: A single modifier applied to its attribute.
@@ -6114,20 +6201,20 @@ links:
                         model_location:
                             desc: |
                                 The Blockbench model. mymod:cape resolves to assets/mymod/geo/cape.geo.json (the standard Blockbench/GeckoLib folder) — assets/mymod/models/apoli/cape.geo.json also works. Export from Blockbench as Bedrock geometry (.geo.json).
-                            link: identifier
+                            link: meta_blockbench_model
                             required: true
                         texture_location:
                             desc: The texture that UV-maps onto the model, e.g. mymod:textures/entity/cape.png.
-                            link: identifier
+                            link: meta_texture
                             required: true
                         wide_texture_location:
                             href: https://0vergrown.github.io/Sync-Documentation-Website/index.html?file=power_types%2Fentity_texture_overlay.md
                             desc: Texture for the wide (Steve) model.
-                            link: identifier
+                            link: meta_texture
                             required: true
                         slim_texture_location:
                             desc: Texture for the slim (Alex) model.
-                            link: identifier
+                            link: meta_texture
                         animations:
                             desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
                             unspec: true
@@ -6164,6 +6251,7 @@ links:
                                 type: list
                                 vals:
                                     enum: ['main','flat2','flat3']
+                            unspec: true
                         red:
                             desc: Red color channel multiplier (0.0-1.0).
                             type: number
@@ -6264,7 +6352,7 @@ links:
                             enum: ['eat','drink']
                         consume_sound:
                             desc: If specified, the sound event with this namespace and ID will be played when the item is eaten.
-                            link: identifier
+                            link: meta_sound_event
                         consuming_time_modifier:
                             desc: If specified, this modifier will be applied on the maximum time the item is being consumed (in ticks).
                             link: attribute_modifier
@@ -6289,8 +6377,7 @@ links:
                             type: boolean
                         texture_location:
                             desc: If specified, this will be the texture used by the Elytra granted by this power.
-                            link: identifier
-                            unspec: true
+                            link: meta_texture
                     string-origins:emissive:
                         luminance:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/emissive/
@@ -6393,7 +6480,7 @@ links:
                                 link: mob_type
                         texture_location:
                             desc: If specified, the texture used for the custom projectile and entity_type is ignored.
-                            link: identifier
+                            link: meta_texture
                         speed:
                             desc: The speed applied to the fired projectile.
                             link: expression_float
@@ -6442,7 +6529,7 @@ links:
                             link: projectile_homing
                         sound:
                             desc: If set, the sound with this ID will be played when the power is used.
-                            link: identifier
+                            link: meta_sound_event
                         tag:
                             desc: NBT data to apply to projectiles.
                             link: nbt
@@ -7024,10 +7111,10 @@ links:
                         on_added:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/script/
                             desc: Script to run when the power is granted.
-                            link: identifier
+                            link: meta_script_id
                         on_removed:
                             desc: Script to run when the power is revoked.
-                            link: identifier
+                            link: meta_script_id
                         params:
                             desc: Values handed to the script as params.
                             link: nbt
@@ -7062,6 +7149,11 @@ links:
                         shader:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/shader/
                             desc: Specifies the location of the shader resource file to use.
+                            helper:
+                                title: Post-Processing Shader
+                                id: enums
+                                list: shader
+                                folder: assets/shaders/post
                             link: identifier
                         toggleable:
                             desc: Determines if the applied shader can be toggled.
@@ -7187,7 +7279,7 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/walk_on_fluid/
                             desc: |
                                 ID of the fluid tag on which the player should be able to walk. Most important examples: water and lava.
-                            link: identifier
+                            link: meta_fluid_tag
                     string-origins:water_breathing:
                         suffocate_outside_water:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/water_breathing/
@@ -7686,10 +7778,9 @@ links:
                             or:
                               - title: built-in
                                 enum: ['chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
-                                unspec: true
                               - title: custom
                                 link: identifier
-                                unspec: true
+                            unspec: true
                         filter:
                             desc: A single filter. Merged into filters.
                             link: message_filter
@@ -7709,13 +7800,13 @@ links:
                         layer:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/origins/action_on_swap/
                             desc: Only fire for swaps on this target layer.
-                            link: identifier
+                            link: meta_origin_layer_id
                         from_origin:
                             desc: Only fire when swapping away from this origin.
-                            link: identifier
+                            link: meta_origin_id
                         to_origin:
                             desc: Only fire when swapping to this origin.
-                            link: identifier
+                            link: meta_origin_id
                         entity_action:
                             desc: Executed on the player when the swap happens.
                             link: entity_action
@@ -7986,7 +8077,7 @@ links:
                             link: block_condition
                         block:
                             desc: The namespace and ID of the replacement block.
-                            link: identifier
+                            link: meta_block_id
                     string-origins:modify_block_stuck_speed:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_block_stuck_speed/
@@ -8060,7 +8151,7 @@ links:
                             default: true
                         set:
                             desc: An apoli:entity_set power the holder has. The camera sits on the nearest member of that set.
-                            link: identifier
+                            link: meta_local_power_id
                         selector:
                             desc: An entity selector, run as the holder. The camera sits on the first entity it finds, e.g. "@e[type=minecraft:pig,sort=nearest,limit=1]".
                             type: string
@@ -8101,6 +8192,9 @@ links:
                         recipe:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_crafting/
                             desc: If specified, modifies the result item of the recipe that matches the specified namespace and ID.
+                            helper:
+                                title: Crafting Recipe
+                                folder: recipes
                             link: identifier
                         item_condition:
                             desc: If specified, the item from the result field and the specified actions will only be applied if this condition is fulfilled by the result item of a recipe.
@@ -8431,17 +8525,17 @@ links:
                         model:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_model/
                             desc: Which model to apply. Resolved against registered addon models first, then as a Figura avatar.
-                            or:
-                              - title: built-in
-                                enum: ['origins:vanilla','origins:centaur','origins:digi_legs','origins:four_arms','origins:six_arms','origins:stinkfly']
-                              - title: custom
-                                link: identifier
+                            helper:
+                                title: Player Model
+                                list: ['origins:vanilla','origins:centaur','origins:digi_legs','origins:four_arms','origins:six_arms','origins:stinkfly']
+                                folder: [assets/geo,assets/figura_avatars]
+                            link: identifier
                         texture_location:
                             desc: Texture to draw the model with, first-person hand included.
-                            link: identifier
+                            link: meta_texture
                         model_texture_location:
                             desc: Texture for the parts of a model that are not drawn from the player skin — the horse half of apoli:centaur, for instance.
-                            link: identifier
+                            link: meta_texture
                         animations:
                             desc: Bedrock clips played on top of the model’s vanilla pose.
                             link: model_animation
@@ -8841,7 +8935,7 @@ links:
                             default: 5
                         powers:
                             desc: The power ids to suppress.
-                            link: identifier_array
+                            link: meta_power_id_array
                             required: true
                     string-origins:prevent_sleep:
                         block_condition:
@@ -8896,7 +8990,7 @@ links:
                             min: 0
                         powers:
                             desc: If set, only these power ids may be stored.
-                            link: identifier_single_or_array
+                            link: meta_power_id_single_or_array
                         tags:
                             desc: If set, only powers carrying one of these tags may be stored. This also tags the storage power itself — see the note above.
                             link: meta_key_single_or_array
@@ -9033,22 +9127,14 @@ links:
                 link: entity_action
                 required: true
     advancement:
-        or:
-          - title: built-in
+        helper:
+            title: Advancement
             id: enums
-            link: advancement
-          - title: custom
-            link: identifier
+            list: advancement
+            folder: advancements
+        link: identifier
     arm_pose:
         enum: ['empty','item','block','bow_and_arrow','throw_spear','crossbow_charge','crossbow_hold','spyglass','toot_horn','brush']
-    attribute:
-        or:
-          - title: built-in
-            id: enums
-            link: attribute
-            unspec: true
-          - title: custom
-            link: identifier
     attribute_modifier:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/attribute-modifier
         type: object
@@ -9057,15 +9143,14 @@ links:
                 link: attribute_modifier_operation
             attribute:
                 desc: The vanilla attribute id this modifier targets.
-                link: identifier
-                unspec: true
+                link: meta_attribute
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
                 link: meta_key
                 unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
-                link: identifier
+                link: meta_local_power_id
                 unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
@@ -9092,7 +9177,7 @@ links:
                 link: attribute_modifier_operation
             attribute:
                 desc: The vanilla attribute id this modifier targets.
-                link: identifier
+                link: meta_attribute
                 required: true
             name:
                 desc: The vanilla AttributeModifier name (used for the modifier’s UUID seed).
@@ -9100,7 +9185,7 @@ links:
                 unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
-                link: identifier
+                link: meta_local_power_id
                 unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
@@ -9119,7 +9204,7 @@ links:
                 unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
-                link: identifier
+                link: meta_local_power_id
                 unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
@@ -9138,7 +9223,7 @@ links:
                 unspec: true
             resource:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
-                link: identifier
+                link: meta_local_power_id
                 unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
@@ -9170,21 +9255,18 @@ links:
             max_total:						NewTotal = min(Total, Modifier)
             set_total:						NewTotal = Modifier (last, overrides everything)
     biome:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Biome
             id: enums
-            link: biome
-          - title: custom
-            link: identifier
+            list: biome
+        link: identifier
     biome_tag:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Biome Tag
             id: enums
-            link: biome_tag
-          - title: custom
-            link: identifier
+            list: biome_tag
+            folder: tags/biomes
+        link: identifier
     block_facing:
         enum: ['up','down','north','south','east','west']
         unspec: true
@@ -9193,16 +9275,11 @@ links:
         link: block_state
         unspec: true
     body_part:
-        or:
-          - title: Limbs and Layers
-            enum: [$Vanilla,'head','hat','body','right_arm','left_arm','right_leg','left_leg','jacket','right_sleeve','left_sleeve','right_item','left_item','main_hand_item','off_hand_item','right_pants','left_pants',$Centaur,'horse','horse_body','horse_mane','horse_tail','horse_legs','front_left_leg','front_right_leg','back_left_leg','back_right_leg',$Four+ Arms,'right_second_arm','left_second_arm','right_second_sleeve','left_second_sleeve',$Six Arms,'right_third_arm','left_third_arm','right_third_sleeve','left_third_sleeve',$Stinkfly,'right_second_leg','left_second_leg','right_second_pants','left_second_pants']
-          - title: Regions
-            enum: ['right_hand','left_hand','main_hand','off_hand','hands','right_foot','left_foot','feet','chest','back','achilles_heel']
-          - title: Groups
-            enum: ['arms','legs','items','upper','lower','whole']
-          - title: custom
-            link: meta_key
-        unspec: true
+        helper:
+            title: Body Parts
+            id: enums
+            list: body_parts
+        link: meta_key
     boolean_optional:
         enum: ['false','true']
         unspec: true
@@ -9255,76 +9332,56 @@ links:
         link: container_type
     crafting_recipe:
         desc: The type of recipe.
-        or:
-          - title: shaped
-            type: object
-            props:
-                type:
-                    const: 'crafting_shaped'
-                id:
-                    desc: An ID for this recipe. Has to be unique among all recipes, otherwise there will be a conflict.
-                    link: identifier
-                key:
-                    type: object
-                    extra:
-                        link: ingredient_key
-                result:
-                    desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
-                    type: object
-                    props:
-                        item:
-                            link: identifier
-                        count:
-                            type: integer
-                            min: 1
-          - title: shapeless
-            type: object
-            props:
-                type:
-                    const: 'crafting_shapeless'
-                id:
-                    desc: An ID for this recipe. Has to be unique among all recipes, otherwise there will be a conflict.
-                    link: identifier
-                ingredients:
-                    desc: The items that need to be put in the crafting grid for the recipe.
-                    type: list
-                    vals:
-                        link: identifier_single_or_array
-                result:
-                    desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
-                    type: object
-                    props:
-                        item:
-                            link: identifier
-                        count:
-                            type: integer
-                            min: 1
+        type: object
+        props:
+            id:
+                desc: An ID for this recipe. Has to be unique among all recipes, otherwise there will be a conflict.
+                link: identifier
+            type:
+                enum:
+                  - crafting_shaped
+                  - crafting_shapeless
+                more:
+                    string-crafting-shaped:
+                        key:
+                            type: object
+                            extra:
+                                link: ingredient_key
+                    string-crafting_shapeless:
+                        ingredients:
+                            desc: The items that need to be put in the crafting grid for the recipe.
+                            type: list
+                            vals:
+                                link: identifier_single_or_array
+            result:
+                desc: The result of the crafting. **Note that vanilla does not support NBT tags in the result!**
+                type: object
+                props:
+                    item:
+                        link: identifier
+                    count:
+                        type: integer
+                        min: 1
     damage_source_name:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Damage Source Name
             id: enums
-            link: damage_source_name
-          - title: origins
-            enum: ['genericDamageOverTime','genericDamageOverTime.player','hurt_by_water','hurt_by_water.player','no_water_for_gills','no_water_for_gills.player']
-          - title: custom
-            link: ingredient_key
+            list: damage_source_name
+        link: ingredient_key
     damage_type:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Damage Type
             id: enums
-            link: damage_type
-          - title: custom
-            link: identifier
+            list: damage_type
+            folder: damage_type
+        link: identifier
     damage_type_tag:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Damage Type Tag
             id: enums
-            link: damage_type_tag
-          - title: custom
-            link: identifier
+            list: damage_type_tag
+            folder: tags/damage_types
+        link: identifier
     destruction_type:
         desc: |
             Determines the effect of the explosion to the terrain:
@@ -9337,13 +9394,11 @@ links:
     difficulty:
         enum: ['peaceful','easy','normal','hard']
     dimension:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Dimension
             id: enums
-            link: dimension
-          - title: custom
-            link: identifier
+            list: dimension
+        link: identifier
     easing:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/easing
         enum: ['linear','none','step','hold','constant','catmullrom','smooth','smoothstep','smootherstep','ease_in_sine','ease_out_sine','ease_in_out_sine','ease_in_quad','ease_in','ease_out_quad','ease_out','ease_in_out_quad','ease_in_out','ease_in_cubic','ease_out_cubic','ease_in_out_cubic','ease_in_quart','ease_out_quart','ease_in_out_quart','ease_in_quint','ease_out_quint','ease_in_out_quint','ease_in_expo','ease_out_expo','ease_in_out_expo','ease_in_circ','ease_out_circ','ease_in_out_circ','ease_in_back','ease_out_back','ease_in_out_back','ease_in_elastic','ease_out_elastic','ease_in_out_elastic','ease_in_bounce','ease_out_bounce','ease_in_out_bounce']
@@ -9367,14 +9422,11 @@ links:
             Elastic			ease_in_elastic, ease_out_elastic, ease_in_out_elastic	Springs past the target and oscillates.
             Bounce			ease_in_bounce, ease_out_bounce, ease_in_out_bounce	Hits the target and bounces off it.
     enchantment:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Enchantment
             id: enums
-            link: enchantment
-            unspec: true
-          - title: custom
-            link: identifier
+            list: enchantment
+        link: identifier
     entity_action_target:
         desc: Which entity entity_action runs on. Set automatically by the legacy IDs.
         enum: ['self','attacker','target']
@@ -9395,13 +9447,12 @@ links:
           - title: custom
             link: identifier
     entity_type_tag:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Entity Type Tag
             id: enums
-            link: entity_type_tag
-          - title: custom
-            link: identifier
+            list: entity_type_tag
+            folder: tags/entity_types
+        link: identifier
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
@@ -9439,22 +9490,20 @@ links:
                 desc: List of namespaces
                 type: list
                 vals:
-                    link: identifier
+                    link: meta_key
     features:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Features
             id: enums
-            link: features
-          - title: custom
-            link: identifier
+            list: features
+        link: identifier
     fluid:
-        unspec: true
-        or:
-          - title: built-in
-            link: fluid_vanilla
-          - title: custom
-            link: meta_key
+        helper:
+            title: Fluid
+            id: enums
+            list: fluid_vanilla
+            folder: tags/fluids
+        link: meta_key
     fluid_vanilla:
         id: enums
         link: fluid_vanilla
@@ -9497,21 +9546,18 @@ links:
         type: string
         ext: true
     game_event:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Game Event
             id: enums
-            link: game_event
-          - title: custom
-            link: identifier
+            list: game_event
+        link: identifier
     game_event_tag:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Game Event Tag
             id: enums
-            link: game_event_tag
-          - title: custom
-            link: identifier
+            list: game_event_tag
+            folder: tags/game_events
+        link: identifier
     hand:
         desc: Indicates which hand of the entity.
         enum: ['main_hand','off_hand']
@@ -9565,12 +9611,15 @@ links:
                 type: integer
                 min: 0
     hud_render_texture_location:
-        unspec: true
         or:
           - title: built-in
             enum: [$Apace,'origins:textures/gui/sprites/hud_render/apace/resource_bar.png',$JustHuangHere,'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png',$IssacFanta,'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png',$SpiderKolo,'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png',$Stella,'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png',$Vevehki,'origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png']
           - title: custom
-            link: identifier
+            helper:
+                title: HUD Render Texture
+                folder: assets/textures/gui/sprites/hud_render
+            link: meta_texture
+        unspec: true
     icon:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
         desc: |
@@ -9585,7 +9634,10 @@ links:
             props:
                 texture:
                     desc: Path to the PNG, relative to assets/<namespace>/.
-                    link: identifier
+                    helper:
+                        title: Texture
+                        folder: assets/textures
+                    link: meta_texture
                 width:
                     desc: Width in pixels of the region to draw, measured from the top-left of the file.
                     type: integer
@@ -9612,7 +9664,7 @@ links:
     identifier_script:
         desc: |
             The script to run. Either an id registered from KubeJS with ApoliEvents, or the path of a .js file shipped in a data pack at data/<namespace>/apoli/scripts/<path>.js — in which case the .js is part of the id.
-        link: identifier
+        link: meta_script_id
         required: true
     ingredient_key:
         allowkey: '*a-z0-9_#\/:.-'
@@ -9643,6 +9695,9 @@ links:
                 props:
                     tag:
                         desc: ID of an item tag.
+                        helper:
+                            title: Item Tag
+                            folder: tags/items
                         link: identifier
     integer_amp:
         desc: The minimum and maximum amplifier of the status effect.
@@ -9714,13 +9769,6 @@ links:
                 continuous:
                     desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
                     type: boolean
-    meta_keybind:
-        or:
-          - title: built-in
-            id: enums
-            link: meta_keybind
-          - title: custom
-            link: meta_key
     message_filter:
         unspec: true
         or:
@@ -9773,6 +9821,31 @@ links:
         desc: |
             Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
         enum: ['only','through','from','until','everything']
+    meta_attribute:
+        helper:
+            title: Attribute
+            id: enums
+            list: attribute
+        link: identifier
+    meta_block_id:
+        helper:
+            title: Block
+            id: enum_blocks
+            list: blocks
+        link: identifier
+    meta_block_tag:
+        helper:
+            title: Block Tag
+            id: enums
+            list: block_tag
+            folder: tags/blocks
+        link: identifier
+    meta_blockbench_model:
+        helper:
+            title: Blockbench Model
+            list: ['origins:blue_slime']
+            folder: assets/geo
+        link: identifier
     meta_color:
         unspec: true
         or:
@@ -9811,6 +9884,20 @@ links:
                 action:
                     desc: An action which might be executed.
                     link: entity_action
+    meta_fluid_tag:
+        helper:
+            title: Fluid Tag
+            id: enums
+            list: fluid_tag
+            folder: tags/fluids
+        link: identifier
+    meta_gamemode:
+        enum: ['survival', 'creative', 'adventure', 'spectator']
+    meta_item_modifiers:
+        helper:
+            title: Item Modifier
+            folder: item_modifiers
+        link: identifier
     meta_key:
         type: string
         allow: 'a-z0-9._-'
@@ -9833,18 +9920,81 @@ links:
         type: string
         allowkey: '*a-z0-9_#\/:.\[\]\(\)\{\}$^?+\|-'
         allow: '*a-z0-9_#\/:.-'
+    meta_keybind:
+        or:
+          - title: built-in
+            id: enums
+            link: meta_keybind
+          - title: custom
+            link: meta_key
+    meta_local_power_id:
+        helper:
+            title: Power
+            folder: powers
+        link: identifier
+    meta_loot_table:
+        helper:
+            title: Loot Table
+            folder: loot_tables
+        link: identifier
     meta_minecraft_version:
-        desc: A version name such as 1.21 or 1.20.1, compared with comparison.
+        desc: A version name such as 1.21.1 or 1.20.1, compared with comparison.
         or:
           - title: supported
             enum: [1.20.1,1.21.1]
           - title: custom
             link: meta_key
+    meta_origin_id:
+        helper:
+            title: Origin
+            id: enums
+            list: origins
+            folder: origins
+        link: identifier
+    meta_origin_layer_id:
+        helper:
+            title: Origin Layer
+            id: enums
+            list: origin_layers
+            folder: origin_layers
+        link: identifier
     meta_perspective:
         enum: ['first_person','third_person','third_person_back','third_person_front']
+    meta_power_id:
+        helper:
+            title: Power
+            id: enums
+            list: powers
+            folder: powers
+        link: identifier
+    meta_power_id_array:
+        type: list
+        vals:
+            link: meta_power_id
+    meta_power_id_single_or_array:
+        or:
+          - title: single
+            link: meta_power_id
+          - title: multiple
+            link: meta_power_id_array
+    meta_predicate:
+        helper:
+            title: Predicate
+            folder: predicates
+        link: identifier
+    meta_recipes:
+        helper:
+            title: Recipe
+            folder: recipes
+        link: identifier
+    meta_script_id:
+        helper:
+            title: KubeJS Script
+            folder: kubejs/server_scripts
+        link: identifier
     meta_send_condition_action:
         desc: The id of a power on the same entity. Nothing happens if the entity does not have it, if it is suppressed, if its own condition fails, or if it is not the right receiving type.
-        link: identifier
+        link: meta_power_id
         required: true
     meta_sequence_step:
         type: object
@@ -9870,6 +10020,19 @@ links:
                 default: 0
                 min: 0
                 max: 1200
+    meta_sound_event:
+        helper:
+            title: Sound Event
+            id: enum_sound_event
+            list: sound_events
+        link: identifier
+    meta_texture:
+        helper:
+            title: Texture
+            id: enum_textures
+            list: textures
+            folder: assets/textures
+        link: identifier
     meta_world_data_version:
         desc: The world data version (3465 on 1.20.1, 3955 on 1.21.1), compared with comparison.
         or:
@@ -9881,12 +10044,11 @@ links:
             min: 0
             unspec: true
     mob_type:
-        unspec: true
-        or:
-          - title: built-in
-            link: mob_type_enum
-          - title: custom
-            link: identifier
+        helper:
+            title: Mob Type
+            id: enums
+            list: mob_type_enum
+        link: identifier
     mob_type_enum:
         id: enums
         link: mob_type_enum
@@ -9897,6 +10059,9 @@ links:
             animation:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/model-animation/
                 desc: The animation file. mymod:wings resolves to assets/mymod/animations/wings.animation.json (.json also works).
+                helper:
+                    title: Animation
+                    folder: assets/animations
                 link: identifier
                 required: true
             name:
@@ -9962,22 +10127,6 @@ links:
             easing:
                 desc: The curve used for the fade in and out, and the default curve for any keyframe that does not name its own.
                 link: easing
-    modify_entity_data:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_entity_data
-        or:
-          - title: built-in
-            id: enums
-            link: entity_data
-          - title: custom
-            desc: The entity data property to change.
-            link: meta_key
-        value:
-            desc: The new value. For a boolean property, omitting value inverts the current state. For a numeric property, omitting value does nothing.
-            or:
-              - title: boolean
-                link: boolean_optional
-              - title: number
-                type: number
     nbt:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/nbt
         desc: A String or Object that defines a named binary tag (NBT) for storing arbitrary data. See the doc for more information.
@@ -10022,7 +10171,7 @@ links:
                 desc: The namespace and ID of the texture to use as an overlay.
                 or:
                   - title: Texture Resource
-                    link: identifier
+                    link: meta_texture
                   - title: Live Keyword
                     enum: ['player','player_face','player_cape','entity','held_item','offhand_item']
             selector:
@@ -10031,7 +10180,7 @@ links:
                 enum: ['@s','@p']
             set:
                 desc: An apoli:entity_set power. Draws the overlay once per member of that set — see Live textures.
-                link: identifier
+                link: meta_local_power_id
             strength:
                 desc: |
                     In texture mode, the alpha the texture is drawn at. In nausea mode, how far it is stretched (1.0 = screen size). Range 0.0–1.0.
@@ -10150,7 +10299,7 @@ links:
                 texture:
                     href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/custom-particle/
                     desc: Path to the PNG in a resource pack. Required for custom particles!
-                    link: identifier
+                    link: meta_texture
                 lifetime:
                     desc: How many ticks the particle lives.
                     link: expression_integer
@@ -10230,19 +10379,23 @@ links:
             props:
                 type:
                     desc: The namespace and ID of the particle type.
+                    helper:
+                        title: Particle Type
+                        id: enums
+                        link: particle_type
                     link: identifier
                 params:
                     desc: (DEPRECATED) The additional parameters for the particle type.
                     type: string
                     ext: true
     particle_type:
-        unspec: true
         or:
           - title: built-in
             id: enums
             link: particle_type
           - title: custom
             const: 'origins:custom'
+        unspec: true
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.
@@ -10333,15 +10486,15 @@ links:
                 desc: Runs when it reaches the owner, just before it disappears. Same actor and target.
                 link: bientity_action
     projectile_type:
-        unspec: true
-        or:
-          - title: built-in
-            link: projectile_type_enum
-          - title: custom
-            link: identifier
+        helper:
+            title: Projectile Type
+            id: enums
+            list: projectile_type
+        link: identifier
     projectile_type_enum:
         id: enums
         link: projectile_type
+        unspec: true
     radial_menu_entry:
         type: object
         props:
@@ -10357,16 +10510,16 @@ links:
                 link: item_stack
             icon:
                 desc: A texture drawn as the icon instead of an item.
-                link: identifier
+                link: meta_texture
             highlight_icon_texture:
                 desc: Icon used while the slice is hovered.
-                link: identifier
+                link: meta_texture
             button_texture:
                 desc: The slice’s background.
-                link: identifier
+                link: meta_texture
             highlight_button_texture:
                 desc: Background while hovered.
-                link: identifier
+                link: meta_texture
             tooltip:
                 desc: Text shown while hovered.
                 link: text_component
@@ -10570,13 +10723,11 @@ links:
             A Namespaced ID naming one axis of an entity’s size. Every entity has a value for each one, and every value starts at 1.
 
             A scale type is written apoli:base. A pehkui: namespace resolves to the matching Apoli type, so ids copied from a Pehkui pack keep working.
-        or:
-          - title: built-in
-            enum: ['origins:base','origins:width','origins:height','origins:hitbox_width','origins:hitbox_height','origins:eye_height','origins:model_width','origins:model_height','origins:third_person','origins:motion','origins:falling','origins:step_height','origins:jump_height','origins:visibility','origins:mining_speed','origins:knockback','origins:attack','origins:defense','origins:held_item','origins:held_item_mainhand','origins:held_item_offhand','origins:doll']
-          - title: pehkui
-            enum: ['pehkui:base','pehkui:width','pehkui:height','pehkui:hitbox_width','pehkui:hitbox_height','pehkui:eye_height','pehkui:model_width','pehkui:model_height','pehkui:third_person','pehkui:motion','pehkui:step_height','pehkui:view_bobbling','pehkui:falling','pehkui:flight','pehkui:jump_height','pehkui:visibility','pehkui:reach','pehkui:block_reach','pehkui:entity_reach','pehkui:held_item','pehkui:drops','pehkui:projectiles','pehkui:explosions','pehkui:attack','pehkui:defense','pehkui:knockback','pehkui:health','pehkui:mining_speed','pehkui:attack_speed']
-          - title: custom
-            link: identifier
+        helper:
+            title: Scale Type
+            id: enums
+            list: scale_type
+        link: identifier
     script_params:
         desc: Values handed to the script. Read them with event.params from KubeJS, or params inside a data pack script. This is how one script serves several powers.
         link: nbt
@@ -10609,31 +10760,43 @@ links:
         enum: ['collider','outline','visual']
     sound_category:
         desc: If specified, this specifies the category and options the sound event falls under. Otherwise, uses the category specified in the entity that invoked this action.
-        unspec: true
         id: enums
         link: sound_category
+        unspec: true
     space:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/space
         desc: A String that defines which coordinate system is used for directions. See the doc for more information
         enum: ['world','local','local_horizontal','local_horizontal_normalized','velocity','velocity_normalized','velocity_horizontal','velocity_horizontal_normalized']
     stat:
         desc: An Object specifying a statistic via a statistic type and an Identifier.
-        type: object
-        props:
-            type:
-                desc: The type of the statistic.
-                link: identifier
-            id:
-                desc: The name of the statistic; may depend on the specified type of the statistic.
-                link: identifier
-    status_effect:
-        unspec: true
         or:
-          - title: built-in
-            id: enums
-            link: status_effect
+          - title: standard
+            type: object
+            props:
+                type:
+                    desc: The type of the statistic.
+                    href: https://minecraft.wiki/w/Statistics#Statistic_types_and_names
+                    id: enums
+                    link: statistic
+                id:
+                    desc: The name of what is tracked by the statistic.
+                    link: identifier
           - title: custom
-            link: identifier
+            type: object
+            props:
+                type:
+                    const: "custom"
+                id:
+                    desc: The name of the custom statistic.
+                    id: enums
+                    link: statistic_custom
+    status_effect:
+        helper:
+            title: Status Effect
+            id: enums
+            list: status_effect
+            folder: effects
+        link: identifier
     status_effect_array:
         type: list
         vals:
@@ -10696,13 +10859,11 @@ links:
                 desc: Chance of the status effect taking effect.
                 link: number_percent
     structure:
-        unspec: true
-        or:
-          - title: built-in
+        helper:
+            title: Structure
             id: enums
-            link: structure
-          - title: custom
-            link: identifier
+            list: structure
+        link: identifier
     team:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
         desc: A scoreboard team, given either by name or as a set of properties to match.
@@ -10739,12 +10900,12 @@ links:
             instant		The action will not fire for items with a use duration, but will instead fire when an item is used which triggers its effect instantly, such as an ender pearl or splash potion.
         enum: ['finish', 'start', 'stop', 'during', 'instant']
     vector_or_number:
-        unspec: true
         or:
           - title: number
             type: number
           - title: vector
             link: vector
+        unspec: true
     vector:
         type: object
         props:
