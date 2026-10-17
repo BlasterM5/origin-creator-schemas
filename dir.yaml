@@ -15,6 +15,9 @@ $: 202
   - tags
   - keybinds
   - enums
+  - enum_blocks
+  - enum_sound_event
+  - enum_textures
   - effects
   - badges
 48:
