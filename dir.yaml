@@ -1,4 +1,4 @@
-$: 201
+$: 202
 15:
   - meta
   - powers
@@ -16,5 +16,6 @@ $: 201
   - keybinds
   - enums
   - effects
+  - badges
 48:
   - meta
