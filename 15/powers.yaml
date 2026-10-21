@@ -6381,7 +6381,7 @@ links:
                             link: expression_integer
                             default: 1
                         hud_render:
-                            desc: 	Determines how the cooldown of this power is visualized on the HUD.
+                            desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
                         entity_type:
                             desc: The identifier of the projectile or entity that will be launched.
@@ -9597,7 +9597,6 @@ links:
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
-        hook: [ns]
     identifier_array:
         type: list
         vals:
