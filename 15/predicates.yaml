@@ -43,7 +43,7 @@ links:
                     tag:
                         desc: The block tag.
                         id: powers
-                        link: meda_block_tag
+                        link: meta_block_tag
                     nbt:
                         desc: The block NBT.
                         id: powers

@@ -27,7 +27,8 @@ props:
         type: list
         large: true
         vals:
-            link: identifier
+            id: powers
+            link: meta_power_id
     icon:
         desc: Shown in the selection screen. An item or a texture.
         id: powers
