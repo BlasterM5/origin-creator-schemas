@@ -5,6 +5,7 @@ props:
         desc: A criteria map to be used by "requirements". If "requirements" is not specified, then all of these criteria need to be met.
         or:
           - title: built-in
+            talias: original
             type: object
             extra:
                 link: trigger
@@ -540,9 +541,13 @@ links:
                                 victims:
                                     desc: Either a single predicate that must match any of the killed entities, or a list of predicates that must match any of the killed entities. All of the predicates must be matched, and one killed entity may match only one predicate.
                                     or:
-                                      - id: predicates
+                                      - title: single
+                                        talias: object
+                                        id: predicates
                                         link: entity_pred
-                                      - type: list
+                                      - title: multiple
+                                        talias: list
+                                        type: list
                                         vals:
                                             id: predicates
                                             link: entity_preds

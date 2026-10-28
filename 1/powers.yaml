@@ -9583,6 +9583,7 @@ links:
             type: list
             vals:
                 link: hud_render_element
+
     hud_render_element:
         type: object
         unspec: none
@@ -9599,27 +9600,95 @@ links:
             order:
                 desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
                 type: integer
-            sprite_location:
-                desc: The path to the file in the assets which contains what the bar looks like.
-                link: hud_render_texture_location
-            bar_index:
-                desc: The indexed position of the bar on the sprite to use.
-                type: integer
-                min: 0
-            icon_index:
-                desc: The indexed position of the icon on the sprite to use.
-                type: integer
-                min: 0
-    hud_render_texture_location:
-        or:
-          - title: built-in
-            enum: [$Apace,'origins:textures/gui/sprites/hud_render/apace/resource_bar.png',$JustHuangHere,'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png','origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png',$IssacFanta,'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png','origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_02.png',$SpiderKolo,'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png','origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png',$Stella,'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png',$Vevehki,'origins:textures/gui/sprites/hud_render/vevehki/resource_bar_01.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_02.png','origins:textures/gui/sprites/hud_render/vevehki/resource_bar_03.png']
-          - title: custom
+        hud_sprite:
+            link: identifier
             helper:
-                title: HUD Render Texture
-                folder: assets/textures/gui/sprites/hud_render
-            link: meta_texture
-        unspec: true
+                kind: sprites
+                title: Resource Bar Sheet
+                tab: sheet
+                sheets: &hud_sheets
+                  - title: 'Apace - Original'
+                    sprite: 'origins:textures/gui/sprites/hud_render/apace/resource_bar.png'
+                    image: '/i/hud/apace.png'
+                    bars: 9
+                    icons: [1,1,1,1,1,1,1,1,1]
+                    default: true
+                  - title: 'Drizzo - Point Bars'
+                    sprite: 'origins:textures/gui/sprites/hud_render/drizzo/resource_bar_01.png'
+                    image: '/i/hud/drizzo_01.png'
+                    bars: 6
+                    icons: [1,1,1,1,1,1]
+                  - title: 'Huang 01 - Symbols'
+                    sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png'
+                    image: '/i/hud/huang_01.png'
+                    bars: 25
+                    icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                  - title: 'Huang 02 - Symbols'
+                    sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
+                    image: '/i/hud/huang_02.png'
+                    bars: 21
+                    icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                  - title: 'Isaac Fanta 01 - Numbers'
+                    sprite: 'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png'
+                    image: '/i/hud/isaacfanta_01.png'
+                    bars: 9
+                    icons: [1,1,1,1,1,1,1,1,1]
+                  - title: 'Isaac Fanta 02 - Symbols'
+                    sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
+                    image: '/i/hud/isaacfanta_02.png'
+                    bars: 7
+                    icons: [1,1,1,1,1,1,1]
+                  - title: 'SpiderKolo 01 - Colored Orbs'
+                    sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png'
+                    image: '/i/hud/spiderkolo_01.png'
+                    bars: 25
+                    icons: [1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                  - title: 'SpiderKolo 02 - Tools'
+                    sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png'
+                    image: '/i/hud/spiderkolo_02.png'
+                    bars: 25
+                    icons: [1,1,2,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                  - title: 'SpiderKolo 03 - Icons'
+                    sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png'
+                    image: '/i/hud/spiderkolo_03.png'
+                    bars: 25
+                    icons: [13,1,2,2,2,1,2,2,1,4,1,1,1,3,2,1,2,2,1,1,1,1,1,1,1]
+                  - title: 'Stella - Pride Orbs'
+                    sprite: 'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png'
+                    image: '/i/hud/stella_01.png'
+                    bars: 10
+                    icons: [1,1,1,1,1,1,1,1,1,1]
+                  - title: 'Vevekhi 01 - Resources and Mobs'
+                    sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png'
+                    image: '/i/hud/vevekhi_01.png'
+                    bars: 25
+                    icons: [1,6,3,3,2,2,1,2,4,2,2,3,1,3,4,3,3,2,2,2,1,3,2,3,3]
+                  - title: 'Vevekhi 02 - Effects and Blocks'
+                    sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_02.png'
+                    image: '/i/hud/vevekhi_02.png'
+                    bars: 25
+                    icons: [2,3,2,2,4,2,1,2,1,1,1,2,1,2,5,2,2,2,1,3,3,6,4,3,4]
+                  - title: 'Vevekhi 03 - Indicators'
+                    sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png'
+                    image: '/i/hud/vevekhi_03.png'
+                    bars: 25
+                    icons: [2,6,3,3,1,8,1,2,2,2,1,4,2,2,4,2,2,1,2,2,2,2,2,3,2]
+        hud_bar_index:
+            type: integer
+            min: 0
+            helper:
+                kind: sprites
+                title: Resource Bar
+                tab: bar
+                sheets: *hud_sheets
+        hud_icon_index:
+            type: integer
+            min: 0
+            helper:
+                kind: sprites
+                title: Resource Bar Icon
+                tab: icon
+                sheets: *hud_sheets
     icon:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
         desc: |

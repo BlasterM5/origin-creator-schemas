@@ -28,13 +28,8 @@ links:
             biome:
                 desc: The biome at the given location.
                 href: https://minecraft.wiki/w/Biome#Biome_IDs
-                or:
-                  - title: built-in
-                    id: enums
-                    link: biome
-                  - title: custom
-                    type: string
-                    allow: '*a-z0-9#\/:.-'
+                id: powers
+                link: biome
             block:
                 type: object
                 props:
@@ -43,11 +38,12 @@ links:
                         href: https://minecraft.wiki/w/Java_Edition_data_values/Blocks
                         type: list
                         vals:
-                            link: block
+                            id: powers
+                            link: meta_block_id
                     tag:
                         desc: The block tag.
-                        type: string
-                        allow: '*a-z0-9#\/:.-'
+                        id: powers
+                        link: meda_block_tag
                     nbt:
                         desc: The block NBT.
                         id: powers
@@ -73,12 +69,11 @@ links:
                     blocks:
                         desc: The fluid ID.
                         href: https://minecraft.wiki/w/Java_Edition_data_values#Fluids
-                        type: string
-                        allow: '*a-z0-9#\/:.-'
+                        link: identifier
                     tag:
                         desc: The fluid tag.
-                        type: string
-                        allow: '*a-z0-9#\/:.-'
+                        id: powers
+                        link: meta_fluid_tag
                     nbt:
                         desc: The block NBT.
                         id: powers
@@ -100,13 +95,8 @@ links:
                                         type: integer
             dimension:
                 desc: The dimension of ths location.
-                unspec: true
-                or:
-                  - title: built-in
-                    enum: ['overworld','the_nether','the_end']
-                  - title: custom
-                    type: string
-                    allow: '*a-z0-9#\/:.-'
+                id: powers
+                link: dimension
             feature:
                 desc: Whether or not this location is inside a naturally generating structure.
                 href: https://minecraft.wiki/w/Commands/locate#Arguments
@@ -129,14 +119,15 @@ links:
                         link: nummm
             smokey:
                 desc: True if the block is closely above a campfire or soul campfire.
-                enum: [true, false]
-                unspec: true
+                link: boolean_optional
     entity_preds:
         unspec: true
         or:
           - title: single
+            talias: object
             link: entity_pred
           - title: multiple
+            talias: list
             type: list
             vals:
                 link: entity_pred
@@ -161,12 +152,10 @@ links:
                         link: intmm
                     ambient:
                         desc: Whether the effect is from a beacon.
-                        enum: [true, false]
-                        unspec: true
+                        link: boolean_optional
                     visible:
                         desc: Whether the effect has visible particles.
-                        enum: [true, false]
-                        unspec: true
+                        link: boolean_optional
             equipment:
                 desc: Items equipped by the entity.
                 type: object
@@ -188,20 +177,15 @@ links:
                 type: object
                 props:
                     is_on_fire:
-                        enum: [true, false]
-                        unspec: true
+                        link: boolean_optional
                     is_sneaking:
-                        enum: [true, false]
-                        unspec: true
+                        link: boolean_optional
                     is_sprinting:
-                        enum: [true, false]
-                        unspec: true
+                        link: boolean_optional
                     is_swimming:
-                        enum: [true, false]
-                        unspec: true
+                        link: boolean_optional
                     is_baby:
-                        enum: [true, false]
-                        unspec: true
+                        link: boolean_optional
             nbt:
                 type: string
                 ext: true
@@ -228,9 +212,11 @@ links:
                             allowkey: '*a-z0-9#\/:.-'
                             or:
                               - title: simple
+                                talias: boolean
                                 type: boolean
                                 default: false
                               - title: advanced
+                                talias: object
                                 type: object
                                 extra:
                                     type: boolean
@@ -256,12 +242,14 @@ links:
                             props:
                                 type:
                                     desc: The statistic base. Possible values in vanilla are custom, crafted, used, broken, mined, killed, picked_up, dropped and killed_by.
-                                    type: string
-                                    allow: '*a-z0-9_#\/:.-'
+                                    helper:
+                                        title: Statistic Type
+                                        id: enums
+                                        list: statistic
+                                    link: identifier
                                 stat:
                                     desc: The statistic ID. Mostly mimics the criteria used for defining scoreboard objectives.
-                                    type: string
-                                    allow: '*a-z0-9_#\/:.-'
+                                    link: identifier
                                 value:
                                     desc: The value of the statistic.
                                     link: intmm
@@ -299,8 +287,10 @@ links:
                     link: item
             tag:
                 desc: An item data pack tag.
-                type: string
-                allow: '*a-z0-9_#\/:.-'
+                helper:
+                    title: Item Tag
+                    folder: tags/items
+                link: identifier
             count:
                 desc: Amount of the item.
                 link: intmm
@@ -314,8 +304,11 @@ links:
             potion:
                 desc: A brewed potion ID.
                 href: https://minecraft.wiki/w/Potion#Item_data
-                type: string
-                allow: '*a-z0-9_#\/:.-'
+                link: identifier
+                helper:
+                    title: Potion
+                    id: enums
+                    list: potions
             enchantments:
                 desc: List of enchantments
                 type: list
@@ -424,9 +417,11 @@ links:
         unspec: true
         or:
           - title: exact
+            talias: integer
             type: integer
             min: 0
           - title: range
+            talias: object
             type: object
             props:
                 min:
@@ -439,8 +434,10 @@ links:
         unspec: true
         or:
           - title: exact
+            talias: integer
             type: integer
           - title: range
+            talias: object
             type: object
             props:
                 min:
@@ -451,9 +448,11 @@ links:
         unspec: true
         or:
           - title: exact
+            talias: number
             type: number
             min: 0
           - title: range
+            talias: object
             type: object
             props:
                 min:
@@ -466,8 +465,10 @@ links:
         unspec: true
         or:
           - title: exact
+            talias: number
             type: number
           - title: range
+            talias: object
             type: object
             props:
                 min:
@@ -479,13 +480,15 @@ links:
         unspec: true
         or:
           - title: simple
+            talias: integer
             type: integer
           - title: advanced
+            talias: object
             type: object
             props:
                 type:
                     desc: The type of this number provider. Keep in mind "score" is only available in 1.17+
-                    enum: [constant, uniform, binomial, score]
+                    enum: ['constant','uniform','binomial','score']
                     more:
                         string-constant:
                             value:
@@ -505,8 +508,10 @@ links:
                                 unspec: true
                                 or:
                                   - title: simple
+                                    talias: string
                                     enum: ['this','killer','direct_killer','player_killer']
                                   - title: advanced
+                                    talias: object
                                     type: object
                                     props:
                                         type:
@@ -530,13 +535,15 @@ links:
         unspec: true
         or:
           - title: simple
+            talias: number
             type: number
           - title: advanced
+            talias: object
             type: object
             props:
                 type:
                     desc: The type of this number provider. Keep in mind "score" is only available in 1.17+
-                    enum: [constant, uniform, binomial, score]
+                    enum: ['constant','uniform','binomial','score']
                     more:
                         string-constant:
                             value:
@@ -558,15 +565,17 @@ links:
                             target:
                                 unspec: true
                                 or:
-                                  - enum:
-                                      - this
-                                      - killer
-                                      - direct_killer
-                                      - player_killer
-                                  - type: object
+                                  - title: simple
+                                    talias: enum
+                                    enum: ['this','killer','direct_killer','player_killer']
+                                  - title: advanced
+                                    talias: object
+                                    type: object
                                     props:
                                         type:
-                                            enum: [fixed, context]
+                                            enum:
+                                              - fixed
+                                              - context
                                             more:
                                                 string-fixed:
                                                     name:
@@ -574,7 +583,7 @@ links:
                                                         type: string
                                                 string-context:
                                                     target:
-                                                        enum: [this, killer, direct_killer, player_killer]
+                                                        enum: ['this','killer','direct_killer','player_killer']
                             score:
                                 desc: The scoreboard objective.
                                 type: string
@@ -584,13 +593,12 @@ links:
     item:
         desc: A Minecraft item (or block item), vanilla or modded.
         href: https://minecraft.wiki/w/Java_Edition_data_values#Blocks
-        type: string
-        allow: '*a-z0-9_#\/:.-'
+        link: identifier
     block:
         desc: A Minecraft block, vanilla or modded.
         href: https://minecraft.wiki/w/Java_Edition_data_values/Blocks
-        type: string
-        allow: '*a-z0-9_#\/:.-'
+        id: powers
+        link: meta_block_id
     single_pred:
         desc: A predicate.
         type: object
@@ -630,8 +638,11 @@ links:
                             type: object
                             desc: (Optional) A map of block property names to values. All values are strings. The test fails if the block doesn't match.
                             extra:
-                                type: string
-                                allowkey: '*a-z0-9#\/:.-'
+                                link: identifier
+                                helper:
+                                    title: Block State
+                                    id: enums
+                                    list: block_state
                     string-damage_source_properties:
                         predicate:
                             desc: Predicate applied to the damage source.
@@ -639,7 +650,7 @@ links:
                     string-entity_properties:
                         entity:
                             desc: Specifies the entity to check for the condition. Set to "this" to use the entity that died or the player that gained the advancement, opened the container or broke the block, "killer" for the killer, or "killer_player" for a killer that is a player.
-                            enum: [this, killer, killer_player]
+                            enum: ['this', 'killer', 'killer_player']
                         predicate:
                             desc: Predicate applied to entity, uses the same structure as advancements.
                             link: entity_pred
@@ -689,13 +700,19 @@ links:
                     string-reference:
                         name:
                             desc: The ID of another predicate to test.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            link: identifier
+                            helper:
+                                title: Predicate
+                                folder: predicates
                     string-survives_explosion: {}
                     string-table_bonus:
                         enchantment:
                             desc: ID of enchantment to pull enchantment level from.
-                            type: integer
+                            link: identifier
+                            helper:
+                                title: Enchantment
+                                id: enums
+                                list: enchantment
                         chances:
                             desc: List of probabilities for enchantment level, indexed from 0.
                             type: list
@@ -709,8 +726,10 @@ links:
                             unspec: true
                             or:
                               - title: exact
+                                talias: integer
                                 type: integer
                               - title: range
+                                talias: object
                                 type: object
                                 props:
                                     min:
@@ -737,8 +756,10 @@ links:
                             unspec: true
                             or:
                               - title: exact
+                                talias: integer
                                 type: integer
                               - title: range
+                                talias: object
                                 type: object
                                 props:
                                     min:
@@ -748,22 +769,30 @@ links:
                     string-apoli:origin:
                         origin:
                             desc: The ID of an origin to check for on the player.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: meta_origin_id
                         layer:
                             desc: If specified, only evaluate the predicate to true if the origin is from the specified origin layer.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: meta_origin_layer_id
                     string-apoli:power:
                         power:
                             desc: The ID of an power to check for on the player.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: meta_power_id
+    identifier:
+        type: string
+        allow: '*a-z0-9_#\/:.-'
+    boolean_optional:
+        enum: [true,false]
+        unspec: true
 or:
   - title: single
+    talias: object
     extend: single_pred
     nopanel: true
   - title: multiple
+    talias: list
     type: list
     vals:
         link: single_pred

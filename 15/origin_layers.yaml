@@ -7,16 +7,23 @@ props:
     origins:
         href: https://0vergrown.github.io/Handbook/docs/datapack/origins/layers/
         desc: The origins offered in this layer.
-        type: list
-        vals:
-            or:
-              - title: simple
-                type: list
-                vals:
-                    link: identifier
-              - title: conditioned
-                type: list
-                vals:
+        or:
+          - title: simple
+            type: list
+            vals:
+                id: powers
+                link: meta_origin_id
+          - title: advanced
+            talias: extra
+            type: list
+            vals:
+                or:
+                  - title: simple
+                    talias: string
+                    id: powers
+                    link: meta_origin_id
+                  - title: conditioned
+                    talias: object
                     type: object
                     props:
                         condition:
@@ -27,7 +34,8 @@ props:
                             desc: IDs of the origins which should become available when the condition is fulfilled.
                             type: list
                             vals:
-                                link: identifier
+                                id: powers
+                                link: meta_origin_id
         required: true
     enabled:
         desc: Whether the layer is active.
@@ -58,7 +66,7 @@ props:
         desc: Translation key shown when the player has no origin in this layer.
         type: string
     missing_description:
-        desc: Translation key for that placeholder’s description.
+        desc: Translation key for the above placeholder’s description.
         type: string
         gap: true
     random:
