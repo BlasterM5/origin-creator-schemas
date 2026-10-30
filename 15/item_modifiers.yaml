@@ -88,7 +88,7 @@ links:
                                     link: jsontxt
                             string-show_item:
                                 value:
-                                    desc: Deprecated, use contents instead.
+                                    desc: (DEPRECATED) the item that should be displayed.
                                     type: string
                                     ext: true
                                 contents:
@@ -106,11 +106,11 @@ links:
                                             min: 1
                                         tag:
                                             desc: Optional. A string containing the serialized NBT of the additional information about the item, discussed more in the subsections of the player format page.
-                                            type: string
-                                            ext: true
+                                            id: powers
+                                            link: nbt
                             string-show_entity:
                                 value:
-                                    desc: Deprecated, use contents instead.
+                                    desc: (DEPRECATED) the entity that should be displayed.
                                     type: string
                                     ext: true
                                 contents:
@@ -123,8 +123,8 @@ links:
                                         type:
                                             desc: A string containing the type of the entity. Should be a namespaced entity ID. Present pig if invalid.
                                             href: https://minecraft.wiki/w/Java_Edition_data_values/Entities
-                                            type: string
-                                            allow: '*a-z0-9_#\/:.-'
+                                            id: powers
+                                            link: entity_type
                                         id:
                                             desc: A string containing the UUID of the entity in the hyphenated hexadecimal format. Should be a valid UUID.
                                             type: string
@@ -268,8 +268,8 @@ links:
                         enchantment:
                             desc: Enchantment ID used for level calculation.
                             href: https://minecraft.wiki/w/Java_Edition_data_values#Enchantments
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: enchantment
                         formula:
                             desc: Can be binomial_with_bonus_count for a binomial distribution (with "n = level + extra", "p = probability"), uniform_bonus_count for uniform distribution (from 0 to level * bonusMultiplier), or ore_drops for a special function used for ore drops in the vanilla game (Count * (max(0; random(0..Level + 2) - 1)+1)).
                             enum: [binomial_with_bonus_count, uniform_bonus_count, ore_drops]
@@ -329,7 +329,8 @@ links:
                         block:
                             desc: A block ID. Function fails if the block doesn't match.
                             href: https://minecraft.wiki/w/Java_Edition_data_values/Blocks
-                            type: string
+                            id: powers
+                            link: meta_block_id
                         properties:
                             desc: A list of proerty names to copy from dropped block to the item's BlockStateTag tag.
                             type: list
@@ -341,7 +342,8 @@ links:
                             href: https://minecraft.wiki/w/Java_Edition_data_values#Enchantments
                             type: list
                             vals:
-                                type: string
+                                id: powers
+                                link: enchantment
                     string-enchant_with_levels:
                         treasure:
                             type: boolean
@@ -353,8 +355,8 @@ links:
                         destination:
                             desc: The type of generated structure to convert this empty map to lead to. Accepts any structure id used by the /locate command.
                             href: https://minecraft.wiki/w/Commands/locate#Arguments
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: structure
                         decoration:
                             desc: The icon used to mark the destination on the map. Accepts any of the map icon text IDs (case insensitive). If mansion or monument is used, the color of the lines on the item texture changes to match the corresponding explorer map.
                             href: https://minecraft.wiki/w/Map#Map_icons

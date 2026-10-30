@@ -4218,11 +4218,11 @@ links:
                             entity_type:
                                 desc: The identifier of the projectile or entity that will be launched.
                                 unspec: true
-                                or:
-                                  - title: projectile
-                                    link: projectile_type
-                                  - title: mob
-                                    link: mob_type
+                                helper:
+                                    title: Projectile
+                                    id: enums
+                                    list: [projectile_type,mob_type]
+                                link: identifier
                             texture_location:
                                 desc: If specified, the texture used for the custom projectile and entity_type is ignored.
                                 link: meta_texture
@@ -6472,12 +6472,11 @@ links:
                             link: hud_render
                         entity_type:
                             desc: The identifier of the projectile or entity that will be launched.
-                            unspec: true
-                            or:
-                              - title: projectile
-                                link: projectile_type
-                              - title: mob
-                                link: mob_type
+                            helper:
+                                title: Projectile
+                                id: enums
+                                list: [projectile_type,mob_type]
+                            link: identifier
                         texture_location:
                             desc: If specified, the texture used for the custom projectile and entity_type is ignored.
                             link: meta_texture
@@ -9433,19 +9432,11 @@ links:
     entity_pose:
         enum: ['standing','crouching','swimming','fall_flying','sleeping','spin_attack','sitting','sliding','shooting','inhaling']
     entity_type:
-        unspec: true
-        or:
-          - title: built-in
-            or:
-              - title: mobs
-                link: mob_type_enum
-              - title: object_entities
-                id: enums
-                link: object_entities
-              - title: projectiles
-                link: projectile_type_enum
-          - title: custom
-            link: identifier
+        helper:
+            title: Entity Type
+            id: enums
+            list: [mob_type,object_entity,projectile_type]
+        link: identifier
     entity_type_tag:
         helper:
             title: Entity Type Tag
@@ -10116,12 +10107,8 @@ links:
         helper:
             title: Mob Type
             id: enums
-            list: mob_type_enum
+            list: mob_type
         link: identifier
-    mob_type_enum:
-        id: enums
-        link: mob_type_enum
-        unspec: true
     model_animation:
         type: object
         props:
@@ -10560,10 +10547,6 @@ links:
             id: enums
             list: projectile_type
         link: identifier
-    projectile_type_enum:
-        id: enums
-        link: projectile_type
-        unspec: true
     radial_menu_entry:
         type: object
         props:

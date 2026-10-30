@@ -4,16 +4,15 @@ props:
         desc: If specified, the specified powers will only be granted to entities that fulfill this tag-like specifier.
         type: list
         vals:
-            type: string
-            allow: '*a-z0-9_#\/:.-'
+            id: powers
+            link: entity_type
     powers:
         desc: The ID(s) of the power(s) to grant to entities globally.
         type: list
         large: true
         vals:
-            type: string
-            allow: '*a-z0-9_#\/:.-'
-            hooks: [ns]
+            id: powers
+            link: meta_power_id
     order:
         desc: Determines the order at which the global power set is applied. Defaults to 0.
         type: integer
