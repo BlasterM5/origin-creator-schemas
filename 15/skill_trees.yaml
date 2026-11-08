@@ -23,9 +23,8 @@ or:
             link: identifier
         default_powers:
             desc: Powers granted to every player who has the tree (e.g. a point-earning power). Removed when the tree is revoked.
-            type: list
-            vals:
-                link: identifier
+            id: powers
+            link: meta_power_id_array
         order:
             desc: Tab order among trees — lower values come first; ties keep load order.
             type: integer
@@ -33,7 +32,7 @@ or:
         auto_grant:
             desc: If true, every player automatically has this tree (revoking has no lasting effect). If false, the tree is hidden until granted via the grant action.
             type: boolean
-            unspec: true
+            default: true
         condition:
             desc: If set, the tree only counts for players who fulfil it — see Tying a tree to an origin.
             href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-json-format/#tying-a-tree-to-an-origin
@@ -42,23 +41,23 @@ or:
         refundable:
             desc: If true, players can shift-click a purchased skill in the tree screen to un-buy it — the power is removed and its point cost returned (only allowed while no purchased skill depends on it). Set false to make purchases permanent (admins can still unbuy via the /apoli:skill_tree command).
             type: boolean
-            unspec: true
+            default: true
   - title: Skill
     type: object
     props:
         parent:
             href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-json-format/#skill-file-fields
             desc: The tree, or another skill, this one hangs off.
-            link: identifier
-            required: true
+            id: powers
+            link: meta_skill_tree
         power:
             desc: The power buying this skill grants.
-            link: identifier
+            id: powers
+            link: meta_power_id
         powers:
-            type: list
-            vals:
-                desc: The powers buying this skill grants.
-                link: identifier
+            desc: The powers buying this skill grants.
+            id: powers
+            link: meta_power_id_array
         name:
             desc: Display name.
             id: powers
@@ -75,13 +74,38 @@ or:
             desc: Border drawn around the node, matching the advancement frames.
             link: frame
         cost:
-            desc: Points needed to buy it.
-            type: integer
-            default: 0
-        excludes:
-            desc: Skills that become unbuyable once this one is bought, and vice versa.
+            desc: |
+                What buying it costs: points from any tree and items, as described in Costs.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-power-data/#costs
+            or:
+              - title: simple
+                type: integer
+                default: 0
+              - title: advanced
+                link: cost
+        reward:
+            desc: Points and items given when it is bought, as described in Rewards.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-power-data/#rewards
+            talias: rewards
+            or:
+              - title: simple
+                type: integer
+                default: 0
+              - title: advanced
+                link: reward
+        placement:
+            desc: Draws the skill at this spot as the start of its own branch in [x,y] format, as described in Separate branches.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-power-data/#separate-branches
             type: list
             vals:
+                type: number
+        excludes:
+            desc: Skills that can't be bought once this one is, and the other way round.
+            type: list
+            vals:
+                helper:
+                    title: Skill Tree
+                    folder: skill_trees
                 link: identifier
         condition:
             desc: Must pass before the skill can be bought.
@@ -92,13 +116,149 @@ or:
             id: powers
             link: entity_condition
         order:
-            desc: Sort order among siblings.
+            desc: The sort order among siblings. Ties are ordered by skill ID.
             type: integer
             default: 0
 links:
+    costs:
+        type: object
+        props:
+            points:
+                desc: The points the skill costs. A plain number is taken from the skill's own tree.
+                or:
+                  - title: single
+                    or:
+                      - title: simple
+                        type: integer
+                        default: 0
+                      - title: advanced
+                        link: point_entry
+                  - title: multiple
+                    type: list
+                    vals:
+                        or:
+                          - title: simple
+                            type: integer
+                            default: 0
+                          - title: advanced
+                            link: point_entry
+        skill_tree:
+            desc: A shorthand for a single points number that takes those points from this tree instead.
+            helper:
+                title: Skill Tree
+                folder: skill_trees
+            link: identifier
+        items:
+            desc: Items taken from the player's inventory. See Paying with items.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-power-data/#paying-with-items
+            or:
+              - title: single
+                link: item_stack_card
+              - title: multiple
+                type: list
+                vals:
+                    link: item_stack_card
+        hidden:
+            desc: |
+                Hides the whole cost, so the hover card only says Cost: ???.
+            type: boolean
     frame:
         enum: ['task','goal','challenge']
-        unspec: 'task'
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
+    item_stack_card:
+        type: object
+        props:
+            item_condition:
+                desc: Only stacks that pass this condition count toward the cost.
+                id: powers
+                link: item_condition
+            id:
+                desc: ID of a registered item.
+                talias: item
+                link: identifier
+            count:
+                desc: Size of the stack.
+                talias: amount
+                type: integer
+                default: 1
+            tag:
+                desc: 1.20.1
+                id: powers
+                link: nbt
+                unspec: none
+            component:
+                desc: 1.21.1
+                or:
+                  - title: single
+                    id: powers
+                    link: nbt
+                  - title: multiple
+                    type: list
+                    vals:
+                        id: powers
+                        link: nbt
+                unspec: none
+            hidden:
+                desc: Leaves this item out of the hover card.
+                type: boolean
+    point_entry:
+        type: object
+        props:
+            amount:
+                desc: How many points.
+                talias: points
+                type: integer
+                required: true
+            skill_tree:
+                desc: Which tree's points to spend. Any loaded tree works, even one that is never shown, so a hidden tree can act as a shared currency.
+                helper:
+                    title: Skill Tree
+                    folder: skill_trees
+                link: identifier
+            hidden:
+                desc: Leaves this entry out of the hover card.
+                type: boolean
+    reward:
+        type: object
+        props:
+            points:
+                desc: Points added to a tree. Point entries are the same as for costs.
+                or:
+                  - title: single
+                    or:
+                      - title: simple
+                        type: integer
+                        default: 0
+                      - title: advanced
+                        link: point_entry
+                  - title: multiple
+                    type: list
+                    vals:
+                        or:
+                          - title: simple
+                            type: integer
+                            default: 0
+                          - title: advanced
+                            link: point_entry
+        skill_tree:
+            desc: A shorthand for a single points number that gives those points to this tree.
+            helper:
+                title: Skill Tree
+                folder: skill_trees
+            link: identifier
+        items:
+            desc: Items given to the player, using the Item Stack fields plus hidden. Items that don't fit are dropped at the player's feet. A single item can be written straight into reward, as with costs.
+            href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-power-data/#paying-with-items
+            or:
+              - title: single
+                link: item_stack_card
+              - title: multiple
+                type: list
+                vals:
+                    link: item_stack_card
+        hidden:
+            desc: |
+                Hides every reward line, including the names of the granted powers.
+            type: boolean

@@ -381,6 +381,14 @@ links:
                       - origins:stored_origin
                       - origins:stored_value
                       - origins:swapped
+
+                      - $Birdsong Addon
+                      - birdsong:voice_disabled
+                      - birdsong:voice_listeners
+                      - birdsong:voice_loudness
+                      - birdsong:voice_speaking
+                      - birdsong:voice_whispering
+
                       - $DEPRECATED
                       - origins:and
                       - origins:or
@@ -1016,6 +1024,9 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power
                                 desc: The namespace and ID of the power the entity needs to have to pass the check. Must be a 'living' entity or the game will crash!
                                 link: meta_power_id
+                            tags:
+                                desc: Passes if any power the entity holds carries one of these tags.
+                                link: meta_key_single_or_array
                             source:
                                 desc: If specified, the condition will check if the power is from the specified power source.
                                 link: identifier
@@ -1025,6 +1036,9 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_active
                                 desc: The namespace and ID of the power which will be checked for being active.
                                 link: meta_power_id
+                            tags:
+                                desc: Passes if any power the entity holds that carries one of these tags is active.
+                                link: meta_key_single_or_array
                         string-origins:power_type:
                             power_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/power_type
@@ -1358,6 +1372,29 @@ links:
                             compare_to:
                                 desc: The value at which the experience points of the player will be compared to.
                                 type: integer
+                        string-birdsong:voice_disabled: {}
+                        string-birdsong:voice_listeners:
+                            range:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/voice_listeners/
+                                desc: The radius in blocks to search.
+                                type: number
+                                default: 16
+                            min_count:
+                                desc: How many connected players must be inside it.
+                                type: integer
+                                default: 1
+                        string-birdsong:voice_loudness:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/voice_loudness/
+                                desc: How to compare.
+                                link: comparison
+                                default: 3
+                            compare_to:
+                                desc: The value to compare against, from 0 to 100.
+                                type: integer
+                                default: 1
+                        string-birdsong:voice_speaking: {}
+                        string-birdsong:voice_whispering: {}
           - title: custom
             link: custom_condition
     item_condition:
@@ -2460,6 +2497,7 @@ links:
                       - $General Actions
                       - origins:add_velocity
                       - origins:attach_rope
+                      - origins:breed
                       - origins:damage
                       - origins:disguise
                       - origins:execute_command
@@ -2690,6 +2728,7 @@ links:
                                 desc: Whether the physics may pull the to end.
                                 type: boolean
                                 default: true
+                        string-origins:breed: {}
                         string-origins:damage:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
@@ -3387,9 +3426,11 @@ links:
                       - origins:summon_clone
                       - origins:summon_minion
                       - $Data Actions
+                      - origins:add_skill_points
                       - origins:advancement
                       - origins:apply_stored_origin
                       - origins:force_swap
+                      - origins:grant_skill_tree
                       - origins:grant_origin
                       - origins:grant_all_powers
                       - origins:grant_power
@@ -3398,6 +3439,8 @@ links:
                       - origins:modify_stat
                       - origins:print
                       - origins:remove_power
+                      - origins:reset_skills
+                      - origins:revoke_skill_tree
                       - origins:revoke_origin
                       - origins:revoke_all_powers
                       - origins:revoke_power
@@ -3626,6 +3669,15 @@ links:
                             iterate:
                                 desc: Which side of the set to walk — members for the set you own, owners for every set that has you in it.
                                 link: set_iteration
+                        string-origins:add_skill_points:
+                            skill_tree:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/add_skill_points/
+                                desc: The ID of the skill tree the points go to. It must be the root of the tree.
+                                link: meta_skill_tree
+                            points:
+                                desc: How many points to add. Negative values take points away, down to zero.
+                                type: integer
+                                default: 1
                         string-origins:add_velocity:
                             x:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_velocity
@@ -3984,6 +4036,11 @@ links:
                                 desc: Runs on the entity after the disguise is applied.
                                 link: entity_action
                         string-origins:dismount: {}
+                        string-origins:grant_skill_tree:
+                            skill_tree:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/grant_skill_tree/
+                                desc: The ID of the skill tree to grant.
+                                link: meta_skill_tree
                         string-origins:inventory_action:
                             operation:
                                 link: inventory_operation
@@ -4265,8 +4322,12 @@ links:
                                 type: number
                                 min: 0
                                 default: 1
+                            pierce:
+                                desc: How many entities the projectile passes through. It hits them, runs its hit actions and flies on instead of stopping. -1 passes through every entity. It is worked out at each hit, with the owner as the entity. See Passing through.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#passing-through
+                                link: expression_integer
                             reflective:
-                                desc: Makes the projectile bounce off blocks instead of stopping on them. true bounces with the default settings. See Bouncing off walls.
+                                desc: Makes the projectile bounce off blocks instead of stopping on them, and off the entities it hits when entities is on. true bounces off blocks with the default settings. See Bouncing off walls.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
                                 or:
                                   - title: simple
@@ -4281,6 +4342,14 @@ links:
                                 desc: Makes the projectile seek out and curve toward a nearby target. See Chasing a target.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#chasing-a-target
                                 link: projectile_homing
+                            sticky:
+                                desc: Makes the projectile stick in the block it hits and stay there, like an arrow, instead of ending the shot. true sticks with the default settings. See Sticking to walls.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#sticking-to-walls
+                                or:
+                                  - title: simple
+                                    link: boolean_optional
+                                  - title: advanced
+                                    link: projectile_sticking
                             sound:
                                 desc: If set, the sound with this ID will be played when the power is used.
                                 link: meta_sound_event
@@ -4783,6 +4852,20 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/remove_power
                                 desc: The ID of the power to remove from the entity.
                                 link: meta_power_id
+                        string-origins:reset_skills:
+                            tree:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/reset_skills/
+                                desc: The root of a single tree to reset. Leave it out to reset every tree the player has bought skills in.
+                                link: meta_skill_tree
+                            refund:
+                                desc: Whether what was paid for the cleared skills (points and items) is given back. A refund also takes back the skills' rewards as far as the player still has them. Set it to false to reset the build without a refund, as a penalty where the player loses their points, and the player then keeps the rewards.
+                                type: boolean
+                                default: true
+                        string-origins:revoke_skill_tree:
+                            skill_tree:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/revoke_skill_tree/
+                                desc: The ID of the skill tree to revoke.
+                                link: meta_skill_tree
                         string-origins:revoke_all_powers:
                             source:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/revoke_all_powers
@@ -5601,6 +5684,7 @@ links:
                       - origins:if_else
                       - origins:if_else_list
                       - origins:loop
+                      - origins:connected_blocks
                       - origins:offset
                       - origins:side
                       - origins:add_block
@@ -5728,6 +5812,35 @@ links:
                             after_action:
                                 desc: Fired once, in the same tick as the final iteration, right after it.
                                 link: block_action
+                        string-origins:connected_blocks:
+                            block_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/connected_blocks/
+                                desc: Which blocks belong to the group. Without it, only blocks of the same block as the starting one do, so an oak log connects to oak logs and iron ore to iron ore.
+                                link: block_condition
+                            neighbor_condition:
+                                desc: If set, the action only runs when at least one block next to the group matches this condition. If the group reaches limit before such a block turns up, nothing happens.
+                                link: block_condition
+                            actor_condition:
+                                desc: If set, this is checked on the entity behind the action before each block, and the action stops the first time it fails. With it set, the action does nothing when no entity is behind it.
+                                link: entity_condition
+                            diagonal:
+                                desc: Whether blocks that only touch at an edge or a corner count as connected. With false, only the six blocks that share a face do.
+                                type: boolean
+                                default: true
+                            downward:
+                                desc: Whether the search can spread to blocks lower than the one it came from. With false it only spreads sideways and up.
+                                type: boolean
+                                default: true
+                            limit:
+                                desc: The most blocks the group can hold, from 1 to 1024.
+                                type: integer
+                                default: 64
+                                min: 1
+                                max: 1024
+                            block_action:
+                                desc: The action to run on each block in the group, nearest blocks first.
+                                link: block_action
+                                required: true
                         string-origins:offset:
                             action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/block-actions/offset
@@ -5784,6 +5897,9 @@ links:
                                 default: true
                             as_player:
                                 desc: Drops the loot through the block’s player-mining hook instead of its plain loot table, crediting the player the action came from. A beehive or bee nest releases the bees inside it, the block-mined statistic is awarded, the mining advancements fire, and a little hunger is spent. Needs drop_loot to be true, and has no effect when the entity behind the action is not a player.
+                                type: boolean
+                            mine:
+                                desc: With true, the player behind the action mines the block exactly as if they had broken it by hand. Their held tool takes durability damage and its enchantments apply to the drops, ores drop experience, and the break is refused where the player couldn't break blocks, such as inside spawn protection, in adventure mode or in an area a claim mod protects. The other fields are ignored. When no player is behind the action, the block breaks as usual.
                                 type: boolean
                         string-origins:execute_command:
                             command:
@@ -5936,6 +6052,7 @@ links:
           - origins:game_event_listener
           - origins:grounded
           - origins:ignore_fluid
+          - origins:infinite_trades
           - origins:inventory
           - origins:invisibility
           - origins:invulnerability
@@ -5964,6 +6081,7 @@ links:
           - origins:shaking
           - origins:show_both_arms
           - origins:solid_hitbox
+          - origins:status_bar_texture
           - origins:stacking_status_effect
           - origins:starting_equipment
           - origins:swimming
@@ -5992,6 +6110,7 @@ links:
           - origins:action_on_scroll_wheel
           - origins:action_on_sending_message
           - origins:action_on_swap
+          - origins:action_on_tame
           - origins:action_on_use
           - origins:action_on_wake_up
           - origins:action_over_time
@@ -5999,7 +6118,9 @@ links:
 
           - $Modify Types
 
+          - origins:attribute_modify_transfer
           - origins:modify_air_speed
+          - origins:modify_anvil
           - origins:modify_block_render
           - origins:modify_block_stuck_speed
           - origins:modify_break_speed
@@ -6008,6 +6129,7 @@ links:
           - origins:modify_crafting
           - origins:modify_cursor_speed
           - origins:modify_damage
+          - origins:modify_enchantability
           - origins:modify_enchantment_level
           - origins:modify_exhaustion
           - origins:modify_falling
@@ -6024,6 +6146,7 @@ links:
           - origins:modify_player_model
           - origins:modify_player_spawn
           - origins:modify_projectile_damage
+          - origins:modify_projectile_divergence
           - origins:modify_slipperiness
           - origins:modify_status_effect_amplifier
           - origins:modify_status_effect_duration
@@ -6050,10 +6173,22 @@ links:
           - origins:prevent_item_pickup
           - origins:prevent_item_use
           - origins:prevent_key_press
+          - origins:prevent_level_event
           - origins:prevent_powers
           - origins:prevent_sleep
           - origins:prevent_sprinting
           - origins:prevent_use
+
+          - $Addon Types
+
+          - $Birdsong
+          - birdsong:action_on_reply
+          - birdsong:action_on_speak
+          - birdsong:action_on_speech
+          - birdsong:modify_speaking_range
+
+          - $Icarus
+          - origins:wings
 
           - $DEPRECATED
           - origins:active_self
@@ -6432,6 +6567,10 @@ links:
                         action_on_remove:
                             desc: If specified, this bi-entity action will be executed on either or both the ’actor’ and the ’target’ upon the ’target’ being removed from the set.
                             link: bientity_action
+                        persistent:
+                            desc: Keeps members through death and logout, and keeps the set through server restarts. See Persistent sets.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/entity_set/#persistent-sets
+                            type: boolean
                     string-origins:exhaust:
                         interval:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/exhaust/
@@ -6442,6 +6581,49 @@ links:
                         exhaustion:
                             desc: Exhaustion added each interval.
                             type: number
+                    string-origins:extra_trades:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/extra_trades/
+                            desc: If set, only merchants that pass this condition get the trades. The actor is the player and the target is the merchant.
+                        trades:
+                            desc: The trades to add, in order. Each one is described below.
+                            type: list
+                            vals:
+                                type: object
+                                props:
+                                    buy:
+                                        desc: What the merchant wants.
+                                        or:
+                                          - title: Item Stack
+                                            link: item_stack
+                                          - title: Loot Table
+                                            link: loot_table
+                                    buy_b:
+                                        desc: A second item the merchant wants as well.
+                                        or:
+                                          - title: Item Stack
+                                            link: item_stack
+                                          - title: Loot Table
+                                            link: loot_table
+                                    sell:
+                                        desc: What the merchant gives.
+                                        or:
+                                          - title: Item Stack
+                                            link: item_stack
+                                          - title: Loot Table
+                                            link: loot_table
+                                    max_uses:
+                                        desc: How many times the trade can be used before it sells out.
+                                        type: integer
+                                        default: 12
+                                    xp:
+                                        desc: The trading experience the merchant earns each time.
+                                        type: integer
+                                        default: 1
+                                    price_multiplier:
+                                        desc: How strongly demand raises the price of buy when the merchant restocks.
+                                        type: number
+                                        default: 0
                     string-origins:fire_projectile:
                         count:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
@@ -6510,8 +6692,12 @@ links:
                             type: number
                             min: 0
                             default: 1
+                        pierce:
+                            desc: How many entities the projectile passes through. It hits them, runs its hit actions and flies on instead of stopping. -1 passes through every entity. It is worked out at each hit, with the owner as the entity. See Passing through.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#passing-through
+                            link: expression_integer
                         reflective:
-                            desc: Makes the projectile bounce off blocks instead of stopping on them. true bounces with the default settings. See Bouncing off walls.
+                            desc: Makes the projectile bounce off blocks instead of stopping on them, and off the entities it hits when entities is on. true bounces off blocks with the default settings. See Bouncing off walls.
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
                             or:
                               - title: simple
@@ -6526,6 +6712,14 @@ links:
                             desc: Makes the projectile seek out and curve toward a nearby target. See Chasing a target.
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#chasing-a-target
                             link: projectile_homing
+                        sticky:
+                            desc: Makes the projectile stick in the block it hits and stay there, like an arrow, instead of ending the shot. true sticks with the default settings. See Sticking to walls.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#sticking-to-walls
+                            or:
+                              - title: simple
+                                link: boolean_optional
+                              - title: advanced
+                                link: projectile_sticking
                         sound:
                             desc: If set, the sound with this ID will be played when the power is used.
                             link: meta_sound_event
@@ -6672,6 +6866,11 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/ignore_fluid/
                             desc: (DEPRECATED) The fluid condition type to check the fluid state at the position.
                             link: fluid_condition
+                    string-origins:infinite_trades:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/infinite_trades/
+                            desc: If set, the power only applies to merchants that pass this condition. The actor is the player and the target is the merchant.
+                            link: bientity_condition
                     string-origins:inventory:
                         title:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/inventory/
@@ -7231,6 +7430,200 @@ links:
                         recurrent:
                             desc: Determines whether the specified item(s) should be given after respawning.
                             type: boolean
+                    string-origins:status_bar_texture:
+                        texture:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/status_bar_texture/
+                            desc: A sprite sheet laid out like the classic textures/gui/icons.png (256 by 256, or any larger multiple of it). Every status bar icon is drawn from the same spot on this sheet instead.
+                            link: identifier
+                        texture_map:
+                            desc: Each key is a HUD sprite to replace, and each value is the sprite to draw in its place. Both are GUI sprite names, such as minecraft:hud/heart/full.
+                            or:
+                              - title: built-in
+                                type: object
+                                extra:
+                                    or:
+                                      - hud/air:
+                                        link: identifier
+                                      - hud/air_bursting:
+                                        link: identifier
+                                      - hud/crosshair:
+                                        link: identifier
+                                      - hud/crosshair_attack_indicator_background:
+                                        link: identifier
+                                      - hud/crosshair_attack_indicator_full:
+                                        link: identifier
+                                      - hud/crosshair_attack_indicator_progress:
+                                        link: identifier
+                                      - hud/armor_empty:
+                                        link: identifier
+                                      - hud/armor_full:
+                                        link: identifier
+                                      - hud/armor_half:
+                                        link: identifier
+                                      - hud/food_empty:
+                                        link: identifier
+                                      - hud/food_full:
+                                        link: identifier
+                                      - hud/food_hunger:
+                                        link: identifier
+                                      - hud/experience_bar_background:
+                                        link: identifier
+                                      - hud/experience_bar_progress:
+                                        link: identifier
+                                      - hud/heart/container:
+                                        link: identifier
+                                      - hud/heart/container_hardcore:
+                                        link: identifier
+                                      - hud/heart/container_blinking:
+                                        link: identifier
+                                      - hud/heart/container_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/absorbing_container:
+                                        link: identifier
+                                      - hud/heart/absorbing_container_hardcore:
+                                        link: identifier
+                                      - hud/heart/absorbing_container_blinking:
+                                        link: identifier
+                                      - hud/heart/absorbing_container_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/frozen_container:
+                                        link: identifier
+                                      - hud/heart/frozen_container_hardcore:
+                                        link: identifier
+                                      - hud/heart/frozen_container_blinking:
+                                        link: identifier
+                                      - hud/heart/frozen_container_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/poisoned_container:
+                                        link: identifier
+                                      - hud/heart/poisoned_container_hardcore:
+                                        link: identifier
+                                      - hud/heart/poisoned_container_blinking:
+                                        link: identifier
+                                      - hud/heart/poisoned_container_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/withered_container:
+                                        link: identifier
+                                      - hud/heart/withered_container_hardcore:
+                                        link: identifier
+                                      - hud/heart/withered_container_blinking:
+                                        link: identifier
+                                      - hud/heart/wi
+                                      - hud/hungerthered_container_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/full:
+                                        link: identifier
+                                      - hud/heart/full_hardcore:
+                                        link: identifier
+                                      - hud/heart/full_blinking:
+                                        link: identifier
+                                      - hud/heart/full_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/absorbing_full:
+                                        link: identifier
+                                      - hud/heart/absorbing_full_hardcore:
+                                        link: identifier
+                                      - hud/heart/absorbing_full_blinking:
+                                        link: identifier
+                                      - hud/heart/absorbing_full_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/frozen_full:
+                                        link: identifier
+                                      - hud/heart/frozen_full_hardcore:
+                                        link: identifier
+                                      - hud/heart/frozen_full_blinking:
+                                        link: identifier
+                                      - hud/heart/frozen_full_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/poisoned_full:
+                                        link: identifier
+                                      - hud/heart/poisoned_full_hardcore:
+                                        link: identifier
+                                      - hud/heart/poisoned_full_blinking:
+                                        link: identifier
+                                      - hud/heart/poisoned_full_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/withered_full:
+                                        link: identifier
+                                      - hud/heart/withered_full_hardcore:
+                                        link: identifier
+                                      - hud/heart/withered_full_blinking:
+                                        link: identifier
+                                      - hud/heart/withered_full_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/half:
+                                        link: identifier
+                                      - hud/heart/half_hardcore:
+                                        link: identifier
+                                      - hud/heart/half_blinking:
+                                        link: identifier
+                                      - hud/heart/half_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/absorbing_half:
+                                        link: identifier
+                                      - hud/heart/absorbing_half_hardcore:
+                                        link: identifier
+                                      - hud/heart/absorbing_half_blinking:
+                                        link: identifier
+                                      - hud/heart/absorbing_half_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/frozen_half:
+                                        link: identifier
+                                      - hud/heart/frozen_half_hardcore:
+                                        link: identifier
+                                      - hud/heart/frozen_half_blinking:
+                                        link: identifier
+                                      - hud/heart/frozen_half_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/poisoned_half:
+                                        link: identifier
+                                      - hud/heart/poisoned_half_hardcore:
+                                        link: identifier
+                                      - hud/heart/poisoned_half_blinking:
+                                        link: identifier
+                                      - hud/heart/poisoned_half_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/withered_half:
+                                        link: identifier
+                                      - hud/heart/withered_half_hardcore:
+                                        link: identifier
+                                      - hud/heart/withered_half_blinking:
+                                        link: identifier
+                                      - hud/heart/withered_half_hardcore_blinking:
+                                        link: identifier
+                                      - hud/heart/vehicle_container:
+                                        link: identifier
+                                      - hud/heart/vehicle_full:
+                                        link: identifier
+                                      - hud/heart/vehicle_half:
+                                        link: identifier
+                                      - hud/hotbar:
+                                        link: identifier
+                                      - hud/hotbar_attack_indicator_background:
+                                        link: identifier
+                                      - hud/hotbar_attack_indicator_progress:
+                                        link: identifier
+                                      - hud/hotbar_offhand_left:
+                                        link: identifier
+                                      - hud/hotbar_offhand_right:
+                                        link: identifier
+                                      - hud/hotbar_selection:
+                                        link: identifier
+                                      - hud/jump_bar_background:
+                                        link: identifier
+                                      - hud/jump_bar_cooldown:
+                                        link: identifier
+                                      - hud/jump_bar_progress:
+                                        link: identifier
+                              - title: custom
+                                type: object
+                                extra:
+                                    allowkey: '*a-z0-9_#\/:.-'
+                                    type: identifier
+                        priority:
+                            desc: Which power wins when several replace the same sprite. Higher wins.
+                            type: integer
+                            default: 0
                     string-origins:swimming: {}
                     string-origins:toggle_night_vision:
                         strength:
@@ -7396,6 +7789,17 @@ links:
                             desc: Determines the result of the ‘use’ action.
                             link: action_result
                             default: 4
+                    string-origins:action_on_breed:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_breed/
+                            desc: If set, the actions only run when the breeder and the baby pass this condition.
+                            link: bientity_condition
+                        bientity_action:
+                            desc: Runs with the breeder as the actor and the baby as the target.
+                            link: bientity_action
+                        parents_action:
+                            desc: Runs with the parent that had the baby as the actor and its mate as the target.
+                            link: bientity_action
                     string-origins:action_on_callback:
                         entity_action_chosen:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_callback/
@@ -7587,6 +7991,10 @@ links:
                         entity_action:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_key_press/
                             desc: The action to execute on the player.
+                            link: entity_action
+                        entity_action_released:
+                            desc: Runs when the key is let go after a press that fired entity_action. See Acting on release.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_key_press/#acting-on-release
                             link: entity_action
                         cooldown:
                             link: expression_integer
@@ -7809,6 +8217,14 @@ links:
                         entity_action:
                             desc: Executed on the player when the swap happens.
                             link: entity_action
+                    string-origins:action_on_tame:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_tame/
+                            desc: If set, the action only runs when the tamer and the animal pass this condition.
+                            link: bientity_condition
+                        bientity_action:
+                            desc: The action to run on the tamer, the animal or both.
+                            link: bientity_action
                     string-origins:action_on_use:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_use/
@@ -8061,6 +8477,20 @@ links:
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
+                    string-origins:attribute_modify_transfer:
+                        class:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/attribute_modify_transfer/
+                            desc: |
+                                The power type whose value receives the modifiers. A bare name such as modify_air_speed means apoli:modify_air_speed, and the origins: namespace works too.
+                            enum: [modify_air_speed,modify_swim_speed,modify_jump,modify_slipperiness,modify_velocity,modify_falling,modify_break_speed,modify_exhaustion,modify_healing,modify_damage_dealt,modify_damage_taken,modify_projectile_damage,modify_status_effect_amplifier,modify_status_effect_duration,modify_fov]
+                        attribute:
+                            desc: The attribute to take the modifiers from, such as minecraft:generic.movement_speed. An unknown attribute is a load error.
+                            link: meta_attribute
+                            required: true
+                        multiplier:
+                            desc: Scales each transferred modifier. 0.5 passes on half of every bonus, and a negative number turns bonuses into penalties.
+                            type: number
+                            default: 1
                     string-origins:modify_air_speed:
                         modifier:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_air_speed/
@@ -8069,6 +8499,27 @@ links:
                         modifiers:
                             desc: Several modifiers, applied in operation order.
                             link: attribute_modifier_array
+                    string-origins:modify_anvil:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_anvil/
+                            desc: If set, the modifiers only apply when the item in the anvil's first slot passes this condition.
+                            link: item_condition
+                        repair_material_modifier:
+                            desc: Changes how many pieces of repair material a full repair takes, 4 by default. Each piece restores that share of the item's durability. The result is rounded and is at least 1. repair_material_modifiers is accepted as another spelling.
+                            talias: repair_material_modifiers
+                            or:
+                              - title: single
+                                link: attribute_modifier
+                              - title: multiple
+                                link: attribute_modifier_array
+                        combine_bonus_modifier:
+                            desc: Changes the bonus durability combining two items adds, in percent of the item's maximum, 12 by default. The result is rounded and is at least 0. combine_bonus_modifiers is accepted as another spelling.
+                            talias: combine_bonus_modifiers
+                            or:
+                              - title: single
+                                link: attribute_modifier
+                              - title: multiple
+                                link: attribute_modifier_array
                     string-origins:modify_block_render:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_block_render/
@@ -8104,6 +8555,9 @@ links:
                         hardness_modifiers:
                             desc: If specified, these modifiers will be applied to the effective hardness value of the block while calculating the block’s break speed.
                             link: attribute_modifier_array
+                        connected_blocks:
+                            desc: If set, the expression variable count in the modifiers is the number of blocks connected to the one being broken, found the same way as in apoli:connected_blocks.
+                            link: connected_blocks
                     string-origins:modify_camera:
                         space:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_camera/
@@ -8273,6 +8727,17 @@ links:
                             link: attribute_modifier
                         modifiers:
                             desc: Several modifiers, applied in operation order.
+                            link: attribute_modifier_array
+                    string-origins:modify_enchantability:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_enchantability/
+                            desc: If set, the modifiers only apply to items that pass this condition.
+                            link: item_condition
+                        modifier:
+                            desc: If set, this modifier is applied to the item's enchantability.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: If set, these modifiers are applied to the item's enchantability.
                             link: attribute_modifier_array
                     string-origins:modify_enchantment_level:
                         item_condition:
@@ -8579,6 +9044,17 @@ links:
                         target_action:
                             desc: If specified, this action will be executed on the the entity that has been hit whenever the modifier(s) are applied.
                             link: entity_action
+                    string-origins:modify_projectile_divergence:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_projectile_divergence/
+                            desc: If set, the modifiers only apply when the shooter and the projectile pass this condition. The actor is the shooter and the target is the projectile.
+                            link: bientity_condition
+                        modifier:
+                            desc: If set, this modifier is applied to the divergence.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: If set, these modifiers are applied to the divergence.
+                            link: attribute_modifier_array
                     string-origins:modify_slipperiness:
                         block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_slipperiness/
@@ -8692,8 +9168,11 @@ links:
                             desc: If specified, these modifiers will apply to the specified axes.
                             link: attribute_modifier_array
                     string-origins:modify_xp_gain:
-                        modifier:
+                        block_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_xp_gain/
+                            desc: If set, the power stops changing orbs. It changes the experience a furnace, smoker or blast furnace matching this condition gives the player when they take cooked items out of it, before the orbs appear.
+                            link: block_condition
+                        modifier:
                             desc: If specified, this modifier will apply to the experience gained.
                             link: attribute_modifier
                         modifiers:
@@ -8925,6 +9404,20 @@ links:
                                 desc: Release everything currently held the moment the block starts, so a player who was already running does not keep sliding.
                                 type: boolean
                                 default: true
+                    string-origins:prevent_level_event:
+                        events:
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_level_event/
+                            desc: Only stops these events. Leave it out to stop every event the entity causes. event is accepted as another spelling.
+                            unspec: true
+                            or:
+                              - title: single
+                                id: enums
+                                link: level_event
+                              - title: multiple
+                                type: list
+                                vals:
+                                    id: enums
+                                    link: level_event
                     string-origins:prevent_powers:
                         update_rate:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/prevent_powers/
@@ -9007,6 +9500,112 @@ links:
                             desc: Whether a stored power still answers the keybind it declares. Set it false and only apoli:run_stored_power can fire what is in here.
                             type: boolean
                             default: true
+                    string-birdsong:action_on_reply:
+                        bientity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/action_on_reply/
+                            desc: Runs with the holder as the actor and the responder as the target.
+                            link: bientity_action
+                        window:
+                            desc: How many ticks after the holder spoke a reply still counts.
+                            type: integer
+                            default: 60
+                        range:
+                            desc: The maximum distance in blocks between the holder and the responder.
+                            type: number
+                            default: 16
+                    string-birdsong:action_on_speak:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/action_on_speak/
+                            desc: Runs once when the holder starts speaking.
+                            link: entity_action
+                        entity_action_stop:
+                            desc: Runs once when the holder stops speaking, after about 0.4 seconds of silence.
+                            link: entity_action
+                        bientity_condition:
+                            desc: Only listeners who pass it get the bi-entity actions, with the holder as the actor and the listener as the target.
+                            link: bientity_condition
+                        bientity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/action_on_speak/
+                            desc: Runs once for each listener when the holder starts speaking. The holder is the actor and the listener is the target.
+                            link: bientity_action
+                        bientity_action_stop:
+                            desc: Runs once for each listener when the holder stops speaking.
+                            link: bientity_action
+                    string-birdsong:action_on_speech:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/action_on_speech/
+                            desc: Runs on the holder when the speech matches.
+                            link: entity_action
+                        message:
+                            desc: A word or phrase to listen for. How phrases match explains the rules.
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/action_on_speech/#how-phrases-match
+                            type: string
+                        messages:
+                            desc: Several phrases, such as the same command in several languages. Any one of them matches.
+                            type: list
+                            vals:
+                                type: string
+                        regex:
+                            desc: |
+                                A regular expression, found anywhere in what was heard. #{some.translation.key} expands to every translation of that key, as it does in message filters.
+                            href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_sending_message/#translation-keys
+                            type: string
+                            ext: true
+                        language:
+                            desc: Only matches when the speaker's language is this one, written as a tag such as en, en-US or fr. Leave it out to match any language.
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/action_on_speech/#languages
+                            type: string
+                        tolerance:
+                            desc: How different a finished sentence may be from a phrase and still match, from 0 to 1. 0 accepts exact words only. See Close matches.
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/action_on_speech/#close-matches
+                            type: float
+                            default: 0.2
+                    string-birdsong:modify_speaking_range:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/birdsong/modify_speaking_range/
+                            desc: Decides for each listener whether this power applies, with the holder as the actor and the listener as the target.
+                            link: bientity_condition
+                        normal:
+                            desc: Whether it applies to ordinary speech.
+                            type: boolean
+                            default: true
+                        whisper:
+                            desc: Whether it applies to whispering.
+                            type: boolean
+                            default: true
+                        modifier:
+                            desc: A single modifier applied to the holder's broadcast distance.
+                            link: attribute_modifier
+                        modifiers:
+                            desc: Several modifiers applied to the holder's broadcast distance.
+                            link: attribute_modifier_array
+                    string-origins:wings:
+                        wings_type:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/icarus/wings/
+                            desc: The wings to grant. An item ID is enough, and the object form lets you set components for a custom look.
+                            or:
+                              - title: simple
+                                link: identifier
+                              - title: advanced
+                                link: item_stack
+                        stamina:
+                            desc: The maximum stamina. Higher means longer flight before you have to land.
+                            type: number
+                        wings_speed:
+                            desc: How hard a flap pushes you.
+                            type: number
+                        exhaustion_amount:
+                            desc: The hunger exhaustion added per flap.
+                            type: number
+                        armor_slows:
+                            desc: Whether wearing armour slows flight.
+                            link: boolean_optional
+                        max_slowed_multiplier:
+                            desc: How much armour can slow you, when armor_slows is on.
+                            type: number
+                        max_height_above_world:
+                            desc: How far above the build limit you can climb.
+                            type: integer
             fabric:load_conditions:
                 desc: Checks for the following namespaces or mods to be loaded and loads the power if true.
                 gap: before
@@ -9325,6 +9924,12 @@ links:
             ==	A equals B
             !=	A does not equal B
         enum: ['<','<=','>','>=','==','!=']
+    conditions:
+        desc: Determines conditions for this function to be applied. If multiple conditions are specified, all must pass.
+        type: list
+        vals:
+            id: predicates
+            link: single_pred
     container_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/container-type
         id: enums
@@ -9447,6 +10052,74 @@ links:
     entity_type_tag_like:
         desc: an Array of Identifiers that refers to an entity type or an entity type tag (if prefixed with the tag symbol), similar to how entries in a tag are defined.
         link: identifier_array
+    entry:
+        type: object
+        props:
+            weight:
+                desc: "Determines how often this entry is chosen out of all the entries in the pool. Entries with higher weights are used more often (chance is \"this entry's weight\"\u2044\"total of all considered entries' weights\")."
+                type: integer
+                min: 1
+            quality:
+                desc: Modifies the entry's weight based on the killing/opening/fishing player's luck attribute. Formula is floor( weight + (quality * generic.luck)).
+                type: integer
+                min: 0
+            conditions:
+                desc: Determines conditions for this entry to be used. If multiple conditions are specified, all must pass.
+                link: conditions
+            functions:
+                desc: Applies functions to the item stack or item stacks being produced. Functions are applied in order, so for example looting_enchant must be after set_count to work correctly.
+                link: functions
+            type:
+                desc: Namespaced ID type of entry. Can be "item" for item entries, "tag" for item tags, "loot_table" to produce items from another loot table, "group" for child entries, "alternatives" to select one sub-entry from a list, "sequence" to select sub-entries until one entry cannot be granted, "dynamic" to generate block specific drops, or "empty" for an entry that generates nothing.
+                enum:
+                  - item
+                  - tag
+                  - loot_table
+                  - group
+                  - alternatives
+                  - sequence
+                  - dynamic
+                  - empty
+                more:
+                    string-item:
+                        name:
+                            desc: ID name of the item to be produced, e.g. diamond. The default, if not changed by functions, is a stack of 1 of the default instance of the item.
+                            href: https://minecraft.wiki/w/Java_Edition_data_values#Blocks
+                            link: identifier
+                    string-tag:
+                        name:
+                            desc: Item tag to be used, e.g. arrows.
+                            link: identifier
+                        expand:
+                            type: boolean
+                    string-loot_table:
+                        name:
+                            desc: Loot table to be used, e.g. gameplay/fishing/junk.
+                            link: identifier
+                    string-group:
+                        children:
+                            desc: A list of entries that are used to generate loot. Can be used for convenience, e.g. if one condition applies for multiple entries.
+                            type: list
+                            vals:
+                                link: entry
+                    string-alternatives:
+                        children:
+                            desc: A list of entries of which the first, and only the first, successful entry gets generated.
+                            type: list
+                            vals:
+                                link: entry
+                    string-sequence:
+                        children:
+                            desc: A list of entries that are used until the first entry fails. After an entry fails, no more entries of this list are generated.
+                            type: list
+                            vals:
+                                link: entry
+                    string-dynamic:
+                        name:
+                            desc: |
+                                "contents" for block entity contents or "self" for banners and player skulls.
+                            enum: [contents, self]
+                    string-empty: {}
     equipment_slot:
         enum: ['main_hand','off_hand','head','chest','legs','feet']
         unspec: true
@@ -9536,6 +10209,11 @@ links:
     function_arguments:
         type: string
         ext: true
+    functions:
+        type: list
+        vals:
+            id: item_modifiers
+            link: single_modifier
     game_event:
         helper:
             title: Game Event
@@ -9709,7 +10387,7 @@ links:
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
-        hook: [ns]
+        hooks: [ns]
     identifier_array:
         type: list
         vals:
@@ -9829,6 +10507,66 @@ links:
                 continuous:
                     desc: If false, the power activates once when the key is first pressed. If true, it tries to activate every tick the key is held (still respecting cooldown and conditions).
                     type: boolean
+    loot_table:
+        type: object
+        props:
+            type:
+                desc: |
+                    Optional type of the loot table. Must be one of:
+                    "empty" if the loot table does not generate any loot,
+                    "entity" for loot an entity drops,
+                    "block" for loot a block drops,
+                    "chest" for a treasure chest,
+                    "fishing" for a fishing loot table,
+                    "gift" for a cat or villager gift,
+                    "advancement_reward" if it's used as a reward for an advancement,
+                    "barter" for loot from bartering with piglins,
+                    "command" for /execute,
+                    "selector" for predicate= in selectors,
+                    "advancement_entity" for entity predicates in advancements or
+                    "generic" if none of the above apply.
+                enum:
+                  - empty
+                  - generic
+                  - entity
+                  - block
+                  - chest
+                  - fishing
+                  - gift
+                  - advancement_reward
+                  - barter
+                  - command
+                  - selector
+                  - advancement_entity
+                default: 1
+            functions:
+                desc: Applies functions to all item stacks produced by this table. Functions are applied in order, so for example looting_enchant must be after set_count to work correctly. I believe this is 1.17+ only.
+                link: functions
+            pools:
+                desc: A list of all pools for this loot table. Each pool used generates items from its list of items based on the number of rolls. Pools are applied in order.
+                type: list
+                vals:
+                    type: object
+                    props:
+                        conditions:
+                            desc: Determines conditions for this pool to be used. If multiple conditions are specified, all must pass.
+                            link: conditions
+                        functions:
+                            desc: Applies functions to all item stacks produced by this pool. Functions are applied in order, so for example looting_enchant must be after set_count to work correctly.
+                            link: functions
+                        rolls:
+                            desc: Specifies the number of rolls on the pool.
+                            id: predicates
+                            link: intprov
+                        bonus_rolls:
+                            desc: Specifies the number of bonus rolls on the pool per point of luck. Rounded down after multiplying.
+                            id: predicates
+                            link: numprov
+                        entries:
+                            desc: A list of all things that can be produced by this pool. One entry is chosen per roll as a weighted random selection from all entries without failing conditions.
+                            type: list
+                            vals:
+                                link: entry
     message_filter:
         unspec: true
         or:
@@ -9953,6 +10691,9 @@ links:
         link: identifier
     meta_gamemode:
         enum: ['survival', 'creative', 'adventure', 'spectator']
+    meta_hollow_thickness:
+        desc: How thick the shell is, in blocks.
+        link: expression_float
     meta_item_modifiers:
         helper:
             title: Item Modifier
@@ -10080,6 +10821,12 @@ links:
                 default: 0
                 min: 0
                 max: 1200
+    meta_skill_tree:
+        helper:
+            title: Skill Tree
+            folder: skill_trees
+        link: identifier
+        required: true
     meta_sound_event:
         helper:
             title: Sound Event
@@ -10513,9 +11260,15 @@ links:
             speed:
                 desc: The fraction of its speed the projectile keeps after each bounce. 1.0 loses nothing, 0.6 is a rubber ball, values above 1 speed it up. bounce_speed is another name for it.
                 link: expression_float
+            entities:
+                desc: Also bounces off the entities it hits. Bounces off blocks and off entities count against the same max_bounces.
+                type: boolean
     projectile_return:
         type: object
         props:
+            condition:
+                desc: Holds back the turn that after and max_distance call for until it passes, with the owner as the actor and the projectile as the target. Until then the projectile flies on. A hit that turns it around isn't held back.
+                link: bientity_condition
             on_hit_entity:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/projectile-return/
                 desc: Come back after hitting an entity. When false, an entity hit ends the shot as usual.
@@ -10540,6 +11293,21 @@ links:
                 link: bientity_action
             bientity_action_on_catch:
                 desc: Runs when it reaches the owner, just before it disappears. Same actor and target.
+                link: bientity_action
+    projectile_sticking:
+        type: object
+        props:
+            block_condition:
+                desc: Only blocks that pass this hold the projectile. On any other block the shot ends as usual.
+                link: block_condition
+            duration:
+                desc: Ticks the projectile stays stuck before it expires. It then runs bientity_action_on_expire and is removed, the same as when lifetime runs out. 0 keeps it stuck until something else ends it.
+                link: expression_integer
+            depth:
+                desc: How far the projectile sinks past the point it hit, in blocks, along its direction of flight. 0 leaves its centre on the face of the block, and a negative value holds it off the surface.
+                link: expression_float
+            bientity_action_on_stick:
+                desc: Runs each time the projectile sticks, with the owner as the actor and the projectile as the target.
                 link: bientity_action
     projectile_type:
         helper:
@@ -10801,7 +11569,24 @@ links:
             star	\|dx\|/rx + \|dy\|/ry + \|dz\|/rz ≤ 1 (a stretched octahedron)
             cone	apex at centre, opening upward to height ry; the x/z spread reaches rx/rz at the top
             Per-axis extents are rounded up to whole blocks for block-based powers.
-        enum: ['cube','sphere','star','cone']
+        enum: ['cube','sphere','star','cone','cube_hollow','sphere_hollow','star_hollow','cone_hollow']
+        more:
+            string-cube: {}
+            string-sphere: {}
+            string-star: {}
+            string-cone: {}
+            string-cube_hollow:
+                hollow_thickness:
+                    link: meta_hollow_thickness
+            string-sphere_hollow:
+                hollow_thickness:
+                    link: meta_hollow_thickness
+            string-star_hollow:
+                hollow_thickness:
+                    link: meta_hollow_thickness
+            string-cone_hollow:
+                hollow_thickness:
+                    link: meta_hollow_thickness
     shape_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/shape-type
         desc: |
