@@ -9248,7 +9248,8 @@ links:
                                 The ID of a structure tag, such as minecraft:village. The player spawns at the nearest structure in the tag. The leading # is optional. If structure is set too, the nearest structure from either one is used.
                             link: structure_tag
                         spawn_strategy:
-                            desc: "center" spawns the player near the dimension's center (0, 0). "default" spawns them near the Overworld spawn point, scaled by dimension_distance_multiplier.
+                            desc: |
+                                "center" spawns the player near the dimension's center (0, 0). "default" spawns them near the Overworld spawn point, scaled by dimension_distance_multiplier.
                             enum: ['default', 'center']
                         dimension_distance_multiplier:
                             desc: |
