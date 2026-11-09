@@ -10661,68 +10661,68 @@ links:
             title: Resource Bar Sheet
             tab: sheet
             sheets: &hud_sheets
-                - title: 'Apace - Original'
+              - title: 'Apace - Original'
                 sprite: 'origins:textures/gui/sprites/hud_render/apace/resource_bar.png'
                 image: '/i/hud/apace.png'
                 bars: 9
                 icons: [1,1,1,1,1,1,1,1,1]
                 default: true
-                - title: 'Drizzo - Point Bars'
+              - title: 'Drizzo - Point Bars'
                 sprite: 'origins:textures/gui/sprites/hud_render/drizzo/resource_bar_01.png'
                 image: '/i/hud/drizzo_01.png'
                 bars: 6
                 icons: [1,1,1,1,1,1]
-                - title: 'Huang 01 - Symbols'
+              - title: 'Huang 01 - Symbols'
                 sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png'
                 image: '/i/hud/huang_01.png'
                 bars: 25
                 icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                - title: 'Huang 02 - Symbols'
+              - title: 'Huang 02 - Symbols'
                 sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
                 image: '/i/hud/huang_02.png'
                 bars: 21
                 icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                - title: 'Isaac Fanta 01 - Numbers'
+              - title: 'Isaac Fanta 01 - Numbers'
                 sprite: 'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png'
                 image: '/i/hud/isaacfanta_01.png'
                 bars: 9
                 icons: [1,1,1,1,1,1,1,1,1]
-                - title: 'Isaac Fanta 02 - Symbols'
+              - title: 'Isaac Fanta 02 - Symbols'
                 sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
                 image: '/i/hud/isaacfanta_02.png'
                 bars: 7
                 icons: [1,1,1,1,1,1,1]
-                - title: 'SpiderKolo 01 - Colored Orbs'
+              - title: 'SpiderKolo 01 - Colored Orbs'
                 sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png'
                 image: '/i/hud/spiderkolo_01.png'
                 bars: 25
                 icons: [1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                - title: 'SpiderKolo 02 - Tools'
+              - title: 'SpiderKolo 02 - Tools'
                 sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png'
                 image: '/i/hud/spiderkolo_02.png'
                 bars: 25
                 icons: [1,1,2,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                - title: 'SpiderKolo 03 - Icons'
+              - title: 'SpiderKolo 03 - Icons'
                 sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png'
                 image: '/i/hud/spiderkolo_03.png'
                 bars: 25
                 icons: [13,1,2,2,2,1,2,2,1,4,1,1,1,3,2,1,2,2,1,1,1,1,1,1,1]
-                - title: 'Stella - Pride Orbs'
+              - title: 'Stella - Pride Orbs'
                 sprite: 'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png'
                 image: '/i/hud/stella_01.png'
                 bars: 10
                 icons: [1,1,1,1,1,1,1,1,1,1]
-                - title: 'Vevekhi 01 - Resources and Mobs'
+              - title: 'Vevekhi 01 - Resources and Mobs'
                 sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png'
                 image: '/i/hud/vevekhi_01.png'
                 bars: 25
                 icons: [1,6,3,3,2,2,1,2,4,2,2,3,1,3,4,3,3,2,2,2,1,3,2,3,3]
-                - title: 'Vevekhi 02 - Effects and Blocks'
+              - title: 'Vevekhi 02 - Effects and Blocks'
                 sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_02.png'
                 image: '/i/hud/vevekhi_02.png'
                 bars: 25
                 icons: [2,3,2,2,4,2,1,2,1,1,1,2,1,2,5,2,2,2,1,3,3,6,4,3,4]
-                - title: 'Vevekhi 03 - Indicators'
+              - title: 'Vevekhi 03 - Indicators'
                 sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png'
                 image: '/i/hud/vevekhi_03.png'
                 bars: 25
