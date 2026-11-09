@@ -10442,7 +10442,7 @@ links:
                     string-loot_table:
                         name:
                             desc: Loot table to be used, e.g. gameplay/fishing/junk.
-                            link: identifier
+                            link: meta_loot_table
                     string-group:
                         children:
                             desc: A list of entries that are used to generate loot. Can be used for convenience, e.g. if one condition applies for multiple entries.

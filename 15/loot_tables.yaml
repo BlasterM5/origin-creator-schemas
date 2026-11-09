@@ -1,2 +1,2 @@
 id: powers
-link: loot_table
+extend: loot_table
