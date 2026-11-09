@@ -102,6 +102,8 @@ props:
             discord:
                 desc: |
                     (Non-standard entry) The mod's discord invite link.
+                type: string
+                ext: true
             irc:
                 desc: |
                     The mod's IRC channel (extremely rare nowadays). Must start with irc://

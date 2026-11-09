@@ -1469,6 +1469,7 @@ links:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/shape_ability_cooldown/
                                 desc: How the cooldown is compared.
+                                link: comparison
                             compare_to:
                                 desc: The ticks to compare against, where 20 ticks is a second.
                                 type: integer
