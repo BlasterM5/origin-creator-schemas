@@ -119,8 +119,6 @@ links:
                         desc: A function to run. Function tags are not allowed.
                         type: string
                         allow: '*a-z0-9_\/:.-'
-
-
     trigger:
         type: object
         props:

@@ -9,11 +9,10 @@ props:
         desc: The name of your pack, visible in the top left.
         hooks: [name]
     id:
-        type: string
         desc: The pack's default namespace.
         default: my_pack
         nonempty: true
-        allow: '*a-z0-9_-'
+        link: namespace
     pack_format:
         desc: |
             The datapack version that corresponds with the Minecraft version. This schema only supports 0vergrown's Origins.
@@ -30,7 +29,12 @@ props:
         default: "1.0.0"
     authors:
         type: list
-        desc: A list of people who made this pack, one name per line.
+        desc: A list of people who authored this pack, one name per line.
+        vals:
+            type: string
+    contributors:
+        type: list
+        desc: A list of people who contributed to this pack, one name per line.
         vals:
             type: string
     description:
@@ -38,10 +42,42 @@ props:
         desc: A short description of what your pack does, about one sentence long.
         ext: true
         gap: true
+    provides:
+        desc: Alias names for this mod.
+        type: list
+        vals:
+            link: namespace
+    depends:
+        desc: Hard-required dependencies, which will fail loading the game if missing.
+        link: version
+    recommends:
+        desc: Soft-required dependencies, which will log a warning when loading the game if missing, but otherwise won't cause breakage.
+        link: version
+    suggests:
+        desc: Optional dependencies, which can provide extra functionality to the mod.
+        link: version
+    conflicts:
+        desc: Soft-conflicting mods, which if loaded with this mod, may cause functionality issues notable enough to trigger a log warning on load.
+        link: version
+    breaks:
+        desc: Hard-conflicting mods, which will crash the game if loaded with this mod.
+        link: version
+        gap: true
+    jars:
+        desc: List of jars that will be embedded in the mod. Don't forget to insert them after exporting this mod!
+        type: list
+        vals:
+            type: object
+            props:
+                file:
+                    desc: The filepath to your embedded jar, relative to the root of your mod file.
+                    type: string
+                    ext: true
+        gap: true
     license:
         type: string
         desc: |
-            The license your pack falls under. If left blank, defaults to "Unknown", which typically means "All Rights Reserved", which disallows anything beyond what you very explicitly allow (if you give this mod to someone or put it up for download, they are only allowed to play it privately for themself and nothing more).
+            The license your pack falls under. If left blank, defaults to "Unknown", which typically means "All Rights Reserved", which disallows anything beyond what you very explicitly allow (for example, if you give this mod to someone or put it up for download, they are only allowed to play it privately for themself and nothing more).
             I recommend setting this to CC BY 4.0, which means anyone can use your pack for any purpose and make changes as they desire, as long as they give you credit.
             This is not legal advice, so read up on your country's copyright laws and/or consult with someone who can provide legal advice if you have questions about it.
     license_text:
@@ -51,6 +87,41 @@ props:
             Leaving this blank will not include a LICENSE file in the pack.
         ext: true
         gap: true
+    contact:
+        desc: Optional contact fields for the mod author(s).
+        type: object
+        props:
+            email:
+                desc: The mod author(s) contact email. Be careful, the email you put here will be public information!
+                type: string
+            homepage:
+                desc: |
+                    The mod's website url. Must start with https:// or http://
+                type: string
+                ext: true
+            discord:
+                desc: |
+                    (Non-standard entry) The mod's discord invite link.
+            irc:
+                desc: |
+                    The mod's IRC channel (extremely rare nowadays). Must start with irc://
+                type: string
+                ext: true
+            issues:
+                desc: |
+                    The mod's issue tracker site. Must start with https:// or http://
+                type: string
+                ext: true
+            sources:
+                desc: |
+                    The mod's source code. Must be a URL.
+                type: string
+                ext: true
+        extra:
+            desc: Additional non-standard contact entries, such as bluesky, matrix, telegram, youtube, and so on.
+            allowkey: 'a-z0-9_-'
+            type: string
+            ext: true
     filter:
         type: object
         desc: |
@@ -67,3 +138,21 @@ props:
                             type: string
                         path:
                             type: string
+links:
+    namespace:
+        type: string
+        allow: '*a-z0-9_-'
+    version:
+        type: object
+        extra:
+            or:
+              - title: simple
+                type: string
+                allowkey: '*a-z0-9_-'
+                allow: '*a-z0-9_+=<>!-'
+              - title: multiple
+                type: list
+                allowkey: '*a-z0-9_-'
+                vals:
+                    type: string
+                    allow: '*a-z0-9_+=<>!-'

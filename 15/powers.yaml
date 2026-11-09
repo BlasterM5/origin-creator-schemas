@@ -382,12 +382,28 @@ links:
                       - origins:stored_value
                       - origins:swapped
 
-                      - $Birdsong Addon
+                      - $Addons
+
+                      - $Accessories|Curios|Trinkets
+                      - origins:accessory_equipped_count
+                      - origins:accessory_slot_count
+                      - origins:equipped_accessory
+
+                      - $Birdsong
                       - birdsong:voice_disabled
                       - birdsong:voice_listeners
                       - birdsong:voice_loudness
                       - birdsong:voice_speaking
                       - birdsong:voice_whispering
+
+                      - $Hardcore Revival
+                      - origins:knocked_out
+
+                      - $WoodWalkers
+                      - origins:can_use_shape_ability
+                      - origins:has_shape_ability
+                      - origins:shape_condition
+                      - origins:shape_ability_cooldown
 
                       - $DEPRECATED
                       - origins:and
@@ -747,6 +763,11 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/equipped_item
                                 desc: Determines which equipment slot to check for the item.
                                 link: equipment_slot
+                            accessory_slot:
+                                desc: Accessory slots to check, such as "charm" or "hand/ring". "*" means every accessory slot.
+                                type: list
+                                vals:
+                                    link: accessory_slot
                             item_condition:
                                 desc: The item condition type to check for on the item in the specified equipment slot.
                                 link: item_condition
@@ -1372,6 +1393,47 @@ links:
                             compare_to:
                                 desc: The value at which the experience points of the player will be compared to.
                                 type: integer
+                        string-origins:accessory_equipped_count:
+                            item_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/accessories/accessory_equipped_count/
+                                desc: If set, only accessories that pass this condition are counted.
+                                link: item_condition
+                            slots:
+                                desc: The accessory slots to count in. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
+                                type: list
+                                vals:
+                                    link: accessory_slot
+                            comparison:
+                                desc: How the count is compared.
+                                link: comparison
+                            compare_to:
+                                desc: The count to compare against.
+                                type: integer
+                                required: true
+                        string-origins:accessory_slot_count:
+                            slots:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/accessories/accessory_slot_count/
+                                desc: The accessory slots to count. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
+                                type: list
+                                vals:
+                                    link: accessory_slot
+                            comparison:
+                                desc: How the count is compared.
+                                link: comparison
+                            compare_to:
+                                desc: The count to compare against.
+                                type: integer
+                                required: true
+                        string-origins:equipped_accessory:
+                            item_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/accessories/equipped_accessory/
+                                desc: The condition a worn accessory must pass. Without it, any equipped accessory counts.
+                                link: item_condition
+                            slots:
+                                desc: The accessory slots to look in, such as "charm", "necklace" or "hand/ring". An empty list means every slot.
+                                type: list
+                                vals:
+                                    link: accessory_slot
                         string-birdsong:voice_disabled: {}
                         string-birdsong:voice_listeners:
                             range:
@@ -1395,6 +1457,22 @@ links:
                                 default: 1
                         string-birdsong:voice_speaking: {}
                         string-birdsong:voice_whispering: {}
+                        string-origins:knocked_out: {}
+                        string-origins:can_use_shape_ability: {}
+                        string-origins:has_shape_ability: {}
+                        string-origins:shape_condition:
+                            bientity_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/shape_condition/
+                                desc: Tested with the player as the actor and the shape as the target.
+                                link: bientity_condition
+                        string-origins:shape_ability_cooldown:
+                            comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/shape_ability_cooldown/
+                                desc: How the cooldown is compared.
+                            compare_to:
+                                desc: The ticks to compare against, where 20 ticks is a second.
+                                type: integer
+                                required: true
           - title: custom
             link: custom_condition
     item_condition:
@@ -1440,12 +1518,18 @@ links:
                       - origins:script
                       - origins:send_condition
                       - origins:smeltable
+
+                      - $Addons
+
+                      - $Accessories|Curios|Trinkets
+                      - origins:accessory
                       - $DEPRECATED
                       - origins:and
                       - origins:or
                       - origins:chance
                       - origins:block
                       - origins:holder
+                      - origins:trinket
                     more:
                         string-origins:nothing: {}
                         string-origins:all_of:
@@ -1655,6 +1739,8 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-conditions/send_condition/
                                 link: meta_send_condition_action
                         string-origins:smeltable: {}
+                        string-origins:accessory: {}
+                        string-origins:trinket: {}
           - title: custom
             link: custom_condition
     block_condition:
@@ -3450,6 +3536,22 @@ links:
                       - origins:store_value
                       - origins:suppress_power
                       - origins:unsuppress_power
+
+                      - $Addon Actions
+
+                      - $Accessories|Curios|Trinkets
+                      - origins:modify_accessory
+
+                      - $Hardcore Revival
+                      - origins:knock_out
+                      - origins:revive
+
+                      - $WoodWalkers
+                      - origins:change_shape_ability_cooldown
+                      - origins:shape_action
+                      - origins:switch_shape
+                      - origins:use_shape_ability
+
                       - $DEPRECATED
                       - origins:chance
                       - origins:action_on_set
@@ -4605,6 +4707,9 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/play_sound
                                 desc: The ID of the sound event to play.
                                 link: meta_sound_event
+                            index:
+                                desc: Which of the sound event's sound files to play, counting from 0 in the order sounds.json lists them. Leave it out to pick one at random, as Minecraft does. An index past the end of the list also picks at random.
+                                link: expression_integer
                             category:
                                 link: sound_category
                             volume:
@@ -4972,6 +5077,13 @@ links:
                                 type: list
                                 vals:
                                     link: status_effect_instance
+                            offset:
+                                desc: Moves the spawn point away from the entity by this much, in blocks.
+                                link: vector
+                            space:
+                                desc: The frame offset is read in. "local" follows where the entity is looking, so z is forward and x is to its left.
+                                link: space
+                                unspec: true
                         string-origins:spawn_entity:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_entity
@@ -4986,6 +5098,13 @@ links:
                             bientity_action:
                                 desc: If specified, this bi-entity action will be executed on either or both the actor (the entity that invoked the entity action) and the target (the spawned entity).
                                 link: bientity_action
+                            offset:
+                                desc: Moves the spawn point away from the entity by this much, in blocks.
+                                link: vector
+                            space:
+                                desc: The frame offset is read in. "local" follows where the entity is looking, so z is forward and x is to its left.
+                                link: space
+                                unspec: true
                         string-origins:spawn_particles:
                             bientity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_particles
@@ -5100,6 +5219,13 @@ links:
                             bientity_action:
                                 desc: Runs once after the clone spawns, with the owner as actor and the clone as target.
                                 link: bientity_action
+                            offset:
+                                desc: Moves the spawn point away from the owner by this much, in blocks.
+                                link: vector
+                            space:
+                                desc: The frame offset is read in. "local" follows where the owner is looking, so z is forward and x is to its left.
+                                link: space
+                                unspec: true
                         string-origins:summon_minion:
                             texture:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/summon_minion
@@ -5133,6 +5259,13 @@ links:
                             bientity_action:
                                 desc: Runs once after the minion spawns, with the owner as actor and the minion as target.
                                 link: bientity_action
+                            offset:
+                                desc: Moves the spawn point away from the owner by this much, in blocks.
+                                link: vector
+                            space:
+                                desc: The frame offset is read in. "local" follows where the owner is looking, so z is forward and x is to its left.
+                                link: space
+                                unspec: true
                         string-origins:suppress_power:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/suppress_power
@@ -5455,6 +5588,71 @@ links:
                             source:
                                 desc: The source(s) to lift. Must match what suppressed the power.
                                 link: identifier_single_or_array
+                        string-origins:modify_accessory:
+                            item_condition:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/accessories/modify_accessory/
+                                desc: Only acts on accessories that pass it.
+                                link: item_condition
+                            limit:
+                                desc: Stops after this many matches. 0 means no limit.
+                                type: integer
+                                default: 0
+                                min: 0
+                            slots:
+                                desc: The accessory slots to look in. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
+                                type: list
+                                vals:
+                                    link: accessory_slot
+                            item_action:
+                                desc: Runs on each matching accessory.
+                                link: item_action
+                            entity_action:
+                                desc: Runs once on the wearer, if anything matched.
+                                link: entity_action
+                            unequip:
+                                desc: Removes each matching accessory after acting on it.
+                                type: boolean
+                        string-origins:knock_out: {}
+                        string-origins:revive:
+                            apply_effects:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/hardcore-revival/revive/
+                                desc: Whether Hardcore Revival's usual effects after a revive are applied. Set it to false for a clean revive with no penalty.
+                                type: boolean
+                                default: true
+                        string-origins:change_shape_ability_cooldown:
+                            operation:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/change_shape_ability_cooldown/
+                                desc: add adjusts the current value, and set replaces it.
+                                enum: ['add','set']
+                            change:
+                                desc: The ticks to add, or the value to set.
+                                type: integer
+                                required: true
+                        string-origins:shape_action:
+                            bientity_action:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/shape_action/
+                                desc: Runs with the player as the actor and the shape as the target.
+                                link: bientity_action
+                        string-origins:switch_shape:
+                            shape:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/switch_shape/
+                                desc: The entity type to become. Leave it out to clear the shape.
+                                link: entity_type
+                            nbt:
+                                desc: Extra NBT for the shape entity, for variants such as a cat's or a horse's.
+                                link: nbt
+                            action_on_success:
+                                desc: Runs on the player only if the shape actually changed. WoodWalkers refuses entity types on its blacklist, and an apoli:prevent_shape_change power can refuse too.
+                                link: entity_action
+                        string-origins:use_shape_ability:
+                            force:
+                                href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/use_shape_ability/
+                                desc: Uses the ability even if it is still on cooldown.
+                                type: boolean
+                            apply_cooldown:
+                                desc: Whether using it starts the cooldown. Set it to false for a free use.
+                                type: boolean
+                                default: true
           - title: custom
             link: custom_action
     item_action:
@@ -6024,7 +6222,10 @@ links:
                             desc: The text to use in the tooltip when hovering over the badge.
                             link: text_component
             sprite:
-                desc: The namespace, path and ID of the texture to use as the icon of the badge.
+                desc: The full path of the texture to draw, such as my_pack:textures/gui/badge/water.png.
+                link: meta_texture
+            fallback:
+                desc: Textures to draw when sprite isn't in any loaded resource pack. The first one that exists is used.
                 link: meta_texture
     meta_power_type:
         enum:
@@ -6187,8 +6388,27 @@ links:
           - birdsong:action_on_speech
           - birdsong:modify_speaking_range
 
+          - $Accessories|Curios|Trinkets
+          - origins:action_on_accessory_change
+          - origins:modify_accessory_slots
+          - origins:prevent_accessory_equip
+          - origins:prevent_accessory_unequip
+
+          - $Create
+          - origins:create_goggles
+
+          - $Hardcore Revival
+          - origins:action_on_knockout
+          - origins:action_on_revive
+
           - $Icarus
           - origins:wings
+
+          - $WoodWalkers
+          - origins:action_on_shape_ability_use
+          - origins:action_on_shape_change
+          - origins:prevent_shape_ability_use
+          - origins:prevent_shape_change
 
           - $DEPRECATED
           - origins:active_self
@@ -6895,16 +7115,16 @@ links:
                     string-origins:invisibility:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/invisibility/
-                            desc: If specified, the ’target’ will only be invisible to ’actors’ (either the player or mobs that may see the target) if the bi-entity condition is fulfilled by either or both of them.
+                            desc: If set, the entity with the power (the target) is only invisible to viewers (the actors, players or mobs) when this condition passes.
                             link: bientity_condition
                         render_armor:
-                            desc: Determines whether armor should be shown or not.
+                            desc: Whether the entity's armor and everything else drawn on its body is shown, including accessories.
                             type: boolean
                         render_outline:
-                            desc: Determines whether the glowing outline should be shown or not.
+                            desc: Whether the glowing outline is shown.
                             type: boolean
                         render_held_items:
-                            desc: Determines whether items held in either hand should be shown or not. Set it to false to hide them along with the entity.
+                            desc: Whether items held in either hand are shown. Set it to false to hide them along with the entity.
                             type: boolean
                             default: true
                     string-origins:invulnerability:
@@ -9004,26 +9224,43 @@ links:
                             desc: Bedrock clips played on top of the model’s vanilla pose.
                             link: model_animation
                     string-origins:modify_player_spawn:
-                        dimension:
+                        biome_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_player_spawn/
-                            desc: The namespace and ID of the dimension the player should spawn in.
+                            desc: The player spawns in the nearest biome that passes this condition. If biome is set too, a biome that matches either one counts.
+                            link: biome_condition
+                        block_condition:
+                            desc: A spot is only accepted when this condition passes for the block at the player's feet.
+                            link: block_condition
+                        dimension:
+                            desc: The dimension the player spawns in.
                             link: dimension
+                            required: true
                         biome:
-                            desc: If specified, the player will only spawn in the biome that matches the specified namespace and ID.
+                            desc: The player spawns in the nearest biome with this ID.
                             href: https://minecraft.wiki/w/Biome#Biome_IDs
                             link: biome
                         structure:
-                            desc: If specified, the player will only spawn in the specified namespace and ID of the structure. The structure needs to generate in the specified dimension.
+                            desc: The player spawns at the nearest structure with this ID. The structure has to generate in the chosen dimension.
                             href: https://minecraft.wiki/w/Commands/locate#Arguments
                             link: structure
+                        structure_tag:
+                            desc: |
+                                The ID of a structure tag, such as minecraft:village. The player spawns at the nearest structure in the tag. The leading # is optional. If structure is set too, the nearest structure from either one is used.
+                            link: structure_tag
                         spawn_strategy:
-                            desc: Determines whether the player should spawn near the world spawnpoint (0, 0) of the dimension ("center") or near the coordinates of the Overworld spawnpoint (whilst considering the value of the dimension_distance_multiplier field) ("default").
+                            desc: "center" spawns the player near the dimension's center (0, 0). "default" spawns them near the Overworld spawn point, scaled by dimension_distance_multiplier.
                             enum: ['default', 'center']
                         dimension_distance_multiplier:
                             desc: |
-                                Defines the ratio of Overworld blocks to blocks in the specified dimension. e.g: for The Nether dimension, this would be set to 0.125. This needs to be set when spawn_strategy is set to "default"
+                                The ratio of Overworld blocks to blocks in the chosen dimension, for example 0.125 for the Nether. Set it whenever spawn_strategy is "default".
                             type: number
                             unspec: true
+                        search_radius:
+                            desc: How many blocks the search for a safe spot reaches in each direction from the point it starts at. It must be between 1 and 64, and a value outside that range is clamped with a warning in the log.
+                            type: integer
+                            default: 32
+                            min: 1
+                            max: 64
                     string-origins:modify_projectile_damage:
                         damage_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_projectile_damage/
@@ -9579,6 +9816,86 @@ links:
                         modifiers:
                             desc: Several modifiers applied to the holder's broadcast distance.
                             link: attribute_modifier_array
+                    string-origins:action_on_accessory_change:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/accessories/action_on_accessory_change/
+                            desc: Only fires for items that pass it.
+                            link: item_condition
+                        slots:
+                            desc: The accessory slots to watch. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
+                            type: list
+                            vals:
+                                link: accessory_slot
+                        entity_action_on_equip:
+                            desc: Runs on the wearer when something is equipped.
+                            link: entity_action
+                        item_action_on_equip:
+                            desc: Runs on the item when it is equipped.
+                            link: item_action
+                        entity_action_on_unequip:
+                            desc: Runs on the wearer when something is equipped.
+                            link: entity_action
+                        item_action_on_unequip:
+                            desc: Runs on the item when it is equipped.
+                            link: item_action
+                    string-origins:modify_accessory_slots:
+                        id:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/accessories/modify_accessory_slots/
+                            desc: A unique ID for this modifier, so it can be applied and removed cleanly.
+                            link: identifier
+                            required: true
+                        slot:
+                            desc: The slot to change, named the way your accessory mod names it. Trinkets uses group/slot (hand/ring), and Accessories and Curios use the slot name alone (ring).
+                            link: accessory_slot
+                        amount:
+                            desc: How much to change the count by.
+                            type: number
+                            default: 0
+                        operation:
+                            desc: How amount is applied.
+                            link: attribute_modifier_operation
+                    string-origins:prevent_accessory_equip:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/accessories/prevent_accessory_equip/
+                            desc: Only blocks items that pass it.
+                            link: item_condition
+                        slots:
+                            desc: The accessory slots to block. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
+                            type: list
+                            vals:
+                                link: accessory_slot
+                        allow_in_creative:
+                            desc: Lets players in creative mode ignore the restriction, so building and testing still work.
+                            type: boolean
+                            default: true
+                    string-origins:prevent_accessory_unequip:
+                        item_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/accessories/prevent_accessory_unequip/
+                            desc: Only blocks items that pass it.
+                            link: item_condition
+                        slots:
+                            desc: The accessory slots to lock. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
+                            type: list
+                            vals:
+                                link: accessory_slot
+                        allow_in_creative:
+                            desc: Lets players in creative mode ignore the restriction.
+                            type: boolean
+                            default: true
+                    string-origins:create_goggles: {}
+                    string-origins:action_on_knockout:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/hardcore-revival/action_on_knockout/
+                            desc: Runs on the holder as they go down.
+                            link: entity_action
+                    string-origins:action_on_revive:
+                        entity_action:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/hardcore-revival/action_on_revive/
+                            desc: Runs on the holder as they get back up.
+                            link: entity_action
+                        bientity_action:
+                            desc: Runs when another player rescues the holder, with the rescuer as the actor and the holder as the target.
+                            link: bientity_action
                     string-origins:wings:
                         wings_type:
                             href: https://0vergrown.github.io/Handbook/docs/compat/icarus/wings/
@@ -9606,6 +9923,34 @@ links:
                         max_height_above_world:
                             desc: How far above the build limit you can climb.
                             type: integer
+
+                    string-origins:action_on_shape_ability_use:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/action_on_shape_ability_use/
+                            desc: Only fires when this passes.
+                            link: bientity_condition
+                        bientity_action:
+                            desc: Runs when the ability is used.
+                            link: bientity_action
+                    string-origins:action_on_shape_change:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/action_on_shape_change/
+                            desc: Only fires when this passes.
+                            link: bientity_condition
+                        bientity_action:
+                            desc: Runs on the change, with the player as the actor and the new shape as the target.
+                            link: bientity_action
+                    string-origins:prevent_shape_ability_use:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/prevent_shape_ability_use/
+                            desc: Only blocks when this passes, with the player as the actor and their current shape as the target.
+                            link: bientity_condition
+                    string-origins:prevent_shape_change:
+                        bientity_condition:
+                            href: https://0vergrown.github.io/Handbook/docs/compat/woodwalkers/prevent_shape_change/
+                            desc: Only blocks when this passes, with the player as the actor and the shape they are trying to become as the target. Without it, every change is blocked.
+                            link: bientity_condition
+
             fabric:load_conditions:
                 desc: Checks for the following namespaces or mods to be loaded and loads the power if true.
                 gap: before
@@ -10252,112 +10597,151 @@ links:
             type: list
             vals:
                 link: hud_render_element
-
     hud_render_element:
         type: object
         unspec: none
         props:
             should_render:
-                desc: Whether the bar should be visible or not
+                desc: Whether the bar is visible.
                 type: boolean
+                default: true
+            sprite_location:
+                desc: The path to the texture in the assets that holds what the bar looks like.
+                link: hud_sprite
+            bar_index:
+                desc: Which bar on the sprite to use. Indexes start at 0.
+                link: hud_bar_index
+            icon_index:
+                desc: Which icon on the sprite to use. Indexes start at 0.
+                link: hud_icon_index
             condition:
-                desc: If set (and should_render is true), the bar will only display when the entity with the power fulfills this condition.
+                desc: With should_render on, the bar only shows when the entity with the power passes this condition.
                 link: entity_condition
             inverted:
-                desc: If set to true, inverts the way the hud renders (full will look empty and vice versa)
+                desc: With true, the bar fills the other way, so its value looks like it is going down.
                 type: boolean
             order:
-                desc: If specified, this determines the position of the HUD render being rendered. The higher the 'order' value is, the higher it is on the rendered HUD render stack.
+                desc: The bar's position in the stack of HUD bars. The higher the order, the higher it sits.
                 type: integer
-        hud_sprite:
-            link: identifier
-            helper:
-                kind: sprites
-                title: Resource Bar Sheet
-                tab: sheet
-                sheets: &hud_sheets
-                  - title: 'Apace - Original'
-                    sprite: 'origins:textures/gui/sprites/hud_render/apace/resource_bar.png'
-                    image: '/i/hud/apace.png'
-                    bars: 9
-                    icons: [1,1,1,1,1,1,1,1,1]
-                    default: true
-                  - title: 'Drizzo - Point Bars'
-                    sprite: 'origins:textures/gui/sprites/hud_render/drizzo/resource_bar_01.png'
-                    image: '/i/hud/drizzo_01.png'
-                    bars: 6
-                    icons: [1,1,1,1,1,1]
-                  - title: 'Huang 01 - Symbols'
-                    sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png'
-                    image: '/i/hud/huang_01.png'
-                    bars: 25
-                    icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                  - title: 'Huang 02 - Symbols'
-                    sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
-                    image: '/i/hud/huang_02.png'
-                    bars: 21
-                    icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                  - title: 'Isaac Fanta 01 - Numbers'
-                    sprite: 'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png'
-                    image: '/i/hud/isaacfanta_01.png'
-                    bars: 9
-                    icons: [1,1,1,1,1,1,1,1,1]
-                  - title: 'Isaac Fanta 02 - Symbols'
-                    sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
-                    image: '/i/hud/isaacfanta_02.png'
-                    bars: 7
-                    icons: [1,1,1,1,1,1,1]
-                  - title: 'SpiderKolo 01 - Colored Orbs'
-                    sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png'
-                    image: '/i/hud/spiderkolo_01.png'
-                    bars: 25
-                    icons: [1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                  - title: 'SpiderKolo 02 - Tools'
-                    sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png'
-                    image: '/i/hud/spiderkolo_02.png'
-                    bars: 25
-                    icons: [1,1,2,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-                  - title: 'SpiderKolo 03 - Icons'
-                    sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png'
-                    image: '/i/hud/spiderkolo_03.png'
-                    bars: 25
-                    icons: [13,1,2,2,2,1,2,2,1,4,1,1,1,3,2,1,2,2,1,1,1,1,1,1,1]
-                  - title: 'Stella - Pride Orbs'
-                    sprite: 'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png'
-                    image: '/i/hud/stella_01.png'
-                    bars: 10
-                    icons: [1,1,1,1,1,1,1,1,1,1]
-                  - title: 'Vevekhi 01 - Resources and Mobs'
-                    sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png'
-                    image: '/i/hud/vevekhi_01.png'
-                    bars: 25
-                    icons: [1,6,3,3,2,2,1,2,4,2,2,3,1,3,4,3,3,2,2,2,1,3,2,3,3]
-                  - title: 'Vevekhi 02 - Effects and Blocks'
-                    sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_02.png'
-                    image: '/i/hud/vevekhi_02.png'
-                    bars: 25
-                    icons: [2,3,2,2,4,2,1,2,1,1,1,2,1,2,5,2,2,2,1,3,3,6,4,3,4]
-                  - title: 'Vevekhi 03 - Indicators'
-                    sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png'
-                    image: '/i/hud/vevekhi_03.png'
-                    bars: 25
-                    icons: [2,6,3,3,1,8,1,2,2,2,1,4,2,2,4,2,2,1,2,2,2,2,2,3,2]
-        hud_bar_index:
-            type: integer
-            min: 0
-            helper:
-                kind: sprites
-                title: Resource Bar
-                tab: bar
-                sheets: *hud_sheets
-        hud_icon_index:
-            type: integer
-            min: 0
-            helper:
-                kind: sprites
-                title: Resource Bar Icon
-                tab: icon
-                sheets: *hud_sheets
+            max:
+                desc: The value at which the bar reads full, overriding whatever the power itself would use. Required to draw a bar for a resource that has no max of its own (see below).
+                link: expression_float
+            fallback:
+                desc: What to draw when sprite_location isn't in any loaded resource pack. See Fallback textures.
+                href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render/#fallback-textures
+                unspec: none
+                or:
+                  - title: single
+                    link: hud_fallback
+                  - title: multiple
+                    type: list
+                    vals:
+                        link: hud_fallback
+    hud_fallback:
+        or:
+          - title: simple
+            link: hud_sprite
+          - title: advanced
+            type: object
+            props:
+                sprite_location:
+                    desc: The texture to draw instead.
+                    link: hud_sprite
+                bar_index:
+                    desc: Which bar on this texture to use.
+                    link: hud_bar_index
+                icon_index:
+                    desc: Which icon on this texture to use.
+                    link: hud_icon_index
+    hud_sprite:
+        link: identifier
+        helper:
+            kind: sprites
+            title: Resource Bar Sheet
+            tab: sheet
+            sheets: &hud_sheets
+                - title: 'Apace - Original'
+                sprite: 'origins:textures/gui/sprites/hud_render/apace/resource_bar.png'
+                image: '/i/hud/apace.png'
+                bars: 9
+                icons: [1,1,1,1,1,1,1,1,1]
+                default: true
+                - title: 'Drizzo - Point Bars'
+                sprite: 'origins:textures/gui/sprites/hud_render/drizzo/resource_bar_01.png'
+                image: '/i/hud/drizzo_01.png'
+                bars: 6
+                icons: [1,1,1,1,1,1]
+                - title: 'Huang 01 - Symbols'
+                sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_01.png'
+                image: '/i/hud/huang_01.png'
+                bars: 25
+                icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                - title: 'Huang 02 - Symbols'
+                sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
+                image: '/i/hud/huang_02.png'
+                bars: 21
+                icons: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                - title: 'Isaac Fanta 01 - Numbers'
+                sprite: 'origins:textures/gui/sprites/hud_render/isaacfanta/resource_bar_01.png'
+                image: '/i/hud/isaacfanta_01.png'
+                bars: 9
+                icons: [1,1,1,1,1,1,1,1,1]
+                - title: 'Isaac Fanta 02 - Symbols'
+                sprite: 'origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png'
+                image: '/i/hud/isaacfanta_02.png'
+                bars: 7
+                icons: [1,1,1,1,1,1,1]
+                - title: 'SpiderKolo 01 - Colored Orbs'
+                sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_01.png'
+                image: '/i/hud/spiderkolo_01.png'
+                bars: 25
+                icons: [1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                - title: 'SpiderKolo 02 - Tools'
+                sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png'
+                image: '/i/hud/spiderkolo_02.png'
+                bars: 25
+                icons: [1,1,2,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+                - title: 'SpiderKolo 03 - Icons'
+                sprite: 'origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png'
+                image: '/i/hud/spiderkolo_03.png'
+                bars: 25
+                icons: [13,1,2,2,2,1,2,2,1,4,1,1,1,3,2,1,2,2,1,1,1,1,1,1,1]
+                - title: 'Stella - Pride Orbs'
+                sprite: 'origins:textures/gui/sprites/hud_render/stella/resource_bar_01.png'
+                image: '/i/hud/stella_01.png'
+                bars: 10
+                icons: [1,1,1,1,1,1,1,1,1,1]
+                - title: 'Vevekhi 01 - Resources and Mobs'
+                sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png'
+                image: '/i/hud/vevekhi_01.png'
+                bars: 25
+                icons: [1,6,3,3,2,2,1,2,4,2,2,3,1,3,4,3,3,2,2,2,1,3,2,3,3]
+                - title: 'Vevekhi 02 - Effects and Blocks'
+                sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_02.png'
+                image: '/i/hud/vevekhi_02.png'
+                bars: 25
+                icons: [2,3,2,2,4,2,1,2,1,1,1,2,1,2,5,2,2,2,1,3,3,6,4,3,4]
+                - title: 'Vevekhi 03 - Indicators'
+                sprite: 'origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png'
+                image: '/i/hud/vevekhi_03.png'
+                bars: 25
+                icons: [2,6,3,3,1,8,1,2,2,2,1,4,2,2,4,2,2,1,2,2,2,2,2,3,2]
+    hud_bar_index:
+        type: integer
+        min: 0
+        helper:
+            kind: sprites
+            title: Resource Bar
+            tab: bar
+            sheets: *hud_sheets
+    hud_icon_index:
+        type: integer
+        min: 0
+        helper:
+            kind: sprites
+            title: Resource Bar Icon
+            tab: icon
+            sheets: *hud_sheets
     icon:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/icon
         desc: |
@@ -10379,11 +10763,11 @@ links:
                 width:
                     desc: Width in pixels of the region to draw, measured from the top-left of the file.
                     type: integer
-                    unspec: none
+                    unspec: true
                 height:
                     desc: Height in pixels of the region to draw, measured from the top-left of the file.
                     type: integer
-                    unspec: none
+                    unspec: true
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
