@@ -473,7 +473,7 @@ links:
                             desc: The entries to use as contents for the item container.
                             type: list
                             vals:
-                                id: loot_tables
+                                id: powers
                                 link: entry
                         type:
                             desc: The type to be written in "BlockEntityTag.id". 1.18+ only.

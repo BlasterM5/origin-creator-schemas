@@ -9,7 +9,6 @@ $: 202
   - damage_type
   - predicates
   - recipes
-  - loot_tables
   - item_modifiers
   - skill_trees
   - tags
@@ -19,6 +18,7 @@ $: 202
   - enum_sound_event
   - enum_textures
   - effects
+  - loot_tables
   - badges
 48:
   - meta
