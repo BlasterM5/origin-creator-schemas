@@ -120,7 +120,7 @@ or:
             type: integer
             default: 0
 links:
-    costs:
+    cost:
         type: object
         props:
             points:

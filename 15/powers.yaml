@@ -11128,7 +11128,8 @@ links:
         desc: A version name such as 1.21.1 or 1.20.1, compared with comparison.
         or:
           - title: supported
-            enum: [1.20.1,1.21.1]
+            id: enums
+            link: mc_ver_enum
           - title: custom
             link: meta_key
     meta_origin_id:
