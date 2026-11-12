@@ -88,3 +88,5 @@ links:
         enum: ['absorption','unluck','bad_omen','blindness','conduit_power','darkness','dolphins_grace','fire_resistance','glowing','haste','health_boost','hero_of_the_village','hunger','infested','instant_damage','instant_health','invisibility','jump_boost','levitation','luck','mining_fatigue','nausea','night_vision','oozing','poison','raid_omen','regeneration','resistance','saturation','slowness','slow_falling','speed','strength','trial_omen','water_breathing','weakness','weaving','wind_charged','wither']
     structure:
         enum: ['ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
+    structure_tag:
+        enum: ['cats_spawn_as_black']

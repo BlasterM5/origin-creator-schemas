@@ -12114,6 +12114,11 @@ links:
             id: enums
             list: structure
         link: identifier
+    structure_tag:
+        helper:
+            title: Structure Tag
+            folder: tags/structures
+        link: identifier
     team:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
         desc: A scoreboard team, given either by name or as a set of properties to match.
