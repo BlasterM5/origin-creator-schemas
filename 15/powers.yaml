@@ -10277,7 +10277,7 @@ links:
         vals:
             id: predicates
             link: single_pred
-    conected_blocks:
+    connected_blocks:
         block_condition:
             href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/connected-blocks/
             desc: Which blocks belong to the group. Without it, only blocks of the same block as the starting one do.
