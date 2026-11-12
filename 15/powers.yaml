@@ -11129,7 +11129,7 @@ links:
         or:
           - title: supported
             id: enums
-            link: mc_ver_enum
+            link: mc_version
           - title: custom
             link: meta_key
     meta_origin_id:
