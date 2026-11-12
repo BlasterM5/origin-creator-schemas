@@ -1,6 +1,10 @@
-$: 202
+$: 203
 15:
   - meta
+  - enums
+  - enum_blocks
+  - enum_sound_event
+  - enum_textures
   - powers
   - global_powers
   - origins
@@ -13,10 +17,6 @@ $: 202
   - skill_trees
   - tags
   - keybinds
-  - enums
-  - enum_blocks
-  - enum_sound_event
-  - enum_textures
   - effects
   - loot_tables
   - badges
