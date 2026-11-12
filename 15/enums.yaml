@@ -89,4 +89,4 @@ links:
     structure:
         enum: ['ancient_city','bastion_remnant','buried_treasure','end_city','fortress','mansion','mineshaft','mineshaft_mesa','monument','nether_fossil','ocean_ruin_cold','ocean_ruin_warm','pillager_outpost','ruined_portal','ruined_portal_desert','ruined_portal_jungle','ruined_portal_mountain','ruined_portal_nether','ruined_portal_ocean','ruined_portal_swamp','shipwreck','shipwreck_beached','stronghold','desert_pyramid','igloo','jungle_pyramid','swamp_hut','trail_ruins','trial_chambers','village_desert','village_plains','village_savanna','village_snowy','village_taiga']
     structure_tag:
-        enum: ['cats_spawn_as_black']
+        enum: ['cats_spawn_as_black','cats_spawn_in','dolphin_located','eye_of_ender_located','mineshaft','ocean_ruin','on_ocean_explorer_maps','on_treasure_maps','on_woodland_explorer_maps','ruined_portal','shipwreck','village','on_desert_village_maps','on_jungle_explorer_maps','on_plains_village_maps',' on_savanna_village_maps','on_snowy_village_maps','on_swamp_explorer_maps','on_taiga_village_maps','on_trial_chambers_maps']

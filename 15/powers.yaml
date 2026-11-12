@@ -12118,6 +12118,8 @@ links:
         helper:
             title: Structure Tag
             folder: tags/structures
+            id: enums
+            list: structure_tag
         link: identifier
     team:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/team
