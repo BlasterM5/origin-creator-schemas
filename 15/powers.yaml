@@ -2592,6 +2592,7 @@ links:
                       - origins:target_action
                       - $General Actions
                       - origins:add_velocity
+                      - origins:aggro_at
                       - origins:attach_rope
                       - origins:breed
                       - origins:damage
@@ -2746,6 +2747,11 @@ links:
                             set:
                                 desc: If this is true, the action will act as a “set” velocity action, overriding the entity’s current velocity instead of adding to it.
                                 type: boolean
+                        string-origins:aggro_at:
+                            duration:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/aggro_at/
+                                desc: How long the anger lasts, in ticks. Any negative value means it never runs out. It is the grudge timer of a neutral mob angry at a player, and how long a memory-based mob remembers the actor. Other mobs keep after the actor until they lose track of it or it dies. An expression is evaluated against the actor.
+                                link: expression_integer
                         string-origins:attach_rope:
                             from:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/attach_rope
@@ -6883,7 +6889,7 @@ links:
                             link: expression_integer
                             default: 1
                         hud_render:
-                            desc: 	Determines how the cooldown of this power is visualized on the HUD.
+                            desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
                         entity_type:
                             desc: The identifier of the projectile or entity that will be launched.
@@ -7330,7 +7336,7 @@ links:
                             desc: The arm pose to force on humanoid models.
                             link: arm_pose
                         hands:
-                            desc: Which hand(s) the arm_pose applies to. Accepts main_hand and/or off_hand (which arm that is follows the player’s main-hand setting). Hands not listed keep their vanilla pose. Has no effect on entity_pose.
+                            desc: Which hand(s) the arm_pose applies to. Accepts mainhand and/or offhand (which arm that is follows the player’s mainhand setting). Hands not listed keep their vanilla pose. Has no effect on entity_pose.
                             type: list
                             vals:
                                 link: hand
@@ -7676,183 +7682,183 @@ links:
                                 extra:
                                     or:
                                       - hud/air:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/air_bursting:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/crosshair:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/crosshair_attack_indicator_background:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/crosshair_attack_indicator_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/crosshair_attack_indicator_progress:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/armor_empty:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/armor_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/armor_half:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/food_empty:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/food_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/food_hunger:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/experience_bar_background:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/experience_bar_progress:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/container:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/container_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/container_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/container_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_container:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_container_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_container_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_container_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_container:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_container_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_container_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_container_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_container:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_container_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_container_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_container_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_container:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_container_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_container_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/wi
                                       - hud/hungerthered_container_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/full_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/full_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/full_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_full_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_full_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_full_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_full_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_full_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_full_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_full_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_full_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_full_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_full_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_full_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_full_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/half:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/half_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/half_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/half_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_half:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_half_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_half_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/absorbing_half_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_half:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_half_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_half_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/frozen_half_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_half:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_half_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_half_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/poisoned_half_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_half:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_half_hardcore:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_half_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/withered_half_hardcore_blinking:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/vehicle_container:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/vehicle_full:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/heart/vehicle_half:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/hotbar:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/hotbar_attack_indicator_background:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/hotbar_attack_indicator_progress:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/hotbar_offhand_left:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/hotbar_offhand_right:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/hotbar_selection:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/jump_bar_background:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/jump_bar_cooldown:
-                                        link: texture_location
+                                        link: meta_texture
                                       - hud/jump_bar_progress:
-                                        link: texture_location
+                                        link: meta_texture
                               - title: custom
                                 type: object
                                 extra:
                                     allowkey: '*a-z0-9_#\/:.-'
-                                    link: texture_location
+                                    link: meta_texture
                         priority:
                             desc: Which power wins when several replace the same sprite. Higher wins.
                             type: integer
@@ -7999,7 +8005,7 @@ links:
                             vals:
                                 link: block_facing
                         hands:
-                            desc: Determines if the power should be activated if the player used the specified hand(s). Accepts "off_hand", "main_hand" or both.
+                            desc: Determines if the power should be activated if the player used the specified hand(s). Accepts "offhand", "mainhand" or both.
                             type: list
                             vals:
                                 link: hand
@@ -8468,7 +8474,7 @@ links:
                             desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
                             link: item_condition
                         hands:
-                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "offhand", "mainhand" or both
                             type: list
                             vals:
                                 link: hand
@@ -8500,7 +8506,7 @@ links:
                             desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
                             link: item_condition
                         hands:
-                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "offhand", "mainhand" or both
                             type: list
                             vals:
                                 link: hand
@@ -8529,7 +8535,7 @@ links:
                             desc: If set, only execute the specified actions if the item condition is fulfilled by the item in the player's specified hand(s) equipment slot determined by the hands string field.
                             link: item_condition
                         hands:
-                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "offhand", "mainhand" or both
                             type: list
                             vals:
                                 link: hand
@@ -9450,7 +9456,7 @@ links:
                             desc: If specified, the specified actions will only be executed if this condition is fulfilled by the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_condition
                         hands:
-                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both.
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "offhand", "mainhand" or both.
                             type: list
                             vals:
                                 link: hand
@@ -9556,7 +9562,7 @@ links:
                             desc: If specified, the specified actions will only be executed if this condition is fulfilled by the item used by the ’actor’ entity for right-clicking the ’target’ entity.
                             link: item_condition
                         hands:
-                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "off_hand", "main_hand" or both.
+                            desc: Determines if the power should be activated if the ’actor’ entity used the specified hand(s). Accepts "offhand", "mainhand" or both.
                             type: list
                             vals:
                                 link: hand
@@ -9718,7 +9724,7 @@ links:
                             desc: false blocks the holder using others; true blocks others using the holder. Filled in by the aliases.
                             type: boolean
                         hands:
-                            desc: Which hands are blocked — main_hand, off_hand, or both.
+                            desc: Which hands are blocked — mainhand, offhand, or both.
                             type: list
                             vals:
                                 link: hand
@@ -9917,8 +9923,10 @@ links:
                             desc: The wings to grant. An item ID is enough, and the object form lets you set components for a custom look.
                             or:
                               - title: simple
+                                talias: string
                                 link: identifier
                               - title: advanced
+                                talias: object
                                 link: item_stack
                         stamina:
                             desc: The maximum stamina. Higher means longer flight before you have to land.
@@ -10473,6 +10481,9 @@ links:
                     string-tag:
                         name:
                             desc: Item tag to be used, e.g. arrows.
+                            helper:
+                                title: Item Tag
+                                folder: tags/items
                             link: identifier
                         expand:
                             type: boolean
@@ -10505,7 +10516,7 @@ links:
                             enum: [contents, self]
                     string-empty: {}
     equipment_slot:
-        enum: ['main_hand','off_hand','head','chest','legs','feet']
+        enum: ['mainhand','offhand','head','chest','legs','feet']
         unspec: true
     expression_float:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
@@ -10613,7 +10624,7 @@ links:
         link: identifier
     hand:
         desc: Indicates which hand of the entity.
-        enum: ['main_hand','off_hand']
+        enum: ['mainhand','offhand']
     heightmap_type:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/heightmap-type
         desc: |
@@ -10787,6 +10798,7 @@ links:
             An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
         or:
           - title: item
+            talias: string
             link: identifier
           - title: stack
             link: item_stack
@@ -10819,8 +10831,10 @@ links:
         unspec: true
         or:
           - title: single
+            talias: [simple, string]
             link: identifier
           - title: multiple
+            talias: list
             link: identifier_array
     identifier_script:
         desc: |
@@ -10844,6 +10858,7 @@ links:
           - title: simple
             link: identifier
           - title: advanced
+            talias: object
             or:
               - title: item
                 type: object
@@ -11147,11 +11162,11 @@ links:
     meta_keybind:
         or:
           - title: built-in
-            talias: new, original
+            talias: [new,original]
             id: enums
             link: meta_keybind
           - title: custom
-            talias: old, string
+            talias: [old,string]
             link: meta_key
     meta_local_power_id:
         helper:
