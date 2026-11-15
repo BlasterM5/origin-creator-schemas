@@ -4,6 +4,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 inverted:
@@ -273,6 +274,7 @@ links:
         hooks: [fix_type]
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 inverted:
@@ -1480,6 +1482,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 inverted:
@@ -1748,6 +1751,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 inverted:
@@ -2039,6 +2043,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 inverted:
@@ -2144,6 +2149,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 inverted:
@@ -2263,6 +2269,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 inverted:
@@ -2484,6 +2491,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 type:
@@ -2563,6 +2571,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 type:
@@ -3424,6 +3433,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 type:
@@ -5660,6 +5670,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 type:
@@ -5869,6 +5880,7 @@ links:
         unspec: none
         or:
           - title: built-in
+            talias: original
             type: object
             props:
                 type:
@@ -7664,183 +7676,183 @@ links:
                                 extra:
                                     or:
                                       - hud/air:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/air_bursting:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/crosshair:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/crosshair_attack_indicator_background:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/crosshair_attack_indicator_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/crosshair_attack_indicator_progress:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/armor_empty:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/armor_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/armor_half:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/food_empty:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/food_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/food_hunger:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/experience_bar_background:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/experience_bar_progress:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/container:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/container_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/container_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/container_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_container:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_container_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_container_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_container_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_container:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_container_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_container_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_container_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_container:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_container_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_container_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_container_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_container:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_container_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_container_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/wi
                                       - hud/hungerthered_container_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/full_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/full_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/full_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_full_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_full_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_full_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_full_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_full_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_full_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_full_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_full_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_full_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_full_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_full_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_full_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/half:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/half_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/half_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/half_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_half:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_half_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_half_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/absorbing_half_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_half:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_half_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_half_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/frozen_half_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_half:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_half_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_half_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/poisoned_half_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_half:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_half_hardcore:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_half_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/withered_half_hardcore_blinking:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/vehicle_container:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/vehicle_full:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/heart/vehicle_half:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/hotbar:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/hotbar_attack_indicator_background:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/hotbar_attack_indicator_progress:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/hotbar_offhand_left:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/hotbar_offhand_right:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/hotbar_selection:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/jump_bar_background:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/jump_bar_cooldown:
-                                        link: identifier
+                                        link: texture_location
                                       - hud/jump_bar_progress:
-                                        link: identifier
+                                        link: texture_location
                               - title: custom
                                 type: object
                                 extra:
                                     allowkey: '*a-z0-9_#\/:.-'
-                                    type: identifier
+                                    link: texture_location
                         priority:
                             desc: Which power wins when several replace the same sprite. Higher wins.
                             type: integer
@@ -8407,6 +8419,7 @@ links:
                               - title: built-in
                                 enum: ['chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
                               - title: custom
+                                talias: string
                                 link: identifier
                             unspec: true
                         filter:
@@ -11607,6 +11620,7 @@ links:
     particle_type:
         or:
           - title: built-in
+            talias: string
             id: enums
             link: particle_type
           - title: custom
@@ -12175,6 +12189,7 @@ links:
 hooks: [preserve_single]
 or:
   - title: single
+    talias: simple
     link: power
   - title: multiple
     link: multi_power
