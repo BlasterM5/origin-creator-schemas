@@ -217,9 +217,11 @@ links:
                                 desc: The actor’s slot(s) to read.
                                 or:
                                   - title: single
+                                    talias: object
                                     link: equipment_slot
                                     default: 0
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: equipment_slot
@@ -228,8 +230,10 @@ links:
                                 desc: The target’s slot(s) to read. Defaults to equipment_slot.
                                 or:
                                   - title: single
+                                    talias: object
                                     link: equipment_slot
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: equipment_slot
@@ -638,8 +642,10 @@ links:
                                 desc: One of peaceful, easy, normal, hard, or an array of them. An array passes if the current difficulty is any one of them.
                                 or:
                                   - title: single
+                                    talias: string
                                     link: difficulty
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: difficulty
@@ -971,8 +977,10 @@ links:
                                 desc: The origin(s) to look for. Passes if any of them matches. Wildcard matching is supported.
                                 or:
                                   - title: single
+                                    talias: [simple,string]
                                     link: meta_origin_id
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: meta_origin_id
@@ -1031,8 +1039,10 @@ links:
                                     Passes if the player is in any of these views: first_person, third_person (either third-person view), third_person_back or third_person_front.
                                 or:
                                   - title: single
+                                    talias: [simple,string]
                                     link: meta_perspective
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: meta_perspective
@@ -2403,8 +2413,10 @@ links:
                                 desc: Passes when the hit landed on one of these parts. Limbs, regions such as hands, chest or achilles_heel, and groups such as arms or upper all work. An unknown name is a load error.
                                 or:
                                   - title: single
+                                    talias: [simple,string]
                                     link: body_part
                                   - title: multiple
+                                    talias: [list]
                                     type: list
                                     vals:
                                         link: body_part
@@ -3313,8 +3325,10 @@ links:
                                     Only transfer these effects. An entry starting with # names an effect tag. Leave it out to transfer every effect. effect is accepted as a spelling.
                                 or:
                                   - title: single
+                                    talias: [simple,object]
                                     link: status_effect
                                   - title: multiple
+                                    talias: [list]
                                     type: list
                                     vals:
                                         link: status_effect
@@ -3324,8 +3338,10 @@ links:
                                 unspec: true
                                 or:
                                   - title: single
+                                    talias: [simple,string]
                                     enum: ['beneficial','neutral','harmful']
                                   - title: multiple
+                                    talias: [list]
                                     type: list
                                     vals:
                                         enum: ['beneficial','neutral','harmful']
@@ -3337,24 +3353,30 @@ links:
                                 unspec: true
                                 or:
                                   - title: single
+                                    talias: [simple,object]
                                     link: attribute_modifier
                                   - title: multiple
+                                    talias: list
                                     link: attribute_modifier_array
                             amplifier_modifier:
                                 desc: Changes the amplifier the recipient gets (0 is level I). Starts from the donor’s amplifier and is kept between 0 and 255.
                                 unspec: true
                                 or:
                                   - title: single
+                                    talias: [simple,object]
                                     link: attribute_modifier
                                   - title: multiple
+                                    talias: list
                                     link: attribute_modifier_array
                             donor_duration_modifier:
                                 desc: With copy, changes the duration the donor keeps, so one effect can be split between the two. Ignored without copy.
                                 unspec: true
                                 or:
                                   - title: single
+                                    talias: [simple,object]
                                     link: attribute_modifier
                                   - title: multiple
+                                    talias: list
                                     link: attribute_modifier_array
                         string-origins:store_origin:
                             key:
@@ -4063,8 +4085,10 @@ links:
                                 desc: An accessory slot to conjure into. Requires Trinkets, Accessories or Curios; without one of those installed this does nothing.
                                 or:
                                   - title: single
+                                    talias: [simple,string]
                                     link: accessory_slot
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: accessory_slot
@@ -4450,8 +4474,10 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
                                 or:
                                   - title: simple
+                                    talias: boolean
                                     type: boolean
                                   - title: advanced
+                                    talias: object
                                     link: projectile_reflection
                             return:
                                 desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
@@ -4468,6 +4494,7 @@ links:
                                   - title: simple
                                     link: boolean_optional
                                   - title: advanced
+                                    talias: object
                                     link: projectile_sticking
                             sound:
                                 desc: If set, the sound with this ID will be played when the power is used.
@@ -5029,8 +5056,10 @@ links:
                                 talias: scale_type
                                 or:
                                   - title: single
+                                    talias: [simple,string]
                                     link: scale_type
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: scale_type
@@ -5353,8 +5382,10 @@ links:
                                     ext: true
                                     required: true
                                   - title: single
+                                    talias: object
                                     link: text_component
                                   - title: multiple
+                                    talias: list
                                     type: list
                                     vals:
                                         link: text_component
@@ -6476,6 +6507,7 @@ links:
                             folder: badges
                         link: identifier
                   - title: object
+                    talias: list
                     type: list
                     vals:
                         link: badge
@@ -6593,9 +6625,9 @@ links:
                             desc: Bedrock animations to play on the model. The first entry whose condition passes is the one that plays.
                             unspec: true
                             or:
-                              - title: 'single'
+                              - title: single
                                 link: model_animation
-                              - title: 'multiple'
+                              - title: multiple
                                 type: list
                                 vals:
                                     link: model_animation
@@ -6942,6 +6974,7 @@ links:
                               - title: simple
                                 type: boolean
                               - title: advanced
+                                talias: object
                                 link: projectile_reflection
                         return:
                             desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
@@ -6958,6 +6991,7 @@ links:
                               - title: simple
                                 link: boolean_optional
                               - title: advanced
+                                talias: object
                                 link: projectile_sticking
                         sound:
                             desc: If set, the sound with this ID will be played when the power is used.
@@ -8290,6 +8324,7 @@ links:
                                   - title: simple
                                     link: keybind
                                   - title: advanced
+                                    talias: object
                                     link: meta_sequence_step
                     string-origins:action_on_kill:
                         bientity_condition:
@@ -10056,6 +10091,7 @@ links:
           - title: simple
             link: meta_key
           - title: advanced
+            talias: object
             type: object
             props:
                 group:
@@ -10524,8 +10560,10 @@ links:
         unspec: true
         or:
           - title: value
+            talias: number
             type: number
           - title: expression
+            talias: string
             type: string
             ext: true
     expression_integer:
@@ -10534,8 +10572,10 @@ links:
         unspec: true
         or:
           - title: value
+            talias: integer
             type: integer
           - title: expression
+            talias: string
             type: string
             ext: true
     fabric_load_conditions:
@@ -10642,8 +10682,10 @@ links:
         unspec: true
         or:
           - title: single
+            talias: object
             link: hud_render_element
           - title: multiple
+            talias: list
             type: list
             vals:
                 link: hud_render_element
@@ -10682,8 +10724,10 @@ links:
                 unspec: none
                 or:
                   - title: single
+                    talias: object
                     link: hud_fallback
                   - title: multiple
+                    talias: list
                     type: list
                     vals:
                         link: hud_fallback
@@ -10692,6 +10736,7 @@ links:
           - title: simple
             link: hud_sprite
           - title: advanced
+            talias: object
             type: object
             props:
                 sprite_location:
@@ -10801,6 +10846,7 @@ links:
             talias: string
             link: identifier
           - title: stack
+            talias: object
             link: item_stack
           - title: texture
             type: object
@@ -10848,14 +10894,17 @@ links:
         unspec: true
         or:
           - title: single
+            talias: object
             link: ingredient_select
           - title: multiple
+            talias: list
             type: list
             vals:
                 link: ingredient_select
     ingredient_select:
         or:
           - title: simple
+            talias: string
             link: identifier
           - title: advanced
             talias: object
@@ -10924,8 +10973,10 @@ links:
                 desc: 1.21.1
                 or:
                   - title: single
+                    talias: object
                     link: nbt
                   - title: multiple
+                    talias: list
                     type: list
                     vals:
                         link: nbt
@@ -10937,6 +10988,7 @@ links:
           - title: simple
             link: meta_keybind
           - title: advanced
+            talias: object
             type: object
             props:
                 key:
