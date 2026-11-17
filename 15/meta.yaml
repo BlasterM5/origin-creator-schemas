@@ -148,7 +148,8 @@ links:
         type: object
         extra:
             or:
-              - title: simple
+              - title: single
+                talias: simple
                 type: string
                 allowkey: '*a-z0-9_-'
                 allow: '*a-z0-9_+=<>!-'

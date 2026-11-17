@@ -126,22 +126,20 @@ links:
             points:
                 desc: The points the skill costs. A plain number is taken from the skill's own tree.
                 or:
-                  - title: single
-                    or:
-                      - title: simple
-                        type: integer
-                        default: 0
-                      - title: advanced
-                        link: point_entry
-                  - title: multiple
+                  - title: simple
+                    type: integer
+                    default: 0
+                  - title: advanced
+                    link: point_entry
+                  - title: simple_list
                     type: list
                     vals:
-                        or:
-                          - title: simple
-                            type: integer
-                            default: 0
-                          - title: advanced
-                            link: point_entry
+                        type: integer
+                        default: 0
+                  - title: advanced_list
+                    type: list
+                    vals:
+                        link: point_entry
         skill_tree:
             desc: A shorthand for a single points number that takes those points from this tree instead.
             helper:
@@ -226,22 +224,20 @@ links:
             points:
                 desc: Points added to a tree. Point entries are the same as for costs.
                 or:
-                  - title: single
-                    or:
-                      - title: simple
-                        type: integer
-                        default: 0
-                      - title: advanced
-                        link: point_entry
-                  - title: multiple
+                  - title: simple
+                    type: integer
+                    default: 0
+                  - title: advanced
+                    link: point_entry
+                  - title: simple_list
                     type: list
                     vals:
-                        or:
-                          - title: simple
-                            type: integer
-                            default: 0
-                          - title: advanced
-                            link: point_entry
+                        type: integer
+                        default: 0
+                  - title: advanced_list
+                    type: list
+                    vals:
+                        link: point_entry
         skill_tree:
             desc: A shorthand for a single points number that gives those points to this tree.
             helper:

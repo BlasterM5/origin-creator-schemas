@@ -35,6 +35,10 @@ links:
                     allow: 0-9a-fA-F#
             font:
                 desc: Optional. The resource location of the font for this component in the resource pack within assets/<namespace>/font. Defaults to "default".
+                helper:
+                    title: Font
+                    folder: assets/font
+                    list: [default,uniform,alt,illageralt]
                 type: string
                 allow: '*a-z0-9_#\/:.-'
             bold:
@@ -411,8 +415,8 @@ links:
                                         type: string
                                     attribute:
                                         desc: The name of the attribute this modifier is to act upon.
-                                        type: string
-                                        allow: '*a-z0-9_#\/:.-'
+                                        id: powers
+                                        link: meta_attribute
                                     operation:
                                         enum: [addition, multiply_base, multiply_total]
                                     amount:
@@ -507,8 +511,8 @@ links:
                     string-set_loot_table:
                         name:
                             desc: Specifies the resource location of the loot table to be used to set the contents of this container.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: meta_loot_table
                         seed:
                             desc: Optional. Specifies the loot table seed. If absent or set to 0, a random seed will be used.
                             type: integer
@@ -559,8 +563,8 @@ links:
                                     type:
                                         desc: The effect ID.
                                         href: https://minecraft.wiki/w/Effect#Effect_list
-                                        type: string
-                                        allow: '*a-z0-9_#\/:.-'
+                                        id: powers
+                                        link: status_effect
                                     duration:
                                         desc: The duration of the effect.
                                         id: predicates
@@ -571,8 +575,8 @@ links:
                             enum: [mainhand, offhand, feet, legs, chest, head]
                         power:
                             desc: The ID of a power to give when the item is in hand.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: meta_power_id
                         hidden:
                             desc: Whether or not the item shows that this power will be added when held.
                             type: boolean
@@ -585,6 +589,6 @@ links:
                             enum: [mainhand, offhand, feet, legs, chest, head]
                         power:
                             desc: The ID of a power to remove.
-                            type: string
-                            allow: '*a-z0-9_#\/:.-'
+                            id: powers
+                            link: meta_power_id
 link: modifier
