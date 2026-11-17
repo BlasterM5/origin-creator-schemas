@@ -146,8 +146,11 @@ links:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-conditions/damage_would_kill/
                                 desc: The raw damage to simulate, before any reduction. Expressions are evaluated on the actor.
-                                link: expression_float
-                                required: true
+                                or:
+                                  - type: number
+                                    required: true
+                                  - link: expression
+                                    required: true
                             damage_type:
                                 desc: The damage type to simulate, e.g. player_attack.
                                 link: damage_type
@@ -534,7 +537,12 @@ links:
                                 default: 1
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0.9
+                                    min: 0
+                                    max: 1
+                                  - link: expression
                         string-origins:attribute:
                             attribute:
                                 desc: |
@@ -597,7 +605,10 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value at which the amount of blocks which fulfill block_condition will be compared to.
-                                link: expression_integer
+                                or:
+                                  - type: integer
+                                    default: 1
+                                  - link: expression
                         string-origins:brightness:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/brightness
@@ -625,10 +636,15 @@ links:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/damage_would_kill/
                                 desc: The raw damage to simulate, before any reduction.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    required: true
+                                  - link: expression
+                                    required: true
                             damage_type:
                                 desc: The damage type to simulate.
                                 link: damage_type
+                                required: true
                             modifier:
                                 desc: Applied to amount before the simulation.
                                 link: attribute_modifier
@@ -738,7 +754,10 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: The value to compare the count against.
-                                link: expression_integer
+                                or:
+                                  - type: integer
+                                    default: 1
+                                  - link: expression
                         string-origins:entity_set_size:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
@@ -1138,14 +1157,20 @@ links:
                                 link: meta_power_id
                             position:
                                 desc: Which slot of a table resource to read. Omit it and the condition passes if any slot satisfies the comparison.
-                                link: expression_integer
                                 unspec: true
+                                or:
+                                  - type: number
+                                  - link: expression
                             comparison:
                                 desc: Determines how the value of the specified power should be compared to the specified value.
                                 link: comparison
                             compare_to:
                                 desc: The value the resource is compared against. As an Expression it is re-evaluated every time the condition is tested, so you can compare a resource against another resource, an entity stat, or any math over them.
-                                link: expression_integer
+                                or:
+                                  - type: integer
+                                    required: true
+                                  - link: expression
+                                    required: true
                         string-origins:riding:
                             bientity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/riding
@@ -1178,7 +1203,11 @@ links:
                                 link: comparison
                             compare_to:
                                 desc: What to compare against.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    required: true
+                                  - link: expression
+                                    required: true
                         string-origins:scoreboard:
                             name:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/scoreboard
@@ -2393,7 +2422,12 @@ links:
                                 default: 1
                             compare_to:
                                 desc: The charge to compare against, from 0.0 (just swung) to 1.0 (fully recharged).
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0.9
+                                    min: 0
+                                    max: 1
+                                  - link: expression
                         string-origins:attacker:
                             entity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attacker
@@ -2637,10 +2671,7 @@ links:
                                     link: bientity_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
-                                required: true
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -2649,9 +2680,7 @@ links:
                                 link: bientity_action
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: bientity_action
@@ -2738,24 +2767,47 @@ links:
                             x:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/add_velocity
                                 desc: The amount of velocity to add on the x-axis.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             y:
                                 desc: The amount of velocity to add on the y-axis.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             z:
                                 desc: The amount of velocity to add on the z-axis.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             reference:
                                 desc: Determines whether to use the target entity’s "position" or "rotation" when calculating the velocity that will be applied to the target entity.
                                 enum: ['position','rotation']
+                            space:
+                                desc: Reads x, y and z in a fixed frame relative to the actor, instead of the frame that points from the actor to the target. "world" gives absolute axes, so the numbers you write are the velocity you get.
+                                link: space
                             set:
                                 desc: If this is true, the action will act as a “set” velocity action, overriding the entity’s current velocity instead of adding to it.
                                 type: boolean
+                            blend:
+                                desc: With set, how far to move from the target's current velocity toward the new one, from 0.0 to 1.0. 1.0 snaps, and smaller values turn gradually. Ignored when set is false.
+                                or:
+                                  - type: number
+                                    default: 1
+                                    min: 0
+                                    max: 1
+                                  - link: expression
                         string-origins:aggro_at:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/aggro_at/
                                 desc: How long the anger lasts, in ticks. Any negative value means it never runs out. It is the grudge timer of a neutral mob angry at a player, and how long a memory-based mob remembers the actor. Other mobs keep after the actor until they lose track of it or it dies. An expression is evaluated against the actor.
-                                link: expression_integer
+                                or:
+                                  - type: integer
+                                    default: -1
+                                  - link: expression
                         string-origins:attach_rope:
                             from:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/attach_rope
@@ -2838,17 +2890,21 @@ links:
                         string-origins:damage:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
-                                desc: The amount of damage to deal. If omitted, the target’s max health is used as the base value for the modifier(s).
+                                desc: How much damage to deal. Left out, the target's max health is the base value for the modifiers.
                                 talias: damage
-                                link: expression_float
+                                unspec: true
+                                or:
+                                  - type: number
+                                  - link: expression
                             damage_type:
-                                desc: Defines the properties of the damage source that will be dealt, such as part of its death message, and whether it can bypass armor, shield, etc. (via damage type tags.)
+                                desc: The damage type, which decides part of the death message and, through damage type tags, whether the damage bypasses armor, shields and so on.
                                 link: damage_type
+                                required: true
                             modifier:
-                                desc: If specified, this modifier will be applied to the damage taken by the ’target’ entity.
+                                desc: A modifier applied to the damage the target takes.
                                 link: attribute_modifier
                             modifiers:
-                                desc: If specified, these modifiers will be applied to the damage taken by the ’target’ entity.
+                                desc: Several modifiers applied to the damage the target takes.
                                 link: attribute_modifier_array
                         string-origins:disguise:
                             overwrite:
@@ -2898,12 +2954,17 @@ links:
                         string-origins:grab:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/grab
-                                desc: How long the grab lasts, in ticks. Omit (or use a value ≤ 0) for a continuous grab that lasts until released.
-                                type: integer
-                                default: 0
+                                desc: How long the grab lasts, in ticks. Leave it out (or use 0 or less) for a grab that lasts until it is released. It is evaluated once, when the grab starts.
+                                unspec: true
+                                or:
+                                  - type: integer
+                                  - link: expression
                             distance:
-                                desc: How far in front of the actor’s eyes the target is held, in blocks.
-                                link: expression_float
+                                desc: How far in front of the actor's eyes the target is held, in blocks. It is evaluated again every tick against the grabber, so an expression makes the hold reach in and out while the grab runs.
+                                or:
+                                  - type: number
+                                    default: 2
+                                  - link: expression
                             disable_grabber:
                                 desc: While the grab is active, the actor cannot use Apoli power keybinds (active powers, toggles).
                                 type: boolean
@@ -3181,35 +3242,43 @@ links:
                         string-origins:swap:
                             landing_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/swap/
-                                desc: (ALIAS) If specified, the teleport only happens when the actor would fulfill this condition at the destination. Skipped when the two are in different dimensions.
+                                desc: (ALIAS) The swap only happens when the actor would pass this condition at the destination.
                                 link: entity_condition
                             landing_block_condition:
-                                desc: If specified, the teleport only happens when the block below the destination fulfills this condition.
+                                desc: The swap only happens when the block below the actor's destination passes this condition.
                                 link: block_condition
                             x:
-                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
-                                link: expression_float
+                                desc: An offset applied to where the actor lands. The target still lands exactly where the actor was.
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                                 gap: above
                             y:
-                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
-                                link: expression_float
+                                desc: An offset applied to where the actor lands. The target still lands exactly where the actor was.
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             z:
-                                desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
-                                link: expression_float
+                                desc: An offset applied to where the actor lands. The target still lands exactly where the actor was.
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             space:
-                                desc: |
-                                    Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind them.
+                                desc: Which axes the offset is measured along.
                                 link: space
                             loaded_chunks_only:
-                                desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
+                                desc: Whether the swap is refused when the destination chunk isn't loaded.
                                 type: boolean
                                 default: true
                             success_action:
-                                desc: Runs with the same pair once they have arrived.
+                                desc: Runs with the same pair once both have arrived.
                                 link: bientity_action
                                 gap: true
                             fail_action:
-                                desc: Runs when the teleport is refused — by a condition, by an unloaded chunk, or by apoli:prevent_teleport.
+                                desc: Runs when the swap is refused.
                                 link: bientity_action
                         string-origins:tame: {}
                         string-origins:target_action:
@@ -3220,32 +3289,41 @@ links:
                         string-origins:teleport_to:
                             landing_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/teleport_to/
-                                desc: If specified, the teleport only happens when the actor would fulfill this condition at the destination. Skipped when the two are in different dimensions.
+                                desc: The teleport only happens when the actor would pass this condition at the destination. It is tested as though the actor were already standing there, so everything that depends on where the actor is gets read at the destination: the fluid around it (apoli:fluid_height, apoli:submerged_in), the block under it (apoli:on_block), the blocks it overlaps and the sky above it. Skipped when the two are in different dimensions.
                                 link: entity_condition
                             landing_block_condition:
-                                desc: If specified, the teleport only happens when the block below the destination fulfills this condition.
+                                desc: The teleport only happens when the block below the destination passes this condition.
                                 link: block_condition
                             swap:
                                 desc: |
-                                        Whether the target is moved to where the actor was, so the two trade places. Alias: swap_position.
+                                        Whether the target is moved to where the actor was, so the two trade places. swap_position is accepted as an alias. See apoli:swap for the same thing under its own name.
                                 talias: swap_position
                                 type: boolean
                             x:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                                 gap: above
                             y:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             z:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             space:
                                 desc: |
-                                    Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind them.
+                                    Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind it.
                                 link: space
                             loaded_chunks_only:
-                                desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
+                                desc: Whether the teleport is refused when the destination chunk isn't loaded.
                                 type: boolean
                                 default: true
                             success_action:
@@ -3608,10 +3686,7 @@ links:
                                     link: entity_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
-                                required: true
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
@@ -3621,9 +3696,7 @@ links:
                                 link: entity_action
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: entity_action
@@ -3815,30 +3888,41 @@ links:
                             x:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_velocity
                                 desc: The amount of velocity to add on the x-axis.
-                                link: expression_float
-                                default: 0
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             y:
                                 desc: The amount of velocity to add on the y-axis.
-                                link: expression_float
-                                default: 0
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             z:
                                 desc: The amount of velocity to add on the z-axis.
-                                link: expression_float
-                                default: 0
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             space:
-                                desc: Determines how the direction of the velocity to add/set will be calculated.
+                                desc: How the direction of the velocity is worked out.
                                 link: space
                             set:
-                                desc: If this is true, the action will act as a “set” velocity action, overriding the entity’s current velocity instead of adding to it.
+                                desc: With true, the velocity replaces the entity's current velocity instead of adding to it.
                                 type: boolean
                         string-origins:add_xp:
                             points:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/add_xp
-                                desc: If set, this is the amount experience points that will be given to the player. Can not be negative.
-                                link: expression_integer
+                                desc: Experience points to give. It can't be negative.
+                                or:
+                                  - type: integer
+                                    min: 0
+                                  - link: expression
                             levels:
-                                desc: If set, this is the amount experience levels that will be given to the player. Can be negative and thus used to subtract levels.
-                                link: expression_integer
+                                desc: Experience levels to give. A negative number takes levels away.
+                                or:
+                                  - type: integer
+                                  - link: expression
                         string-origins:advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
@@ -4015,8 +4099,11 @@ links:
                                 desc: (DEPRECATED) The target Resource/Cooldown power to change.
                                 link: meta_local_power_id
                             change:
-                                desc: The amount; never exceeds the resource’s min/max when enforce_limits is true. As an Expression it is evaluated each time the action runs, with value bound to the resource’s current value.
-                                link: expression_integer
+                                desc: The amount, which can be a decimal such as 0.5. The result never goes past the resource's min or max while enforce_limits is on. An expression is evaluated each time the action runs, with value bound to the resource's current value.
+                                or:
+                                  - type: number
+                                    talias: integer
+                                  - link: expression
                             operation:
                                 desc: |
                                     "add" translates to add_base_early; "set" translates to set_base.
@@ -4088,17 +4175,22 @@ links:
                         string-origins:damage:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/damage
-                                desc: The amount of damage to deal. If omitted, the entity’s max health is used as the base value for the modifier(s).
-                                link: expression_float
+                                desc: How much damage to deal. Left out, the entity's max health is the base value for the modifiers.
+                                talias: damage
+                                unspec: true
+                                or:
+                                  - type: number
+                                  - link: expression
                             damage_type:
                                 href: https://minecraft.wiki/w/Damage_type
-                                desc: Defines the properties of the damage source that will be dealt, such as part of its death message, and whether it can bypass armor, shield, etc. (via damage type tags.)
+                                desc: The damage type, which decides part of the death message and, through damage type tags, whether the damage bypasses armor, shields and so on.
                                 link: damage_type
+                                required: true
                             modifier:
-                                desc: If specified, this modifier will be applied to the damage taken by the entity.
+                                desc: A modifier applied to the damage.
                                 link: attribute_modifier
                             modifiers:
-                                desc: If specified, these modifiers will be applied to the damage taken by the entity.
+                                desc: Several modifiers applied to the damage.
                                 link: attribute_modifier_array
                         string-origins:detach_rope:
                             slot:
@@ -4361,13 +4453,18 @@ links:
                         string-origins:exhaust:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/exhaust
-                                desc: The amount of exhaustion to apply to the player.
-                                link: expression_float
+                                desc: How much exhaustion to add.
+                                or:
+                                  - type: number
+                                    required: true
+                                  - link: expression
+                                    required: true
                         string-origins:explode:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/explode
                                 desc: Determines the power of the explosion.
                                 type: number
+                                required: true
                             damage_self:
                                 desc: Determines if the entity that invoked the action should take damage from the summoned explosion.
                                 type: boolean
@@ -4375,7 +4472,7 @@ links:
                             destruction_type:
                                 link: destruction_type
                             create_fire:
-                                desc: Determines if the summoned explosion should create fire.
+                                desc: Whether the explosion starts fires.
                                 type: boolean
                             indestructible:
                                 desc: If specified, the blocks that fulfill this condition will not be destroyed by the summoned explosion.
@@ -4387,21 +4484,24 @@ links:
                         string-origins:feed:
                             food:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/feed
-                                desc: The food amount to restore.
-                                link: expression_integer
+                                desc: How many food points to restore.
+                                or:
+                                  - type: integer
+                                    required: true
+                                  - link: expression
+                                    required: true
                             saturation:
-                                desc: The amount of saturation points to restore.
-                                link: expression_float
+                                desc: The saturation value of the food, used in the formula above.
+                                or:
+                                  - type: number
+                                    required: true
+                                  - link: expression
+                                    required: true
                         string-origins:fire_projectile:
-                            entity_id:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
-                                desc: Identifier for tracking the projectile
-                                link: identifier
-                            count:
-                                desc: The amount of projectiles to fire each use.
-                                link: expression_integer
                             entity_type:
-                                desc: The identifier of the projectile or entity that will be launched.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
+                                desc: The ID of the projectile or entity to launch. Set this or texture_location.
+                                talias: entity_id
                                 unspec: true
                                 helper:
                                     title: Projectile
@@ -4410,7 +4510,14 @@ links:
                                 link: identifier
                             texture_location:
                                 desc: If specified, the texture used for the custom projectile and entity_type is ignored.
+                                unspec: true
                                 link: meta_texture
+                            count:
+                                desc: How many projectiles to fire each time. An expression is evaluated once per use, with the shooter as the subject.
+                                or:
+                                  - type: integer
+                                    default: 1
+                                  - link: expression
                             interval:
                                 desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
                                 type: integer
@@ -4421,39 +4528,62 @@ links:
                                 type: integer
                                 default: 0
                             speed:
-                                desc: The speed applied to the fired projectile.
-                                link: expression_float
+                                desc: The speed of the fired projectile. An expression is evaluated for every projectile, with the shooter as the subject.
+                                or:
+                                  - type: number
+                                    default: 1.5
+                                  - link: expression
                             max_distance:
-                                desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
-                                link: expression_float
+                                desc: Removes the projectile once it has travelled this far in blocks, or turns it around when return is set. Distance is measured along the path it flew, so bounces and homing curves count. 0 lets it fly until it hits something or expires.
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             lifetime:
-                                desc: Removes the projectile after this many ticks in the air, whatever it is doing, running bientity_action_on_expire first. It is the backstop for a slow projectile that would otherwise hang where it stopped — in water, say. Unlike max_distance it also ends a projectile that is on its way back. 0 sets no limit.
-                                link: expression_integer
+                                desc: Removes the projectile this many ticks after it is fired, whatever it is doing, and runs bientity_action_on_expire first. Time spent stuck in a block with sticky counts too. Use it as the backstop for a slow projectile that would otherwise hang where it stopped, in water for example. Unlike max_distance, it also ends a projectile on its way back. 0 sets no limit.
+                                or:
+                                  - type: integer
+                                    default: 0
+                                  - link: expression
                             offset_x:
                                 desc: |
-                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                                link: expression_float
+                                    Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             offset_y:
                                 desc: |
-                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                                link: expression_float
+                                    Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             offset_z:
                                 desc: |
-                                    Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                                link: expression_float
+                                    Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             space:
                                 desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
                                 link: space
                                 default: 1
                             divergence:
-                                desc: How much each projectile fired is affected by random spread.
-                                type: number
-                                min: 0
-                                default: 1
+                                desc: How much random spread each projectile gets. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(0, 4)" gives every shot in a volley its own spread.
+                                or:
+                                  - type: number
+                                    min: 0
+                                    default: 1
+                                  - link: expression
                             pierce:
                                 desc: How many entities the projectile passes through. It hits them, runs its hit actions and flies on instead of stopping. -1 passes through every entity. It is worked out at each hit, with the owner as the entity. See Passing through.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#passing-through
-                                link: expression_integer
+                                or:
+                                  - type: integer
+                                    default: 0
+                                  - link: expression
                             reflective:
                                 desc: Makes the projectile bounce off blocks instead of stopping on them, and off the entities it hits when entities is on. true bounces off blocks with the default settings. See Bouncing off walls.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
@@ -4475,62 +4605,64 @@ links:
                             sticky:
                                 desc: Makes the projectile stick in the block it hits and stay there, like an arrow, instead of ending the shot. true sticks with the default settings. See Sticking to walls.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#sticking-to-walls
+                                unspec: true
                                 or:
                                   - title: simple
-                                    link: boolean_optional
+                                    talias: boolean
+                                    type: boolean
                                   - title: advanced
                                     talias: object
                                     link: projectile_sticking
                             sound:
-                                desc: If set, the sound with this ID will be played when the power is used.
+                                desc: A sound to play when the action runs. Sounds that only a resource pack defines work too.
                                 link: meta_sound_event
                             tag:
                                 desc: NBT data to apply to projectiles.
                                 link: nbt
                             entity_action_before_firing:
-                                desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+                                desc: Runs on the entity firing the projectile, just before the projectile is created.
                                 link: entity_action
                             projectile_action:
-                                desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
+                                desc: Runs on the projectile or entity that is launched.
                                 link: entity_action
                             shooter_action:
-                                desc: If specified, this entity action will be executed on the entity firing the projectile.
+                                desc: Runs on the entity firing the projectile.
                                 link: entity_action
                             bientity_action_after_firing:
-                                desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                                desc: Runs as soon as the projectile is created, with the owner as the actor and the projectile as the target.
                                 link: bientity_action
                             tick_bientity_action:
-                                desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+                                desc: Runs every tick of the projectile's flight, with the owner as the actor and the projectile as the target.
                                 link: bientity_action
                             block_condition:
-                                desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                                desc: The block hit by the projectile must pass this for block_action_on_hit to run.
                                 link: block_condition
                             block_action_on_hit:
-                                desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                                desc: Runs on the block the projectile lands on.
                                 link: block_action
                             block_action_cancels_miss_action:
-                                desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                                desc: Whether block_action_on_hit cancels bientity_action_on_miss.
                                 type: boolean
                             bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                                desc: Tested with the projectile as the actor and the entity in its path as the target. The projectile only hits the entity when this passes, and passes through it otherwise.
+                                link: bientity_condition
+                            owner_bientity_condition:
+                                desc: The same test with the owner as the actor and the entity in its path as the target.
                                 link: bientity_condition
                             bientity_action_on_bounce:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target every time it bounces.
+                                desc: Runs every time the projectile bounces, with the owner as the actor and the projectile as the target.
                                 link: bientity_action
                             bientity_action_on_expire:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target when the projectile runs out of max_distance or lifetime and is removed. It does not run when return turns the projectile around instead.
+                                desc: Runs when the projectile runs out of max_distance, lifetime or its sticky duration and is removed, with the owner as the actor and the projectile as the target. It doesn't run when return turns the projectile around instead.
                                 link: bientity_action
                             bientity_action_on_miss:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                                desc: Runs when the projectile misses, with the owner as the actor and the projectile as the target.
                                 link: bientity_action
                             bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                                desc: Runs when the projectile hits an entity, with the projectile as the actor and the hit entity as the target.
                                 link: bientity_action
-                            owner_bientity_condition:
-                                desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                                link: bientity_condition
                             owner_target_bientity_action_on_hit:
-                                desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+                                desc: Runs when the projectile hits an entity, with the owner as the actor and the hit entity as the target.
                                 link: bientity_action
                         string-origins:force_key_pressed:
                             key:
@@ -4549,13 +4681,20 @@ links:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/freeze/
                                 desc: What to set the freeze counter to. Left out, the entity is frozen solid immediately and stays there — set just far enough past the threshold to survive vanilla’s drain, so freeze damage actually lands. A negative value freezes it effectively forever.
-                                link: expression_integer
+                                unspec: true
+                                or:
+                                  - type: integer
+                                  - link: expression
                         string-origins:unfreeze: {}
                         string-origins:gain_air:
                             value:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/gain_air
-                                desc: The amount of breath to restore.
-                                link: expression_integer
+                                desc: How much breath to restore.
+                                or:
+                                  - type: integer
+                                    required: true
+                                  - type: expression
+                                    required: true
                         string-origins:give:
                             stack:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/give
@@ -4593,8 +4732,12 @@ links:
                         string-origins:heal:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/heal
-                                desc: The amount of health to restore.
-                                link: expression_float
+                                desc: How much health to restore. A negative amount removes that much health.
+                                or:
+                                  - type: number
+                                    required: true
+                                  - link: expression
+                                    required: true
                         string-origins:modify_death_ticks:
                             modifier:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_death_ticks
@@ -4690,23 +4833,30 @@ links:
                         string-origins:modify_resource:
                             resource:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_resource
-                                desc: The apoli:resource or apoli:cooldown power to modify. Any power with a built-in cooldown also works.
+                                desc: The apoli:resource or apoli:cooldown power to change. Any power with a built-in cooldown works too.
                                 link: meta_local_power_id
                             modifier:
-                                desc: The modifier to apply to the current value of the target power.
+                                desc: The modifier applied to the power's current value. When from is set, only the modifier's operation is used, and the incoming value is the source slot.
                                 link: attribute_modifier
                             position:
-                                desc: Which slot of a table resource to modify. Omit it on a table and every slot is modified. Also aliased as index and slot.
+                                desc: Which slot of a table resource to change. Leave it out on a table and every slot is changed. index and slot are accepted as aliases.
                                 talias: [index,slot]
-                                link: expression_integer
+                                unspec: true
+                                or:
+                                  - type: integer
+                                  - link: expression
                             from:
-                                desc: Copy from this resource instead of computing a value from the modifier. Also aliased as from_resource.
+                                desc: Copies from this resource instead of working out a value from the modifier.
                                 talias: from_resource
+                                unspec: true
                                 link: meta_local_power_id
                             from_position:
-                                desc: Which slot of from to read. Also aliased as from_index and from_slot.
+                                desc: Which slot of from to read.
                                 talias: [from_index,from_slot]
-                                link: expression_integer
+                                unspec: true
+                                or:
+                                  - type: integer
+                                  - link: expression
                         string-origins:modify_stat:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_stat
@@ -4734,11 +4884,15 @@ links:
                         string-origins:play_sound:
                             sound:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/play_sound
-                                desc: The ID of the sound event to play.
+                                desc: The ID of the sound event to play. It can be a sound that only a resource pack's sounds.json defines, and players without that pack hear nothing.
                                 link: meta_sound_event
+                                required: true
                             index:
                                 desc: Which of the sound event's sound files to play, counting from 0 in the order sounds.json lists them. Leave it out to pick one at random, as Minecraft does. An index past the end of the list also picks at random.
-                                link: expression_integer
+                                unspec: true
+                                or:
+                                  - type: integer
+                                  - link: expression
                             category:
                                 link: sound_category
                             volume:
@@ -4753,10 +4907,10 @@ links:
                                 min: 0
                                 max: 2
                             follow_entity:
-                                desc: Whether the sound moves with the entity instead of staying at the position it started at.
+                                desc: Whether the sound moves with the entity instead of staying where it started.
                                 type: boolean
                             global:
-                                desc: Whether the sound is audible at any distance, ignoring the usual range falloff. Defaults to whatever follow_entity is.
+                                desc: Whether the sound can be heard at any distance, ignoring the usual falloff. Defaults to the value of follow_entity.
                                 link: boolean_optional
                             internal:
                                 desc: Whether to skip playing the sound for the entity itself, so only other players hear it. Only has an effect when the entity is a player.
@@ -5052,12 +5206,19 @@ links:
                                 enum: ['set','add','subtract','multiply','divide','power']
                             scale:
                                 desc: The right-hand side of the operation.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 1
+                                  - link: expression
                             ticks:
-                                desc: How long the change takes. 0 snaps immediately.
-                                link: expression_integer
+                                desc: How long the change takes. 0 applies it immediately.
+                                or:
+                                  - type: integer
+                                    default: 0
+                                  - link: expression
                             easing:
                                 desc: How the change is spread over ticks.
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/scale-type/
                                 link: easing
                         string-origins:set_fall_distance:
                             fall_distance:
@@ -5067,8 +5228,12 @@ links:
                         string-origins:set_on_fire:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_on_fire
-                                desc: The amount of seconds the entity should burn.
-                                link: expression_integer
+                                desc: How many seconds the entity burns for.
+                                or:
+                                  - type: integer
+                                    required: true
+                                  - link: expression
+                                    required: true
                         string-origins:set_perspective:
                             perspective:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/set_perspective/
@@ -5139,31 +5304,46 @@ links:
                         string-origins:spawn_particles:
                             bientity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/spawn_particles
-                                desc: If specified, the particle will only be visible if this bi-entity condition is fulfilled by either or both the entity that has the power and the entity looking at the entity that has the power.
+                                desc: If set, a viewer only sees the particles when this condition passes. The actor is the entity the action runs on and the target is the player looking at it.
                                 link: bientity_condition
                             particle:
-                                desc: The particle type that will be spawned.
+                                desc: The particle type to spawn. Use apoli:custom for a particle built from your own texture.
                                 link: particle_effect
+                                required: true
                             count:
-                                desc: How much of the specified particle type will be spawned.
-                                link: expression_integer
+                                desc: How many particles to spawn.
+                                or:
+                                  - type: integer
+                                    required: true
+                                  - link: expression
+                                    required: true
                             speed:
-                                desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
+                                desc: |
+                                    A number is vanilla's random speed multiplier: every particle flies off in a random direction at up to that speed. A vector gives every particle that exact velocity instead, which is what you want when the particles should travel somewhere. Read through space.
                                 unspec: true
                                 or:
-                                  - title: number
-                                    link: expression_float
-                                  - title: vector
-                                    link: vector
+                                  - type: number
+                                    default: 0
+                                  - link: expression
+                                  - link: vector
                             velocity_x:
                                 desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             velocity_y:
                                 desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             velocity_z:
                                 desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             space:
                                 desc: |
                                     How offset_*, spread and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking. With model_part set and no space written, both are read in the part’s own frame instead — see below.
@@ -5172,32 +5352,44 @@ links:
                             model_part:
                                 desc: Anchor the particles to a body part instead of the entity’s feet, and read offset_* and the velocity along that part. See Particles on a body part for the names.
                                 link: body_part
+                                unspec: true
                             force:
                                 desc: If set to true, the specified particle type that will be spawned can be seen from a far distance.
                                 type: boolean
                             spread:
                                 desc: |
-                                    The size of the volume the particles scatter through. A single number is the same figure on all three axes; a vector is per axis. Every component may be an expression. Read through space like the offset is, so space: "local" with {"x": 0, "y": 0, "z": 3} draws a line running away from the entity’s face rather than along world south.
+                                    The size of the volume the particles scatter through. A single number is the same figure on all three axes; a vector is per axis. Every component may be an expression. Read through space like the offset is, so space: "local" with {"x": 0, "y": 0, "z": 3} draws a line running away from the entity’s face rather than along world south. Unspecified default: {"x": 0.5, "y": 0.5, "z": 0.5}
                                 unspec: true
                                 or:
-                                  - title: number
-                                    link: expression_float
-                                  - title: vector
-                                    link: vector
+                                  - type: number
+                                  - link: expression
+                                  - link: vector
                             offset_x:
                                 desc: The offset of where the particle will be centered in the X axis.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             offset_y:
                                 desc: The offset of where the particle will be centered in the Y axis. Defaults to 0.5.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0.5
+                                  - link: expression
                             offset_z:
                                 desc: The offset of where the particle will be centered in the Z axis.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                         string-origins:start_raid:
                             omen_level:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/start_raid/
                                 desc: The omen level the raid absorbs, from 1 to 5. A new raid starts at this level; a raid already running here adds it to its own level, up to 5. Values outside 1–5 are clamped. Higher levels add a bonus wave and give raiders better odds of enchanted gear.
-                                link: expression_integer
+                                or:
+                                  - type: integer
+                                    default: 1
+                                  - link: expression
                             success_action:
                                 desc: Runs on the entity when a raid starts or grows.
                                 link: entity_action
@@ -5421,17 +5613,26 @@ links:
                                 link: block_condition
                             x:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                                 gap: above
                             y:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             z:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
-                                link: expression_float
+                                or:
+                                  - type: number
+                                    default: 0
+                                  - link: expression
                             relative:
                                 desc: |
-                                    Whether x/y/z are an offset from the entity (true) or world coordinates (false). Alias: relative_to_position.
+                                    Whether x/y/z are an offset from the entity (true) or world coordinates (false).
                                 talias: relative_to_position
                                 type: boolean
                                 default: true
@@ -5445,12 +5646,16 @@ links:
                                 unspec: true
                             yaw:
                                 desc: The horizontal rotation to arrive with. Left alone if not given.
-                                link: expression_float
                                 unspec: true
+                                or:
+                                  - type: number
+                                  - link: expression
                             pitch:
                                 desc: The vertical rotation to arrive with. Left alone if not given.
-                                link: expression_float
                                 unspec: true
+                                or:
+                                  - type: number
+                                  - link: expression
                             loaded_chunks_only:
                                 desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
                                 type: boolean
@@ -5726,10 +5931,7 @@ links:
                                     link: item_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
-                                required: true
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -5738,9 +5940,7 @@ links:
                                 link: item_action
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: item_action
@@ -5941,10 +6141,7 @@ links:
                                     link: block_action
                         string-origins:random_chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
-                                desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
-                                required: true
+                                link: meta_action_random_chance
                             action:
                                 desc: The action which might be executed.
                                 link: block_action
@@ -5953,9 +6150,7 @@ links:
                                 link: block_action
                         string-origins:chance:
                             chance:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
-                                desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
-                                link: expression_float
+                                link: meta_action_chance
                             action:
                                 desc: The action which might be executed.
                                 link: block_action
@@ -6574,8 +6769,12 @@ links:
                     string-origins:cooldown:
                         cooldown:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/cooldown/
-                            desc: The number of ticks the cooldown needs to recharge from 0 back to cooldown. Becomes the resource’s max.
-                            link: expression_integer
+                            desc: How many ticks the cooldown lasts once triggered.
+                            or:
+                              - type: integer
+                                required: true
+                              - link: expression
+                                required: true
                         hud_render:
                             desc: Determines how the cooldown is visualized on the HUD.
                             link: hud_render
@@ -6885,9 +7084,11 @@ links:
                         count:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/fire_projectile/
                             desc: The amount of projectiles to fire each use.
-                            type: integer
-                            default: 1
-                            min: 1
+                            or:
+                              - type: integer
+                                default: 1
+                                min: 1
+                              - link: expression
                         interval:
                             desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
                             type: integer
@@ -6904,11 +7105,15 @@ links:
                             desc: Which active key this power should respond to. If none is specified, this power will use the primary active power key.
                             link: keybind
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge before it can be used again.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
+                            gap: below
                         entity_type:
                             desc: The identifier of the projectile or entity that will be launched.
                             helper:
@@ -6918,41 +7123,65 @@ links:
                             link: identifier
                         texture_location:
                             desc: If specified, the texture used for the custom projectile and entity_type is ignored.
+                            unspec: true
                             link: meta_texture
                         speed:
-                            desc: The speed applied to the fired projectile.
-                            link: expression_float
+                            desc: The speed of the fired projectile. An expression is evaluated for every projectile, with the shooter as the subject.
+                            or:
+                              - type: number
+                                default: 1.5
+                              - link: expression
                         max_distance:
-                            desc: Removes the projectile once it has travelled this far, in blocks. 0 leaves it to fly until it hits something or expires. Apoli’s own shots keep drifting on inertia, so speed alone does not bound their range.
-                            link: expression_float
+                            desc: Removes the projectile once it has travelled this far in blocks, or turns it around when return is set. Distance is measured along the path it flew, so bounces and homing curves count. 0 lets it fly until it hits something or expires.
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         lifetime:
-                            desc: Removes the projectile after this many ticks in the air, whatever it is doing, running bientity_action_on_expire first. It is the backstop for a slow projectile that would otherwise hang where it stopped — in water, say. Unlike max_distance it also ends a projectile that is on its way back. 0 sets no limit.
-                            link: expression_integer
+                            desc: Removes the projectile this many ticks after it is fired, whatever it is doing, and runs bientity_action_on_expire first. Time spent stuck in a block with sticky counts too. Use it as the backstop for a slow projectile that would otherwise hang where it stopped, in water for example. Unlike max_distance, it also ends a projectile on its way back. 0 sets no limit.
+                            or:
+                              - type: integer
+                                default: 0
+                              - link: expression
                         offset_x:
                             desc: |
-                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                            link: expression_float
+                                Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         offset_y:
                             desc: |
-                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                            link: expression_float
+                                Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         offset_z:
                             desc: |
-                                Where the projectile spawns, relative to the shooter’s eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking — the muzzle of a cannon rather than a point due south of it.
-                            link: expression_float
+                                Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         space:
                             desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
                             link: space
                             default: 1
                         divergence:
-                            desc: How much each projectile fired is affected by random spread.
-                            type: number
-                            min: 0
-                            default: 1
+                            desc: How much random spread each projectile gets. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(0, 4)" gives every shot in a volley its own spread.
+                            or:
+                              - type: number
+                                min: 0
+                                default: 1
+                              - link: expression
                         pierce:
                             desc: How many entities the projectile passes through. It hits them, runs its hit actions and flies on instead of stopping. -1 passes through every entity. It is worked out at each hit, with the owner as the entity. See Passing through.
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#passing-through
-                            link: expression_integer
+                            or:
+                              - type: integer
+                                default: 0
+                              - link: expression
                         reflective:
                             desc: Makes the projectile bounce off blocks instead of stopping on them, and off the entities it hits when entities is on. true bounces off blocks with the default settings. See Bouncing off walls.
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
@@ -6974,62 +7203,64 @@ links:
                         sticky:
                             desc: Makes the projectile stick in the block it hits and stay there, like an arrow, instead of ending the shot. true sticks with the default settings. See Sticking to walls.
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#sticking-to-walls
+                            unspec: true
                             or:
                               - title: simple
-                                link: boolean_optional
+                                talias: boolean
+                                type: boolean
                               - title: advanced
                                 talias: object
                                 link: projectile_sticking
                         sound:
-                            desc: If set, the sound with this ID will be played when the power is used.
+                            desc: A sound to play when the action runs. Sounds that only a resource pack defines work too.
                             link: meta_sound_event
                         tag:
                             desc: NBT data to apply to projectiles.
                             link: nbt
                         entity_action_before_firing:
-                            desc: If specified, the entity action to execute on the entity firing the projectile just prior to the projectile being created.
+                            desc: Runs on the entity firing the projectile, just before the projectile is created.
                             link: entity_action
                         projectile_action:
-                            desc: If specified, this entity action will be executed on the projectile or entity that will be launched.
+                            desc: Runs on the projectile or entity that is launched.
                             link: entity_action
                         shooter_action:
-                            desc: If specified, this entity action will be executed on the entity firing the projectile.
+                            desc: Runs on the entity firing the projectile.
                             link: entity_action
                         bientity_action_after_firing:
-                            desc: If specified, the bi-entity action to execute with the projectile owner the actor, and the projectile as the target as soon as the projectile is created.
+                            desc: Runs as soon as the projectile is created, with the owner as the actor and the projectile as the target.
                             link: bientity_action
                         tick_bientity_action:
-                            desc: If specified, the bi-entity action with the projectile owner as the actor, and the projectile as the target that is run each tick of the projectile’s lifespan.
+                            desc: Runs every tick of the projectile's flight, with the owner as the actor and the projectile as the target.
                             link: bientity_action
                         block_condition:
-                            desc: If specified, the block condition that the block targeted by the block_action_on_hit field must meet in order for that to run.
+                            desc: The block hit by the projectile must pass this for block_action_on_hit to run.
                             link: block_condition
                         block_action_on_hit:
-                            desc: If specified, the block action to execute on the block the projectile lands on upon having it land on it.
+                            desc: Runs on the block the projectile lands on.
                             link: block_action
                         block_action_cancels_miss_action:
-                            desc: Determines if the block_action_on_hit action will cancel the bientity_action_on_miss action.
+                            desc: Whether block_action_on_hit cancels bientity_action_on_miss.
                             type: boolean
                         bientity_condition:
-                            desc: If specified, the bi-entity condition with the projectile as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
+                            desc: Tested with the projectile as the actor and the entity in its path as the target. The projectile only hits the entity when this passes, and passes through it otherwise.
+                            link: bientity_condition
+                        owner_bientity_condition:
+                            desc: The same test with the owner as the actor and the entity in its path as the target.
                             link: bientity_condition
                         bientity_action_on_bounce:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target every time it bounces.
+                            desc: Runs every time the projectile bounces, with the owner as the actor and the projectile as the target.
                             link: bientity_action
                         bientity_action_on_expire:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor and the projectile as the target when the projectile runs out of max_distance or lifetime and is removed. It does not run when return turns the projectile around instead.
+                            desc: Runs when the projectile runs out of max_distance, lifetime or its sticky duration and is removed, with the owner as the actor and the projectile as the target. It doesn't run when return turns the projectile around instead.
                             link: bientity_action
                         bientity_action_on_miss:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the projectile as the target upon missing.
+                            desc: Runs when the projectile misses, with the owner as the actor and the projectile as the target.
                             link: bientity_action
                         bientity_action_on_hit:
-                            desc: If specified, the bi-entity action to execute with the projectile as the actor, and the hit entity as the target upon hitting an entity.
+                            desc: Runs when the projectile hits an entity, with the projectile as the actor and the hit entity as the target.
                             link: bientity_action
-                        owner_bientity_condition:
-                            desc: If specified, the bi-entity condition with the projectile owner as the actor and the target as the target for the projectile to actually hit the target instead of pass through.
-                            link: bientity_condition
                         owner_target_bientity_action_on_hit:
-                            desc: If specified, the bi-entity action to execute with the projectile owner as the actor, and the hit entity as the target upon hitting an entity.
+                            desc: Runs when the projectile hits an entity, with the owner as the actor and the hit entity as the target.
                             link: bientity_action
                     string-origins:fluid_vision:
                         fluid:
@@ -7110,8 +7341,11 @@ links:
                             type: boolean
                             default: true
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge before it can hear game events again.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -7268,26 +7502,42 @@ links:
                     string-origins:particle:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/particle/
-                            desc: If specified, the particle will only be visible if this bi-entity condition is fulfilled by either or both the entity that has the power and the entity looking at the entity that has the power.
+                            desc: If set, a viewer only sees the particles when this condition passes. The actor is the entity that has the power and the target is the player looking at it.
                             link: bientity_condition
                         particle:
-                            desc: The particle type that will be spawned.
+                            desc: The particle type to spawn. Use apoli:custom for a particle built from your own texture.
                             link: particle_effect
                         frequency:
                             desc: Determines how often the particles should spawn (interval in ticks).
-                            link: expression_integer
+                            or:
+                              - type: integer
+                                required: true
+                              - link: expression
+                                required: true
                         count:
-                            desc: Determines the amount of particles to spawn.
-                            link: expression_integer
+                            desc: How many particles spawn each time.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         offset_x:
-                            desc: The offset of where the particle will be centered in the X axis.
-                            link: expression_float
+                            desc: Where the particles are centered on the X axis, relative to the anchor.
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         offset_y:
-                            desc: The offset of where the particle will be centered in the Y axis.
-                            link: expression_float
+                            desc: Where the particles are centered on the Y axis, relative to the anchor.
+                            or:
+                              - type: number
+                                default: 0.5
+                              - link: expression
                         offset_z:
-                            desc: The offset of where the particle will be centered in the Z axis.
-                            link: expression_float
+                            desc: Where the particles are centered on the Z axis, relative to the anchor.
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         space:
                             desc: |
                                 How offset_* and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking.
@@ -7295,19 +7545,28 @@ links:
                         speed:
                             desc: A number is vanilla’s random speed multiplier — every particle flies off in a random direction at up to that speed. A vector instead gives every particle that exact velocity, which is the version you want when the particles should go somewhere. Read through space.
                             or:
-                              - title: number
-                                link: expression_float
-                              - title: vector
-                                link: vector
+                              - type: number
+                                default: 0
+                              - link: expression
+                              - link: vector
                         velocity_x:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         velocity_y:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         velocity_z:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         model_part:
                             desc: Anchor the particles to a body part instead of the entity’s feet, and read offset_* and the velocity along that part. See Particles on a body part for the names.
                             link: body_part
@@ -7319,10 +7578,9 @@ links:
                             desc: |
                                 The size of the volume the particles scatter through. A single number is the same figure on all three axes; a vector is per axis. Every component may be an expression. Read through space like the offset is, so space: "local" with {"x": 0, "y": 0, "z": 3} draws a line running away from the entity’s face rather than along world south.
                             or:
-                              - title: number
-                                link: expression_float
-                              - title: vector
-                                link: vector
+                              - type: number
+                              - link: expression
+                              - link: vector
                         visible_in_first_person:
                             desc: Determines whether the particle type should be visible in first person.
                             type: boolean
@@ -7465,13 +7723,26 @@ links:
                         min:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/resource/
                             desc: The minimum value of the resource. When an Expression, re-evaluated each tick. Omit it and the resource has no lower bound.
-                            link: expression_integer
+                            unspec: true
+                            or:
+                              - type: number
+                                talias: integer
+                              - link: expression
                         max:
                             desc: The maximum value of the resource. When an Expression, re-evaluated each tick. Omit it and the resource has no upper bound.
-                            link: expression_integer
+                            unspec: true
+                            or:
+                              - type: number
+                                talias: integer
+                              - link: expression
                         start_value:
                             desc: The value of the resource when the entity first receives the power.
-                            link: expression_integer
+                            talias: default
+                            unspec: true
+                            or:
+                              - type: number
+                                talias: integer
+                              - link: expression
                         size:
                             desc: How many values this resource stores. Above 1 the power becomes a table of that many slots, each addressed by a position from 0 to size - 1. Also aliased as positions and slots. There is no upper limit — see Big tables.
                             type: integer
@@ -7508,12 +7779,19 @@ links:
                                         link: comparison
                                     value:
                                         desc: The number the new value is compared with.
-                                        link: expression_integer
+                                        unspec: true
+                                        or:
+                                          - type: number
+                                            talias: integer
+                                          - link: expression
                                     values:
                                         desc: More numbers to compare with. The entry matches if the comparison holds for value or for any of these.
                                         type: list
                                         vals:
-                                            link: expression_integer
+                                            or:
+                                              - type: number
+                                                talias: integer
+                                              - link: expression
                         persistent:
                             desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
                             type: boolean
@@ -7547,7 +7825,10 @@ links:
                                     link: scale_type
                         scale:
                             desc: A straight multiplier. 2 is twice the size, 0.5 is half.
-                            link: expression_float
+                            unspec: true
+                            or:
+                              - type: number
+                              - link: expression
                         modifier:
                             desc: A modifier applied to scale (or to 1.0 when scale is absent).
                             link: attribute_modifier
@@ -7944,7 +8225,12 @@ links:
                         zoom:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/zoom/
                             desc: Magnification. 4 shows a quarter of the normal field of view. Values below 1 widen the view instead. Clamped to 0.05 – 100.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 4
+                                min: 0.05
+                                max: 100
+                              - link: expression
                         scale_sensitivity:
                             desc: Slow mouse turning by the same factor, so aiming feels the same at any zoom.
                             type: boolean
@@ -8090,10 +8376,10 @@ links:
                     string-origins:action_on_collision:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_collision/
-                            desc: Gates firing on the (actor, target) pair.
+                            desc: Must pass for the actor and target pair before the power fires.
                             link: bientity_condition
                         target_condition:
-                            desc: Gates firing on the target.
+                            desc: Must pass for the target.
                             link: entity_condition
                         radius:
                             desc: Extra blocks to inflate the holder’s bounding box by before looking for overlaps. 0.0 means the boxes must actually touch.
@@ -8112,8 +8398,11 @@ links:
                             desc: Action run on the entity being collided with.
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 0
+                            desc: Ticks the power needs to recharge between fires. 0 fires every tick, for every colliding entity.
+                            or:
+                              - type: integer
+                                default: 0
+                              - link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8153,8 +8442,11 @@ links:
                             desc: Action run on the target (the entity that was hit).
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8183,8 +8475,11 @@ links:
                             desc: Action run on the target (the entity that was hit).
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8214,8 +8509,11 @@ links:
                             talias: entity_action
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8260,8 +8558,11 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_key_press/#acting-on-release
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge before it can be triggered again.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8274,8 +8575,11 @@ links:
                             desc: (DEPRECATED) The action to execute on the player.
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge before it can be triggered again.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8291,8 +8595,11 @@ links:
                             desc: Run when a key press breaks a partial match.
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 0
+                            desc: Ticks to ignore input for after a success.
+                            or:
+                              - type: integer
+                                default: 0
+                              - link: expression
                         timeout:
                             desc: Ticks of no tracked key press before a partial combo is forgotten. 0 never expires.
                             type: integer
@@ -8319,30 +8626,33 @@ links:
                     string-origins:action_on_kill:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_on_kill/
-                            desc: Gates firing on the (killer, victim) pair.
+                            desc: Must pass for the killer and victim pair before the power fires.
                             link: bientity_condition
                         attacker_condition:
-                            desc: Gates firing on the killer.
+                            desc: Must pass for the killer.
                             link: entity_condition
                         damage_condition:
-                            desc: Gates firing on the killing damage.
+                            desc: Must pass for the killing damage.
                             link: damage_condition
                         target_condition:
-                            desc: Gates firing on the entity that died.
+                            desc: Must pass for the entity that died.
                             link: entity_condition
                         bientity_action:
-                            desc: Action run with the (killer, victim) pair.
+                            desc: Runs on the killer and victim as a pair.
                             link: bientity_action
                         self_action:
-                            desc: Action run on the killer (the entity that has the power).
+                            desc: Runs on the killer, the entity that has the power.
                             talias: [attacker_action, entity_action]
                             link: entity_action
                         target_action:
                             desc: Action run on the entity that died.
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8371,8 +8681,11 @@ links:
                             desc: Action run on the entity that died.
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8408,7 +8721,10 @@ links:
                             type: boolean
                         cooldown:
                             desc: Ticks before the action can fire again.
-                            link: expression_integer
+                            or:
+                              - type: integer
+                                default: 0
+                              - link: expression
                         hud_render:
                             desc: How the cooldown is drawn on the HUD.
                             link: hud_render
@@ -8438,7 +8754,9 @@ links:
                             desc: Swallow the scroll so the held hotbar slot does not move.
                             type: boolean
                         cooldown:
-                            link: expression_integer
+                            desc: Ticks before the power can fire again.
+                            link: expression
+                            default: '0'
                         hud_render:
                             desc: Draws the cooldown as a resource bar.
                             link: hud_render
@@ -8595,13 +8913,18 @@ links:
                     string-origins:action_over_time:
                         interval:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/action_over_time/
-                            desc: Interval of ticks between subsequent executions of the specified actions. Must be a value of at least 1.
-                            type: integer
-                            min: 1
-                            default: 20
+                            desc: Ticks between runs of the actions, at least 1. An expression is read again every time the action fires, so the gap can change while the power runs. See A changing interval.
+                            or:
+                              - type: integer
+                                min: 1
+                                default: 20
+                              - link: expression
                         onset_delay:
                             desc: Ticks to wait after the condition first becomes true before entity_action starts running. rising_action still fires immediately.
-                            link: expression_integer
+                            or:
+                              - type: integer
+                                default: 0
+                              - link: expression
                         rising_action:
                             desc: The action to execute on the first interval tick in which the condition became true.
                             link: entity_action
@@ -8647,8 +8970,11 @@ links:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8677,8 +9003,11 @@ links:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8708,8 +9037,11 @@ links:
                             talias: entity_action
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8738,8 +9070,11 @@ links:
                             desc: Action run on the actor (the entity that dealt the damage).
                             link: entity_action
                         cooldown:
-                            link: expression_integer
-                            default: 1
+                            desc: Ticks the power needs to recharge between fires.
+                            or:
+                              - type: integer
+                                default: 1
+                              - link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8835,27 +9170,48 @@ links:
                             link: space
                         x:
                             desc: Offset to the left (local) or along world X (world), in blocks.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         y:
                             desc: Offset upward, in blocks.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         z:
                             desc: Offset forward (local) or along world Z (world), in blocks. Negative is behind.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         pitch:
                             desc: |
                                 Degrees added to the camera’s pitch. Positive looks down. With look: fixed, the absolute pitch.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         yaw:
                             desc: |
                                 Degrees added to the camera’s yaw. With look: fixed, the absolute yaw (0 faces south).
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         roll:
                             desc: Degrees the camera is rolled. Positive tilts the view clockwise.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         fov:
                             desc: Field-of-view multiplier. 0.5 halves the FOV (zooms in), 1.5 widens it.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 1
+                              - link: expression
                         look:
                             desc: |
                                     Where the camera points:
@@ -9035,7 +9391,10 @@ links:
                         velocity:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_falling/
                             desc: Determines the speed of the falling velocity.
-                            link: expression_float
+                            unspec: true
+                            or:
+                              - type: number
+                              - type: expression
                         modifier:
                             desc: A single modifier applied to the gravity that survives the velocity step. Unlike velocity this can speed a fall up.
                             link: attribute_modifier
@@ -9050,25 +9409,46 @@ links:
                         s:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/modify_fog/
                             desc: Fog start distance in blocks — how far you can see before fog begins.
-                            link: expression_float
+                            unspec: true
+                            or:
+                              - type: number
+                              - link: expression
                         v:
                             desc: Fog end distance in blocks — where fog becomes fully opaque.
-                            link: expression_float
+                            unspec: true
+                            or:
+                              - type: number
+                              - link: expression
                         r:
                             desc: Red channel of the fog colour, 0–1.
-                            link: expression_float
+                            unspec: true
+                            or:
+                              - type: number
+                              - link: expression
                         g:
                             desc: Green channel of the fog colour, 0–1.
-                            link: expression_float
+                            unspec: true
+                            or:
+                              - type: number
+                              - link: expression
                         b:
                             desc: Blue channel of the fog colour, 0–1.
-                            link: expression_float
+                            unspec: true
+                            or:
+                              - type: number
+                              - link: expression
                         fade_in:
                             desc: Seconds to ease into this power’s fog when it starts applying.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         fade_out:
                             desc: Seconds to ease out of this power’s fog when it stops applying.
-                            link: expression_float
+                            or:
+                              - type: number
+                                default: 0
+                              - link: expression
                         priority:
                             desc: Which power wins when two of them set the same field. Higher wins.
                             type: integer
@@ -9398,8 +9778,10 @@ links:
                             default: 0
                         rate:
                             desc: Logical ticks per second. 20 is normal speed, 10 is half speed, 0 stops everything. Omit it to leave the rate inherited and only set frozen.
-                            link: expression_integer
                             unspec: true
+                            or:
+                              - type: integer
+                              - link: expression
                         frozen:
                             desc: Stops ticking entirely, regardless of rate.
                             type: boolean
@@ -9412,7 +9794,10 @@ links:
                             link: bientity_condition
                         radius:
                             desc: area only — how far the effect reaches. A single number is used for all three axes.
-                            link: vector_or_number
+                            or:
+                              - type: number
+                                default: 16
+                              - link: vector
                         shape:
                             desc: area only — the shape carved out of that radius.
                             link: shape
@@ -10151,12 +10536,17 @@ links:
                 desc: An extra gate for this step only, checked on the ticks the step is due.
                 link: entity_condition
             interval:
-                desc: Ticks between executions of this step.
-                type: integer
-                default: 20
+                desc: Ticks between runs of this step. An expression is read again each time the step fires.
+                or:
+                  - type: integer
+                    default: 20
+                  - link: expression
             onset_delay:
                 desc: Ticks to wait after the condition first became true before this step starts.
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 0
+                  - link: expression
             entity_action:
                 desc: The action this step runs.
                 link: entity_action
@@ -10187,9 +10577,21 @@ links:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: meta_local_power_id
                 unspec: true
+            position:
+                desc: Which slot of resource to read, when it names a table apoli:resource. Ignored without resource. index and slot are accepted as aliases.
+                talias: [index,slot]
+                unspec: true
+                or:
+                  - type: integer
+                  - link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                link: expression_float
+                talias: amount
+                unspec: true
+                or:
+                  - type: number
+                    default: 0
+                  - link: expression
             modifier:
                 link: attribute_modifier
     attribute_modifier_array:
@@ -10222,9 +10624,21 @@ links:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: meta_local_power_id
                 unspec: true
+            position:
+                desc: Which slot of resource to read, when it names a table apoli:resource. Ignored without resource. index and slot are accepted as aliases.
+                talias: [index,slot]
+                unspec: true
+                or:
+                  - type: integer
+                  - link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                link: expression_float
+                talias: amount
+                unspec: true
+                or:
+                  - type: number
+                    default: 0
+                  - link: expression
             modifier:
                 link: attribute_modifier_attribute
     attribute_modifier_resource:
@@ -10241,9 +10655,21 @@ links:
                 desc: If set, use the value of this Resource (or Cooldown) power as the modifier value instead of value/value-as-Expression.
                 link: meta_local_power_id
                 unspec: true
+            position:
+                desc: Which slot of resource to read, when it names a table apoli:resource. Ignored without resource. index and slot are accepted as aliases.
+                talias: [index,slot]
+                unspec: true
+                or:
+                  - type: integer
+                  - link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                link: expression_float
+                talias: amount
+                unspec: true
+                or:
+                  - type: number
+                    default: 0
+                  - link: expression
             modifier:
                 link: attribute_modifier_resource
     attribute_modifier_legacy:
@@ -10262,7 +10688,12 @@ links:
                 unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                link: expression_float
+                talias: amount
+                unspec: true
+                or:
+                  - type: number
+                    default: 0
+                  - link: expression
             modifier:
                 link: attribute_modifier_legacy
     attribute_modifier_operation:
@@ -10588,6 +11019,7 @@ links:
         enum: ['mainhand','offhand','head','chest','legs','feet']
         unspec: true
     expression:
+        title: expression
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
         desc: A math expression. See the doc for more information.
         type: string
@@ -10729,9 +11161,13 @@ links:
             order:
                 desc: The bar's position in the stack of HUD bars. The higher the order, the higher it sits.
                 type: integer
+                unspec: true
             max:
                 desc: The value at which the bar reads full, overriding whatever the power itself would use. Required to draw a bar for a resource that has no max of its own (see below).
-                link: expression_float
+                unspec: true
+                or:
+                  - type: number
+                  - link: expression
             fallback:
                 desc: What to draw when sprite_location isn't in any loaded resource pack. See Fallback textures.
                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render/#fallback-textures
@@ -11143,7 +11579,26 @@ links:
                 prevent:
                     desc: Swallow the message — it is never sent to chat — and stop testing later filters in this power.
                     type: boolean
-        link: expression_float
+    meta_action_chance:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/chance
+        desc: (ALIAS) The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+        or:
+          - type: number
+            min: 0
+            max: 1
+            required: true
+          - link: expression
+            required: true
+    meta_action_random_chance:
+        href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
+        desc: The chance that the action will execute, from 0 to 1. (E.g. 0.1 means 10% chance, 0.95 means 95% chance). An Expression is evaluated each attempt against the context entity.
+        or:
+          - type: number
+            min: 0
+            max: 1
+            required: true
+          - link: expression
+            required: true
     meta_advancement_selection:
         desc: |
             Which advancements are affected: only just this one, through this one and everything leading to it, from this one and everything below it, until everything leading to it but not itself, everything all advancements.
@@ -11224,8 +11679,11 @@ links:
     meta_gamemode:
         enum: ['survival', 'creative', 'adventure', 'spectator']
     meta_hollow_thickness:
-        desc: How thick the shell is, in blocks.
-        link: expression_float
+        desc: How thick the shell is, in blocks. Ignored by the solid shapes.
+        or:
+          - type: number
+            default: 1
+          - link: expression
     meta_item_modifiers:
         helper:
             title: Item Modifier
@@ -11509,11 +11967,8 @@ links:
             texture:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/powers/overlay/
                 desc: The namespace and ID of the texture to use as an overlay.
-                or:
-                  - title: Texture Resource
-                    link: meta_texture
-                  - title: Live Keyword
-                    enum: ['player','player_face','player_cape','entity','held_item','offhand_item']
+                link: meta_texture
+                required: true
             selector:
                 desc: |
                     Whose texture a live keyword resolves to: @s (the power holder) or @p (the player looking at the screen).
@@ -11524,19 +11979,39 @@ links:
             strength:
                 desc: |
                     In texture mode, the alpha the texture is drawn at. In nausea mode, how far it is stretched (1.0 = screen size). Range 0.0–1.0.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 1
+                    min: 0
+                    max: 1
+                  - link: expression
             red:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 1
+                    min: 0
+                    max: 1
+                  - link: expression
             green:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 1
+                    min: 0
+                    max: 1
+                  - link: expression
             blue:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 1
+                    min: 0
+                    max: 1
+                  - link: expression
             draw_mode:
                 desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
                 enum: ['texture','nausea']
@@ -11560,26 +12035,32 @@ links:
                 min: 0
             x:
                 desc: Offset in GUI pixels from the anchor.
-                link: expression_integer
+                link: expression
+                default: '0'
             y:
                 desc: Offset in GUI pixels from the anchor. y grows downward.
-                link: expression_integer
+                link: expression
+                default: '0'
             width:
                 desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
-                link: expression_integer
+                link: expression
+                unspec: true
             height:
                 desc: Size of the drawn quad in GUI pixels. Leave both out for the full-screen behaviour.
-                link: expression_integer
+                link: expression
+                unspec: true
             anchor:
                 desc: Which point of the screen x/y are measured from.
                 enum: ['top_left','top_center','top_right','left','center','right','bottom_left','bottom_center','bottom_right']
                 unspec: true
             u:
                 desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
-                link: expression_integer
+                link: expression
+                default: '0'
             v:
                 desc: Top-left corner inside the texture to start drawing from — how you pick one sprite out of a sheet.
-                link: expression_integer
+                link: expression
+                default: '0'
             texture_width:
                 desc: The full size of the texture file. Needed whenever u/v are used, so the game knows how to map the sheet.
                 type: integer
@@ -11642,25 +12123,48 @@ links:
                     link: meta_texture
                 lifetime:
                     desc: How many ticks the particle lives.
-                    link: expression_integer
+                    or:
+                      - type: integer
+                        default: 20
+                      - link: expression
                 lifetime_variation:
                     desc: A random 0–n extra ticks added per particle, so a burst does not vanish all at once.
-                    link: expression_integer
+                    or:
+                      - type: integer
+                        default: 0
+                      - link: expression
                 size:
                     desc: Size of the quad when it spawns.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 0.2
+                      - link: expression
                 size_variation:
                     desc: A random 0–n added to size per particle, so a burst is not all one size. end_size is scaled by the same amount, so each particle keeps the shape of its own size curve.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 0
+                        min: 0
+                      - link: expression
                 color_variation:
                     desc: A random -n–+n added to each of the red, green and blue channels per particle. 0.05 is a subtle shimmer, 0.2 is a visibly mixed burst.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 0
+                      - link: expression
                 hue_variation:
                     desc: A random -n–+n degrees of hue rotation per particle, out of 360. 15 keeps a burst recognisably one colour, 180 scatters it across the whole wheel.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 0
+                      - link: expression
                 end_size:
                     desc: Size at the end of its life. Interpolated with easing; set 0.0 to shrink away.
-                    link: expression_float
+                    unspec: true
+                    or:
+                      - type: number
+                        default: 0
+                      - link: expression
                 color:
                     desc: Tint at spawn. Multiplies the texture, so a white texture takes the colour exactly.
                     link: meta_color
@@ -11669,22 +12173,40 @@ links:
                     link: meta_color
                 gravity:
                     desc: Downward pull per tick. Negative values make the particle rise.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 0
+                      - link: expression
                 friction:
                     desc: Velocity kept each tick. 1.0 never slows down, 0.9 drags hard.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 098
+                      - link: expression
                 roll:
                     desc: Starting rotation of the quad, in degrees. Evaluated once per particle.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 0
+                      - link: expression
                 roll_speed:
                     desc: Degrees added to the rotation each tick. Evaluated once per particle.
-                    link: expression_float
+                    or:
+                      - type: number
+                        default: 0
+                      - link: expression
                 frames:
                     desc: Number of animation frames in the texture. 0 reads the count from the texture itself; 1 forces a single static frame.
-                    link: expression_integer
+                    or:
+                      - type: integer
+                        default: 0
+                      - link: expression
                 frame_time:
                     desc: Ticks per frame. 0 uses the frametime from the texture’s animation metadata, or — if the texture has none — spreads all frames evenly across lifetime.
-                    link: expression_integer
+                    or:
+                      - type: integer
+                        default: 0
+                      - link: expression
                 frame_layout:
                     desc: |
                         How the frames are arranged: vertical (a column, the vanilla layout), horizontal (a row), grid (square cells, left to right then top to bottom), or auto to work it out from the image.
@@ -11715,6 +12237,7 @@ links:
                     link: easing
                     default: 0
           - title: legacy_advanced
+            talias: object
             type: object
             props:
                 type:
@@ -11729,14 +12252,11 @@ links:
                     type: string
                     ext: true
     particle_type:
-        or:
-          - title: built-in
-            talias: string
+        helper:
+            title: Particle Type
             id: enums
-            link: particle_type
-          - title: custom
-            const: 'origins:custom'
-        unspec: true
+            list: particle_type
+        link: identifier
     player_abilities:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/player-abilities
         desc: A String used to represent a player's ability.
@@ -11775,29 +12295,51 @@ links:
                 link: bientity_condition
             delay:
                 desc: Ticks the projectile flies straight before it starts looking for a target.
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 0
+                  - link: expression
             duration:
                 desc: Ticks it keeps homing once delay is over. After that it lets go of its target and flies on in a straight line. 0 homes for the whole flight.
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 0
+                  - link: expression
             range:
                 desc: How far away, in blocks, a target can be picked up. A target it is already chasing is kept until it is half as far again away. 0 never finds one. Default 8.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 8
+                  - link: expression
             angle:
                 desc: How far to either side of its direction of travel, in degrees, the projectile looks. 180 looks all the way round, 20 only at what is nearly straight ahead. Default 60.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 60
+                  - link: expression
             turn_rate:
                 desc: The most the projectile turns in one tick, in degrees. It keeps its speed while it turns. 0 picks a target but never steers toward it. Default 8.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 8
+                  - link: expression
     projectile_reflection:
         type: object
         props:
             max_bounces:
                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/projectile-reflection/
                 desc: How many times the projectile may bounce. The block hit after the last bounce ends the shot normally. -1 bounces forever. Default 4.
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 4
+                    min: -1
+                  - link: expression
             speed:
                 desc: The fraction of its speed the projectile keeps after each bounce. 1.0 loses nothing, 0.6 is a rubber ball, values above 1 speed it up. bounce_speed is another name for it.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 1
+                  - link: expression
             entities:
                 desc: Also bounces off the entities it hits. Bounces off blocks and off entities count against the same max_bounces.
                 type: boolean
@@ -11822,7 +12364,10 @@ links:
             speed:
                 desc: |
                     How strongly it is pulled back, on the same scale as Loyalty levels: 1 returns like Loyalty I, 3 like Loyalty III. Worked out when it turns around, with the owner as the entity. 0 or less means it does not come back this time.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 2
+                  - link: expression
             hit_while_returning:
                 desc: Whether it can hit entities on the way back. Each hit runs the shot’s usual hit actions. It never hits its owner, or the entity it hit last.
                 type: boolean
@@ -11840,10 +12385,17 @@ links:
                 link: block_condition
             duration:
                 desc: Ticks the projectile stays stuck before it expires. It then runs bientity_action_on_expire and is removed, the same as when lifetime runs out. 0 keeps it stuck until something else ends it.
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 1200
+                    min: 0
+                  - link: expression
             depth:
                 desc: How far the projectile sinks past the point it hit, in blocks, along its direction of flight. 0 leaves its centre on the face of the block, and a negative value holds it off the surface.
-                link: expression_float
+                or:
+                  - type: number
+                    default: 0
+                  - link: expression
             bientity_action_on_stick:
                 desc: Runs each time the projectile sticks, with the owner as the actor and the projectile as the target.
                 link: bientity_action
@@ -12187,10 +12739,16 @@ links:
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 100
+                  - link: expression
             amplifier:
                 desc: Determines the strength of the status effect (0 being level 1).
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 0
+                  - link: expression
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 talias: is_ambient
@@ -12214,10 +12772,16 @@ links:
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 100
+                  - link: expression
             amplifier:
                 desc: Determines the strength of the status effect (0 being level 1).
-                link: expression_integer
+                or:
+                  - type: integer
+                    default: 0
+                  - link: expression
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 talias: is_ambient
@@ -12282,13 +12846,12 @@ links:
             instant		The action will not fire for items with a use duration, but will instead fire when an item is used which triggers its effect instantly, such as an ender pearl or splash potion.
         enum: ['finish', 'start', 'stop', 'during', 'instant']
     vector_or_number:
-        or:
-          - title: number
-            type: number
-          - title: vector
-            link: vector
         unspec: true
+        or:
+          - type: number
+          - link: vector
     vector:
+        title: vector
         type: object
         props:
             x:

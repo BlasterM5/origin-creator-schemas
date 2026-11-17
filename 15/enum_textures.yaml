@@ -3,6 +3,13 @@ ext: true
 links:
     textures:
         enum:
+          - $Live Keywords
+          - player
+          - player_face
+          - player_cape
+          - entity
+          - held_item
+          - offhand_item
           - $Origins
           - origins:textures/gui/badge/isaacfanta/active.png
           - origins:textures/gui/badge/isaacfanta/arrow_up.png
