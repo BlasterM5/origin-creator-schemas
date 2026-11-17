@@ -642,7 +642,7 @@ links:
                                 desc: One of peaceful, easy, normal, hard, or an array of them. An array passes if the current difficulty is any one of them.
                                 or:
                                   - title: single
-                                    talias: string
+                                    talias: [enum, string]
                                     link: difficulty
                                   - title: multiple
                                     talias: list
@@ -773,9 +773,7 @@ links:
                                 link: equipment_slot
                             accessory_slot:
                                 desc: Accessory slots to check, such as "charm" or "hand/ring". "*" means every accessory slot.
-                                type: list
-                                vals:
-                                    link: accessory_slot
+                                link: accessory_slots
                             item_condition:
                                 desc: The item condition type to check for on the item in the specified equipment slot.
                                 link: item_condition
@@ -1039,7 +1037,7 @@ links:
                                     Passes if the player is in any of these views: first_person, third_person (either third-person view), third_person_back or third_person_front.
                                 or:
                                   - title: single
-                                    talias: [simple,string]
+                                    talias: [enum,string]
                                     link: meta_perspective
                                   - title: multiple
                                     talias: list
@@ -1412,9 +1410,7 @@ links:
                                 link: item_condition
                             slots:
                                 desc: The accessory slots to count in. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
-                                type: list
-                                vals:
-                                    link: accessory_slot
+                                link: accessory_slots
                             comparison:
                                 desc: How the count is compared.
                                 link: comparison
@@ -1426,9 +1422,7 @@ links:
                             slots:
                                 href: https://0vergrown.github.io/Handbook/docs/compat/accessories/accessory_slot_count/
                                 desc: The accessory slots to count. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
-                                type: list
-                                vals:
-                                    link: accessory_slot
+                                link: accessory_slots
                             comparison:
                                 desc: How the count is compared.
                                 link: comparison
@@ -1443,9 +1437,7 @@ links:
                                 link: item_condition
                             slots:
                                 desc: The accessory slots to look in, such as "charm", "necklace" or "hand/ring". An empty list means every slot.
-                                type: list
-                                vals:
-                                    link: accessory_slot
+                                link: accessory_slots
                         string-birdsong:voice_disabled: {}
                         string-birdsong:voice_listeners:
                             range:
@@ -2413,7 +2405,7 @@ links:
                                 desc: Passes when the hit landed on one of these parts. Limbs, regions such as hands, chest or achilles_heel, and groups such as arms or upper all work. An unknown name is a load error.
                                 or:
                                   - title: single
-                                    talias: [simple,string]
+                                    talias: [enum,string]
                                     link: body_part
                                   - title: multiple
                                     talias: [list]
@@ -3338,7 +3330,7 @@ links:
                                 unspec: true
                                 or:
                                   - title: single
-                                    talias: [simple,string]
+                                    talias: [simple,enum]
                                     enum: ['beneficial','neutral','harmful']
                                   - title: multiple
                                     talias: [list]
@@ -4041,6 +4033,7 @@ links:
                                     max: 8
                                     required: true
                                   - title: relative
+                                    talias: integer
                                     href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
                                     desc: |
                                         Add slot to the current hotbar selection and wrap around, so 1 cycles right and -1 cycles left.
@@ -4083,15 +4076,7 @@ links:
                                 link: item_slot
                             accessory_slot:
                                 desc: An accessory slot to conjure into. Requires Trinkets, Accessories or Curios; without one of those installed this does nothing.
-                                or:
-                                  - title: single
-                                    talias: [simple,string]
-                                    link: accessory_slot
-                                  - title: multiple
-                                    talias: list
-                                    type: list
-                                    vals:
-                                        link: accessory_slot
+                                link: accessory_slots
                             item:
                                 desc: The item to conjure — item id, amount and components/NBT.
                                 link: item_stack
@@ -5056,7 +5041,7 @@ links:
                                 talias: scale_type
                                 or:
                                   - title: single
-                                    talias: [simple,string]
+                                    talias: [simple,enum,string]
                                     link: scale_type
                                   - title: multiple
                                     talias: list
@@ -5378,6 +5363,7 @@ links:
                                 desc: What to display. A plain string/text component, or a list of text entries (see below) concatenated in order — entries whose condition fails are skipped.
                                 or:
                                   - title: simple
+                                    talias: string
                                     type: string
                                     ext: true
                                     required: true
@@ -5648,9 +5634,7 @@ links:
                                 min: 0
                             slots:
                                 desc: The accessory slots to look in. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
-                                type: list
-                                vals:
-                                    link: accessory_slot
+                                link: accessory_slots
                             item_action:
                                 desc: Runs on each matching accessory.
                                 link: item_action
@@ -6626,8 +6610,10 @@ links:
                             unspec: true
                             or:
                               - title: single
+                                talias: object
                                 link: model_animation
                               - title: multiple
+                                talias: list
                                 type: list
                                 vals:
                                     link: model_animation
@@ -6643,6 +6629,7 @@ links:
                         body_parts:
                             desc: |
                                 In texture mode, restrict an overlay to these parts: head, hat, body, right_arm, left_arm, right_leg, left_leg on a player, main, flat2, flat3 on a minion. In geometry mode, render only the bones with these names — any bone name in your own model, not just the vanilla ones. Every bone you do not name is hidden, and hiding a bone hides everything nested under it.
+                            unspec: true
                             or:
                               - title: 'Player - All/Single Part'
                                 link: body_part
@@ -6657,7 +6644,6 @@ links:
                                 type: list
                                 vals:
                                     enum: ['main','flat2','flat3']
-                            unspec: true
                         red:
                             desc: Red color channel multiplier (0.0-1.0).
                             type: number
@@ -6972,6 +6958,7 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
                             or:
                               - title: simple
+                                talias: boolean
                                 type: boolean
                               - title: advanced
                                 talias: object
@@ -7551,8 +7538,10 @@ links:
                             desc: Which scale types this power multiplies.
                             or:
                               - title: single
+                                talias: enum
                                 link: scale_type
                               - title: multiple
+                                talias: list
                                 type: list
                                 vals:
                                     link: scale_type
@@ -7712,6 +7701,7 @@ links:
                             desc: Each key is a HUD sprite to replace, and each value is the sprite to draw in its place. Both are GUI sprite names, such as minecraft:hud/heart/full.
                             or:
                               - title: built-in
+                                talias: object
                                 type: object
                                 extra:
                                     or:
@@ -8458,6 +8448,7 @@ links:
                             desc: Only react to messages of this chat type, e.g. chat. Omit to react to all of them.
                             or:
                               - title: built-in
+                                talias: enum
                                 enum: ['chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
                               - title: custom
                                 talias: string
@@ -8784,16 +8775,20 @@ links:
                             talias: repair_material_modifiers
                             or:
                               - title: single
+                                talias: object
                                 link: attribute_modifier
                               - title: multiple
+                                talias: list
                                 link: attribute_modifier_array
                         combine_bonus_modifier:
                             desc: Changes the bonus durability combining two items adds, in percent of the item's maximum, 12 by default. The result is rounded and is at least 0. combine_bonus_modifiers is accepted as another spelling.
                             talias: combine_bonus_modifiers
                             or:
                               - title: single
+                                talias: object
                                 link: attribute_modifier
                               - title: multiple
+                                talias: list
                                 link: attribute_modifier_array
                     string-origins:modify_block_render:
                         block_condition:
@@ -9437,8 +9432,10 @@ links:
                             unspec: true
                             or:
                               - title: single
+                                talias: string
                                 link: entity_type_tag
                               - title: multiple
+                                talias: list
                                 type: list
                                 vals:
                                     link: entity_type_tag
@@ -9704,9 +9701,11 @@ links:
                             unspec: true
                             or:
                               - title: single
+                                talias: [enum,string]
                                 id: enums
                                 link: level_event
                               - title: multiple
+                                talias: list
                                 type: list
                                 vals:
                                     id: enums
@@ -9879,9 +9878,7 @@ links:
                             link: item_condition
                         slots:
                             desc: The accessory slots to watch. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
-                            type: list
-                            vals:
-                                link: accessory_slot
+                            link: accessory_slots
                         entity_action_on_equip:
                             desc: Runs on the wearer when something is equipped.
                             link: entity_action
@@ -9895,21 +9892,32 @@ links:
                             desc: Runs on the item when it is equipped.
                             link: item_action
                     string-origins:modify_accessory_slots:
-                        id:
+                        modifiers:
                             href: https://0vergrown.github.io/Handbook/docs/compat/accessories/modify_accessory_slots/
-                            desc: A unique ID for this modifier, so it can be applied and removed cleanly.
-                            link: identifier
-                            required: true
-                        slot:
-                            desc: The slot to change, named the way your accessory mod names it. Trinkets uses group/slot (hand/ring), and Accessories and Curios use the slot name alone (ring).
-                            link: accessory_slot
-                        amount:
-                            desc: How much to change the count by.
-                            type: number
-                            default: 0
-                        operation:
-                            desc: How amount is applied.
-                            link: attribute_modifier_operation
+                            desc: The slot changes.
+                            type: list
+                            vals:
+                                type: object
+                                props:
+                                    id:
+                                        desc: A unique ID for this modifier, so it can be applied and removed cleanly.
+                                        link: identifier
+                                        required: true
+                                    slot:
+                                        desc: The slot to change, named the way your accessory mod names it. Trinkets uses group/slot (hand/ring), and Accessories and Curios use the slot name alone (ring).
+                                        helper:
+                                            title: Accessory Slot
+                                            id: enums
+                                            list: accessory_slot_string
+                                        link: identifier
+                                        required: true
+                                    amount:
+                                        desc: How much to change the count by.
+                                        type: number
+                                        default: 0
+                                    operation:
+                                        desc: How amount is applied.
+                                        link: attribute_modifier_operation
                     string-origins:prevent_accessory_equip:
                         item_condition:
                             href: https://0vergrown.github.io/Handbook/docs/compat/accessories/prevent_accessory_equip/
@@ -9917,9 +9925,7 @@ links:
                             link: item_condition
                         slots:
                             desc: The accessory slots to block. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
-                            type: list
-                            vals:
-                                link: accessory_slot
+                            link: accessory_slots
                         allow_in_creative:
                             desc: Lets players in creative mode ignore the restriction, so building and testing still work.
                             type: boolean
@@ -9931,9 +9937,7 @@ links:
                             link: item_condition
                         slots:
                             desc: The accessory slots to lock. A string is slot, group/slot or group/slot/index, such as "ring", "hand/ring" or "hand/ring/0". An empty list means every slot.
-                            type: list
-                            vals:
-                                link: accessory_slot
+                            link: accessory_slots
                         allow_in_creative:
                             desc: Lets players in creative mode ignore the restriction.
                             type: boolean
@@ -10085,23 +10089,52 @@ links:
 
 # Data Type Definitions and repeat schema links
 
-    accessory_slot:
+    accessory_slot_object:
+        unspec: true
+        type: object
+        props:
+            group:
+                helper:
+                    title: Group Slot
+                    id: enums
+                    list: slot
+                link: identifier
+            slot:
+                helper:
+                    title: Slot Type
+                    id: enums
+                    list: accessory_slot_type
+                link: identifier
+            index:
+                type: integer
+            provider:
+                enum: ['accessories','curios','trinkets']
+    accessory_slots:
         unspec: true
         or:
           - title: simple
-            link: meta_key
+            talias: string
+            helper:
+                title: Accessory Slot
+                id: enums
+                list: accessory_slot_string
+            link: identifier
           - title: advanced
-            talias: object
-            type: object
-            props:
-                group:
-                    link: meta_key
-                slot:
-                    link: meta_key
-                index:
-                    type: integer
-                provider:
-                    enum: ['accessories','curios','trinkets']
+            talias: [single,object]
+            link: accessory_slot_object
+          - title: simple_list
+            type: list
+            vals:
+                helper:
+                    title: Accessory Slot
+                    id: enums
+                    list: accessory_slot_string
+                link: identifier
+          - title: advanced_list
+            talias: list
+            type: list
+            vals:
+                link: accessory_slot_object
     action_result:
         enum: ['consume_partial','consume','fail','pass','success']
         desc: |
@@ -10554,30 +10587,11 @@ links:
     equipment_slot:
         enum: ['mainhand','offhand','head','chest','legs','feet']
         unspec: true
-    expression_float:
+    expression:
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
-        desc: A floating-point value or a math expression. See the doc for more information.
-        unspec: true
-        or:
-          - title: value
-            talias: number
-            type: number
-          - title: expression
-            talias: string
-            type: string
-            ext: true
-    expression_integer:
-        href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
-        desc: An integer value or a math expression. See the doc for more information.
-        unspec: true
-        or:
-          - title: value
-            talias: integer
-            type: integer
-          - title: expression
-            talias: string
-            type: string
-            ext: true
+        desc: A math expression. See the doc for more information.
+        type: string
+        ext: true
     fabric_load_conditions:
         desc: Checks if namespaces or mods are loaded, and loads this power if true.
         type: object
@@ -10721,17 +10735,9 @@ links:
             fallback:
                 desc: What to draw when sprite_location isn't in any loaded resource pack. See Fallback textures.
                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render/#fallback-textures
-                unspec: none
-                or:
-                  - title: single
-                    talias: object
-                    link: hud_fallback
-                  - title: multiple
-                    talias: list
-                    type: list
-                    vals:
-                        link: hud_fallback
+                link: hud_fallback
     hud_fallback:
+        unspec: none
         or:
           - title: simple
             link: hud_sprite
@@ -10748,6 +10754,26 @@ links:
                 icon_index:
                     desc: Which icon on this texture to use.
                     link: hud_icon_index
+          - title: simple_list
+            talias: list
+            type: list
+            vals:
+                link: hud_sprite
+          - title: advanced_list
+            talias: multiple
+            type: list
+            vals:
+                type: object
+                props:
+                    sprite_location:
+                        desc: The texture to draw instead.
+                        link: hud_sprite
+                    bar_index:
+                        desc: Which bar on this texture to use.
+                        link: hud_bar_index
+                    icon_index:
+                        desc: Which icon on this texture to use.
+                        link: hud_icon_index
     hud_sprite:
         link: identifier
         helper:
@@ -10891,31 +10917,41 @@ links:
         allowkey: '*a-z0-9_#\/:.-'
         link: ingredient
     ingredient:
-        unspec: true
-        or:
-          - title: single
-            talias: object
-            link: ingredient_select
-          - title: multiple
-            talias: list
-            type: list
-            vals:
-                link: ingredient_select
-    ingredient_select:
         or:
           - title: simple
             talias: string
             link: identifier
-          - title: advanced
-            talias: object
-            or:
-              - title: item
+          - title: item
+            type: object
+            props:
+                item:
+                    desc: ID of a registered item.
+                    link: identifier
+          - title: tag
+            type: object
+            props:
+                tag:
+                    desc: ID of an item tag.
+                    helper:
+                        title: Item Tag
+                        folder: tags/items
+                    link: identifier
+          - title: simple_list
+            talias: list
+            type: list
+            vals:
+                link: identifier
+          - title: item_list
+            type: list
+            vals:
                 type: object
                 props:
                     item:
                         desc: ID of a registered item.
                         link: identifier
-              - title: tag
+          - title: tag_list
+            type: list
+            vals:
                 type: object
                 props:
                     tag:
@@ -10986,9 +11022,10 @@ links:
         desc: Defines which key an active power reacts to - a built-in key or one you define in a datapack. See the doc for more information.
         or:
           - title: simple
+            talias: [old,string]
             link: meta_keybind
           - title: advanced
-            talias: object
+            talias: [new,object]
             type: object
             props:
                 key:
@@ -11061,8 +11098,10 @@ links:
         unspec: true
         or:
           - title: simple
+            talias: string
             type: string
           - title: advanced
+            talias: object
             type: object
             props:
                 filter:
@@ -11138,15 +11177,18 @@ links:
         unspec: true
         or:
           - title: '#RGB, #RGBA, 0xARGB HEX String'
+            talias: string
             type: string
             allow: 'x0-9a-fA-F#'
           - title: '[r,g,b], [r,g,b,a] Decimal Array'
+            talias: list
             type: list
             vals:
                 type: number
                 min: 0
                 max: 1
           - title: 'Packed Integer'
+            talias: integer
             type: integer
             min: 0
             max: 4294967295
@@ -11237,6 +11279,7 @@ links:
             id: enums
             link: mc_version
           - title: custom
+            talias: string
             link: meta_key
     meta_origin_id:
         helper:
@@ -11335,14 +11378,15 @@ links:
         link: identifier
     meta_world_data_version:
         desc: The world data version (3465 on 1.20.1, 3955 on 1.21.1), compared with comparison.
+        unspec: true
         or:
           - title: supported
             enum: [3465,3955]
             unspec: true
           - title: custom
+            talias: integer
             type: integer
             min: 0
-            unspec: true
     mob_type:
         helper:
             title: Mob Type
