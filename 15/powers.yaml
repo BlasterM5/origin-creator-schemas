@@ -3289,7 +3289,8 @@ links:
                         string-origins:teleport_to:
                             landing_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/teleport_to/
-                                desc: The teleport only happens when the actor would pass this condition at the destination. It is tested as though the actor were already standing there, so everything that depends on where the actor is gets read at the destination: the fluid around it (apoli:fluid_height, apoli:submerged_in), the block under it (apoli:on_block), the blocks it overlaps and the sky above it. Skipped when the two are in different dimensions.
+                                desc: |
+                                    The teleport only happens when the actor would pass this condition at the destination. It is tested as though the actor were already standing there, so everything that depends on where the actor is gets read at the destination: the fluid around it (apoli:fluid_height, apoli:submerged_in), the block under it (apoli:on_block), the blocks it overlaps and the sky above it. Skipped when the two are in different dimensions.
                                 link: entity_condition
                             landing_block_condition:
                                 desc: The teleport only happens when the block below the destination passes this condition.
