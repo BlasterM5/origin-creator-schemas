@@ -11,17 +11,17 @@ props:
                 type: string
                 allow: '*a-z0-9_#/:.-'
           - title: advanced
-            talias: extra
+            aliases: [extra]
             type: list
             vals:
                 nopanel: true
                 or:
                   - title: simple
-                    talias: string
+                    aliases: [string]
                     type: string
                     allow: '*a-z0-9_#/:.-'
                   - title: conditioned
-                    talias: object
+                    aliases: [object]
                     type: object
                     props:
                         id:

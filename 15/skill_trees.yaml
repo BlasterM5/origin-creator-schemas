@@ -86,7 +86,7 @@ or:
         reward:
             desc: Points and items given when it is bought, as described in Rewards.
             href: https://0vergrown.github.io/Handbook/docs/datapack/skill-tree/skill-tree-power-data/#rewards
-            talias: rewards
+            aliases: [rewards]
             or:
               - title: simple
                 type: integer
@@ -174,11 +174,11 @@ links:
                 link: item_condition
             id:
                 desc: ID of a registered item.
-                talias: item
+                aliases: [item]
                 link: identifier
             count:
                 desc: Size of the stack.
-                talias: amount
+                aliases: [amount]
                 type: integer
                 default: 1
             tag:
@@ -206,7 +206,7 @@ links:
         props:
             amount:
                 desc: How many points.
-                talias: points
+                aliases: [points]
                 type: integer
                 required: true
             skill_tree:
