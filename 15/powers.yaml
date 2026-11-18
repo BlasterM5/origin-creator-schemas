@@ -4694,7 +4694,7 @@ links:
                                 or:
                                   - type: integer
                                     required: true
-                                  - type: expression
+                                  - link: expression
                                     required: true
                         string-origins:give:
                             stack:
@@ -9395,7 +9395,7 @@ links:
                             unspec: true
                             or:
                               - type: number
-                              - type: expression
+                              - link: expression
                         modifier:
                             desc: A single modifier applied to the gravity that survives the velocity step. Unlike velocity this can speed a fall up.
                             link: attribute_modifier
