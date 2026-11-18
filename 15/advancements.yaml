@@ -939,5 +939,5 @@ links:
                             props:
                                 origin:
                                     desc: The origin that was chosen.
-                                    type: string
-                                    allow: '*a-z0-9_\/:.-'
+                                    id: powers
+                                    link: meta_origin_id
