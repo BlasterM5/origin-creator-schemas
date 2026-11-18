@@ -124,10 +124,10 @@ links:
         unspec: true
         or:
           - title: single
-            talias: object
+            aliases: [object]
             link: entity_pred
           - title: multiple
-            talias: list
+            aliases: [list]
             type: list
             vals:
                 link: entity_pred
@@ -212,11 +212,11 @@ links:
                             allowkey: '*a-z0-9#\/:.-'
                             or:
                               - title: simple
-                                talias: boolean
+                                aliases: [boolean]
                                 type: boolean
                                 default: false
                               - title: advanced
-                                talias: object
+                                aliases: [object]
                                 type: object
                                 extra:
                                     type: boolean
@@ -417,11 +417,11 @@ links:
         unspec: true
         or:
           - title: exact
-            talias: integer
+            aliases: [integer]
             type: integer
             min: 0
           - title: range
-            talias: object
+            aliases: [object]
             type: object
             props:
                 min:
@@ -434,10 +434,10 @@ links:
         unspec: true
         or:
           - title: exact
-            talias: integer
+            aliases: [integer]
             type: integer
           - title: range
-            talias: object
+            aliases: [object]
             type: object
             props:
                 min:
@@ -448,11 +448,11 @@ links:
         unspec: true
         or:
           - title: exact
-            talias: number
+            aliases: [number]
             type: number
             min: 0
           - title: range
-            talias: object
+            aliases: [object]
             type: object
             props:
                 min:
@@ -465,10 +465,10 @@ links:
         unspec: true
         or:
           - title: exact
-            talias: number
+            aliases: [number]
             type: number
           - title: range
-            talias: object
+            aliases: [object]
             type: object
             props:
                 min:
@@ -480,10 +480,10 @@ links:
         unspec: true
         or:
           - title: simple
-            talias: integer
+            aliases: [integer]
             type: integer
           - title: advanced
-            talias: object
+            aliases: [object]
             type: object
             props:
                 type:
@@ -508,10 +508,10 @@ links:
                                 unspec: true
                                 or:
                                   - title: simple
-                                    talias: string
+                                    aliases: [string]
                                     enum: ['this','killer','direct_killer','player_killer']
                                   - title: advanced
-                                    talias: object
+                                    aliases: [object]
                                     type: object
                                     props:
                                         type:
@@ -535,10 +535,10 @@ links:
         unspec: true
         or:
           - title: simple
-            talias: number
+            aliases: [number]
             type: number
           - title: advanced
-            talias: object
+            aliases: [object]
             type: object
             props:
                 type:
@@ -566,10 +566,10 @@ links:
                                 unspec: true
                                 or:
                                   - title: simple
-                                    talias: enum
+                                    aliases: [enum]
                                     enum: ['this','killer','direct_killer','player_killer']
                                   - title: advanced
-                                    talias: object
+                                    aliases: [object]
                                     type: object
                                     props:
                                         type:
@@ -726,10 +726,10 @@ links:
                             unspec: true
                             or:
                               - title: exact
-                                talias: integer
+                                aliases: [integer]
                                 type: integer
                               - title: range
-                                talias: object
+                                aliases: [object]
                                 type: object
                                 props:
                                     min:
@@ -756,10 +756,10 @@ links:
                             unspec: true
                             or:
                               - title: exact
-                                talias: integer
+                                aliases: [integer]
                                 type: integer
                               - title: range
-                                talias: object
+                                aliases: [object]
                                 type: object
                                 props:
                                     min:
@@ -788,11 +788,11 @@ links:
         unspec: true
 or:
   - title: single
-    talias: object
+    aliases: [object]
     extend: single_pred
     nopanel: true
   - title: multiple
-    talias: list
+    aliases: [list]
     type: list
     vals:
         link: single_pred

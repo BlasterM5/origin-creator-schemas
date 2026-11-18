@@ -14,16 +14,16 @@ props:
                 id: powers
                 link: meta_origin_id
           - title: advanced
-            talias: extra
+            aliases: [extra]
             type: list
             vals:
                 or:
                   - title: simple
-                    talias: string
+                    aliases: [string]
                     id: powers
                     link: meta_origin_id
                   - title: conditioned
-                    talias: object
+                    aliases: [object]
                     type: object
                     props:
                         condition:

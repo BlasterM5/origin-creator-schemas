@@ -4,7 +4,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 inverted:
@@ -220,11 +220,11 @@ links:
                                 desc: The actor’s slot(s) to read.
                                 or:
                                   - title: single
-                                    talias: object
+                                    aliases: [object]
                                     link: equipment_slot
                                     default: 0
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: equipment_slot
@@ -233,10 +233,10 @@ links:
                                 desc: The target’s slot(s) to read. Defaults to equipment_slot.
                                 or:
                                   - title: single
-                                    talias: object
+                                    aliases: [object]
                                     link: equipment_slot
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: equipment_slot
@@ -249,7 +249,7 @@ links:
                                 type: boolean
                             compare_tag:
                                 desc: The two stacks must carry identical item data — enchantments, custom name, custom data and the rest.
-                                talias: ['compare_components','compare_nbt']
+                                aliases: [compare_components,compare_nbt]
                                 type: boolean
                             allow_empty:
                                 desc: Count two empty slots as a match. Off by default, so an unarmed pair never passes.
@@ -281,7 +281,7 @@ links:
         hooks: [fix_type]
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 inverted:
@@ -658,10 +658,10 @@ links:
                                 desc: One of peaceful, easy, normal, hard, or an array of them. An array passes if the current difficulty is any one of them.
                                 or:
                                   - title: single
-                                    talias: [enum, string]
+                                    aliases: [enum, string]
                                     link: difficulty
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: difficulty
@@ -994,10 +994,10 @@ links:
                                 desc: The origin(s) to look for. Passes if any of them matches. Wildcard matching is supported.
                                 or:
                                   - title: single
-                                    talias: [simple,string]
+                                    aliases: [simple,string]
                                     link: meta_origin_id
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: meta_origin_id
@@ -1056,10 +1056,10 @@ links:
                                     Passes if the player is in any of these views: first_person, third_person (either third-person view), third_person_back or third_person_front.
                                 or:
                                   - title: single
-                                    talias: [enum,string]
+                                    aliases: [enum,string]
                                     link: meta_perspective
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: meta_perspective
@@ -1258,7 +1258,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
                                     Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
-                                talias: status
+                                aliases: [status]
                                 link: stat
                                 required: true
                             comparison:
@@ -1273,7 +1273,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
                                     (DEPRECATED) Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
-                                talias: status
+                                aliases: [status]
                                 link: stat
                                 required: true
                             comparison:
@@ -1288,7 +1288,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
                                     (DEPRECATED) Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
-                                talias: status
+                                aliases: [status]
                                 link: stat
                                 required: true
                             comparison:
@@ -1303,7 +1303,7 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/stat
                                 desc: |
                                     (DEPRECATED) Either a plain id string, shorthand for the custom stat type, or an object choosing a typed statistic, where type is a stat type (custom, mined, crafted, used, broken, picked_up, dropped, killed, killed_by) and id is the entry in that type’s registry.
-                                talias: status
+                                aliases: [status]
                                 link: stat
                                 required: true
                             comparison:
@@ -1513,7 +1513,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 inverted:
@@ -1782,7 +1782,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 inverted:
@@ -2074,7 +2074,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 inverted:
@@ -2180,7 +2180,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 inverted:
@@ -2300,7 +2300,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 inverted:
@@ -2439,10 +2439,10 @@ links:
                                 desc: Passes when the hit landed on one of these parts. Limbs, regions such as hands, chest or achilles_heel, and groups such as arms or upper all work. An unknown name is a load error.
                                 or:
                                   - title: single
-                                    talias: [enum,string]
+                                    aliases: [enum,string]
                                     link: body_part
                                   - title: multiple
-                                    talias: [list]
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: body_part
@@ -2529,7 +2529,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 type:
@@ -2609,7 +2609,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 type:
@@ -2712,7 +2712,7 @@ links:
                                 type: integer
                         string-origins:if_case:
                             cases:
-                                talias: actions
+                                aliases: [actions]
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
                                 desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 link: meta_condition_if_list_bientity
@@ -2891,7 +2891,7 @@ links:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/damage
                                 desc: How much damage to deal. Left out, the target's max health is the base value for the modifiers.
-                                talias: damage
+                                aliases: [damage]
                                 unspec: true
                                 or:
                                   - type: number
@@ -3298,7 +3298,7 @@ links:
                             swap:
                                 desc: |
                                         Whether the target is moved to where the actor was, so the two trade places. swap_position is accepted as an alias. See apoli:swap for the same thing under its own name.
-                                talias: swap_position
+                                aliases: [swap_position]
                                 type: boolean
                             x:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
@@ -3396,10 +3396,10 @@ links:
                                     Only transfer these effects. An entry starting with # names an effect tag. Leave it out to transfer every effect. effect is accepted as a spelling.
                                 or:
                                   - title: single
-                                    talias: [simple,object]
+                                    aliases: [simple,object]
                                     link: status_effect
                                   - title: multiple
-                                    talias: [list]
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: status_effect
@@ -3409,10 +3409,10 @@ links:
                                 unspec: true
                                 or:
                                   - title: single
-                                    talias: [simple,enum]
+                                    aliases: [simple,enum]
                                     enum: ['beneficial','neutral','harmful']
                                   - title: multiple
-                                    talias: [list]
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         enum: ['beneficial','neutral','harmful']
@@ -3424,30 +3424,30 @@ links:
                                 unspec: true
                                 or:
                                   - title: single
-                                    talias: [simple,object]
+                                    aliases: [simple,object]
                                     link: attribute_modifier
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     link: attribute_modifier_array
                             amplifier_modifier:
                                 desc: Changes the amplifier the recipient gets (0 is level I). Starts from the donor’s amplifier and is kept between 0 and 255.
                                 unspec: true
                                 or:
                                   - title: single
-                                    talias: [simple,object]
+                                    aliases: [simple,object]
                                     link: attribute_modifier
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     link: attribute_modifier_array
                             donor_duration_modifier:
                                 desc: With copy, changes the duration the donor keeps, so one effect can be split between the two. Ignored without copy.
                                 unspec: true
                                 or:
                                   - title: single
-                                    talias: [simple,object]
+                                    aliases: [simple,object]
                                     link: attribute_modifier
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     link: attribute_modifier_array
                         string-origins:store_origin:
                             key:
@@ -3532,7 +3532,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 type:
@@ -3730,7 +3730,7 @@ links:
                                 type: integer
                         string-origins:if_case:
                             cases:
-                                talias: actions
+                                aliases: [actions]
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
                                 desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 link: meta_condition_if_list_entity
@@ -4103,7 +4103,7 @@ links:
                                 desc: The amount, which can be a decimal such as 0.5. The result never goes past the resource's min or max while enforce_limits is on. An expression is evaluated each time the action runs, with value bound to the resource's current value.
                                 or:
                                   - type: number
-                                    talias: integer
+                                    aliases: [integer]
                                   - link: expression
                             operation:
                                 desc: |
@@ -4121,7 +4121,7 @@ links:
                                     max: 8
                                     required: true
                                   - title: relative
-                                    talias: integer
+                                    aliases: [integer]
                                     href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/change_selected_slot
                                     desc: |
                                         Add slot to the current hotbar selection and wrap around, so 1 cycles right and -1 cycles left.
@@ -4177,7 +4177,7 @@ links:
                             amount:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/damage
                                 desc: How much damage to deal. Left out, the entity's max health is the base value for the modifiers.
-                                talias: damage
+                                aliases: [damage]
                                 unspec: true
                                 or:
                                   - type: number
@@ -4502,7 +4502,7 @@ links:
                             entity_type:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile
                                 desc: The ID of the projectile or entity to launch. Set this or texture_location.
-                                talias: entity_id
+                                aliases: [entity_id]
                                 unspec: true
                                 helper:
                                     title: Projectile
@@ -4590,10 +4590,10 @@ links:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
                                 or:
                                   - title: simple
-                                    talias: boolean
+                                    aliases: [boolean]
                                     type: boolean
                                   - title: advanced
-                                    talias: object
+                                    aliases: [object]
                                     link: projectile_reflection
                             return:
                                 desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
@@ -4609,10 +4609,10 @@ links:
                                 unspec: true
                                 or:
                                   - title: simple
-                                    talias: boolean
+                                    aliases: [boolean]
                                     type: boolean
                                   - title: advanced
-                                    talias: object
+                                    aliases: [object]
                                     link: projectile_sticking
                             sound:
                                 desc: A sound to play when the action runs. Sounds that only a resource pack defines work too.
@@ -4841,19 +4841,19 @@ links:
                                 link: attribute_modifier
                             position:
                                 desc: Which slot of a table resource to change. Leave it out on a table and every slot is changed. index and slot are accepted as aliases.
-                                talias: [index,slot]
+                                aliases: [index,slot]
                                 unspec: true
                                 or:
                                   - type: integer
                                   - link: expression
                             from:
                                 desc: Copies from this resource instead of working out a value from the modifier.
-                                talias: from_resource
+                                aliases: [from_resource]
                                 unspec: true
                                 link: meta_local_power_id
                             from_position:
                                 desc: Which slot of from to read.
-                                talias: [from_index,from_slot]
+                                aliases: [from_index,from_slot]
                                 unspec: true
                                 or:
                                   - type: integer
@@ -5193,13 +5193,13 @@ links:
                             scale_types:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/scale/
                                 desc: Which scales to change.
-                                talias: scale_type
+                                aliases: [scale_type]
                                 or:
                                   - title: single
-                                    talias: [simple,enum,string]
+                                    aliases: [simple,enum,string]
                                     link: scale_type
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: scale_type
@@ -5556,15 +5556,15 @@ links:
                                 desc: What to display. A plain string/text component, or a list of text entries (see below) concatenated in order — entries whose condition fails are skipped.
                                 or:
                                   - title: simple
-                                    talias: string
+                                    aliases: [string]
                                     type: string
                                     ext: true
                                     required: true
                                   - title: single
-                                    talias: object
+                                    aliases: [object]
                                     link: text_component
                                   - title: multiple
-                                    talias: list
+                                    aliases: [list]
                                     type: list
                                     vals:
                                         link: text_component
@@ -5634,7 +5634,7 @@ links:
                             relative:
                                 desc: |
                                     Whether x/y/z are an offset from the entity (true) or world coordinates (false).
-                                talias: relative_to_position
+                                aliases: [relative_to_position]
                                 type: boolean
                                 default: true
                             space:
@@ -5707,7 +5707,7 @@ links:
                             power:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/trigger_cooldown
                                 desc: The apoli:cooldown power to trigger.
-                                talias: resource
+                                aliases: [resource]
                                 link: meta_power_id
                         string-origins:apply_stored_origin:
                             key:
@@ -5747,7 +5747,7 @@ links:
                                 default: 'origins:origin'
                             to_pool:
                                 desc: On a normal layer, put the origin in that layer’s swap pool instead of making it the player’s pick. Ignored on a swappable layer, where a grant is always a pool grant. Also accepts the alias swappable.
-                                talias: swappable
+                                aliases: [swappable]
                                 type: boolean
                         string-origins:open_swap_menu:
                             layer:
@@ -5897,7 +5897,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 type:
@@ -5973,7 +5973,7 @@ links:
                                 type: integer
                         string-origins:if_case:
                             cases:
-                                talias: actions
+                                aliases: [actions]
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
                                 desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 type: list
@@ -6051,13 +6051,13 @@ links:
                             action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
                                 desc: The entity action to execute on the holder of the item stack.
-                                talias: entity_action
+                                aliases: [entity_action]
                                 link: entity_action
                         string-origins:holder:
                             action:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/item-actions/holder_action
                                 desc: (DEPRECATED) The entity action to execute on the holder of the item stack.
-                                talias: entity_action
+                                aliases: [entity_action]
                                 link: entity_action
                         string-origins:merge_nbt:
                             nbt:
@@ -6102,7 +6102,7 @@ links:
         unspec: none
         or:
           - title: built-in
-            talias: original
+            aliases: [original]
             type: object
             props:
                 type:
@@ -6182,7 +6182,7 @@ links:
                                 type: integer
                         string-origins:if_case:
                             cases:
-                                talias: actions
+                                aliases: [actions]
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/if_case
                                 desc: Checks a list of actions associated with conditions, and executes every one whose condition holds. The multi-fire counterpart to apoli:if_else_list, which stops at the first match.
                                 type: list
@@ -6362,7 +6362,7 @@ links:
                                 link: nbt
                             duration:
                                 desc: How many ticks the ghost block lasts. Also accepted as tick.
-                                talias: tick
+                                aliases: [tick]
                                 type: integer
                                 default: 20
                                 min: 0
@@ -6687,7 +6687,7 @@ links:
                             folder: badges
                         link: identifier
                   - title: object
-                    talias: list
+                    aliases: [list]
                     type: list
                     vals:
                         link: badge
@@ -6716,7 +6716,7 @@ links:
                 desc: ID of the desired Power Type.
                 href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/powers/
                 hooks: [fix_cond]
-                extend: meta_power_type
+                link: meta_power_type
                 more:
                     string-origins:nothing: {}
                     string-origins:attribute:
@@ -6810,10 +6810,10 @@ links:
                             unspec: true
                             or:
                               - title: single
-                                talias: object
+                                aliases: [object]
                                 link: model_animation
                               - title: multiple
-                                talias: list
+                                aliases: [list]
                                 type: list
                                 vals:
                                     link: model_animation
@@ -7188,10 +7188,10 @@ links:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
                             or:
                               - title: simple
-                                talias: boolean
+                                aliases: [boolean]
                                 type: boolean
                               - title: advanced
-                                talias: object
+                                aliases: [object]
                                 link: projectile_reflection
                         return:
                             desc: Makes the projectile fly back to the shooter, like a trident with Loyalty. See Coming back.
@@ -7207,10 +7207,10 @@ links:
                             unspec: true
                             or:
                               - title: simple
-                                talias: boolean
+                                aliases: [boolean]
                                 type: boolean
                               - title: advanced
-                                talias: object
+                                aliases: [object]
                                 link: projectile_sticking
                         sound:
                             desc: A sound to play when the action runs. Sounds that only a resource pack defines work too.
@@ -7727,22 +7727,22 @@ links:
                             unspec: true
                             or:
                               - type: number
-                                talias: integer
+                                aliases: [integer]
                               - link: expression
                         max:
                             desc: The maximum value of the resource. When an Expression, re-evaluated each tick. Omit it and the resource has no upper bound.
                             unspec: true
                             or:
                               - type: number
-                                talias: integer
+                                aliases: [integer]
                               - link: expression
                         start_value:
                             desc: The value of the resource when the entity first receives the power.
-                            talias: default
+                            aliases: [default]
                             unspec: true
                             or:
                               - type: number
-                                talias: integer
+                                aliases: [integer]
                               - link: expression
                         size:
                             desc: How many values this resource stores. Above 1 the power becomes a table of that many slots, each addressed by a position from 0 to size - 1. Also aliased as positions and slots. There is no upper limit — see Big tables.
@@ -7783,7 +7783,7 @@ links:
                                         unspec: true
                                         or:
                                           - type: number
-                                            talias: integer
+                                            aliases: [integer]
                                           - link: expression
                                     values:
                                         desc: More numbers to compare with. The entry matches if the comparison holds for value or for any of these.
@@ -7791,7 +7791,7 @@ links:
                                         vals:
                                             or:
                                               - type: number
-                                                talias: integer
+                                                aliases: [integer]
                                               - link: expression
                         persistent:
                             desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
@@ -7817,10 +7817,10 @@ links:
                             desc: Which scale types this power multiplies.
                             or:
                               - title: single
-                                talias: enum
+                                aliases: [enum]
                                 link: scale_type
                               - title: multiple
-                                talias: list
+                                aliases: [list]
                                 type: list
                                 vals:
                                     link: scale_type
@@ -7983,7 +7983,7 @@ links:
                             desc: Each key is a HUD sprite to replace, and each value is the sprite to draw in its place. Both are GUI sprite names, such as minecraft:hud/heart/full.
                             or:
                               - title: built-in
-                                talias: object
+                                aliases: [object]
                                 type: object
                                 extra:
                                     or:
@@ -8434,7 +8434,7 @@ links:
                             link: entity_condition
                         self_action:
                             desc: Action run on the actor (the entity that has the power).
-                            talias: [attacker_action,entity_action]
+                            aliases: [attacker_action,entity_action]
                             link: entity_action
                         bientity_action:
                             desc: The action to execute upon hit.
@@ -8470,7 +8470,7 @@ links:
                             link: bientity_action
                         self_action:
                             desc: Action run on the actor (the entity that has the power).
-                            talias: [attacker_action,entity_action]
+                            aliases: [attacker_action,entity_action]
                             link: entity_action
                         target_action:
                             desc: Action run on the target (the entity that was hit).
@@ -8503,11 +8503,11 @@ links:
                             link: bientity_action
                         self_action:
                             desc: Action run on the actor (the entity that has the power).
-                            talias: attacker_action
+                            aliases: [attacker_action]
                             link: entity_action
                         target_action:
                             desc: Action run on the target (the entity that was hit).
-                            talias: entity_action
+                            aliases: [entity_action]
                             link: entity_action
                         cooldown:
                             desc: Ticks the power needs to recharge between fires.
@@ -8622,7 +8622,7 @@ links:
                                   - title: simple
                                     link: keybind
                                   - title: advanced
-                                    talias: object
+                                    aliases: [object]
                                     link: meta_sequence_step
                     string-origins:action_on_kill:
                         bientity_condition:
@@ -8643,7 +8643,7 @@ links:
                             link: bientity_action
                         self_action:
                             desc: Runs on the killer, the entity that has the power.
-                            talias: [attacker_action, entity_action]
+                            aliases: [attacker_action, entity_action]
                             link: entity_action
                         target_action:
                             desc: Action run on the entity that died.
@@ -8676,7 +8676,7 @@ links:
                             link: bientity_action
                         self_action:
                             desc: Action run on the killer (the entity that has the power).
-                            talias: [attacker_action,entity_action]
+                            aliases: [attacker_action,entity_action]
                             link: entity_action
                         target_action:
                             desc: Action run on the entity that died.
@@ -8767,10 +8767,10 @@ links:
                             desc: Only react to messages of this chat type, e.g. chat. Omit to react to all of them.
                             or:
                               - title: built-in
-                                talias: enum
+                                aliases: [enum]
                                 enum: ['chat','emote_command','msg_command_incoming','msg_command_outgoing','say_command','team_msg_command_incoming','team_msg_command_outgoing']
                               - title: custom
-                                talias: string
+                                aliases: [string]
                                 link: identifier
                             unspec: true
                         filter:
@@ -8960,7 +8960,7 @@ links:
                             link: bientity_action
                         self_action:
                             desc: Action run on the target (the entity that has the power).
-                            talias: target_action
+                            aliases: [target_action]
                             link: entity_action
                         entity_action_target:
                             link: entity_action_target
@@ -8998,7 +8998,7 @@ links:
                             link: bientity_action
                         self_action:
                             desc: Action run on the target (the entity that has the power).
-                            talias: [target_action,entity_action]
+                            aliases: [target_action,entity_action]
                             link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
@@ -9031,11 +9031,11 @@ links:
                             link: bientity_action
                         self_action:
                                 desc: Action run on the target (the entity that has the power).
-                                talias: target_action
+                                aliases: [target_action]
                                 link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
-                            talias: entity_action
+                            aliases: [entity_action]
                             link: entity_action
                         cooldown:
                             desc: Ticks the power needs to recharge between fires.
@@ -9065,7 +9065,7 @@ links:
                             link: bientity_action
                         self_action:
                             desc: Action run on the target (the entity that has the power).
-                            talias: [target_action,entity_action]
+                            aliases: [target_action,entity_action]
                             link: entity_action
                         attacker_action:
                             desc: Action run on the actor (the entity that dealt the damage).
@@ -9108,23 +9108,23 @@ links:
                             link: item_condition
                         repair_material_modifier:
                             desc: Changes how many pieces of repair material a full repair takes, 4 by default. Each piece restores that share of the item's durability. The result is rounded and is at least 1. repair_material_modifiers is accepted as another spelling.
-                            talias: repair_material_modifiers
+                            aliases: [repair_material_modifiers]
                             or:
                               - title: single
-                                talias: object
+                                aliases: [object]
                                 link: attribute_modifier
                               - title: multiple
-                                talias: list
+                                aliases: [list]
                                 link: attribute_modifier_array
                         combine_bonus_modifier:
                             desc: Changes the bonus durability combining two items adds, in percent of the item's maximum, 12 by default. The result is rounded and is at least 0. combine_bonus_modifiers is accepted as another spelling.
-                            talias: combine_bonus_modifiers
+                            aliases: [combine_bonus_modifiers]
                             or:
                               - title: single
-                                talias: object
+                                aliases: [object]
                                 link: attribute_modifier
                               - title: multiple
-                                talias: list
+                                aliases: [list]
                                 link: attribute_modifier_array
                     string-origins:modify_block_render:
                         block_condition:
@@ -9818,10 +9818,10 @@ links:
                             unspec: true
                             or:
                               - title: single
-                                talias: string
+                                aliases: [string]
                                 link: entity_type_tag
                               - title: multiple
-                                talias: list
+                                aliases: [list]
                                 type: list
                                 vals:
                                     link: entity_type_tag
@@ -10087,11 +10087,11 @@ links:
                             unspec: true
                             or:
                               - title: single
-                                talias: [enum,string]
+                                aliases: [enum,string]
                                 id: enums
                                 link: level_event
                               - title: multiple
-                                talias: list
+                                aliases: [list]
                                 type: list
                                 vals:
                                     id: enums
@@ -10348,10 +10348,10 @@ links:
                             desc: The wings to grant. An item ID is enough, and the object form lets you set components for a custom look.
                             or:
                               - title: simple
-                                talias: string
+                                aliases: [string]
                                 link: identifier
                               - title: advanced
-                                talias: object
+                                aliases: [object]
                                 link: item_stack
                         stamina:
                             desc: The maximum stamina. Higher means longer flight before you have to land.
@@ -10499,14 +10499,14 @@ links:
         unspec: true
         or:
           - title: simple
-            talias: string
+            aliases: [string]
             helper:
                 title: Accessory Slot
                 id: enums
                 list: accessory_slot_string
             link: identifier
           - title: advanced
-            talias: [single,object]
+            aliases: [single,object]
             link: accessory_slot_object
           - title: simple_list
             type: list
@@ -10517,7 +10517,7 @@ links:
                     list: accessory_slot_string
                 link: identifier
           - title: advanced_list
-            talias: list
+            aliases: [list]
             type: list
             vals:
                 link: accessory_slot_object
@@ -10580,14 +10580,14 @@ links:
                 unspec: true
             position:
                 desc: Which slot of resource to read, when it names a table apoli:resource. Ignored without resource. index and slot are accepted as aliases.
-                talias: [index,slot]
+                aliases: [index,slot]
                 unspec: true
                 or:
                   - type: integer
                   - link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                talias: amount
+                aliases: [amount]
                 unspec: true
                 or:
                   - type: number
@@ -10627,14 +10627,14 @@ links:
                 unspec: true
             position:
                 desc: Which slot of resource to read, when it names a table apoli:resource. Ignored without resource. index and slot are accepted as aliases.
-                talias: [index,slot]
+                aliases: [index,slot]
                 unspec: true
                 or:
                   - type: integer
                   - link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                talias: amount
+                aliases: [amount]
                 unspec: true
                 or:
                   - type: number
@@ -10658,14 +10658,14 @@ links:
                 unspec: true
             position:
                 desc: Which slot of resource to read, when it names a table apoli:resource. Ignored without resource. index and slot are accepted as aliases.
-                talias: [index,slot]
+                aliases: [index,slot]
                 unspec: true
                 or:
                   - type: integer
                   - link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                talias: amount
+                aliases: [amount]
                 unspec: true
                 or:
                   - type: number
@@ -10689,7 +10689,7 @@ links:
                 unspec: true
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
-                talias: amount
+                aliases: [amount]
                 unspec: true
                 or:
                   - type: number
@@ -11129,10 +11129,10 @@ links:
         unspec: true
         or:
           - title: single
-            talias: object
+            aliases: [object]
             link: hud_render_element
           - title: multiple
-            talias: list
+            aliases: [list]
             type: list
             vals:
                 link: hud_render_element
@@ -11179,7 +11179,7 @@ links:
           - title: simple
             link: hud_sprite
           - title: advanced
-            talias: object
+            aliases: [object]
             type: object
             props:
                 sprite_location:
@@ -11192,12 +11192,12 @@ links:
                     desc: Which icon on this texture to use.
                     link: hud_icon_index
           - title: simple_list
-            talias: list
+            aliases: [list]
             type: list
             vals:
                 link: hud_sprite
           - title: advanced_list
-            talias: multiple
+            aliases: [multiple]
             type: list
             vals:
                 type: object
@@ -11306,10 +11306,10 @@ links:
             An item, item stack, or texture, used wherever Apoli or Origins draws a small picture.\n Texture can be a single texture atlas, with the starting corner of a 16x16 region defined in width / height.\n If width / height are unspecified, it will use the whole texture and scale it to fit.
         or:
           - title: item
-            talias: string
+            aliases: [string]
             link: identifier
           - title: stack
-            talias: object
+            aliases: [object]
             link: item_stack
           - title: texture
             type: object
@@ -11340,10 +11340,10 @@ links:
         unspec: true
         or:
           - title: single
-            talias: [simple, string]
+            aliases: [simple, string]
             link: identifier
           - title: multiple
-            talias: list
+            aliases: [list]
             link: identifier_array
     identifier_script:
         desc: |
@@ -11356,7 +11356,7 @@ links:
     ingredient:
         or:
           - title: simple
-            talias: string
+            aliases: [string]
             link: identifier
           - title: item
             type: object
@@ -11374,7 +11374,7 @@ links:
                         folder: tags/items
                     link: identifier
           - title: simple_list
-            talias: list
+            aliases: [list]
             type: list
             vals:
                 link: identifier
@@ -11431,11 +11431,11 @@ links:
         props:
             id:
                 desc: ID of a registered item.
-                talias: item
+                aliases: [item]
                 link: identifier
             count:
                 desc: Size of the stack.
-                talias: amount
+                aliases: [amount]
                 type: integer
                 default: 1
             tag:
@@ -11446,10 +11446,10 @@ links:
                 desc: 1.21.1
                 or:
                   - title: single
-                    talias: object
+                    aliases: [object]
                     link: nbt
                   - title: multiple
-                    talias: list
+                    aliases: [list]
                     type: list
                     vals:
                         link: nbt
@@ -11459,10 +11459,10 @@ links:
         desc: Defines which key an active power reacts to - a built-in key or one you define in a datapack. See the doc for more information.
         or:
           - title: simple
-            talias: [old,string]
+            aliases: [old,string]
             link: meta_keybind
           - title: advanced
-            talias: [new,object]
+            aliases: [new,object]
             type: object
             props:
                 key:
@@ -11535,10 +11535,10 @@ links:
         unspec: true
         or:
           - title: simple
-            talias: string
+            aliases: [string]
             type: string
           - title: advanced
-            talias: object
+            aliases: [object]
             type: object
             props:
                 filter:
@@ -11633,18 +11633,18 @@ links:
         unspec: true
         or:
           - title: '#RGB, #RGBA, 0xARGB HEX String'
-            talias: string
+            aliases: [string]
             type: string
             allow: 'x0-9a-fA-F#'
           - title: '[r,g,b], [r,g,b,a] Decimal Array'
-            talias: list
+            aliases: [list]
             type: list
             vals:
                 type: number
                 min: 0
                 max: 1
           - title: 'Packed Integer'
-            talias: integer
+            aliases: [integer]
             type: integer
             min: 0
             max: 4294967295
@@ -11715,11 +11715,11 @@ links:
     meta_keybind:
         or:
           - title: built-in
-            talias: [new,original]
+            aliases: [new,original]
             id: enums
             link: meta_keybind
           - title: custom
-            talias: [old,string]
+            aliases: [old,string]
             link: meta_key
     meta_local_power_id:
         helper:
@@ -11738,7 +11738,7 @@ links:
             id: enums
             link: mc_version
           - title: custom
-            talias: string
+            aliases: [string]
             link: meta_key
     meta_origin_id:
         helper:
@@ -11843,7 +11843,7 @@ links:
             enum: [3465,3955]
             unspec: true
           - title: custom
-            talias: integer
+            aliases: [integer]
             type: integer
             min: 0
     mob_type:
@@ -12238,7 +12238,7 @@ links:
                     link: easing
                     default: 0
           - title: legacy_advanced
-            talias: object
+            aliases: [object]
             type: object
             props:
                 type:
@@ -12736,7 +12736,7 @@ links:
         props:
             id:
                 desc: The identifier of the status effect.
-                talias: effect
+                aliases: [effect]
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
@@ -12752,7 +12752,7 @@ links:
                   - link: expression
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
-                talias: is_ambient
+                aliases: [is_ambient]
                 type: boolean
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
@@ -12769,7 +12769,7 @@ links:
         props:
             id:
                 desc: The identifier of the status effect.
-                talias: effect
+                aliases: [effect]
                 link: status_effect
             duration:
                 desc: Determines the duration of the status effect in ticks.
@@ -12785,7 +12785,7 @@ links:
                   - link: expression
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
-                talias: is_ambient
+                aliases: [is_ambient]
                 type: boolean
             show_particles:
                 desc: Determines whether the status effect should display particle effects on the entity.
@@ -12864,8 +12864,8 @@ links:
 hooks: [preserve_single]
 or:
   - title: single
-    talias: simple
-    extend: power
+    aliases: [simple]
+    link: power
   - title: multiple
     link: multi_power
   - title: custom

@@ -149,7 +149,7 @@ links:
         extra:
             or:
               - title: single
-                talias: simple
+                aliases: [simple]
                 type: string
                 allowkey: '*a-z0-9_-'
                 allow: '*a-z0-9_+=<>!-'
