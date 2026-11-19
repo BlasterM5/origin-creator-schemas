@@ -8152,8 +8152,7 @@ links:
                                         link: meta_texture
                                       - hud/heart/withered_container_blinking:
                                         link: meta_texture
-                                      - hud/heart/wi
-                                      - hud/hungerthered_container_hardcore_blinking:
+                                      - hud/heart/withered_container_hardcore_blinking:
                                         link: meta_texture
                                       - hud/heart/full:
                                         link: meta_texture
