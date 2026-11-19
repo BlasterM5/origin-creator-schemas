@@ -6784,7 +6784,7 @@ links:
                 desc: ID of the desired Power Type.
                 href: https://0vergrown.github.io/Handbook/docs/datapack/introduction/powers/
                 hooks: [fix_cond]
-                link: meta_power_type
+                extend: meta_power_type
                 more:
                     string-origins:nothing: {}
                     string-origins:attribute:
