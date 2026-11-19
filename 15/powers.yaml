@@ -149,7 +149,8 @@ links:
                                 or:
                                   - type: number
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                             damage_type:
                                 desc: The damage type to simulate, e.g. player_attack.
@@ -542,7 +543,8 @@ links:
                                     default: 0.9
                                     min: 0
                                     max: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:attribute:
                             attribute:
                                 desc: |
@@ -608,7 +610,8 @@ links:
                                 or:
                                   - type: integer
                                     default: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:brightness:
                             comparison:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/brightness
@@ -639,7 +642,8 @@ links:
                                 or:
                                   - type: number
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                             damage_type:
                                 desc: The damage type to simulate.
@@ -757,7 +761,8 @@ links:
                                 or:
                                   - type: integer
                                     default: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:entity_set_size:
                             set:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-conditions/entity_set_size
@@ -1160,7 +1165,8 @@ links:
                                 unspec: true
                                 or:
                                   - type: number
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             comparison:
                                 desc: Determines how the value of the specified power should be compared to the specified value.
                                 link: comparison
@@ -1169,7 +1175,8 @@ links:
                                 or:
                                   - type: integer
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                         string-origins:riding:
                             bientity_condition:
@@ -1206,7 +1213,8 @@ links:
                                 or:
                                   - type: number
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                         string-origins:scoreboard:
                             name:
@@ -2427,7 +2435,8 @@ links:
                                     default: 0.9
                                     min: 0
                                     max: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:attacker:
                             entity_condition:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/damage-conditions/attacker
@@ -2770,19 +2779,22 @@ links:
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             y:
                                 desc: The amount of velocity to add on the y-axis.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             z:
                                 desc: The amount of velocity to add on the z-axis.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             reference:
                                 desc: Determines whether to use the target entity’s "position" or "rotation" when calculating the velocity that will be applied to the target entity.
                                 enum: ['position','rotation']
@@ -2799,7 +2811,8 @@ links:
                                     default: 1
                                     min: 0
                                     max: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:aggro_at:
                             duration:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/aggro_at/
@@ -2807,7 +2820,8 @@ links:
                                 or:
                                   - type: integer
                                     default: -1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:attach_rope:
                             from:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/bientity-actions/attach_rope
@@ -2895,7 +2909,8 @@ links:
                                 unspec: true
                                 or:
                                   - type: number
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             damage_type:
                                 desc: The damage type, which decides part of the death message and, through damage type tags, whether the damage bypasses armor, shields and so on.
                                 link: damage_type
@@ -2958,13 +2973,15 @@ links:
                                 unspec: true
                                 or:
                                   - type: integer
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             distance:
                                 desc: How far in front of the actor's eyes the target is held, in blocks. It is evaluated again every tick against the grabber, so an expression makes the hold reach in and out while the grab runs.
                                 or:
                                   - type: number
                                     default: 2
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             disable_grabber:
                                 desc: While the grab is active, the actor cannot use Apoli power keybinds (active powers, toggles).
                                 type: boolean
@@ -3252,20 +3269,23 @@ links:
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                 gap: above
                             y:
                                 desc: An offset applied to where the actor lands. The target still lands exactly where the actor was.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             z:
                                 desc: An offset applied to where the actor lands. The target still lands exactly where the actor was.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             space:
                                 desc: Which axes the offset is measured along.
                                 link: space
@@ -3305,20 +3325,23 @@ links:
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                 gap: above
                             y:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             z:
                                 desc: An offset from the target, so the actor can land beside or behind it rather than inside it. The Expressions read the actor.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             space:
                                 desc: |
                                     Which axes the offset is measured along. local turns with the target, so z: -1 is one block behind it.
@@ -3892,19 +3915,22 @@ links:
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             y:
                                 desc: The amount of velocity to add on the y-axis.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             z:
                                 desc: The amount of velocity to add on the z-axis.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             space:
                                 desc: How the direction of the velocity is worked out.
                                 link: space
@@ -3918,12 +3944,14 @@ links:
                                 or:
                                   - type: integer
                                     min: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             levels:
                                 desc: Experience levels to give. A negative number takes levels away.
                                 or:
                                   - type: integer
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:advancement:
                             advancement:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/advancement
@@ -4104,7 +4132,8 @@ links:
                                 or:
                                   - type: number
                                     aliases: [integer]
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             operation:
                                 desc: |
                                     "add" translates to add_base_early; "set" translates to set_base.
@@ -4181,7 +4210,8 @@ links:
                                 unspec: true
                                 or:
                                   - type: number
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             damage_type:
                                 href: https://minecraft.wiki/w/Damage_type
                                 desc: The damage type, which decides part of the death message and, through damage type tags, whether the damage bypasses armor, shields and so on.
@@ -4458,7 +4488,8 @@ links:
                                 or:
                                   - type: number
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                         string-origins:explode:
                             power:
@@ -4489,14 +4520,16 @@ links:
                                 or:
                                   - type: integer
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                             saturation:
                                 desc: The saturation value of the food, used in the formula above.
                                 or:
                                   - type: number
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                         string-origins:fire_projectile:
                             entity_type:
@@ -4518,7 +4551,8 @@ links:
                                 or:
                                   - type: integer
                                     default: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             interval:
                                 desc: Ticks between consecutive shots. 0 fires the whole count on the same tick.
                                 type: integer
@@ -4533,40 +4567,46 @@ links:
                                 or:
                                   - type: number
                                     default: 1.5
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             max_distance:
                                 desc: Removes the projectile once it has travelled this far in blocks, or turns it around when return is set. Distance is measured along the path it flew, so bounces and homing curves count. 0 lets it fly until it hits something or expires.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             lifetime:
                                 desc: Removes the projectile this many ticks after it is fired, whatever it is doing, and runs bientity_action_on_expire first. Time spent stuck in a block with sticky counts too. Use it as the backstop for a slow projectile that would otherwise hang where it stopped, in water for example. Unlike max_distance, it also ends a projectile on its way back. 0 sets no limit.
                                 or:
                                   - type: integer
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             offset_x:
                                 desc: |
                                     Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             offset_y:
                                 desc: |
                                     Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             offset_z:
                                 desc: |
                                     Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             space:
                                 desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
                                 link: space
@@ -4577,14 +4617,16 @@ links:
                                   - type: number
                                     min: 0
                                     default: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             pierce:
                                 desc: How many entities the projectile passes through. It hits them, runs its hit actions and flies on instead of stopping. -1 passes through every entity. It is worked out at each hit, with the owner as the entity. See Passing through.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#passing-through
                                 or:
                                   - type: integer
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             reflective:
                                 desc: Makes the projectile bounce off blocks instead of stopping on them, and off the entities it hits when entities is on. true bounces off blocks with the default settings. See Bouncing off walls.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
@@ -4685,7 +4727,8 @@ links:
                                 unspec: true
                                 or:
                                   - type: integer
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:unfreeze: {}
                         string-origins:gain_air:
                             value:
@@ -4694,7 +4737,8 @@ links:
                                 or:
                                   - type: integer
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                         string-origins:give:
                             stack:
@@ -4737,7 +4781,8 @@ links:
                                 or:
                                   - type: number
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                         string-origins:modify_death_ticks:
                             modifier:
@@ -4845,7 +4890,8 @@ links:
                                 unspec: true
                                 or:
                                   - type: integer
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             from:
                                 desc: Copies from this resource instead of working out a value from the modifier.
                                 aliases: [from_resource]
@@ -4857,7 +4903,8 @@ links:
                                 unspec: true
                                 or:
                                   - type: integer
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:modify_stat:
                             stat:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/modify_stat
@@ -4893,7 +4940,8 @@ links:
                                 unspec: true
                                 or:
                                   - type: integer
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             category:
                                 link: sound_category
                             volume:
@@ -5210,13 +5258,15 @@ links:
                                 or:
                                   - type: number
                                     default: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             ticks:
                                 desc: How long the change takes. 0 applies it immediately.
                                 or:
                                   - type: integer
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             easing:
                                 desc: How the change is spread over ticks.
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/scale-type/
@@ -5233,7 +5283,8 @@ links:
                                 or:
                                   - type: integer
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                         string-origins:set_perspective:
                             perspective:
@@ -5316,7 +5367,8 @@ links:
                                 or:
                                   - type: integer
                                     required: true
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                     required: true
                             speed:
                                 desc: |
@@ -5325,26 +5377,31 @@ links:
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
-                                  - link: vector
+                                  - title: expression
+                                    link: expression
+                                  - title: vector
+                                    link: vector
                             velocity_x:
                                 desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             velocity_y:
                                 desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             velocity_z:
                                 desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             space:
                                 desc: |
                                     How offset_*, spread and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking. With model_part set and no space written, both are read in the part’s own frame instead — see below.
@@ -5363,26 +5420,31 @@ links:
                                 unspec: true
                                 or:
                                   - type: number
-                                  - link: expression
-                                  - link: vector
+                                  - title: expression
+                                    link: expression
+                                  - title: vector
+                                    link: vector
                             offset_x:
                                 desc: The offset of where the particle will be centered in the X axis.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             offset_y:
                                 desc: The offset of where the particle will be centered in the Y axis. Defaults to 0.5.
                                 or:
                                   - type: number
                                     default: 0.5
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             offset_z:
                                 desc: The offset of where the particle will be centered in the Z axis.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                         string-origins:start_raid:
                             omen_level:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/start_raid/
@@ -5390,7 +5452,8 @@ links:
                                 or:
                                   - type: integer
                                     default: 1
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             success_action:
                                 desc: Runs on the entity when a raid starts or grows.
                                 link: entity_action
@@ -5617,20 +5680,23 @@ links:
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                                 gap: above
                             y:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             z:
                                 desc: The destination. Read as an offset from the entity’s current position unless relative is false.
                                 or:
                                   - type: number
                                     default: 0
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             relative:
                                 desc: |
                                     Whether x/y/z are an offset from the entity (true) or world coordinates (false).
@@ -5650,13 +5716,15 @@ links:
                                 unspec: true
                                 or:
                                   - type: number
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             pitch:
                                 desc: The vertical rotation to arrive with. Left alone if not given.
                                 unspec: true
                                 or:
                                   - type: number
-                                  - link: expression
+                                  - title: expression
+                                    link: expression
                             loaded_chunks_only:
                                 desc: Whether the teleport is refused when the destination chunk is not loaded. Keep this on unless you know the chunk is loaded — teleporting into unloaded terrain forces a chunk generation on the server thread.
                                 type: boolean
@@ -6774,7 +6842,8 @@ links:
                             or:
                               - type: integer
                                 required: true
-                              - link: expression
+                              - title: expression
+                                link: expression
                                 required: true
                         hud_render:
                             desc: Determines how the cooldown is visualized on the HUD.
@@ -7089,7 +7158,8 @@ links:
                               - type: integer
                                 default: 1
                                 min: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         interval:
                             desc: Determines the interval for firing multiple projectiles consecutively (in ticks). If set to 0, it will fire all the projectiles at the same tick.
                             type: integer
@@ -7110,7 +7180,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -7131,40 +7202,46 @@ links:
                             or:
                               - type: number
                                 default: 1.5
-                              - link: expression
+                              - title: expression
+                                link: expression
                         max_distance:
                             desc: Removes the projectile once it has travelled this far in blocks, or turns it around when return is set. Distance is measured along the path it flew, so bounces and homing curves count. 0 lets it fly until it hits something or expires.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         lifetime:
                             desc: Removes the projectile this many ticks after it is fired, whatever it is doing, and runs bientity_action_on_expire first. Time spent stuck in a block with sticky counts too. Use it as the backstop for a slow projectile that would otherwise hang where it stopped, in water for example. Unlike max_distance, it also ends a projectile on its way back. 0 sets no limit.
                             or:
                               - type: integer
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         offset_x:
                             desc: |
                                 Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         offset_y:
                             desc: |
                                 Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         offset_z:
                             desc: |
                                 Where the projectile spawns, relative to the shooter's eyes. Read through space, so local puts offset_z: 1.5 a block and a half in front of wherever they are looking. An expression is evaluated for every projectile, with the shooter as the subject, so "rUni(-3, 3)" scatters a volley.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         space:
                             desc: How the spawn offset is read. local is relative to the shooter’s facing, world to the world axes
                             link: space
@@ -7175,14 +7252,16 @@ links:
                               - type: number
                                 min: 0
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         pierce:
                             desc: How many entities the projectile passes through. It hits them, runs its hit actions and flies on instead of stopping. -1 passes through every entity. It is worked out at each hit, with the owner as the entity. See Passing through.
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#passing-through
                             or:
                               - type: integer
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         reflective:
                             desc: Makes the projectile bounce off blocks instead of stopping on them, and off the entities it hits when entities is on. true bounces off blocks with the default settings. See Bouncing off walls.
                             href: https://0vergrown.github.io/Handbook/docs/datapack/entity-actions/fire_projectile/#bouncing-off-walls
@@ -7346,7 +7425,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -7513,32 +7593,37 @@ links:
                             or:
                               - type: integer
                                 required: true
-                              - link: expression
+                              - title: expression
+                                link: expression
                                 required: true
                         count:
                             desc: How many particles spawn each time.
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         offset_x:
                             desc: Where the particles are centered on the X axis, relative to the anchor.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         offset_y:
                             desc: Where the particles are centered on the Y axis, relative to the anchor.
                             or:
                               - type: number
                                 default: 0.5
-                              - link: expression
+                              - title: expression
+                                link: expression
                         offset_z:
                             desc: Where the particles are centered on the Z axis, relative to the anchor.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         space:
                             desc: |
                                 How offset_* and the velocity are read. world uses the world axes; local is relative to the entity’s facing, so offset_z: 2 is two blocks in front of them and velocity_z: 0.5 fires the particles the way they are looking.
@@ -7548,26 +7633,31 @@ links:
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
-                              - link: vector
+                              - title: expression
+                                link: expression
+                              - title: vector
+                                link: vector
                         velocity_x:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         velocity_y:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         velocity_z:
                             desc: The same explicit velocity, written per axis. Takes priority over a vector speed. Read through space.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         model_part:
                             desc: Anchor the particles to a body part instead of the entity’s feet, and read offset_* and the velocity along that part. See Particles on a body part for the names.
                             link: body_part
@@ -7580,8 +7670,10 @@ links:
                                 The size of the volume the particles scatter through. A single number is the same figure on all three axes; a vector is per axis. Every component may be an expression. Read through space like the offset is, so space: "local" with {"x": 0, "y": 0, "z": 3} draws a line running away from the entity’s face rather than along world south.
                             or:
                               - type: number
-                              - link: expression
-                              - link: vector
+                              - title: expression
+                                link: expression
+                              - title: vector
+                                link: vector
                         visible_in_first_person:
                             desc: Determines whether the particle type should be visible in first person.
                             type: boolean
@@ -7728,14 +7820,16 @@ links:
                             or:
                               - type: number
                                 aliases: [integer]
-                              - link: expression
+                              - title: expression
+                                link: expression
                         max:
                             desc: The maximum value of the resource. When an Expression, re-evaluated each tick. Omit it and the resource has no upper bound.
                             unspec: true
                             or:
                               - type: number
                                 aliases: [integer]
-                              - link: expression
+                              - title: expression
+                                link: expression
                         start_value:
                             desc: The value of the resource when the entity first receives the power.
                             aliases: [default]
@@ -7743,7 +7837,8 @@ links:
                             or:
                               - type: number
                                 aliases: [integer]
-                              - link: expression
+                              - title: expression
+                                link: expression
                         size:
                             desc: How many values this resource stores. Above 1 the power becomes a table of that many slots, each addressed by a position from 0 to size - 1. Also aliased as positions and slots. There is no upper limit — see Big tables.
                             type: integer
@@ -7784,7 +7879,9 @@ links:
                                         or:
                                           - type: number
                                             aliases: [integer]
-                                          - link: expression
+                                          - title: expression
+                                link: expression
+                                    link: expression
                                     values:
                                         desc: More numbers to compare with. The entry matches if the comparison holds for value or for any of these.
                                         type: list
@@ -7792,7 +7889,9 @@ links:
                                             or:
                                               - type: number
                                                 aliases: [integer]
-                                              - link: expression
+                                              - title: expression
+                                link: expression
+                                    link: expression
                         persistent:
                             desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
                             type: boolean
@@ -7829,7 +7928,8 @@ links:
                             unspec: true
                             or:
                               - type: number
-                              - link: expression
+                              - title: expression
+                                link: expression
                         modifier:
                             desc: A modifier applied to scale (or to 1.0 when scale is absent).
                             link: attribute_modifier
@@ -8231,7 +8331,8 @@ links:
                                 default: 4
                                 min: 0.05
                                 max: 100
-                              - link: expression
+                              - title: expression
+                                link: expression
                         scale_sensitivity:
                             desc: Slow mouse turning by the same factor, so aiming feels the same at any zoom.
                             type: boolean
@@ -8403,7 +8504,8 @@ links:
                             or:
                               - type: integer
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8447,7 +8549,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8480,7 +8583,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8514,7 +8618,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8563,7 +8668,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8580,7 +8686,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -8600,7 +8707,8 @@ links:
                             or:
                               - type: integer
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         timeout:
                             desc: Ticks of no tracked key press before a partial combo is forgotten. 0 never expires.
                             type: integer
@@ -8653,7 +8761,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8686,7 +8795,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: How the cooldown is shown on the HUD.
                             link: hud_render
@@ -8725,7 +8835,8 @@ links:
                             or:
                               - type: integer
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: How the cooldown is drawn on the HUD.
                             link: hud_render
@@ -8919,13 +9030,15 @@ links:
                               - type: integer
                                 min: 1
                                 default: 20
-                              - link: expression
+                              - title: expression
+                                link: expression
                         onset_delay:
                             desc: Ticks to wait after the condition first becomes true before entity_action starts running. rising_action still fires immediately.
                             or:
                               - type: integer
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         rising_action:
                             desc: The action to execute on the first interval tick in which the condition became true.
                             link: entity_action
@@ -8975,7 +9088,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -9008,7 +9122,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -9042,7 +9157,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -9075,7 +9191,8 @@ links:
                             or:
                               - type: integer
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         hud_render:
                             desc: Determines how the cooldown of this power is visualized on the HUD.
                             link: hud_render
@@ -9174,45 +9291,52 @@ links:
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         y:
                             desc: Offset upward, in blocks.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         z:
                             desc: Offset forward (local) or along world Z (world), in blocks. Negative is behind.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         pitch:
                             desc: |
                                 Degrees added to the camera’s pitch. Positive looks down. With look: fixed, the absolute pitch.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         yaw:
                             desc: |
                                 Degrees added to the camera’s yaw. With look: fixed, the absolute yaw (0 faces south).
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         roll:
                             desc: Degrees the camera is rolled. Positive tilts the view clockwise.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         fov:
                             desc: Field-of-view multiplier. 0.5 halves the FOV (zooms in), 1.5 widens it.
                             or:
                               - type: number
                                 default: 1
-                              - link: expression
+                              - title: expression
+                                link: expression
                         look:
                             desc: |
                                     Where the camera points:
@@ -9395,7 +9519,8 @@ links:
                             unspec: true
                             or:
                               - type: number
-                              - link: expression
+                              - title: expression
+                                link: expression
                         modifier:
                             desc: A single modifier applied to the gravity that survives the velocity step. Unlike velocity this can speed a fall up.
                             link: attribute_modifier
@@ -9413,43 +9538,50 @@ links:
                             unspec: true
                             or:
                               - type: number
-                              - link: expression
+                              - title: expression
+                                link: expression
                         v:
                             desc: Fog end distance in blocks — where fog becomes fully opaque.
                             unspec: true
                             or:
                               - type: number
-                              - link: expression
+                              - title: expression
+                                link: expression
                         r:
                             desc: Red channel of the fog colour, 0–1.
                             unspec: true
                             or:
                               - type: number
-                              - link: expression
+                              - title: expression
+                                link: expression
                         g:
                             desc: Green channel of the fog colour, 0–1.
                             unspec: true
                             or:
                               - type: number
-                              - link: expression
+                              - title: expression
+                                link: expression
                         b:
                             desc: Blue channel of the fog colour, 0–1.
                             unspec: true
                             or:
                               - type: number
-                              - link: expression
+                              - title: expression
+                                link: expression
                         fade_in:
                             desc: Seconds to ease into this power’s fog when it starts applying.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         fade_out:
                             desc: Seconds to ease out of this power’s fog when it stops applying.
                             or:
                               - type: number
                                 default: 0
-                              - link: expression
+                              - title: expression
+                                link: expression
                         priority:
                             desc: Which power wins when two of them set the same field. Higher wins.
                             type: integer
@@ -9782,7 +9914,8 @@ links:
                             unspec: true
                             or:
                               - type: integer
-                              - link: expression
+                              - title: expression
+                                link: expression
                         frozen:
                             desc: Stops ticking entirely, regardless of rate.
                             type: boolean
@@ -9798,7 +9931,8 @@ links:
                             or:
                               - type: number
                                 default: 16
-                              - link: vector
+                              - title: vector
+                                link: vector
                         shape:
                             desc: area only — the shape carved out of that radius.
                             link: shape
@@ -10541,13 +10675,15 @@ links:
                 or:
                   - type: integer
                     default: 20
-                  - link: expression
+                  - title: expression
+                    link: expression
             onset_delay:
                 desc: Ticks to wait after the condition first became true before this step starts.
                 or:
                   - type: integer
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             entity_action:
                 desc: The action this step runs.
                 link: entity_action
@@ -10584,7 +10720,8 @@ links:
                 unspec: true
                 or:
                   - type: integer
-                  - link: expression
+                  - title: expression
+                    link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
                 aliases: [amount]
@@ -10592,7 +10729,8 @@ links:
                 or:
                   - type: number
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             modifier:
                 link: attribute_modifier
     attribute_modifier_array:
@@ -10631,7 +10769,8 @@ links:
                 unspec: true
                 or:
                   - type: integer
-                  - link: expression
+                  - title: expression
+                    link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
                 aliases: [amount]
@@ -10639,7 +10778,8 @@ links:
                 or:
                   - type: number
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             modifier:
                 link: attribute_modifier_attribute
     attribute_modifier_resource:
@@ -10662,7 +10802,8 @@ links:
                 unspec: true
                 or:
                   - type: integer
-                  - link: expression
+                  - title: expression
+                    link: expression
             value:
                 desc: The modifier value. Also accepts the alias amount. When an Expression, evaluated each time the modifier is applied.
                 aliases: [amount]
@@ -10670,7 +10811,8 @@ links:
                 or:
                   - type: number
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             modifier:
                 link: attribute_modifier_resource
     attribute_modifier_legacy:
@@ -10694,7 +10836,8 @@ links:
                 or:
                   - type: number
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             modifier:
                 link: attribute_modifier_legacy
     attribute_modifier_operation:
@@ -11020,7 +11163,6 @@ links:
         enum: ['mainhand','offhand','head','chest','legs','feet']
         unspec: true
     expression:
-        title: expression
         href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/expression
         desc: A math expression. See the doc for more information.
         type: string
@@ -11168,7 +11310,8 @@ links:
                 unspec: true
                 or:
                   - type: number
-                  - link: expression
+                  - title: expression
+                    link: expression
             fallback:
                 desc: What to draw when sprite_location isn't in any loaded resource pack. See Fallback textures.
                 href: https://0vergrown.github.io/Handbook/docs/datapack/data-types/hud-render/#fallback-textures
@@ -11588,7 +11731,8 @@ links:
             min: 0
             max: 1
             required: true
-          - link: expression
+          - title: expression
+            link: expression
             required: true
     meta_action_random_chance:
         href: https://0vergrown.github.io/Handbook/docs/datapack/meta-actions/random_chance
@@ -11598,7 +11742,8 @@ links:
             min: 0
             max: 1
             required: true
-          - link: expression
+          - title: expression
+            link: expression
             required: true
     meta_advancement_selection:
         desc: |
@@ -11684,7 +11829,8 @@ links:
         or:
           - type: number
             default: 1
-          - link: expression
+          - title: expression
+            link: expression
     meta_item_modifiers:
         helper:
             title: Item Modifier
@@ -11985,7 +12131,8 @@ links:
                     default: 1
                     min: 0
                     max: 1
-                  - link: expression
+                  - title: expression
+                    link: expression
             red:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
@@ -11994,7 +12141,8 @@ links:
                     default: 1
                     min: 0
                     max: 1
-                  - link: expression
+                  - title: expression
+                    link: expression
             green:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
@@ -12003,7 +12151,8 @@ links:
                     default: 1
                     min: 0
                     max: 1
-                  - link: expression
+                  - title: expression
+                    link: expression
             blue:
                 desc: |
                     Multiplied into the matching colour channel. Range 0.0–1.0.
@@ -12012,7 +12161,8 @@ links:
                     default: 1
                     min: 0
                     max: 1
-                  - link: expression
+                  - title: expression
+                    link: expression
             draw_mode:
                 desc: texture draws it as-is; nausea uses the additive, stretching blend the vanilla nausea overlay uses, which treats black as transparent.
                 enum: ['texture','nausea']
@@ -12127,45 +12277,52 @@ links:
                     or:
                       - type: integer
                         default: 20
-                      - link: expression
+                      - title: expression
+                        link: expression
                 lifetime_variation:
                     desc: A random 0–n extra ticks added per particle, so a burst does not vanish all at once.
                     or:
                       - type: integer
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 size:
                     desc: Size of the quad when it spawns.
                     or:
                       - type: number
                         default: 0.2
-                      - link: expression
+                      - title: expression
+                        link: expression
                 size_variation:
                     desc: A random 0–n added to size per particle, so a burst is not all one size. end_size is scaled by the same amount, so each particle keeps the shape of its own size curve.
                     or:
                       - type: number
                         default: 0
                         min: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 color_variation:
                     desc: A random -n–+n added to each of the red, green and blue channels per particle. 0.05 is a subtle shimmer, 0.2 is a visibly mixed burst.
                     or:
                       - type: number
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 hue_variation:
                     desc: A random -n–+n degrees of hue rotation per particle, out of 360. 15 keeps a burst recognisably one colour, 180 scatters it across the whole wheel.
                     or:
                       - type: number
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 end_size:
                     desc: Size at the end of its life. Interpolated with easing; set 0.0 to shrink away.
                     unspec: true
                     or:
                       - type: number
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 color:
                     desc: Tint at spawn. Multiplies the texture, so a white texture takes the colour exactly.
                     link: meta_color
@@ -12177,37 +12334,43 @@ links:
                     or:
                       - type: number
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 friction:
                     desc: Velocity kept each tick. 1.0 never slows down, 0.9 drags hard.
                     or:
                       - type: number
                         default: 098
-                      - link: expression
+                      - title: expression
+                        link: expression
                 roll:
                     desc: Starting rotation of the quad, in degrees. Evaluated once per particle.
                     or:
                       - type: number
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 roll_speed:
                     desc: Degrees added to the rotation each tick. Evaluated once per particle.
                     or:
                       - type: number
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 frames:
                     desc: Number of animation frames in the texture. 0 reads the count from the texture itself; 1 forces a single static frame.
                     or:
                       - type: integer
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 frame_time:
                     desc: Ticks per frame. 0 uses the frametime from the texture’s animation metadata, or — if the texture has none — spreads all frames evenly across lifetime.
                     or:
                       - type: integer
                         default: 0
-                      - link: expression
+                      - title: expression
+                        link: expression
                 frame_layout:
                     desc: |
                         How the frames are arranged: vertical (a column, the vanilla layout), horizontal (a row), grid (square cells, left to right then top to bottom), or auto to work it out from the image.
@@ -12299,31 +12462,36 @@ links:
                 or:
                   - type: integer
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             duration:
                 desc: Ticks it keeps homing once delay is over. After that it lets go of its target and flies on in a straight line. 0 homes for the whole flight.
                 or:
                   - type: integer
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             range:
                 desc: How far away, in blocks, a target can be picked up. A target it is already chasing is kept until it is half as far again away. 0 never finds one. Default 8.
                 or:
                   - type: number
                     default: 8
-                  - link: expression
+                  - title: expression
+                    link: expression
             angle:
                 desc: How far to either side of its direction of travel, in degrees, the projectile looks. 180 looks all the way round, 20 only at what is nearly straight ahead. Default 60.
                 or:
                   - type: number
                     default: 60
-                  - link: expression
+                  - title: expression
+                    link: expression
             turn_rate:
                 desc: The most the projectile turns in one tick, in degrees. It keeps its speed while it turns. 0 picks a target but never steers toward it. Default 8.
                 or:
                   - type: number
                     default: 8
-                  - link: expression
+                  - title: expression
+                    link: expression
     projectile_reflection:
         type: object
         props:
@@ -12334,13 +12502,15 @@ links:
                   - type: integer
                     default: 4
                     min: -1
-                  - link: expression
+                  - title: expression
+                    link: expression
             speed:
                 desc: The fraction of its speed the projectile keeps after each bounce. 1.0 loses nothing, 0.6 is a rubber ball, values above 1 speed it up. bounce_speed is another name for it.
                 or:
                   - type: number
                     default: 1
-                  - link: expression
+                  - title: expression
+                    link: expression
             entities:
                 desc: Also bounces off the entities it hits. Bounces off blocks and off entities count against the same max_bounces.
                 type: boolean
@@ -12368,7 +12538,8 @@ links:
                 or:
                   - type: number
                     default: 2
-                  - link: expression
+                  - title: expression
+                    link: expression
             hit_while_returning:
                 desc: Whether it can hit entities on the way back. Each hit runs the shot’s usual hit actions. It never hits its owner, or the entity it hit last.
                 type: boolean
@@ -12390,13 +12561,15 @@ links:
                   - type: integer
                     default: 1200
                     min: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             depth:
                 desc: How far the projectile sinks past the point it hit, in blocks, along its direction of flight. 0 leaves its centre on the face of the block, and a negative value holds it off the surface.
                 or:
                   - type: number
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             bientity_action_on_stick:
                 desc: Runs each time the projectile sticks, with the owner as the actor and the projectile as the target.
                 link: bientity_action
@@ -12743,13 +12916,15 @@ links:
                 or:
                   - type: integer
                     default: 100
-                  - link: expression
+                  - title: expression
+                    link: expression
             amplifier:
                 desc: Determines the strength of the status effect (0 being level 1).
                 or:
                   - type: integer
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 aliases: [is_ambient]
@@ -12776,13 +12951,15 @@ links:
                 or:
                   - type: integer
                     default: 100
-                  - link: expression
+                  - title: expression
+                    link: expression
             amplifier:
                 desc: Determines the strength of the status effect (0 being level 1).
                 or:
                   - type: integer
                     default: 0
-                  - link: expression
+                  - title: expression
+                    link: expression
             ambient:
                 desc: Determines whether the particle effects of the status effect is less noticeable.
                 aliases: [is_ambient]
@@ -12850,9 +13027,9 @@ links:
         unspec: true
         or:
           - type: number
-          - link: vector
+          - title: vector
+            link: vector
     vector:
-        title: vector
         type: object
         props:
             x:
