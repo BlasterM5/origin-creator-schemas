@@ -11472,7 +11472,7 @@ links:
     identifier:
         type: string
         allow: '*a-z0-9_#\/:.-'
-        hooks: [ns]
+        # hooks: [ns]
     identifier_array:
         type: list
         vals:
