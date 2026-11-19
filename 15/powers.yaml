@@ -11857,14 +11857,11 @@ links:
         allowkey: '*a-z0-9_#\/:.\[\]\(\)\{\}$^?+\|-'
         allow: '*a-z0-9_#\/:.-'
     meta_keybind:
-        or:
-          - title: built-in
-            aliases: [new,original]
+        helper:
+            title: Keybinds
             id: enums
-            link: meta_keybind
-          - title: custom
-            aliases: [old,string]
-            link: meta_key
+            list: meta_keybind
+        link: meta_key
     meta_local_power_id:
         helper:
             title: Power
