@@ -7880,8 +7880,7 @@ links:
                                           - type: number
                                             aliases: [integer]
                                           - title: expression
-                                link: expression
-                                    link: expression
+                                            link: expression
                                     values:
                                         desc: More numbers to compare with. The entry matches if the comparison holds for value or for any of these.
                                         type: list
@@ -7890,8 +7889,7 @@ links:
                                               - type: number
                                                 aliases: [integer]
                                               - title: expression
-                                link: expression
-                                    link: expression
+                                                link: expression
                         persistent:
                             desc: When true, the value survives server restart (and survives the entity unloading/reloading). When false, the value resets to start_value whenever the entity rejoins the world. Useful for resources that semantically should reset, like daily-quest counters or cooldowns you want to clear on login.
                             type: boolean
