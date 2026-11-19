@@ -7111,6 +7111,7 @@ links:
                         bientity_condition:
                             href: https://0vergrown.github.io/Handbook/docs/datapack/powers/extra_trades/
                             desc: If set, only merchants that pass this condition get the trades. The actor is the player and the target is the merchant.
+                            link: bientity_condition
                         trades:
                             desc: The trades to add, in order. Each one is described below.
                             type: list
