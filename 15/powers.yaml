@@ -11874,13 +11874,11 @@ links:
         link: identifier
     meta_minecraft_version:
         desc: A version name such as 1.21.1 or 1.20.1, compared with comparison.
-        or:
-          - title: supported
+        helper:
+            title: Minecraft Version
             id: enums
-            link: mc_version
-          - title: custom
-            aliases: [string]
-            link: meta_key
+            list: mc_version
+        link: meta_key
     meta_origin_id:
         helper:
             title: Origin
@@ -11979,14 +11977,12 @@ links:
     meta_world_data_version:
         desc: The world data version (3465 on 1.20.1, 3955 on 1.21.1), compared with comparison.
         unspec: true
-        or:
-          - title: supported
-            enum: [3465,3955]
-            unspec: true
-          - title: custom
-            aliases: [integer]
-            type: integer
-            min: 0
+        helper:
+            title: World Data Version
+            id: enums
+            list: world_data_version
+        type: integer
+        min: 0
     mob_type:
         helper:
             title: Mob Type
