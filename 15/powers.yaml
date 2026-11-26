@@ -79,15 +79,15 @@ links:
                                 vals:
                                     link: bientity_condition
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
@@ -461,15 +461,15 @@ links:
                                 vals:
                                     link: entity_condition
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
@@ -1619,15 +1619,15 @@ links:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
@@ -1878,15 +1878,15 @@ links:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
@@ -2151,15 +2151,15 @@ links:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
@@ -2258,15 +2258,15 @@ links:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
@@ -2390,15 +2390,15 @@ links:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
@@ -2588,15 +2588,15 @@ links:
                                 desc: If true, the condition is always fulfilled. If false, the condition is never fulfilled.
                                 type: boolean
                         string-origins:minecraft_version:
-                            version:
-                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
-                                link: meta_minecraft_version
-                            data_version:
-                                link: meta_world_data_version
                             comparison:
+                                href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/minecraft_version/
                                 desc: How the running version is compared to version / data_version.
                                 link: comparison
                                 default: 3
+                            version:
+                                link: meta_minecraft_version
+                            data_version:
+                                link: meta_world_data_version
                         string-origins:mod_loaded:
                             mod:
                                 href: https://0vergrown.github.io/Handbook/docs/datapack/meta-conditions/mod_loaded/
