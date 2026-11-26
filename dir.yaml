@@ -1,6 +1,10 @@
-$: 201
+$: 203
 15:
   - meta
+  - enums
+  - enum_blocks
+  - enum_sound_event
+  - enum_textures
   - powers
   - global_powers
   - origins
@@ -9,12 +13,12 @@ $: 201
   - damage_type
   - predicates
   - recipes
-  - loot_tables
   - item_modifiers
   - skill_trees
   - tags
   - keybinds
-  - enums
   - effects
+  - loot_tables
+  - badges
 48:
   - meta

@@ -10,14 +10,19 @@ props:
             vals:
                 type: string
                 allow: '*a-z0-9_#/:.-'
-          - title: extra
+          - title: advanced
+            aliases: [extra]
             type: list
             vals:
                 nopanel: true
                 or:
-                  - type: string
+                  - title: simple
+                    aliases: [string]
+                    type: string
                     allow: '*a-z0-9_#/:.-'
-                  - type: object
+                  - title: conditioned
+                    aliases: [object]
+                    type: object
                     props:
                         id:
                             type: string
